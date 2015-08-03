@@ -1,0 +1,33 @@
+        
+/******************************* POPOLAZIONE DB *************************************/
+        /*Article article1 = new Article();
+         article1.setTitle("titolo");
+         article1.setMessage("messaggio dell\'articolo!");
+
+         Article article2 = new Article();
+         article2.setTitle("secondo titolo");
+         article2.setMessage("numero 2 oooooo ---> messaggio dell\'articolo!");
+         DatabaseManager db = new DatabaseManager();
+
+         db.write(article1);
+         db.write(article2);
+
+         db.dispose();*/
+        //Article currentArticle = (Article) db.read(Article.class, 1L);
+        //BuilderScreenControllers controllersBuilder = new BuilderScreenControllers(primaryStage, resourcesHandler);
+
+
+
+
+/***************************************************************************************/
+
+
+        /*try {
+         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("view/ArticleScreen.fxml"));
+         Parent root = (Parent) fxmlLoader.load();
+         articleScreenController = fxmlLoader.getController();
+         Scene articleScene = new Scene(root);
+         setPrimaryStageConfigurations(primaryStage, articleScene);
+         } catch (IOException ex) {
+         throw new RuntimeException(ex);
+         }*/
