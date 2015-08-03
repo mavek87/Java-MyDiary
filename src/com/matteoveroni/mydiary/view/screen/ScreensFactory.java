@@ -25,7 +25,7 @@ public class ScreensFactory {
         switch (screen) {
             case ARTICLE_SCREEN:
                 System.out.println("Creo schermo: " + screen.screenName() + " " + screen.screenResource());
-                screenToCreate = new Screen(screen.screenName(), screen.screenResource());
+                screenToCreate = new Screen(screen);
                 break;
             default:
                 screenToCreate = null;

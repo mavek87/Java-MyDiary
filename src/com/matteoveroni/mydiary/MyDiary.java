@@ -6,6 +6,9 @@ import com.matteoveroni.mydiary.model.manager.ApplicationManagerBuilder;
 import java.io.IOException;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
@@ -26,7 +29,20 @@ public class MyDiary extends Application {
         resourcesManager = new ResourcesManager();
         applicationManagerBuilder = new ApplicationManagerBuilder(APPLICATION_NAME, APPLICATION_VERSION, primaryStage, resourcesManager);
         application = applicationManagerBuilder.build();
+
+//        Parent root = FXMLLoader.load(getClass().getResource("/mydiary/resources/ArticleScreen.fxml"));
+//        Scene scene = new Scene(root);
+//        primaryStage.setScene(scene);
+//        primaryStage.show();
     }
+
+//    @Override
+//    public void start(Stage primaryStage) throws IOException {
+//        Parent root = FXMLLoader.load(getClass().getResource("resources/ArticleScreen.fxml"));
+//        Scene scene = new Scene(root);
+//        primaryStage.setScene(scene);
+//        primaryStage.show();
+//    }
 
     @Override
     public void stop() {

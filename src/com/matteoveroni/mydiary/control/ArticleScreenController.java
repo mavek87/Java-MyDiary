@@ -123,10 +123,4 @@ public class ArticleScreenController implements Initializable {
         //articleAuthor_txt.setText(currentArticle.getAuthor);
         //articleData_txt = currentArticle.getData();
     }
-
-    //@Override
-    public void dispose() {
-        db.dispose();
-    }
-
 }

@@ -36,11 +36,21 @@ public class ApplicationManagerBuilder {
         return applicationManager;
     }
 
+    private void mainStageSetup() {
+        applicationManager.getApplicationStage().setResizable(true);
+        applicationManager.getApplicationStage().setMaxWidth(800);
+        applicationManager.getApplicationStage().setMaxHeight(600);
+        applicationManager.getApplicationStage().setMinWidth(640);
+        applicationManager.getApplicationStage().setMinHeight(480);
+        applicationManager.getApplicationStage().setTitle(applicationName + " - v. " + applicationVersion);
+        applicationManager.getApplicationStage().show();
+        centerWindow();
+    }
+
     private void buildScreens() {
         try {
-            Screen articleScreen = new Screen(Screens.ARTICLE_SCREEN.screenName(), Screens.ARTICLE_SCREEN.screenResource());
-
-//            applicationScreens.add(articleScreen);
+            Screen articleScreen = new Screen(Screens.ARTICLE_SCREEN);
+            applicationScreens.add(articleScreen);
 //            for(Screen screen : applicationScreens){
 //                System.out.println("Ho creato lo schermo" + screen.getName() + " " + screen.getResourcePath());
 //            }
@@ -51,17 +61,6 @@ public class ApplicationManagerBuilder {
 
     private void loadScreens() {
         applicationManager.loadScreen(applicationScreens.get(0));
-    }
-
-    private void mainStageSetup() {
-        applicationManager.getApplicationStage().setResizable(true);
-        applicationManager.getApplicationStage().setMaxWidth(800);
-        applicationManager.getApplicationStage().setMaxHeight(600);
-        applicationManager.getApplicationStage().setMinWidth(640);
-        applicationManager.getApplicationStage().setMinHeight(480);
-        applicationManager.getApplicationStage().setTitle(applicationName + " - v. " + applicationVersion);
-        applicationManager.getApplicationStage().show();
-        centerWindow();
     }
 
     private void centerWindow() {

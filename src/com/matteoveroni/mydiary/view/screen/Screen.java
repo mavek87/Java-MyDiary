@@ -12,39 +12,16 @@ import javafx.scene.Scene;
  */
 public class Screen {
 
-    private String name;
-    private Scene scene;
-    private String resourcePath;
     private FXMLLoader fxml;
+    private String name;
+    private String resourcePath;
+    private Scene scene;
 
-    public Screen(String name, String resourcePath) throws IOException {
-        fxml = new FXMLLoader(getClass().getResource(resourcePath));
+    public Screen(Screens screen) throws IOException {
+        fxml = new FXMLLoader(getClass().getResource(screen.screenResource()));
+        name = screen.name();
+        resourcePath = screen.screenResource();
         scene = new Scene((Parent) fxml.load());
-        this.resourcePath = resourcePath;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Scene getScene() {
-        return scene;
-    }
-
-    public void setScene(Scene scene) {
-        this.scene = scene;
-    }
-
-    public String getResourcePath() {
-        return resourcePath;
-    }
-
-    public void setResourcePath(String resourcePath) {
-        this.resourcePath = resourcePath;
     }
 
     public FXMLLoader getFxmlLoader() {
@@ -55,4 +32,27 @@ public class Screen {
         this.fxml = fxml;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getResourcePath() {
+        return resourcePath;
+    }
+
+    public void setResourcePath(String resourcePath) {
+        this.resourcePath = resourcePath;
+    }
+
+    public Scene getScene() {
+        return scene;
+    }
+
+    public void setScene(Scene scene) {
+        this.scene = scene;
+    }
 }

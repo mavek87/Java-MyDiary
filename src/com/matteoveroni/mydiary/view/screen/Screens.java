@@ -5,7 +5,7 @@ package com.matteoveroni.mydiary.view.screen;
  */
 public enum Screens {
     
-    ARTICLE_SCREEN ("Article_Screen", "fxml/ArticleScreen.fxml"),
+    ARTICLE_SCREEN ("Article_Screen", "/com/matteoveroni/mydiary/resources/ArticleScreen.fxml"),
     TASK_SCREEN ("Action Screen", "fxml/TaskScreen.fxml");
 
     private final String screenName;

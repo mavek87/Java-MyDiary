@@ -42,15 +42,15 @@ public class ApplicationManager {
         }
     }
 
-    public void loadScreens(List<Screen> screens) {
-        for (Screen screen : screens) {
-            try {
-                applicationScreens.put(screen.getName(), screen);
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
-        }
-    }
+//    public void loadScreens(List<Screen> screens) {
+//        for (Screen screen : screens) {
+//            try {
+//                applicationScreens.put(screen.getName(), screen);
+//            } catch (Exception ex) {
+//                throw new RuntimeException(ex);
+//            }
+//        }
+//    }
 
     public void useScreen(String screenName) {
         if (applicationScreens.containsKey(screenName) && this.getApplicationStage() != null) {
@@ -68,10 +68,10 @@ public class ApplicationManager {
         return applicationStage.getScene();
     }
 
-    public Object getCurrentSceneController() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(applicationScreens.get(currentScreenSetted.getName()).getResourcePath()));
-        return (Object) fxmlLoader.getController();
-    }
+//    public Object getCurrentSceneController() {
+//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(applicationScreens.get(currentScreenSetted.getName()).getResourcePath()));
+//        return (Object) fxmlLoader.getController();
+//    }
 
     public void stop() {
         resourcesManager.disposeAll();
