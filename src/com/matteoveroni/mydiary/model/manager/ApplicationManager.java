@@ -1,7 +1,7 @@
 package com.matteoveroni.mydiary.model.manager;
 
-import com.matteoveroni.mydiary.model.manager.resources.ResourcesManager;
-import com.matteoveroni.mydiary.view.screen.Screen;
+import com.matteoveroni.mydiary.resources.ResourcesManager;
+import com.matteoveroni.mydiary.screen.Screen;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +53,7 @@ public class ApplicationManager {
 //    }
 
     public void useScreen(String screenName) {
+        
         if (applicationScreens.containsKey(screenName) && this.getApplicationStage() != null) {
             applicationStage.setScene(applicationScreens.get(screenName).getScene());
         } else {

@@ -1,4 +1,4 @@
-package com.matteoveroni.mydiary.view.screen;
+package com.matteoveroni.mydiary.screen;
 
 import java.io.IOException;
 
@@ -20,11 +20,11 @@ public class ScreensFactory {
         return screenFactory;
     }
 
-    public Screen createScreen(Screens screen) throws IOException{
+    public Screen createScreen(ScreenType screen) throws IOException{
         Screen screenToCreate;
         switch (screen) {
             case ARTICLE_SCREEN:
-                System.out.println("Creo schermo: " + screen.screenName() + " " + screen.screenResource());
+                System.out.println("Creo schermo: " + screen.getScreenName() + " " + screen.getScreenResourcePath());
                 screenToCreate = new Screen(screen);
                 break;
             default:

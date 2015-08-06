@@ -1,6 +1,6 @@
-package com.matteoveroni.mydiary.model.library;
+package com.matteoveroni.mydiary.library.model;
 
-import com.matteoveroni.mydiary.model.diary.Diary;
+import com.matteoveroni.mydiary.diary.model.Diary;
 import java.util.HashMap;
 import java.util.Map;
 

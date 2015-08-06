@@ -1,4 +1,4 @@
-package com.matteoveroni.mydiary.model.manager.resources;
+package com.matteoveroni.mydiary.resources;
 
 import com.sun.media.jfxmediaimpl.MediaDisposer.Disposable;
 import java.util.ArrayList;

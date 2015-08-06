@@ -1,7 +1,7 @@
 package com.matteoveroni.mydiary.model;
 
-import com.matteoveroni.mydiary.model.diary.Diary;
-import com.matteoveroni.mydiary.model.article.Article;
+import com.matteoveroni.mydiary.diary.model.Diary;
+import com.matteoveroni.mydiary.article.model.Article;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

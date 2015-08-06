@@ -1,6 +1,6 @@
 package com.matteoveroni.mydiary.model;
 
-import com.matteoveroni.mydiary.model.manager.database.DatabaseManager;
+import com.matteoveroni.mydiary.model.database.DatabaseManager;
 import java.io.Serializable;
 import java.sql.Connection;
 import org.junit.After;

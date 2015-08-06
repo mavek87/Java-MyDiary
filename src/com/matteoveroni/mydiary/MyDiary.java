@@ -1,14 +1,13 @@
 package com.matteoveroni.mydiary;
 
-import com.matteoveroni.mydiary.model.manager.resources.ResourcesManager;
+import com.matteoveroni.mydiary.resources.ResourcesManager;
 import com.matteoveroni.mydiary.model.manager.ApplicationManager;
 import com.matteoveroni.mydiary.model.manager.ApplicationManagerBuilder;
+import com.matteoveroni.mydiary.screen.Screen;
+import com.matteoveroni.mydiary.screen.ScreenType;
 import java.io.IOException;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
@@ -27,23 +26,30 @@ public class MyDiary extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         resourcesManager = new ResourcesManager();
-        applicationManagerBuilder = new ApplicationManagerBuilder(APPLICATION_NAME, APPLICATION_VERSION, primaryStage, resourcesManager);
-        application = applicationManagerBuilder.build();
+//        applicationManagerBuilder = new ApplicationManagerBuilder(APPLICATION_NAME, APPLICATION_VERSION, primaryStage, resourcesManager);
+//        application = applicationManagerBuilder.build();
+        ApplicationManager a = new ApplicationManager(primaryStage, resourcesManager);
+        
+        Screen articleScreen = new Screen(ScreenType.ARTICLE_SCREEN);
+        a.loadScreen(articleScreen);
+        a.useScreen(articleScreen.getName());
+        System.out.println("fine");
 
-//        Parent root = FXMLLoader.load(getClass().getResource("/mydiary/resources/ArticleScreen.fxml"));
-//        Scene scene = new Scene(root);
-//        primaryStage.setScene(scene);
-//        primaryStage.show();
     }
 
 //    @Override
 //    public void start(Stage primaryStage) throws IOException {
-//        Parent root = FXMLLoader.load(getClass().getResource("resources/ArticleScreen.fxml"));
+//        try{
+//        System.out.println("hardcoded: " + getClass().getResource(""));
+//        Parent root = FXMLLoader.load(getClass().getResource("ArticleScreen.fxml"));
 //        Scene scene = new Scene(root);
-//        primaryStage.setScene(scene);
+//        primaryStage.setScene(scene); 
 //        primaryStage.show();
+//        }catch(Exception ex){
+//            System.out.println("Eccezione: " + ex);
+//            throw new RuntimeException();
+//        }
 //    }
-
     @Override
     public void stop() {
         application.stop();

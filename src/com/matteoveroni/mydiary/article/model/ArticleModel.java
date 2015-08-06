@@ -1,4 +1,4 @@
-package com.matteoveroni.mydiary.model.article;
+package com.matteoveroni.mydiary.article.model;
 
 import java.util.Date;
 

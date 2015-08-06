@@ -1,8 +1,8 @@
-package com.matteoveroni.mydiary.control;
+package com.matteoveroni.mydiary.article.control;
 
-import com.matteoveroni.mydiary.model.article.Article;
-import com.matteoveroni.mydiary.model.article.ArticleModel;
-import com.matteoveroni.mydiary.model.manager.database.DatabaseManager;
+import com.matteoveroni.mydiary.article.model.Article;
+import com.matteoveroni.mydiary.article.model.ArticleModel;
+import com.matteoveroni.mydiary.model.database.DatabaseManager;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;

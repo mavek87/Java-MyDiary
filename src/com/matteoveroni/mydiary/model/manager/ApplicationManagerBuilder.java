@@ -1,12 +1,12 @@
 package com.matteoveroni.mydiary.model.manager;
 
-import com.matteoveroni.mydiary.model.manager.resources.ResourcesManager;
-import com.matteoveroni.mydiary.view.screen.Screen;
-import com.matteoveroni.mydiary.view.screen.ScreensFactory;
-import com.matteoveroni.mydiary.view.screen.Screens;
+import com.matteoveroni.mydiary.resources.ResourcesManager;
+import com.matteoveroni.mydiary.screen.Screen;
+import com.matteoveroni.mydiary.screen.ScreensFactory;
+import com.matteoveroni.mydiary.screen.ScreenType;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.stage.Stage;
 
 /**
@@ -17,7 +17,7 @@ public class ApplicationManagerBuilder {
 
     private final ApplicationManager applicationManager;
     private final ScreensFactory screensFactory = ScreensFactory.getInstance();
-    private final List<Screen> applicationScreens = new ArrayList<>();
+    private final Map<String, Screen> applicationScreens = new HashMap<>();
 
     private final String applicationName;
     private final String applicationVersion;
@@ -30,9 +30,16 @@ public class ApplicationManagerBuilder {
 
     public ApplicationManager build() {
         mainStageSetup();
+        System.out.println("\n1");
         buildScreens();
+                System.out.println("\n2");
+
         loadScreens();
-        applicationManager.useScreen(Screens.ARTICLE_SCREEN.screenName());
+                System.out.println("\n3");
+
+        applicationManager.useScreen(ScreenType.ARTICLE_SCREEN.getScreenName());
+                System.out.println("\n4");
+
         return applicationManager;
     }
 
@@ -49,8 +56,8 @@ public class ApplicationManagerBuilder {
 
     private void buildScreens() {
         try {
-            Screen articleScreen = new Screen(Screens.ARTICLE_SCREEN);
-            applicationScreens.add(articleScreen);
+            Screen articleScreen = new Screen(ScreenType.ARTICLE_SCREEN);
+            applicationScreens.put("ArticleScreen", articleScreen);
 //            for(Screen screen : applicationScreens){
 //                System.out.println("Ho creato lo schermo" + screen.getName() + " " + screen.getResourcePath());
 //            }
@@ -60,7 +67,8 @@ public class ApplicationManagerBuilder {
     }
 
     private void loadScreens() {
-        applicationManager.loadScreen(applicationScreens.get(0));
+        Screen articleScreen = applicationScreens.get("ArticleScreen");
+        applicationManager.loadScreen(articleScreen);
     }
 
     private void centerWindow() {
