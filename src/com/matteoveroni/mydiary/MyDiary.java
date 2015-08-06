@@ -1,10 +1,7 @@
 package com.matteoveroni.mydiary;
 
-import com.matteoveroni.mydiary.resources.ResourcesManager;
-import com.matteoveroni.mydiary.model.manager.ApplicationManager;
-import com.matteoveroni.mydiary.model.manager.ApplicationManagerBuilder;
-import com.matteoveroni.mydiary.screen.Screen;
-import com.matteoveroni.mydiary.screen.ScreenType;
+import com.matteoveroni.mydiary.screen.ScreenManager;
+import com.matteoveroni.mydiary.screen.ScreenManagerBuilder;
 import java.io.IOException;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -17,23 +14,16 @@ import javafx.stage.Stage;
 public class MyDiary extends Application {
 
     private static final String APPLICATION_NAME = "MyDiary";
-    private static final String APPLICATION_VERSION = "0.0.3";
+    private static final String APPLICATION_VERSION = "0.0.4";
 
-    private ApplicationManagerBuilder applicationManagerBuilder;
-    private ApplicationManager application;
-    private ResourcesManager resourcesManager;
+    private ScreenManagerBuilder applicationManagerBuilder;
+    private ScreenManager application;
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
-        resourcesManager = new ResourcesManager();
-//        applicationManagerBuilder = new ApplicationManagerBuilder(APPLICATION_NAME, APPLICATION_VERSION, primaryStage, resourcesManager);
-//        application = applicationManagerBuilder.build();
-        ApplicationManager a = new ApplicationManager(primaryStage, resourcesManager);
+    public void start(Stage applicationStage) throws IOException {
         
-        Screen articleScreen = new Screen(ScreenType.ARTICLE_SCREEN);
-        a.loadScreen(articleScreen);
-        a.useScreen(articleScreen.getName());
-        System.out.println("fine");
+        ScreenManagerBuilder screenManagerBuilder = new ScreenManagerBuilder(APPLICATION_NAME, APPLICATION_VERSION, applicationStage);
+        ScreenManager screenManager = screenManagerBuilder.build();
 
     }
 
@@ -50,9 +40,10 @@ public class MyDiary extends Application {
 //            throw new RuntimeException();
 //        }
 //    }
+    
     @Override
     public void stop() {
-        application.stop();
+//        application.stop();
     }
 
     /**

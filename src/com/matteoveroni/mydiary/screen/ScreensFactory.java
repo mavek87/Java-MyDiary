@@ -1,5 +1,6 @@
 package com.matteoveroni.mydiary.screen;
 
+import com.matteoveroni.mydiary.screen.model.Screen;
 import java.io.IOException;
 
 /**

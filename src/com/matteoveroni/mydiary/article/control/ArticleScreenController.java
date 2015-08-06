@@ -120,6 +120,8 @@ public class ArticleScreenController implements Initializable {
         articleNumber_txt.setText(Objects.toString(currentArticle.getId(), null));
         articleTitle_txt.setText(currentArticle.getTitle());
         articleMessage_htmlEditor.setHtmlText(currentArticle.getMessage());
+
+        // da buttare????
         //articleAuthor_txt.setText(currentArticle.getAuthor);
         //articleData_txt = currentArticle.getData();
     }

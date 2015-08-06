@@ -1,5 +1,6 @@
-package com.matteoveroni.mydiary.screen;
+package com.matteoveroni.mydiary.screen.model;
 
+import com.matteoveroni.mydiary.screen.ScreenType;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -18,19 +19,22 @@ import javafx.scene.Scene;
  */
 public class Screen {
 
+    private final ScreenType screenType;
     private FXMLLoader fxml;
     private String name;
     private String resourcePath;
     private Scene scene;
-
-    public Screen(ScreenType selectedScreen) throws IOException {
-        System.out.println("screen constructor: " + getClass().getResource("") + "aaaaaaaaaaaaaaaaaaaaaa: " + getClass().getResource(selectedScreen.getScreenResourcePath()));
-        fxml = new FXMLLoader(getClass().getResource(selectedScreen.getScreenResourcePath()));
-//        fxml = new FXMLLoader(getClass().getResource("ArticleScreen.fxml"));
-        name = selectedScreen.name();
-        resourcePath = selectedScreen.getScreenResourcePath();
+    
+    public Screen(ScreenType selectedScreenType) throws IOException {
+        screenType = selectedScreenType;
+        fxml = new FXMLLoader(getClass().getResource(screenType.getScreenResourcePath()));
+        name = screenType.name();
+        resourcePath = screenType.getScreenResourcePath();
         scene = new Scene((Parent) fxml.load());
-        System.out.println("cane rognoso");
+    }
+    
+    public ScreenType getScreenType(){
+        return screenType;
     }
 
     public FXMLLoader getFxmlLoader() {
