@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.sql.Connection;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
@@ -60,40 +61,64 @@ public class DatabaseManager implements Disposable {
     }
 
     public void write(Object object) {
-        Session writeSession = sessionFactory.openSession();
+        Session writeSession = null;
+        Transaction transaction = null;
         try {
-            writeSession.beginTransaction();
+            writeSession = sessionFactory.openSession();
+            transaction = writeSession.beginTransaction();
             writeSession.save(object);
-            writeSession.getTransaction().commit();
+            writeSession.flush();
+            transaction.commit();
         } catch (Exception ex) {
-            writeSession.getTransaction().rollback();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            if (writeSession != null && writeSession.isOpen()) {
+                writeSession.close();
+            }
         }
-        writeSession.close();
     }
 
     public void update(Object object) {
-        Session writeSession = sessionFactory.openSession();
+        Session writeSession = null;
+        Transaction transaction = null;
         try {
-            writeSession.beginTransaction();
+            writeSession = sessionFactory.openSession();
+            transaction = writeSession.beginTransaction();
             writeSession.update(object);
-            writeSession.getTransaction().commit();
+            writeSession.flush();
+            transaction.commit();
         } catch (Exception ex) {
-            writeSession.getTransaction().rollback();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            if (writeSession != null && writeSession.isOpen()) {
+                writeSession.close();
+            }
         }
-        writeSession.close();
     }
 
     public Object read(Class objectClass, Serializable serializable) {
-        Session readSession = sessionFactory.openSession();
+        Session readSession = null;
+        Transaction transaction = null;
         Object objectReaded = null;
         try {
-            readSession.beginTransaction();
+            readSession = sessionFactory.openSession();
+            transaction = readSession.beginTransaction();
             objectReaded = readSession.get(objectClass, serializable);
-            readSession.getTransaction().commit();
+            readSession.flush();
+            transaction.commit();
         } catch (Exception ex) {
-            readSession.getTransaction().rollback();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            if (readSession != null && readSession.isOpen()) {
+                readSession.close();
+            }
         }
-        readSession.close();
         return objectReaded;
     }
 
@@ -103,11 +128,21 @@ public class DatabaseManager implements Disposable {
 
     @Override
     public void dispose() {
-        if (session.isOpen()) {
-            session.close();
-        }
-        if (!sessionFactory.isClosed()) {
-            sessionFactory.close();
-        }
+        System.out.println("a");
+//        if (session != null) {
+//            session.flush();
+//            session.close();
+//            session.disconnect();
+//            sessionFactory.close();
+//        }
+////        if (session != null && session.isOpen()) {
+//            System.out.println("a");
+//            session.close();
+//        }
+//        if (sessionFactory != null && !sessionFactory.isClosed()) {
+//            System.out.println("b");
+//            session.c
+//            sessionFactory.close();
+//        }
     }
 }

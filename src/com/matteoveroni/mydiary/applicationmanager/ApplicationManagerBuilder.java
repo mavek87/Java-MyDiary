@@ -1,35 +1,40 @@
-package com.matteoveroni.mydiary.screen;
+package com.matteoveroni.mydiary.applicationmanager;
 
+import com.matteoveroni.mydiary.model.database.DatabaseManager;
+import com.matteoveroni.mydiary.screen.ScreenManager;
+import com.matteoveroni.mydiary.screen.ScreenType;
+import com.matteoveroni.mydiary.screen.ScreensFactory;
 import com.matteoveroni.mydiary.screen.model.Screen;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import javafx.stage.Stage;
 
 /**
  *
  * @author Matteo Veroni
  */
-public class ScreenManagerBuilder {
+public class ApplicationManagerBuilder {
 
+    private final ApplicationManager applicationManager = new ApplicationManager();
+    private final DatabaseManager databaseManager = new DatabaseManager();
     private final ScreenManager screenManager;
     private final ScreensFactory screensFactory = ScreensFactory.getInstance();
-    private final Map<String, Screen> applicationScreens = new HashMap<>();
 
     private final String applicationName;
     private final String applicationVersion;
 
-    public ScreenManagerBuilder(String applicationName, String applicationVersion, Stage primaryStage) {
+    public ApplicationManagerBuilder(String applicationName, String applicationVersion, Stage primaryStage) {
         this.applicationName = applicationName;
         this.applicationVersion = applicationVersion;
         this.screenManager = new ScreenManager(primaryStage);
     }
 
-    public ScreenManager build() {
+    public ApplicationManager build() {
         mainStageSetup();
         buildScreens();
         useInitialScreen();
-        return screenManager;
+        applicationManager.setScreenManager(screenManager);
+        applicationManager.setDatabaseManager(databaseManager);
+        return applicationManager;
     }
 
     private void mainStageSetup() {
