@@ -64,7 +64,7 @@ public class DatabaseManager implements Disposable {
         Session writeSession = null;
         Transaction transaction = null;
         try {
-            writeSession = sessionFactory.openSession();
+            writeSession = sessionFactory.getCurrentSession();
             transaction = writeSession.beginTransaction();
             writeSession.save(object);
             writeSession.flush();
@@ -84,7 +84,7 @@ public class DatabaseManager implements Disposable {
         Session writeSession = null;
         Transaction transaction = null;
         try {
-            writeSession = sessionFactory.openSession();
+            writeSession = sessionFactory.getCurrentSession();
             transaction = writeSession.beginTransaction();
             writeSession.update(object);
             writeSession.flush();
@@ -105,7 +105,7 @@ public class DatabaseManager implements Disposable {
         Transaction transaction = null;
         Object objectReaded = null;
         try {
-            readSession = sessionFactory.openSession();
+            readSession = sessionFactory.getCurrentSession();
             transaction = readSession.beginTransaction();
             objectReaded = readSession.get(objectClass, serializable);
             readSession.flush();
@@ -128,21 +128,11 @@ public class DatabaseManager implements Disposable {
 
     @Override
     public void dispose() {
-        System.out.println("a");
-//        if (session != null) {
-//            session.flush();
-//            session.close();
-//            session.disconnect();
-//            sessionFactory.close();
-//        }
-////        if (session != null && session.isOpen()) {
-//            System.out.println("a");
-//            session.close();
-//        }
-//        if (sessionFactory != null && !sessionFactory.isClosed()) {
-//            System.out.println("b");
-//            session.c
-//            sessionFactory.close();
-//        }
+        if (session != null && session.isOpen()) {
+            session.close();
+        }
+        if (sessionFactory != null && !sessionFactory.isClosed()) {
+            sessionFactory.close();
+        }
     }
 }
