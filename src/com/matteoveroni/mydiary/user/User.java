@@ -1,4 +1,4 @@
-package com.matteoveroni.mydiary.model.user;
+package com.matteoveroni.mydiary.user;
 
 import java.io.Serializable;
 import javax.persistence.Column;

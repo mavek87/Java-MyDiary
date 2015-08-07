@@ -1,6 +1,6 @@
-package com.matteoveroni.mydiary.applicationmanager;
+package com.matteoveroni.mydiary.application;
 
-import com.matteoveroni.mydiary.model.database.DatabaseManager;
+import com.matteoveroni.mydiary.database.DatabaseManager;
 import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.sun.media.jfxmediaimpl.MediaDisposer.Disposable;
 
@@ -23,6 +23,7 @@ public class ApplicationManager implements Disposable {
      
     @Override
     public void dispose() {
+		screenManager.dispose();
         databaseManager.dispose();
     }
 

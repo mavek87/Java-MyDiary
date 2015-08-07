@@ -2,7 +2,10 @@ package com.matteoveroni.mydiary.article.control;
 
 import com.matteoveroni.mydiary.article.model.Article;
 import com.matteoveroni.mydiary.article.model.ArticleModel;
-import com.matteoveroni.mydiary.model.database.DatabaseManager;
+import com.matteoveroni.mydiary.database.DatabaseManager;
+import com.matteoveroni.mydiary.screen.ManageableScreen;
+import com.matteoveroni.mydiary.screen.ScreenManager;
+import com.matteoveroni.mydiary.screen.ScreenType;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -19,7 +22,7 @@ import javafx.stage.Stage;
  *
  * @author Matteo Veroni
  */
-public class ArticleScreenController implements Initializable {
+public class ArticleScreenController implements Initializable, ManageableScreen {
 
     @FXML
     private ResourceBundle resources;
@@ -58,6 +61,7 @@ public class ArticleScreenController implements Initializable {
     private ArticleModel model;
     private final DatabaseManager db = new DatabaseManager();
     private Stage stage;
+	private ScreenManager myScreenManager;
 
     /**
      * Initializes the controller class.
@@ -114,6 +118,7 @@ public class ArticleScreenController implements Initializable {
 
     @FXML
     void cancelButtonPressed(ActionEvent event) {
+		myScreenManager.useScreen(ScreenType.DIARY_SCREEN);
     }
 
     private void drawCurrentArticleOnScene() {
@@ -125,4 +130,9 @@ public class ArticleScreenController implements Initializable {
         //articleAuthor_txt.setText(currentArticle.getAuthor);
         //articleData_txt = currentArticle.getData();
     }
+
+	@Override
+	public void setScreenManager(ScreenManager screenManager) {
+		myScreenManager = screenManager;
+	}
 }

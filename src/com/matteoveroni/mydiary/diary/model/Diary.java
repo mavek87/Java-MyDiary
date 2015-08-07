@@ -1,6 +1,6 @@
 package com.matteoveroni.mydiary.diary.model;
 
-import com.matteoveroni.mydiary.model.user.User;
+import com.matteoveroni.mydiary.user.User;
 import com.matteoveroni.mydiary.article.model.Article;
 import java.io.Serializable;
 import java.util.HashMap;

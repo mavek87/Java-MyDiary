@@ -1,13 +1,6 @@
-package com.matteoveroni.mydiary.screen.model;
+package com.matteoveroni.mydiary.screen;
 
-import com.matteoveroni.mydiary.screen.ScreenType;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

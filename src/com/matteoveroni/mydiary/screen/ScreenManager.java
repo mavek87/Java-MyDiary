@@ -1,6 +1,6 @@
 package com.matteoveroni.mydiary.screen;
 
-import com.matteoveroni.mydiary.screen.model.Screen;
+import com.sun.media.jfxmediaimpl.MediaDisposer.Disposable;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.scene.Scene;
@@ -10,7 +10,7 @@ import javafx.stage.Stage;
  *
  * @author Matteo Veroni
  */
-public class ScreenManager {
+public class ScreenManager implements Disposable{
 
     private final Map<ScreenType, Screen> applicationScreens = new HashMap<>();
     private Stage mainStage;
@@ -29,6 +29,8 @@ public class ScreenManager {
 
     public void loadScreen(Screen screen) {
         try {
+			ManageableScreen screenController = screen.getFxmlLoader().getController();
+			screenController.setScreenManager(this);
             applicationScreens.put(screen.getScreenType(), screen);
         } catch (Exception ex) {
             throw new RuntimeException(ex);
@@ -47,4 +49,10 @@ public class ScreenManager {
     public Scene getCurrentScene() {
         return mainStage.getScene();
     }
+
+	@Override
+	public void dispose() {
+		mainStage.close();
+		applicationScreens.clear();
+	}
 }

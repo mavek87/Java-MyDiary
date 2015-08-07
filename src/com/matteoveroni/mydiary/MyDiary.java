@@ -1,8 +1,7 @@
 package com.matteoveroni.mydiary;
 
-import com.matteoveroni.mydiary.applicationmanager.ApplicationManager;
-import com.matteoveroni.mydiary.screen.ScreenManager;
-import com.matteoveroni.mydiary.applicationmanager.ApplicationManagerBuilder;
+import com.matteoveroni.mydiary.application.ApplicationManager;
+import com.matteoveroni.mydiary.application.ApplicationBuilder;
 import java.io.IOException;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -15,17 +14,15 @@ import javafx.stage.Stage;
 public class MyDiary extends Application {
 
     private static final String APPLICATION_NAME = "MyDiary";
-    private static final String APPLICATION_VERSION = "0.0.4";
+    private static final String APPLICATION_VERSION = "0.0.5";
 
-    private ApplicationManagerBuilder applicationManagerBuilder;
+    private ApplicationBuilder applicationBuilder;
     private ApplicationManager applicationManager;
 
     @Override
     public void start(Stage applicationStage) throws IOException {
-        
-        applicationManagerBuilder = new ApplicationManagerBuilder(APPLICATION_NAME, APPLICATION_VERSION, applicationStage);
-        applicationManager = applicationManagerBuilder.build();
-
+        applicationBuilder = new ApplicationBuilder(APPLICATION_NAME, APPLICATION_VERSION, applicationStage);
+        applicationManager = applicationBuilder.build();
     }
 
 //    @Override

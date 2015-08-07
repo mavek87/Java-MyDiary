@@ -1,4 +1,4 @@
-package com.matteoveroni.mydiary.model.database;
+package com.matteoveroni.mydiary.database;
 
 import com.sun.media.jfxmediaimpl.MediaDisposer.Disposable;
 import java.io.Serializable;

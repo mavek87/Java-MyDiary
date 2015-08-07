@@ -1,4 +1,4 @@
-package com.matteoveroni.mydiary.library.model;
+package com.matteoveroni.mydiary.library;
 
 import com.matteoveroni.mydiary.diary.model.Diary;
 import java.util.HashMap;
