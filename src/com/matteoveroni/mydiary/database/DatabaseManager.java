@@ -16,123 +16,131 @@ import org.hibernate.service.ServiceRegistry;
  */
 public class DatabaseManager implements Disposable {
 
-    private final SessionFactory sessionFactory;
-    private final ServiceRegistry serviceRegistry;
-    private Session session;
+	private final SessionFactory sessionFactory;
+	private final ServiceRegistry serviceRegistry;
+	private Session session;
+	private static DatabaseManager databaseManagerInstance;
 
-    public enum dbOperation {
+	private DatabaseManager() {
+		Configuration configuration = new Configuration();
+		configuration.configure();
+		serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+		sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+	}
 
-        SAVE, READ, DELETE, ALTER;
-    }
+	public enum dbOperation {
 
-    public DatabaseManager() {
-        Configuration configuration = new Configuration();
-        configuration.configure();
-        serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
-        sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-    }
+		SAVE, READ, DELETE, ALTER;
+	}
 
-    /*public static void main(String[] args) {
-     Student student1 = new Student();
-     student1.setName("nome1");
-     student1.setId(2);
-     student1.setDateBirth(GregorianCalendar.getInstance().getTime());
+	public static DatabaseManager getInstance() {
+		if (databaseManagerInstance == null) {
+			databaseManagerInstance = new DatabaseManager();
+		}
+		return databaseManagerInstance;
+	}
 
-     Student student2 = new Student();
-     student2.setName("nome2");
-     student2.setId(3);
-     student2.setDateBirth(GregorianCalendar.getInstance().getTime());
+	/*public static void main(String[] args) {
+	 Student student1 = new Student();
+	 student1.setName("nome1");
+	 student1.setId(2);
+	 student1.setDateBirth(GregorianCalendar.getInstance().getTime());
 
-     sessionFactory = createSessionFactory();
+	 Student student2 = new Student();
+	 student2.setName("nome2");
+	 student2.setId(3);
+	 student2.setDateBirth(GregorianCalendar.getInstance().getTime());
 
-     Session session = sessionFactory.openSession();
+	 sessionFactory = createSessionFactory();
 
-     alterDB(session, student1, "save");
-     alterDB(session, student2, "save");
+	 Session session = sessionFactory.openSession();
 
-     session.close();
+	 alterDB(session, student1, "save");
+	 alterDB(session, student2, "save");
+
+	 session.close();
 		
-     //System.out.println(studenteLetto.getName());
-     sessionFactory.close();
+	 //System.out.println(studenteLetto.getName());
+	 sessionFactory.close();
 
-     }*/
-    public void openSession() {
-        session = sessionFactory.openSession();
-    }
+	 }*/
+	public void openSession() {
+		session = sessionFactory.openSession();
+	}
 
-    public void write(Object object) {
-        Session writeSession = null;
-        Transaction transaction = null;
-        try {
-            writeSession = sessionFactory.getCurrentSession();
-            transaction = writeSession.beginTransaction();
-            writeSession.save(object);
-            writeSession.flush();
-            transaction.commit();
-        } catch (Exception ex) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        } finally {
-            if (writeSession != null && writeSession.isOpen()) {
-                writeSession.close();
-            }
-        }
-    }
+	public void write(Object object) {
+		Session writeSession = null;
+		Transaction transaction = null;
+		try {
+			writeSession = sessionFactory.getCurrentSession();
+			transaction = writeSession.beginTransaction();
+			writeSession.save(object);
+			writeSession.flush();
+			transaction.commit();
+		} catch (Exception ex) {
+			if (transaction != null) {
+				transaction.rollback();
+			}
+		} finally {
+			if (writeSession != null && writeSession.isOpen()) {
+				writeSession.close();
+			}
+		}
+	}
 
-    public void update(Object object) {
-        Session writeSession = null;
-        Transaction transaction = null;
-        try {
-            writeSession = sessionFactory.getCurrentSession();
-            transaction = writeSession.beginTransaction();
-            writeSession.update(object);
-            writeSession.flush();
-            transaction.commit();
-        } catch (Exception ex) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        } finally {
-            if (writeSession != null && writeSession.isOpen()) {
-                writeSession.close();
-            }
-        }
-    }
+	public void update(Object object) {
+		Session writeSession = null;
+		Transaction transaction = null;
+		try {
+			writeSession = sessionFactory.getCurrentSession();
+			transaction = writeSession.beginTransaction();
+			writeSession.update(object);
+			writeSession.flush();
+			transaction.commit();
+		} catch (Exception ex) {
+			if (transaction != null) {
+				transaction.rollback();
+			}
+		} finally {
+			if (writeSession != null && writeSession.isOpen()) {
+				writeSession.close();
+			}
+		}
+	}
 
-    public Object read(Class objectClass, Serializable serializable) {
-        Session readSession = null;
-        Transaction transaction = null;
-        Object objectReaded = null;
-        try {
-            readSession = sessionFactory.getCurrentSession();
-            transaction = readSession.beginTransaction();
-            objectReaded = readSession.get(objectClass, serializable);
-            readSession.flush();
-            transaction.commit();
-        } catch (Exception ex) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        } finally {
-            if (readSession != null && readSession.isOpen()) {
-                readSession.close();
-            }
-        }
-        return objectReaded;
-    }
+	public Object read(Class objectClass, Serializable serializable) {
+		Session readSession = null;
+		Transaction transaction = null;
+		Object objectReaded = null;
+		try {
+			readSession = sessionFactory.getCurrentSession();
+			transaction = readSession.beginTransaction();
+			objectReaded = readSession.get(objectClass, serializable);
+			readSession.flush();
+			transaction.commit();
+		} catch (Exception ex) {
+			if (transaction != null) {
+				transaction.rollback();
+			}
+		} finally {
+			if (readSession != null && readSession.isOpen()) {
+				readSession.close();
+			}
+		}
+		return objectReaded;
+	}
 
-    public Connection closeSession() {
-        return session.close();
-    }
+	public Connection closeSession() {
+		return session.close();
+	}
 
-    @Override
-    public void dispose() {
-        if (session != null && session.isOpen()) {
-            session.close();
-        }
-        if (sessionFactory != null && !sessionFactory.isClosed()) {
-            sessionFactory.close();
-        }
-    }
+	@Override
+	public void dispose() {
+		if (session != null && session.isOpen()) {
+			session.close();
+		}
+		if (sessionFactory != null && !sessionFactory.isClosed()) {
+			sessionFactory.close();
+		}
+	}
 }

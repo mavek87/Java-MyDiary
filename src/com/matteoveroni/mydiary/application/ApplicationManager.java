@@ -8,23 +8,23 @@ import com.sun.media.jfxmediaimpl.MediaDisposer.Disposable;
  *
  * @author Matteo Veroni
  */
-public class ApplicationManager implements Disposable {
+public class ApplicationManager implements Disposable{
 
-    private ScreenManager screenManager;
-    private DatabaseManager databaseManager;
+	private ScreenManager screenManager;
+	private DatabaseManager databaseManager;
 
-    public void setScreenManager(ScreenManager screenManager) {
-        this.screenManager = screenManager;
-    }
+	public void setScreenManager(ScreenManager screenManager) {
+		this.screenManager = screenManager;
+	}
 
-    public void setDatabaseManager(DatabaseManager databaseManager) {
-    this.databaseManager  = databaseManager;
-    }
-     
-    @Override
-    public void dispose() {
+	public void setDatabaseManager(DatabaseManager databaseManager) {
+		this.databaseManager = databaseManager;
+	}
+
+	@Override
+	public void dispose() {
 		screenManager.dispose();
-        databaseManager.dispose();
-    }
+		databaseManager.dispose();
+	}
 
 }

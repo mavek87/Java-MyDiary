@@ -1,6 +1,7 @@
 package com.matteoveroni.mydiary.diary.control;
 
-import com.matteoveroni.mydiary.screen.ManageableScreen;
+import com.matteoveroni.mydiary.database.DatabaseManager;
+import com.matteoveroni.mydiary.screen.Manageable;
 import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
 import java.net.URL;
@@ -15,9 +16,10 @@ import javafx.scene.control.Button;
  *
  * @author Matteo Veroni
  */
-public class DiaryScreenViewController implements Initializable, ManageableScreen {
+public class DiaryScreenController implements Initializable, Manageable{
 
 	private ScreenManager myScreenManager;
+	private final DatabaseManager databaseManager = DatabaseManager.getInstance() ;
 
 	@FXML
 	private Button btn_button;
@@ -39,5 +41,4 @@ public class DiaryScreenViewController implements Initializable, ManageableScree
 	public void setScreenManager(ScreenManager screenManager) {
 		myScreenManager = screenManager;
 	}
-
 }

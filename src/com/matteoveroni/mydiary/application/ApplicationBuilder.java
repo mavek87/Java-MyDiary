@@ -1,6 +1,7 @@
 package com.matteoveroni.mydiary.application;
 
 import com.matteoveroni.mydiary.database.DatabaseManager;
+import com.matteoveroni.mydiary.screen.Screen;
 import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
 import com.matteoveroni.mydiary.screen.ScreensFactory;
@@ -14,7 +15,7 @@ import javafx.stage.Stage;
 public class ApplicationBuilder {
 
 	private final ApplicationManager applicationManager = new ApplicationManager();
-	private final DatabaseManager databaseManager = new DatabaseManager();
+	private final DatabaseManager databaseManager = DatabaseManager.getInstance();
 	private final ScreenManager screenManager;
 	private final ScreensFactory screensFactory = ScreensFactory.getInstance();
 
@@ -49,8 +50,9 @@ public class ApplicationBuilder {
 
 	private void buildScreens() {
 		try {
-			for (ScreenType screenTypeToLoad : ScreenType.values()) {
-				screenManager.loadScreen(screensFactory.createScreen(screenTypeToLoad));
+			for (ScreenType screenTypeToBuild : ScreenType.values()) {
+				Screen newScreen = screensFactory.createScreen(screenTypeToBuild);
+				screenManager.loadScreen(newScreen);
 			}
 		} catch (IOException ex) {
 			throw new RuntimeException("Impossible to build a screen \n" + ex);

@@ -29,14 +29,14 @@ public class ScreenManager implements Disposable{
 
     public void loadScreen(Screen screen) {
         try {
-			ManageableScreen screenController = screen.getFxmlLoader().getController();
+			Manageable screenController = screen.getController();
 			screenController.setScreenManager(this);
             applicationScreens.put(screen.getScreenType(), screen);
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
     }
-
+	
     public void useScreen(ScreenType screenTypeToUse) {
         if (applicationScreens.containsKey(screenTypeToUse) && this.getApplicationStage() != null) {
             mainStage.setScene(applicationScreens.get(screenTypeToUse).getScene());

@@ -3,10 +3,6 @@ package com.matteoveroni.mydiary.model;
 import com.matteoveroni.mydiary.database.DatabaseManager;
 import java.io.Serializable;
 import java.sql.Connection;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -19,7 +15,7 @@ public class DatabaseManagerTest {
     @Test
     public void testOpenSession() {
         System.out.println("openSession");
-        DatabaseManager instance = new DatabaseManager();
+        DatabaseManager instance = DatabaseManager.getInstance();
         instance.openSession();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -32,7 +28,7 @@ public class DatabaseManagerTest {
     public void testWrite() {
         System.out.println("write");
         Object object = null;
-        DatabaseManager instance = new DatabaseManager();
+        DatabaseManager instance = DatabaseManager.getInstance();
         instance.write(object);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -45,7 +41,7 @@ public class DatabaseManagerTest {
     public void testUpdate() {
         System.out.println("update");
         Object object = null;
-        DatabaseManager instance = new DatabaseManager();
+        DatabaseManager instance = DatabaseManager.getInstance();
         instance.update(object);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -59,7 +55,7 @@ public class DatabaseManagerTest {
         System.out.println("read");
         Class objectClass = null;
         Serializable serializable = null;
-        DatabaseManager instance = new DatabaseManager();
+        DatabaseManager instance = DatabaseManager.getInstance();
         Object expResult = null;
         Object result = instance.read(objectClass, serializable);
         assertEquals(expResult, result);
@@ -73,7 +69,7 @@ public class DatabaseManagerTest {
     @Test
     public void testCloseSession() {
         System.out.println("closeSession");
-        DatabaseManager instance = new DatabaseManager();
+        DatabaseManager instance = DatabaseManager.getInstance();
         Connection expResult = null;
         Connection result = instance.closeSession();
         assertEquals(expResult, result);
@@ -87,7 +83,7 @@ public class DatabaseManagerTest {
     @Test
     public void testDispose() {
         System.out.println("dispose");
-        DatabaseManager instance = new DatabaseManager();
+        DatabaseManager instance = DatabaseManager.getInstance();
         instance.dispose();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

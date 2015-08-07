@@ -12,53 +12,57 @@ import javafx.scene.Scene;
  */
 public class Screen {
 
-    private final ScreenType screenType;
-    private FXMLLoader fxml;
-    private String name;
-    private String resourcePath;
-    private Scene scene;
-    
-    public Screen(ScreenType selectedScreenType) throws IOException {
-        screenType = selectedScreenType;
-        fxml = new FXMLLoader(getClass().getResource(screenType.getScreenResourcePath()));
-        name = screenType.name();
-        resourcePath = screenType.getScreenResourcePath();
-        scene = new Scene((Parent) fxml.load());
-    }
-    
-    public ScreenType getScreenType(){
-        return screenType;
-    }
+	private final ScreenType screenType;
+	private FXMLLoader fxml;
+	private String name;
+	private String resourcePath;
+	private Scene scene;
 
-    public FXMLLoader getFxmlLoader() {
-        return fxml;
-    }
+	public Screen(ScreenType selectedScreenType) throws IOException {
+		screenType = selectedScreenType;
+		fxml = new FXMLLoader(getClass().getResource(screenType.getScreenResourcePath()));
+		name = screenType.name();
+		resourcePath = screenType.getScreenResourcePath();
+		scene = new Scene((Parent) fxml.load());
+	}
 
-    public void setFxmlLoader(FXMLLoader fxml) {
-        this.fxml = fxml;
-    }
+	public ScreenType getScreenType() {
+		return screenType;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public FXMLLoader getFXML() {
+		return fxml;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setFXML(FXMLLoader fxml) {
+		this.fxml = fxml;
+	}
 
-    public String getResourcePath() {
-        return resourcePath;
-    }
+	public <T> T getController() {
+		return fxml.getController();
+	}
 
-    public void setResourcePath(String resourcePath) {
-        this.resourcePath = resourcePath;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public Scene getScene() {
-        return scene;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setScene(Scene scene) {
-        this.scene = scene;
-    }
+	public String getResourcePath() {
+		return resourcePath;
+	}
+
+	public void setResourcePath(String resourcePath) {
+		this.resourcePath = resourcePath;
+	}
+
+	public Scene getScene() {
+		return scene;
+	}
+
+	public void setScene(Scene scene) {
+		this.scene = scene;
+	}
 }
