@@ -1,6 +1,6 @@
 package com.matteoveroni.mydiary.diary.model;
 
-import com.matteoveroni.mydiary.user.User;
+import com.matteoveroni.mydiary.user.ApplicationUser;
 import com.matteoveroni.mydiary.article.model.Article;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -24,16 +24,16 @@ public class Diary implements Serializable {
     private long id;
     
     @Column
-    private User owner;
+    private ApplicationUser owner;
     
     @Transient
     private final Map<String, Article> articles = new HashMap<>();
 
-    public User getOwner() {
+    public ApplicationUser getOwner() {
         return owner;
     }
 
-    public void setOwner(User owner) {
+    public void setOwner(ApplicationUser owner) {
         this.owner = owner;
     }
     

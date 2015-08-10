@@ -2,7 +2,6 @@ package com.matteoveroni.mydiary;
 
 import com.matteoveroni.mydiary.application.ApplicationManager;
 import com.matteoveroni.mydiary.application.ApplicationBuilder;
-import java.io.IOException;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.stage.Stage;
@@ -20,25 +19,11 @@ public class MyDiary extends Application {
     private ApplicationManager applicationManager;
 
     @Override
-    public void start(Stage applicationStage) throws IOException {
+    public void start(Stage applicationStage) {
         applicationBuilder = new ApplicationBuilder(APPLICATION_NAME, APPLICATION_VERSION, applicationStage);
         applicationManager = applicationBuilder.build();
     }
 
-//    @Override
-//    public void start(Stage primaryStage) throws IOException {
-//        try{
-//        System.out.println("hardcoded: " + getClass().getResource(""));
-//        Parent root = FXMLLoader.load(getClass().getResource("ArticleScreen.fxml"));
-//        Scene scene = new Scene(root);
-//        primaryStage.setScene(scene); 
-//        primaryStage.show();
-//        }catch(Exception ex){
-//            System.out.println("Eccezione: " + ex);
-//            throw new RuntimeException();
-//        }
-//    }
-    
     @Override
     public void stop() {
         applicationManager.dispose();
@@ -50,5 +35,4 @@ public class MyDiary extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
 }

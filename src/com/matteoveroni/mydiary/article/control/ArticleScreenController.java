@@ -83,7 +83,7 @@ public class ArticleScreenController implements Initializable, ManageableScreen 
 	}
 
 	@FXML
-	void saveArticlePressed(ActionEvent event) {
+	void saveArticleButtonPressed(ActionEvent event) {
 
 		// Devo ottenere tutti i dati del messaggio attuali temporanei e salvarli nel db
 		currentArticle.setTitle(articleTitle_txt.getText());
@@ -94,7 +94,7 @@ public class ArticleScreenController implements Initializable, ManageableScreen 
 	}
 
 	@FXML
-	void previousArticlePressed(ActionEvent event) {
+	void previousArticleButtonPressed(ActionEvent event) {
 		Article newArticleReaded = (Article) databaseManager.read(Article.class, currentArticle.getId() - 1);
 		if (newArticleReaded != null) {
 			currentArticle = newArticleReaded;
@@ -103,7 +103,7 @@ public class ArticleScreenController implements Initializable, ManageableScreen 
 	}
 
 	@FXML
-	void nextArticlePressed(ActionEvent event) {
+	void nextArticleButtonPressed(ActionEvent event) {
 		Article newArticleReaded = (Article) databaseManager.read(Article.class, currentArticle.getId() + 1);
 		if (newArticleReaded != null) {
 			currentArticle = newArticleReaded;

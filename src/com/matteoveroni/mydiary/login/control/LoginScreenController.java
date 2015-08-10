@@ -4,6 +4,7 @@ import com.matteoveroni.mydiary.database.DatabaseManager;
 import com.matteoveroni.mydiary.screen.ManageableScreen;
 import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
+import com.matteoveroni.mydiary.user.ApplicationUser;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -32,11 +33,8 @@ public class LoginScreenController implements Initializable, ManageableScreen {
     private Label lbl_loginFailedMessage;
 
     private ScreenManager screenManager;
-
     private final DatabaseManager databaseManager = DatabaseManager.getInstance();
-
-    private final String tempUser = "matteo";
-    private final String tempPass = "Password01";
+    private ApplicationUser applicationUser;
 
     /**
      * Initializes the controller class.
@@ -58,10 +56,20 @@ public class LoginScreenController implements Initializable, ManageableScreen {
 
     @FXML
     void tryToLogin(ActionEvent event) {
-        if (txt_username.getText().equals(tempUser) && psw_password.getText().equals(tempPass)) {
-            loginSuccessfullSoAccessApplication();
-        } else {
-            loginFailedPrintError();
+//        applicationUser = (ApplicationUser) databaseManager.readFirstObject(ApplicationUser.class);
+        
+        // funge
+        applicationUser = (ApplicationUser) databaseManager.read(ApplicationUser.class, 1L);
+
+//        applicationUser = (ApplicationUser) databaseManager.query("SELECT * FROM APPLICATIONUSER WHERE APPLICATIONUSER.NOME = ")
+
+        if (applicationUser != null) {
+            System.out.println("entraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            if (txt_username.getText().equals(applicationUser.getName()) && psw_password.getText().equals(applicationUser.getPassword())) {
+                loginSuccessfullSoAccessApplication();
+            } else {
+                loginFailedPrintError();
+            }
         }
     }
 
