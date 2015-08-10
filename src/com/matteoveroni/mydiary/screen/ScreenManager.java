@@ -29,7 +29,7 @@ public class ScreenManager implements Disposable{
 
     public void loadScreen(Screen screen) {
         try {
-			Manageable screenController = screen.getController();
+			ManageableScreen screenController = screen.getController();
 			screenController.setScreenManager(this);
             applicationScreens.put(screen.getScreenType(), screen);
         } catch (Exception ex) {

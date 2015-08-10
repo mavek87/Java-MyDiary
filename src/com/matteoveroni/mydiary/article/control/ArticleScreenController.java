@@ -2,7 +2,7 @@ package com.matteoveroni.mydiary.article.control;
 
 import com.matteoveroni.mydiary.article.model.Article;
 import com.matteoveroni.mydiary.database.DatabaseManager;
-import com.matteoveroni.mydiary.screen.Manageable;
+import com.matteoveroni.mydiary.screen.ManageableScreen;
 import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
 import java.net.URL;
@@ -20,7 +20,7 @@ import javafx.scene.web.HTMLEditor;
  *
  * @author Matteo Veroni
  */
-public class ArticleScreenController implements Initializable, Manageable {
+public class ArticleScreenController implements Initializable, ManageableScreen {
 
 	@FXML
 	private ResourceBundle resources;

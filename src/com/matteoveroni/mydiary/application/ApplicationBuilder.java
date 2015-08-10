@@ -38,11 +38,11 @@ public class ApplicationBuilder {
 	}
 
 	private void mainStageSetup() {
-		screenManager.getApplicationStage().setResizable(true);
-		screenManager.getApplicationStage().setMaxWidth(800);
-		screenManager.getApplicationStage().setMaxHeight(600);
-		screenManager.getApplicationStage().setMinWidth(640);
-		screenManager.getApplicationStage().setMinHeight(480);
+//		screenManager.getApplicationStage().setResizable(true);
+//		screenManager.getApplicationStage().setMaxWidth(800);
+//		screenManager.getApplicationStage().setMaxHeight(600);
+//		screenManager.getApplicationStage().setMinWidth(640);
+//		screenManager.getApplicationStage().setMinHeight(480);
 		screenManager.getApplicationStage().setTitle(applicationName + " - v. " + applicationVersion);
 		screenManager.getApplicationStage().show();
 		centerWindow();
@@ -55,12 +55,12 @@ public class ApplicationBuilder {
 				screenManager.loadScreen(newScreen);
 			}
 		} catch (IOException ex) {
-			throw new RuntimeException("Impossible to build a screen \n" + ex);
+			throw new RuntimeException("Impossible to build a screen! \n" + ex);
 		}
 	}
 
 	private void useInitialScreen() {
-		screenManager.useScreen(ScreenType.ARTICLE_SCREEN);
+		screenManager.useScreen(ScreenType.LOGIN_SCREEN);
 	}
 
 	private void centerWindow() {

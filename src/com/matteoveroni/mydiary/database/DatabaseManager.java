@@ -39,31 +39,7 @@ public class DatabaseManager implements Disposable {
 		}
 		return databaseManagerInstance;
 	}
-
-	/*public static void main(String[] args) {
-	 Student student1 = new Student();
-	 student1.setName("nome1");
-	 student1.setId(2);
-	 student1.setDateBirth(GregorianCalendar.getInstance().getTime());
-
-	 Student student2 = new Student();
-	 student2.setName("nome2");
-	 student2.setId(3);
-	 student2.setDateBirth(GregorianCalendar.getInstance().getTime());
-
-	 sessionFactory = createSessionFactory();
-
-	 Session session = sessionFactory.openSession();
-
-	 alterDB(session, student1, "save");
-	 alterDB(session, student2, "save");
-
-	 session.close();
-		
-	 //System.out.println(studenteLetto.getName());
-	 sessionFactory.close();
-
-	 }*/
+    
 	public void openSession() {
 		session = sessionFactory.openSession();
 	}
