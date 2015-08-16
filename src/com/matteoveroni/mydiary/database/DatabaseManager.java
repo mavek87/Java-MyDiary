@@ -2,8 +2,9 @@ package com.matteoveroni.mydiary.database;
 
 import com.sun.media.jfxmediaimpl.MediaDisposer.Disposable;
 import java.io.Serializable;
-import java.sql.Connection;
+import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -39,10 +40,6 @@ public class DatabaseManager implements Disposable {
             databaseManagerInstance = new DatabaseManager();
         }
         return databaseManagerInstance;
-    }
-
-    public void openSession() {
-        session = sessionFactory.openSession();
     }
 
     public void write(Object object) {
@@ -107,44 +104,52 @@ public class DatabaseManager implements Disposable {
         return objectReaded;
     }
 
-//    public List query(String requestedQuery) {
-//        Session querySession = null;
-//        Transaction transaction = null;
-//        List queryResults = null;
-//        try {
-//            querySession = sessionFactory.getCurrentSession();
-//            transaction = querySession.beginTransaction();
-//            Query query = querySession.createQuery(requestedQuery);
-//            querySession.flush();
-//            transaction.commit();
-//            queryResults = query.list();
-//        } catch (Exception ex) {
-//            if (transaction != null) {
-//                transaction.rollback();
-//            }
-//        } finally {
-//            if (querySession != null && querySession.isOpen()) {
-//                querySession.close();
-//            }
-//        }
-//        return queryResults;
-//    }
-//
-    
+    public List query(String requestedQuery) {
+        Session querySession = null;
+        Transaction transaction = null;
+        List queryResults = null;
+        try {
+            querySession = sessionFactory.getCurrentSession();
+            transaction = querySession.beginTransaction();
+            Query query = querySession.createQuery(requestedQuery);
+            querySession.flush();
+            transaction.commit();
+            queryResults = query.list();
+        } catch (Exception ex) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            if (querySession != null && querySession.isOpen()) {
+                querySession.close();
+            }
+        }
+        return queryResults;
+    }
+
     public Object readFirstObject(Class objectClass) {
+        Session readSession = null;
+        Transaction transaction = null;
         Object firstReaded = null;
         try {
-            Criteria queryCriteria = session.createCriteria(objectClass);
+            readSession = sessionFactory.getCurrentSession();
+            transaction = readSession.beginTransaction();
+            Criteria queryCriteria = readSession.createCriteria(objectClass);
             queryCriteria.setFirstResult(0);
             queryCriteria.setMaxResults(1);
             firstReaded = queryCriteria.list().get(0);
+            readSession.flush();
+            transaction.commit();
         } catch (Exception ex) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            if (readSession != null && readSession.isOpen()) {
+                readSession.close();
+            }
         }
         return firstReaded;
-    }
-    
-    public Connection closeSession() {
-        return session.close();
     }
 
     @Override

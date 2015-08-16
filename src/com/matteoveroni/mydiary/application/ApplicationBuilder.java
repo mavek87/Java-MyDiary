@@ -35,7 +35,7 @@ public class ApplicationBuilder {
         useInitialScreen();
         applicationManager.setScreenManager(screenManager);
         applicationManager.setDatabaseManager(databaseManager);
-        createApplicationMainUser();
+        createApplicationMainUserIfDoesntExist();
         return applicationManager;
     }
 
@@ -71,11 +71,20 @@ public class ApplicationBuilder {
 //        applicationManager.getApplicationStage().setY((primScreenBounds.getHeight() - applicationManager.getApplicationStage().getHeight()) / 4);
     }
 
-    private void createApplicationMainUser() {
-        ApplicationUser user = new ApplicationUser();
-        user.setName("matteo");
-        user.setPassword("password");
-        user.setAge(28);
-        databaseManager.write(user);
+    private void createApplicationMainUserIfDoesntExist() {
+        ApplicationUser user;
+        try {
+            user = (ApplicationUser) databaseManager.readFirstObject(ApplicationUser.class);
+            if (user == null) {
+                user = new ApplicationUser();
+                user.setName("matteo");
+                user.setPassword("pass");
+                user.setAge(28);
+                databaseManager.write(user);
+            }
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+
     }
 }
