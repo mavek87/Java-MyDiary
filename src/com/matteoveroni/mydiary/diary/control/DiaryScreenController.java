@@ -43,6 +43,9 @@ public class DiaryScreenController implements Initializable, ManageableScreen {
     private TableColumn<Article, Date> tableColumn_Date;
 
     @FXML
+    private TableColumn<Article, Date> tableColumn_Time;
+
+    @FXML
     private TableColumn<Article, String> tableColumn_Author;
 
     @FXML

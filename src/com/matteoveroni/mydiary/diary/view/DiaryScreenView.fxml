@@ -11,10 +11,11 @@
       <Button fx:id="btn_button" layoutX="458.0" layoutY="536.0" mnemonicParsing="false" onAction="#goToArticleScreen" prefHeight="41.0" prefWidth="200.0" text="Button" />
       <TableView fx:id="diaryTable" layoutX="10.0" layoutY="28.0" prefHeight="480.0" prefWidth="780.0">
         <columns>
-          <TableColumn fx:id="tableColumn_Id" prefWidth="73.0" text="Id" />
-          <TableColumn fx:id="tableColumn_Title" prefWidth="183.0" text="Title" />
-            <TableColumn fx:id="tableColumn_Date" prefWidth="106.0" text="Date" />
-            <TableColumn fx:id="tableColumn_Author" prefWidth="205.0" text="Author" />
+          <TableColumn fx:id="tableColumn_Id" prefWidth="58.0" text="Id" />
+          <TableColumn fx:id="tableColumn_Title" prefWidth="271.0" text="Title" />
+            <TableColumn fx:id="tableColumn_Date" prefWidth="110.0" text="Date" />
+            <TableColumn fx:id="tableColumn_Time" prefWidth="105.0" text="Time" />
+            <TableColumn fx:id="tableColumn_Author" prefWidth="234.0" text="Author" />
         </columns>
       </TableView>
       <Button fx:id="btn_removeNotes" layoutX="10.0" layoutY="536.0" mnemonicParsing="false" onAction="#removeNotes" prefHeight="41.0" prefWidth="113.0" text="Remove" />
