@@ -1,44 +1,127 @@
 package com.matteoveroni.mydiary.diary.control;
 
+import com.matteoveroni.mydiary.article.model.Article;
 import com.matteoveroni.mydiary.database.DatabaseManager;
 import com.matteoveroni.mydiary.screen.ManageableScreen;
 import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
+import com.matteoveroni.mydiary.user.ApplicationUser;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * FXML Controller class
  *
  * @author Matteo Veroni
  */
-public class DiaryScreenController implements Initializable, ManageableScreen{
+public class DiaryScreenController implements Initializable, ManageableScreen {
 
-	private ScreenManager myScreenManager;
-	private final DatabaseManager databaseManager = DatabaseManager.getInstance() ;
+    private ScreenManager myScreenManager;
+    private final DatabaseManager databaseManager = DatabaseManager.getInstance();
 
-	@FXML
-	private Button btn_button;
+    @FXML
+    private TableView<Article> diaryTable;
 
-	@FXML
-	void goToArticleScreen(ActionEvent event) {
-		myScreenManager.useScreen(ScreenType.ARTICLE_SCREEN);
-	}
+    @FXML
+    private TableColumn<Article, Long> tableColumn_Id;
 
-	/**
-	 * Initializes the controller class.
-	 */
-	@Override
-	public void initialize(URL url, ResourceBundle rb) {
-		// TODO
-	}
+    @FXML
+    private TableColumn<Article, String> tableColumn_Title;
 
-	@Override
-	public void setScreenManager(ScreenManager screenManager) {
-		myScreenManager = screenManager;
-	}
+    @FXML
+    private TableColumn<Article, Date> tableColumn_Date;
+
+    @FXML
+    private TableColumn<Article, String> tableColumn_Author;
+
+    @FXML
+    private Button btn_filter;
+
+    @FXML
+    private Button btn_button;
+
+    @FXML
+    private Button btn_createNewNote;
+
+    @FXML
+    private CheckBox chk_enableFilter;
+
+    @FXML
+    private Button btn_removeNotes;
+
+    List<Article> articles = new ArrayList<>();
+
+    @FXML
+    void goToArticleScreen(ActionEvent event) {
+        myScreenManager.useScreen(ScreenType.ARTICLE_SCREEN);
+    }
+
+    @FXML
+    void goToFilterScreen(ActionEvent event) {
+
+    }
+
+    @FXML
+    void removeNotes(ActionEvent event) {
+
+    }
+
+    @FXML
+    void createNewNote(ActionEvent event) {
+        myScreenManager.useScreen(ScreenType.ARTICLE_SCREEN);
+    }
+
+    @FXML
+    void enableFilter(ActionEvent event) {
+
+    }
+
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+
+        Article articolo1 = new Article();
+        articolo1.setTitle("Titolo1");
+        articolo1.setId(3L);
+        articolo1.setAuthor("Mavek");
+        articles.add(articolo1);
+
+        Article articolo2 = new Article();
+        articolo2.setTitle("Titolo2");
+        articolo2.setDate(new Date());
+        articles.add(articolo2);
+        
+        
+        
+        
+        ObservableList<Article> observableArticles = FXCollections.observableArrayList(articles);
+
+        tableColumn_Id.setCellValueFactory(new PropertyValueFactory<Article, Long>("id"));
+        tableColumn_Title.setCellValueFactory(new PropertyValueFactory<Article, String>("title"));
+        tableColumn_Date.setCellValueFactory(new PropertyValueFactory<Article, Date>("date"));
+        tableColumn_Author.setCellValueFactory(new PropertyValueFactory<Article, String>("author"));
+
+        diaryTable.setItems(observableArticles);
+    }
+
+    @Override
+    public void setScreenManager(ScreenManager screenManager) {
+        myScreenManager = screenManager;
+    }
 }

@@ -6,8 +6,20 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.matteoveroni.mydiary.diary.control.DiaryScreenController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.matteoveroni.mydiary.diary.control.DiaryScreenController">
    <children>
-      <Button fx:id="btn_button" layoutX="260.0" layoutY="114.0" mnemonicParsing="false" onAction="#goToArticleScreen" text="Button" />
+      <Button fx:id="btn_button" layoutX="458.0" layoutY="536.0" mnemonicParsing="false" onAction="#goToArticleScreen" prefHeight="41.0" prefWidth="200.0" text="Button" />
+      <TableView fx:id="diaryTable" layoutX="10.0" layoutY="28.0" prefHeight="480.0" prefWidth="780.0">
+        <columns>
+          <TableColumn fx:id="tableColumn_Id" prefWidth="73.0" text="Id" />
+          <TableColumn fx:id="tableColumn_Title" prefWidth="183.0" text="Title" />
+            <TableColumn fx:id="tableColumn_Date" prefWidth="106.0" text="Date" />
+            <TableColumn fx:id="tableColumn_Author" prefWidth="205.0" text="Author" />
+        </columns>
+      </TableView>
+      <Button fx:id="btn_removeNotes" layoutX="10.0" layoutY="536.0" mnemonicParsing="false" onAction="#removeNotes" prefHeight="41.0" prefWidth="113.0" text="Remove" />
+      <Button fx:id="btn_createNewNote" layoutX="677.0" layoutY="536.0" mnemonicParsing="false" onAction="#createNewNote" prefHeight="41.0" prefWidth="113.0" text="Create" />
+      <CheckBox fx:id="chk_enableFilter" layoutX="201.0" layoutY="549.0" mnemonicParsing="false" onAction="#enableFilter" text="Enable Filter" />
+      <Button fx:id="btn_filter" layoutX="338.0" layoutY="537.0" mnemonicParsing="false" onAction="#goToFilterScreen" prefHeight="41.0" prefWidth="62.0" text="Filter" />
    </children>
 </AnchorPane>

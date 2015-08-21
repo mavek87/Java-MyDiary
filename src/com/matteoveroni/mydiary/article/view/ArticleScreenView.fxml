@@ -36,11 +36,11 @@
                <children>
                   <HBox fillHeight="false" layoutX="60.0" layoutY="30.0" spacing="50.0" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="30.0">
                      <children>
-                        <Button fx:id="saveArticle_btn" layoutX="40.0" layoutY="30.0" mnemonicParsing="false" onAction="#saveArticleButtonPressed" prefHeight="25.0" prefWidth="100.0" text="Save" />
+                        <Button fx:id="cancelArticle_btn" layoutX="712.0" layoutY="30.0" mnemonicParsing="false" onAction="#cancelButtonPressed" prefHeight="25.0" prefWidth="100.0" text="Cancel" />
                         <Button fx:id="previousArticle_btn" layoutX="236.0" layoutY="30.0" mnemonicParsing="false" onAction="#previousArticleButtonPressed" prefHeight="25.0" prefWidth="100.0" text="Previous" />
                         <TextField fx:id="articleNumber_txt" alignment="CENTER" editable="false" layoutX="362.0" layoutY="30.0" prefHeight="25.0" prefWidth="80.0" />
                         <Button fx:id="nextArticle_btn" layoutX="484.0" layoutY="30.0" mnemonicParsing="false" onAction="#nextArticleButtonPressed" prefHeight="25.0" prefWidth="100.0" text="Next" />
-                        <Button fx:id="cancelArticle_btn" layoutX="712.0" layoutY="30.0" mnemonicParsing="false" onAction="#cancelButtonPressed" prefHeight="25.0" prefWidth="100.0" text="Cancel" />
+                        <Button fx:id="saveArticle_btn" layoutX="40.0" layoutY="30.0" mnemonicParsing="false" onAction="#saveArticleButtonPressed" prefHeight="25.0" prefWidth="100.0" text="Save" />
                      </children>
                   </HBox>
                </children>

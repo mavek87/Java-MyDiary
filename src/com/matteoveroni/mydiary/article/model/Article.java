@@ -7,25 +7,32 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.Temporal;
 
 /**
  *
  * @author Matteo Veroni
  */
-
 @Entity
 public class Article implements Serializable {
-    
+
     @Id
     @GeneratedValue
     private long id;
-    
+
     @Column
     private String title;
-    
-    @Column(columnDefinition="CLOB")
+
+    @Column(columnDefinition = "CLOB")
     @Lob
     private String message;
+
+    @Column
+    private String author;
+
+    @Column
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date date;
 
     public long getId() {
         return id;
@@ -52,18 +59,18 @@ public class Article implements Serializable {
     }
 
     public String getAuthor() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return author;
     }
 
     public void setAuthor(String author) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.author = author;
     }
 
     public Date getDate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return date;
     }
 
     public void setDate(Date date) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.date = date;
     }
 }

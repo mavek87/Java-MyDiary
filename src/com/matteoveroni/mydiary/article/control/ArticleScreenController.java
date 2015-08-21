@@ -74,7 +74,6 @@ public class ArticleScreenController implements Initializable, ManageableScreen 
             // If the database doesn\'t contain any article let\'s create a new one
             if (currentArticle == null) {
                 currentArticle = new Article();
-                currentArticle.setTitle("Title 1");
                 databaseManager.write(currentArticle);
             }
             drawCurrentArticleOnScene();

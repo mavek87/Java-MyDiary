@@ -74,7 +74,7 @@ public class LoginScreenController implements Initializable, ManageableScreen {
     }
 
     private void loginSuccessfullSoAccessApplication() {
-        screenManager.useScreen(ScreenType.ARTICLE_SCREEN);
+        screenManager.useScreen(ScreenType.DIARY_SCREEN);
     }
 
     @FXML
