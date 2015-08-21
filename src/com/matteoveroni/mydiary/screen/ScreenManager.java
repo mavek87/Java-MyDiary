@@ -39,7 +39,13 @@ public class ScreenManager implements Disposable{
 	
     public void useScreen(ScreenType screenTypeToUse) {
         if (applicationScreens.containsKey(screenTypeToUse) && this.getApplicationStage() != null) {
-            mainStage.setScene(applicationScreens.get(screenTypeToUse).getScene());
+            
+            Screen screen = applicationScreens.get(screenTypeToUse);
+            
+            ManageableScreen screenController = screen.getController();
+            screenController.realTimeInitialize();
+            
+            mainStage.setScene(screen.getScene());
             mainStage.show();
         } else {
             throw new RuntimeException("Screen Manager wasn\'t initialized with a main stage");

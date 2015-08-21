@@ -54,6 +54,10 @@ public class LoginScreenController implements Initializable, ManageableScreen {
         this.screenManager = screenManager;
     }
 
+    @Override
+    public void realTimeInitialize() {
+    }
+
     @FXML
     void tryToLogin(ActionEvent event) {
         applicationUser = (ApplicationUser) databaseManager.readFirstObject(ApplicationUser.class);

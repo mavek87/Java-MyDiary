@@ -2,6 +2,7 @@ package com.matteoveroni.mydiary.database;
 
 import com.sun.media.jfxmediaimpl.MediaDisposer.Disposable;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -11,6 +12,8 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -22,6 +25,7 @@ public class DatabaseManager implements Disposable {
     private final ServiceRegistry serviceRegistry;
     private Session session;
     private static DatabaseManager databaseManagerInstance;
+    private static final Logger LOG = LoggerFactory.getLogger(DatabaseManager.class);
 
     private DatabaseManager() {
         Configuration configuration = new Configuration();
@@ -52,9 +56,7 @@ public class DatabaseManager implements Disposable {
             writeSession.flush();
             transaction.commit();
         } catch (Exception ex) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
+            handleExceptionDuringTransaction(ex, transaction);
         } finally {
             if (writeSession != null && writeSession.isOpen()) {
                 writeSession.close();
@@ -72,9 +74,7 @@ public class DatabaseManager implements Disposable {
             writeSession.flush();
             transaction.commit();
         } catch (Exception ex) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
+            handleExceptionDuringTransaction(ex, transaction);
         } finally {
             if (writeSession != null && writeSession.isOpen()) {
                 writeSession.close();
@@ -93,38 +93,13 @@ public class DatabaseManager implements Disposable {
             readSession.flush();
             transaction.commit();
         } catch (Exception ex) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
+            handleExceptionDuringTransaction(ex, transaction);
         } finally {
             if (readSession != null && readSession.isOpen()) {
                 readSession.close();
             }
         }
         return objectReaded;
-    }
-
-    public List query(String requestedQuery) {
-        Session querySession = null;
-        Transaction transaction = null;
-        List queryResults = null;
-        try {
-            querySession = sessionFactory.getCurrentSession();
-            transaction = querySession.beginTransaction();
-            Query query = querySession.createQuery(requestedQuery);
-            querySession.flush();
-            transaction.commit();
-            queryResults = query.list();
-        } catch (Exception ex) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        } finally {
-            if (querySession != null && querySession.isOpen()) {
-                querySession.close();
-            }
-        }
-        return queryResults;
     }
 
     public Object readFirstObject(Class objectClass) {
@@ -141,15 +116,55 @@ public class DatabaseManager implements Disposable {
             readSession.flush();
             transaction.commit();
         } catch (Exception ex) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
+            handleExceptionDuringTransaction(ex, transaction);
         } finally {
             if (readSession != null && readSession.isOpen()) {
                 readSession.close();
             }
         }
         return firstReaded;
+    }
+
+    public List readAll(Class objectClass) {
+        Session readSession = null;
+        Transaction transaction = null;
+        List readedElements = new ArrayList<>();
+        try {
+            readSession = sessionFactory.getCurrentSession();
+            transaction = readSession.beginTransaction();
+            Criteria queryCriteria = readSession.createCriteria(objectClass);
+            readedElements = queryCriteria.list();
+            readSession.flush();
+            transaction.commit();
+        } catch (Exception ex) {
+            handleExceptionDuringTransaction(ex, transaction);
+        } finally {
+            if (readSession != null && readSession.isOpen()) {
+                readSession.close();
+            }
+        }
+        return readedElements;
+    }
+
+    public List query(String requestedQuery) {
+        Session querySession = null;
+        Transaction transaction = null;
+        List queryResults = null;
+        try {
+            querySession = sessionFactory.getCurrentSession();
+            transaction = querySession.beginTransaction();
+            Query query = querySession.createQuery(requestedQuery);
+            querySession.flush();
+            transaction.commit();
+            queryResults = query.list();
+        } catch (Exception ex) {
+            handleExceptionDuringTransaction(ex, transaction);
+        } finally {
+            if (querySession != null && querySession.isOpen()) {
+                querySession.close();
+            }
+        }
+        return queryResults;
     }
 
     @Override
@@ -160,5 +175,12 @@ public class DatabaseManager implements Disposable {
         if (sessionFactory != null && !sessionFactory.isClosed()) {
             sessionFactory.close();
         }
+    }
+
+    private void handleExceptionDuringTransaction(Exception ex, Transaction transactionWithException) {
+        if (transactionWithException != null) {
+            transactionWithException.rollback();
+        }
+        LOG.error("An exception occurred! Last transaction rolled back! Exception: " + ex);
     }
 }

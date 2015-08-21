@@ -5,9 +5,7 @@ import com.matteoveroni.mydiary.database.DatabaseManager;
 import com.matteoveroni.mydiary.screen.ManageableScreen;
 import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
-import com.matteoveroni.mydiary.user.ApplicationUser;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -62,8 +60,6 @@ public class DiaryScreenController implements Initializable, ManageableScreen {
     @FXML
     private Button btn_removeNotes;
 
-    List<Article> articles = new ArrayList<>();
-
     @FXML
     void goToArticleScreen(ActionEvent event) {
         myScreenManager.useScreen(ScreenType.ARTICLE_SCREEN);
@@ -81,6 +77,10 @@ public class DiaryScreenController implements Initializable, ManageableScreen {
 
     @FXML
     void createNewNote(ActionEvent event) {
+        Article newArticle = new Article();
+        newArticle.setTitle("New Title");
+        newArticle.setDate(new Date());
+        databaseManager.write(newArticle);
         myScreenManager.useScreen(ScreenType.ARTICLE_SCREEN);
     }
 
@@ -94,34 +94,29 @@ public class DiaryScreenController implements Initializable, ManageableScreen {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        drawAllTheArticlesInTheDiaryTable();
+    }
 
-        Article articolo1 = new Article();
-        articolo1.setTitle("Titolo1");
-        articolo1.setId(3L);
-        articolo1.setAuthor("Mavek");
-        articles.add(articolo1);
+    @Override
+    public void setScreenManager(ScreenManager screenManager) {
+        myScreenManager = screenManager;
+    }
 
-        Article articolo2 = new Article();
-        articolo2.setTitle("Titolo2");
-        articolo2.setDate(new Date());
-        articles.add(articolo2);
-        
-        
-        
-        
-        ObservableList<Article> observableArticles = FXCollections.observableArrayList(articles);
+    @Override
+    public void realTimeInitialize() {
+        drawAllTheArticlesInTheDiaryTable();
+    }
+
+    private void drawAllTheArticlesInTheDiaryTable() {
+        List<Article> articlesFromDatabase = databaseManager.readAll(Article.class);
+
+        ObservableList<Article> articles = FXCollections.observableArrayList(articlesFromDatabase);
 
         tableColumn_Id.setCellValueFactory(new PropertyValueFactory<Article, Long>("id"));
         tableColumn_Title.setCellValueFactory(new PropertyValueFactory<Article, String>("title"));
         tableColumn_Date.setCellValueFactory(new PropertyValueFactory<Article, Date>("date"));
         tableColumn_Author.setCellValueFactory(new PropertyValueFactory<Article, String>("author"));
 
-        diaryTable.setItems(observableArticles);
-    }
-
-    @Override
-    public void setScreenManager(ScreenManager screenManager) {
-        myScreenManager = screenManager;
+        diaryTable.setItems(articles);
     }
 }

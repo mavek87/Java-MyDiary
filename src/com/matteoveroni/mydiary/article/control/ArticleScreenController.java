@@ -6,6 +6,7 @@ import com.matteoveroni.mydiary.screen.ManageableScreen;
 import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
 import java.net.URL;
+import java.util.Date;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -69,6 +70,7 @@ public class ArticleScreenController implements Initializable, ManageableScreen 
     public void initialize(URL url, ResourceBundle rb) {
 
         try {
+            System.out.println("CIAO");
             // Load the first article from the database
             currentArticle = (Article) databaseManager.readFirstObject(Article.class);
             // If the database doesn\'t contain any article let\'s create a new one
@@ -80,7 +82,15 @@ public class ArticleScreenController implements Initializable, ManageableScreen 
         } catch (Exception ex) {
             throw new RuntimeException();
         }
+    }
 
+    @Override
+    public void setScreenManager(ScreenManager screenManager) {
+        myScreenManager = screenManager;
+    }
+
+    @Override
+    public void realTimeInitialize() {
     }
 
     @FXML
@@ -123,17 +133,29 @@ public class ArticleScreenController implements Initializable, ManageableScreen 
     }
 
     private void drawCurrentArticleOnScene() {
+        initializeCurrentScene();
+
         articleNumber_txt.setText(Objects.toString(currentArticle.getId(), null));
+
         articleTitle_txt.setText(currentArticle.getTitle());
+
         articleMessage_htmlEditor.setHtmlText(currentArticle.getMessage());
 
-        // da buttare????
-        //articleAuthor_txt.setText(currentArticle.getAuthor);
-        //articleData_txt = currentArticle.getData();
+        articleAuthor_txt.setText(currentArticle.getAuthor());
+
+        Date currentDate = currentArticle.getDate();
+        if (currentDate != null) {
+            articleData_txt.setText(currentDate.toString());
+        }
+//        articleData_txt.setText(currentArticle.getDate().toString());
     }
 
-    @Override
-    public void setScreenManager(ScreenManager screenManager) {
-        myScreenManager = screenManager;
+    private void initializeCurrentScene() {
+        articleNumber_txt.setText("");
+        articleTitle_txt.setText("");
+        articleMessage_htmlEditor.setHtmlText("");
+        articleAuthor_txt.setText("");
+        articleData_txt.setText("");
+
     }
 }
