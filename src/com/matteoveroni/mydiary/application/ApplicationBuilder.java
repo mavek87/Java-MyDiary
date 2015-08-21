@@ -15,10 +15,11 @@ import javafx.stage.Stage;
  */
 public class ApplicationBuilder {
 
-    private final ApplicationManager applicationManager = new ApplicationManager();
+    private ApplicationManager applicationManager;
     private final DatabaseManager databaseManager = DatabaseManager.getInstance();
     private final ScreenManager screenManager;
     private final ScreensFactory screensFactory = ScreensFactory.getInstance();
+    private ApplicationUser loggedInUser;
 
     private final String applicationName;
     private final String applicationVersion;
@@ -33,18 +34,12 @@ public class ApplicationBuilder {
         mainStageSetup();
         buildScreens();
         useInitialScreen();
-        applicationManager.setScreenManager(screenManager);
-        applicationManager.setDatabaseManager(databaseManager);
         createApplicationMainUserIfDoesntExist();
+        applicationManager = new ApplicationManager(screenManager, databaseManager);
         return applicationManager;
     }
 
     private void mainStageSetup() {
-//		screenManager.getApplicationStage().setResizable(true);
-//		screenManager.getApplicationStage().setMaxWidth(800);
-//		screenManager.getApplicationStage().setMaxHeight(600);
-//		screenManager.getApplicationStage().setMinWidth(640);
-//		screenManager.getApplicationStage().setMinHeight(480);
         screenManager.getApplicationStage().setTitle(applicationName + " - v. " + applicationVersion);
         screenManager.getApplicationStage().show();
         centerWindow();
@@ -72,19 +67,17 @@ public class ApplicationBuilder {
     }
 
     private void createApplicationMainUserIfDoesntExist() {
-        ApplicationUser user;
         try {
-            user = (ApplicationUser) databaseManager.readFirstObject(ApplicationUser.class);
-            if (user == null) {
-                user = new ApplicationUser();
-                user.setName("matteo");
-                user.setPassword("pass");
-                user.setAge(28);
-                databaseManager.write(user);
+            loggedInUser = (ApplicationUser) databaseManager.readFirstObject(ApplicationUser.class);
+            if (loggedInUser == null) {
+                loggedInUser = new ApplicationUser();
+                loggedInUser.setName("matteo");
+                loggedInUser.setPassword("pass");
+                loggedInUser.setAge(28);
+                databaseManager.write(loggedInUser);
             }
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
-
     }
 }

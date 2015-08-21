@@ -2,29 +2,36 @@ package com.matteoveroni.mydiary.application;
 
 import com.matteoveroni.mydiary.database.DatabaseManager;
 import com.matteoveroni.mydiary.screen.ScreenManager;
+import com.matteoveroni.mydiary.user.ApplicationUser;
 import com.sun.media.jfxmediaimpl.MediaDisposer.Disposable;
 
 /**
  *
  * @author Matteo Veroni
  */
-public class ApplicationManager implements Disposable{
+public class ApplicationManager implements Disposable {
 
-	private ScreenManager screenManager;
-	private DatabaseManager databaseManager;
+    private final ScreenManager screenManager;
+    private final DatabaseManager databaseManager;
+    private ApplicationUser loggedInUser;
 
-	public void setScreenManager(ScreenManager screenManager) {
-		this.screenManager = screenManager;
-	}
+    public ApplicationManager(ScreenManager screenManager, DatabaseManager databaseManager) {
+        this.screenManager = screenManager;
+        this.databaseManager = databaseManager;
+    }
 
-	public void setDatabaseManager(DatabaseManager databaseManager) {
-		this.databaseManager = databaseManager;
-	}
+    public ApplicationUser getCurrentUser() {
+        return loggedInUser;
+    }
+    
+    public void setCurrentUser(ApplicationUser loggedInUser){
+        this.loggedInUser = loggedInUser;
+    }
 
-	@Override
-	public void dispose() {
-		screenManager.dispose();
-		databaseManager.dispose();
-	}
+    @Override
+    public void dispose() {
+        screenManager.dispose();
+        databaseManager.dispose();
+    }
 
 }

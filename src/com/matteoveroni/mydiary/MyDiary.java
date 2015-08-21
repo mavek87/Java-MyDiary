@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 public class MyDiary extends Application {
 
     private static final String APPLICATION_NAME = "MyDiary";
-    private static final String APPLICATION_VERSION = "0.0.7";
+    private static final String APPLICATION_VERSION = "0.0.8";
 
     private ApplicationBuilder applicationBuilder;
     private ApplicationManager applicationManager;
