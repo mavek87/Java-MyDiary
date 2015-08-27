@@ -97,7 +97,6 @@ public class DiaryScreenController implements Initializable, ManageableScreen {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        drawAllTheArticlesInTheDiaryTable();
     }
 
     @Override
@@ -106,7 +105,7 @@ public class DiaryScreenController implements Initializable, ManageableScreen {
     }
 
     @Override
-    public void realTimeInitialize() {
+    public void updateScreen() {
         drawAllTheArticlesInTheDiaryTable();
     }
 

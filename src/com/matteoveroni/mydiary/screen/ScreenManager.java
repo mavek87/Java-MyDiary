@@ -43,7 +43,7 @@ public class ScreenManager implements Disposable{
             Screen screen = applicationScreens.get(screenTypeToUse);
             
             ManageableScreen screenController = screen.getController();
-            screenController.realTimeInitialize();
+            screenController.updateScreen();
             
             mainStage.setScene(screen.getScene());
             mainStage.show();

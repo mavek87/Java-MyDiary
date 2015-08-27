@@ -70,7 +70,6 @@ public class ArticleScreenController implements Initializable, ManageableScreen 
     public void initialize(URL url, ResourceBundle rb) {
 
         try {
-            System.out.println("CIAO");
             // Load the first article from the database
             currentArticle = (Article) databaseManager.readFirstObject(Article.class);
             // If the database doesn\'t contain any article let\'s create a new one
@@ -90,7 +89,7 @@ public class ArticleScreenController implements Initializable, ManageableScreen 
     }
 
     @Override
-    public void realTimeInitialize() {
+    public void updateScreen() {
     }
 
     @FXML

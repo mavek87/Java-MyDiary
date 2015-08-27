@@ -55,7 +55,7 @@ public class LoginScreenController implements Initializable, ManageableScreen {
     }
 
     @Override
-    public void realTimeInitialize() {
+    public void updateScreen() {
     }
 
     @FXML
