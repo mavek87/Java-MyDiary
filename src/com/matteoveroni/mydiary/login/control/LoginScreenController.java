@@ -60,7 +60,7 @@ public class LoginScreenController implements Initializable, ManageableScreen {
 
     @FXML
     void tryToLogin(ActionEvent event) {
-        applicationUser = (ApplicationUser) databaseManager.readFirstObject(ApplicationUser.class);
+        applicationUser = (ApplicationUser) databaseManager.readFirst(ApplicationUser.class);
 
         if (applicationUser != null) {
             if (txt_username.getText().equals(applicationUser.getName()) && psw_password.getText().equals(applicationUser.getPassword())) {

@@ -6,7 +6,6 @@ import com.matteoveroni.mydiary.screen.ManageableScreen;
 import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
 import java.net.URL;
-import java.util.Date;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -23,138 +22,125 @@ import javafx.scene.web.HTMLEditor;
  */
 public class ArticleScreenController implements Initializable, ManageableScreen {
 
-    @FXML
-    private ResourceBundle resources;
+	@FXML
+	private ResourceBundle resources;
 
-    @FXML
-    private URL location;
+	@FXML
+	private URL location;
 
-    @FXML
-    private TextField articleData_txt;
+	@FXML
+	private TextField articleData_txt;
 
-    @FXML
-    private Button cancelArticle_btn;
+	@FXML
+	private Button backArticle_btn;
 
-    @FXML
-    private Button previousArticle_btn;
+	@FXML
+	private Button previousArticle_btn;
 
-    @FXML
-    private TextField articleNumber_txt;
+	@FXML
+	private TextField articleNumber_txt;
 
-    @FXML
-    private TextField articleAuthor_txt;
+	@FXML
+	private TextField articleAuthor_txt;
 
-    @FXML
-    private Button nextArticle_btn;
+	@FXML
+	private Button nextArticle_btn;
 
-    @FXML
-    private TextField articleTitle_txt;
+	@FXML
+	private TextField articleTitle_txt;
 
-    @FXML
-    private Button saveArticle_btn;
+	@FXML
+	private Button saveArticle_btn;
 
-    @FXML
-    private HTMLEditor articleMessage_htmlEditor;
+	@FXML
+	private HTMLEditor articleMessage_htmlEditor;
 
-    private Article currentArticle;
-    private ScreenManager myScreenManager;
-    private final DatabaseManager databaseManager = DatabaseManager.getInstance();
+	private Article currentArticle;
+	private ScreenManager myScreenManager;
+	private final DatabaseManager databaseManager = DatabaseManager.getInstance();
 
-    /**
-     * Initializes the controller class.
-     *
-     * @param url
-     * @param rb
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+	/**
+	 * Initializes the controller class.
+	 *
+	 * @param url
+	 * @param rb
+	 */
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+	}
 
-        try {
-            // Load the first article from the database
-            currentArticle = (Article) databaseManager.readFirstObject(Article.class);
-            // If the database doesn\'t contain any article let\'s create a new one
-            if (currentArticle == null) {
-                currentArticle = new Article();
-                databaseManager.write(currentArticle);
-            }
-            drawCurrentArticleOnScene();
-        } catch (Exception ex) {
-            throw new RuntimeException();
-        }
-    }
+	@Override
+	public void setScreenManager(ScreenManager screenManager) {
+		myScreenManager = screenManager;
+	}
 
-    @Override
-    public void setScreenManager(ScreenManager screenManager) {
-        myScreenManager = screenManager;
-    }
+	@Override
+	public void updateScreen() {
+		try {
+			currentArticle = (Article) databaseManager.readLast(Article.class);
+			drawCurrentArticleOnTheScene();
+		} catch (Exception ex) {
+			throw new RuntimeException();
+		}
+	}
 
-    @Override
-    public void updateScreen() {
-    }
+	@FXML
+	void articleMessageChanged(ActionEvent event) {
+		System.out.println("articolo messaggio cambiato!");
+	}
 
-    @FXML
-    void articleMessageChanged(ActionEvent event) {
-        System.out.println("articolo messaggio cambiato!");
-    }
+	@FXML
+	void saveArticleButtonPressed(ActionEvent event) {
 
-    @FXML
-    void saveArticleButtonPressed(ActionEvent event) {
+		// Devo ottenere tutti i dati del messaggio attuali temporanei e salvarli nel db
+		currentArticle.setTitle(articleTitle_txt.getText());
+		currentArticle.setMessage(articleMessage_htmlEditor.getHtmlText());
+		System.out.println(articleMessage_htmlEditor.getHtmlText());
 
-        // Devo ottenere tutti i dati del messaggio attuali temporanei e salvarli nel db
-        currentArticle.setTitle(articleTitle_txt.getText());
-        currentArticle.setMessage(articleMessage_htmlEditor.getHtmlText());
-        System.out.println(articleMessage_htmlEditor.getHtmlText());
+		databaseManager.update(currentArticle);
+	}
 
-        databaseManager.update(currentArticle);
-    }
+	@FXML
+	void previousArticleButtonPressed(ActionEvent event) {
+		Article newArticleReaded = (Article) databaseManager.read(Article.class, currentArticle.getId() - 1);
+		if (newArticleReaded != null) {
+			currentArticle = newArticleReaded;
+			drawCurrentArticleOnTheScene();
+		}
+	}
 
-    @FXML
-    void previousArticleButtonPressed(ActionEvent event) {
-        Article newArticleReaded = (Article) databaseManager.read(Article.class, currentArticle.getId() - 1);
-        if (newArticleReaded != null) {
-            currentArticle = newArticleReaded;
-            drawCurrentArticleOnScene();
-        }
-    }
+	@FXML
+	void nextArticleButtonPressed(ActionEvent event) {
+		Article newArticleReaded = (Article) databaseManager.read(Article.class, currentArticle.getId() + 1);
+		if (newArticleReaded != null) {
+			currentArticle = newArticleReaded;
+			drawCurrentArticleOnTheScene();
+		}
+	}
 
-    @FXML
-    void nextArticleButtonPressed(ActionEvent event) {
-        Article newArticleReaded = (Article) databaseManager.read(Article.class, currentArticle.getId() + 1);
-        if (newArticleReaded != null) {
-            currentArticle = newArticleReaded;
-            drawCurrentArticleOnScene();
-        }
-    }
+	@FXML
+	void backButtonPressed(ActionEvent event) {
+		myScreenManager.useScreen(ScreenType.DIARY_SCREEN);
+	}
 
-    @FXML
-    void cancelButtonPressed(ActionEvent event) {
-        myScreenManager.useScreen(ScreenType.DIARY_SCREEN);
-    }
+	private void drawCurrentArticleOnTheScene() {
+		resetCurrentSceneElements();
 
-    private void drawCurrentArticleOnScene() {
-        initializeCurrentScene();
+		articleNumber_txt.setText(Objects.toString(currentArticle.getId(), null));
+		articleTitle_txt.setText(currentArticle.getTitle());
+		articleMessage_htmlEditor.setHtmlText(currentArticle.getMessage());
+		articleAuthor_txt.setText(currentArticle.getAuthor());
 
-        articleNumber_txt.setText(Objects.toString(currentArticle.getId(), null));
+		if (currentArticle.getDate() != null) {
+			articleData_txt.setText(currentArticle.getDate().toString());
+		}
+	}
 
-        articleTitle_txt.setText(currentArticle.getTitle());
-
-        articleMessage_htmlEditor.setHtmlText(currentArticle.getMessage());
-
-        articleAuthor_txt.setText(currentArticle.getAuthor());
-
-        Date currentDate = currentArticle.getDate();
-        if (currentDate != null) {
-            articleData_txt.setText(currentDate.toString());
-        }
-//        articleData_txt.setText(currentArticle.getDate().toString());
-    }
-
-    private void initializeCurrentScene() {
-        articleNumber_txt.setText("");
-        articleTitle_txt.setText("");
-        articleMessage_htmlEditor.setHtmlText("");
-        articleAuthor_txt.setText("");
-        articleData_txt.setText("");
-
-    }
+	private void resetCurrentSceneElements() {
+		articleNumber_txt.setText("");
+		articleTitle_txt.setText("");
+		articleMessage_htmlEditor.setHtmlText("");
+		articleAuthor_txt.setText("");
+		articleData_txt.setText("");
+	}
 }

@@ -52,7 +52,7 @@ public class ApplicationBuilder {
                 screenManager.loadScreen(newScreen);
             }
         } catch (IOException ex) {
-            throw new RuntimeException("Impossible to build a screen! \n" + ex);
+            throw new RuntimeException("It was impossible to build a screen! \n" + ex);
         }
     }
 
@@ -68,7 +68,7 @@ public class ApplicationBuilder {
 
     private void createApplicationMainUserIfDoesntExist() {
         try {
-            loggedInUser = (ApplicationUser) databaseManager.readFirstObject(ApplicationUser.class);
+            loggedInUser = (ApplicationUser) databaseManager.readFirst(ApplicationUser.class);
             if (loggedInUser == null) {
                 loggedInUser = new ApplicationUser();
                 loggedInUser.setName("matteo");
