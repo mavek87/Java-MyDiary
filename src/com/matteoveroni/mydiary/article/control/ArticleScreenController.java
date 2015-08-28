@@ -2,6 +2,7 @@ package com.matteoveroni.mydiary.article.control;
 
 import com.matteoveroni.mydiary.article.model.Article;
 import com.matteoveroni.mydiary.database.DatabaseManager;
+import com.matteoveroni.mydiary.database.DatabaseManager.ElementOnWhichOperate;
 import com.matteoveroni.mydiary.screen.ManageableScreen;
 import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
@@ -77,7 +78,7 @@ public class ArticleScreenController implements Initializable, ManageableScreen 
 	@Override
 	public void updateScreen() {
 		try {
-			currentArticle = (Article) databaseManager.readLast(Article.class);
+			currentArticle = (Article) databaseManager.read(Article.class, ElementOnWhichOperate.LAST);
 			drawCurrentArticleOnTheScene();
 		} catch (Exception ex) {
 			throw new RuntimeException();

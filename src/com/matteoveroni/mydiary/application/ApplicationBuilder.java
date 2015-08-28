@@ -1,6 +1,7 @@
 package com.matteoveroni.mydiary.application;
 
 import com.matteoveroni.mydiary.database.DatabaseManager;
+import com.matteoveroni.mydiary.database.DatabaseManager.ElementOnWhichOperate;
 import com.matteoveroni.mydiary.screen.Screen;
 import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
@@ -68,7 +69,7 @@ public class ApplicationBuilder {
 
     private void createApplicationMainUserIfDoesntExist() {
         try {
-            loggedInUser = (ApplicationUser) databaseManager.readFirst(ApplicationUser.class);
+            loggedInUser = (ApplicationUser) databaseManager.read(ApplicationUser.class, ElementOnWhichOperate.FIRST);
             if (loggedInUser == null) {
                 loggedInUser = new ApplicationUser();
                 loggedInUser.setName("matteo");

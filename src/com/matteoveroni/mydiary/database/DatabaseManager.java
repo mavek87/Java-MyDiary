@@ -40,6 +40,11 @@ public class DatabaseManager implements Disposable {
 		SAVE, READ, DELETE, ALTER;
 	}
 
+	public enum ElementOnWhichOperate {
+
+		FIRST, LAST;
+	}
+
 	public static DatabaseManager getInstance() {
 		if (databaseManagerInstance == null) {
 			databaseManagerInstance = new DatabaseManager();
@@ -103,41 +108,28 @@ public class DatabaseManager implements Disposable {
 		return objectReaded;
 	}
 
-	public Object readFirst(Class objectClass) {
+	public Object read(Class objectClass, ElementOnWhichOperate elementOnWhichOperate) {
 		Session readSession = null;
 		Transaction transaction = null;
-		Object firstReaded = null;
+		Object readedObject = null;
 		try {
 			readSession = sessionFactory.getCurrentSession();
 			transaction = readSession.beginTransaction();
+			
 			Criteria queryCriteria = readSession.createCriteria(objectClass);
-			queryCriteria.setFirstResult(0);
-			queryCriteria.setMaxResults(1);
-			firstReaded = queryCriteria.list().get(0);
-			readSession.flush();
-			transaction.commit();
-		} catch (Exception ex) {
-			handleExceptionDuringTransaction(ex, transaction);
-		} finally {
-			if (readSession != null && readSession.isOpen()) {
-				readSession.close();
+			switch (elementOnWhichOperate) {
+				case FIRST:
+					queryCriteria.setFirstResult(0);
+					queryCriteria.setMaxResults(1);
+					break;
+				case LAST:
+					queryCriteria.addOrder(Order.desc("id"));
+					queryCriteria.setFirstResult(0);
+					queryCriteria.setMaxResults(1);
+					break;
 			}
-		}
-		return firstReaded;
-	}
+			readedObject = queryCriteria.list().get(0);
 
-	public Object readLast(Class objectClass) {
-		Session readSession = null;
-		Transaction transaction = null;
-		Object lastReaded = null;
-		try {
-			readSession = sessionFactory.getCurrentSession();
-			transaction = readSession.beginTransaction();
-			Criteria queryCriteria = readSession.createCriteria(objectClass)
-				.addOrder(Order.desc("id"))
-				.setFirstResult(0)
-				.setMaxResults(1);
-			lastReaded = queryCriteria.list().get(0);
 			readSession.flush();
 			transaction.commit();
 		} catch (Exception ex) {
@@ -147,7 +139,7 @@ public class DatabaseManager implements Disposable {
 				readSession.close();
 			}
 		}
-		return lastReaded;
+		return readedObject;
 	}
 
 	public List readAll(Class objectClass) {
