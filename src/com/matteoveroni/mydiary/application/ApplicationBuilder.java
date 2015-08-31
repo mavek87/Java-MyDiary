@@ -47,13 +47,15 @@ public class ApplicationBuilder {
     }
 
     private void buildScreens() {
+        int indexOfTheCurrentScreenToBuild = 0;
         try {
             for (ScreenType screenTypeToBuild : ScreenType.values()) {
                 Screen newScreen = screensFactory.createScreen(screenTypeToBuild);
                 screenManager.loadScreen(newScreen);
+                indexOfTheCurrentScreenToBuild++;
             }
-        } catch (IOException ex) {
-            throw new RuntimeException("It was impossible to build a screen! \n" + ex);
+        } catch (Exception ex) {
+            throw new RuntimeException("IMPOSSIBLE TO BUILD SCREEN -> \'" + ScreenType.values()[indexOfTheCurrentScreenToBuild] + "\'!\n\nException occurred: \n" + ex);
         }
     }
 
