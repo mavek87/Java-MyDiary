@@ -3,6 +3,7 @@ package com.matteoveroni.mydiary.diary.control;
 import com.matteoveroni.mydiary.article.model.Article;
 import com.matteoveroni.mydiary.database.DAO;
 import com.matteoveroni.mydiary.screen.ManageableScreen;
+import com.matteoveroni.mydiary.Observer;
 import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
 import java.net.URL;
@@ -25,100 +26,91 @@ import javafx.scene.control.cell.PropertyValueFactory;
  *
  * @author Matteo Veroni
  */
-public class DiaryScreenController implements Initializable, ManageableScreen {
+public class DiaryScreenController implements Initializable, ManageableScreen, Observer {
 
-    private ScreenManager myScreenManager;
-    private final DAO databaseManager = DAO.getInstance();
+	private ScreenManager screenManager;
+	private final DAO databaseManager = DAO.getInstance();
 
-    @FXML
-    private TableView<Article> diaryTable;
+	@FXML
+	private TableView<Article> diaryTable;
+	@FXML
+	private TableColumn<Article, Long> tableColumn_Id;
+	@FXML
+	private TableColumn<Article, String> tableColumn_Title;
+	@FXML
+	private TableColumn<Article, Date> tableColumn_Date;
+	@FXML
+	private TableColumn<Article, Date> tableColumn_Time;
+	@FXML
+	private TableColumn<Article, String> tableColumn_Author;
+	@FXML
+	private Button btn_filter;
+	@FXML
+	private Button btn_button;
+	@FXML
+	private Button btn_createNewNote;
+	@FXML
+	private CheckBox chk_enableFilter;
+	@FXML
+	private Button btn_removeNotes;
 
-    @FXML
-    private TableColumn<Article, Long> tableColumn_Id;
+	/**
+	 * Initializes the controller class.
+	 */
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+	}
 
-    @FXML
-    private TableColumn<Article, String> tableColumn_Title;
+	@Override
+	public void setScreenManager(ScreenManager screenManager) {
+		this.screenManager = screenManager;
+		screenManager.registerObserver(this);
+	}
 
-    @FXML
-    private TableColumn<Article, Date> tableColumn_Date;
+	@Override
+	public void update() {
+		drawAllTheArticlesInTheDiaryTable();
+	}
 
-    @FXML
-    private TableColumn<Article, Date> tableColumn_Time;
+	@FXML
+	void goToArticleScreen(ActionEvent event) {
+		screenManager.useScreen(ScreenType.ARTICLE_SCREEN);
+	}
 
-    @FXML
-    private TableColumn<Article, String> tableColumn_Author;
+	@FXML
+	void goToFilterScreen(ActionEvent event) {
 
-    @FXML
-    private Button btn_filter;
+	}
 
-    @FXML
-    private Button btn_button;
+	@FXML
+	void removeNotes(ActionEvent event) {
 
-    @FXML
-    private Button btn_createNewNote;
+	}
 
-    @FXML
-    private CheckBox chk_enableFilter;
+	@FXML
+	void createNewNote(ActionEvent event) {
+		Article newArticle = new Article();
+		newArticle.setTitle("New Title");
+		newArticle.setDate(new Date());
+		databaseManager.write(newArticle);
+		screenManager.useScreen(ScreenType.ARTICLE_SCREEN);
+	}
 
-    @FXML
-    private Button btn_removeNotes;
+	@FXML
+	void enableFilter(ActionEvent event) {
 
-    @FXML
-    void goToArticleScreen(ActionEvent event) {
-        myScreenManager.useScreen(ScreenType.ARTICLE_SCREEN);
-    }
+	}
 
-    @FXML
-    void goToFilterScreen(ActionEvent event) {
+	private void drawAllTheArticlesInTheDiaryTable() {
+		List<Article> articlesFromDatabase = databaseManager.readAll(Article.class);
 
-    }
+		ObservableList<Article> articles = FXCollections.observableArrayList(articlesFromDatabase);
 
-    @FXML
-    void removeNotes(ActionEvent event) {
+		tableColumn_Id.setCellValueFactory(new PropertyValueFactory<Article, Long>("id"));
+		tableColumn_Title.setCellValueFactory(new PropertyValueFactory<Article, String>("title"));
+		tableColumn_Date.setCellValueFactory(new PropertyValueFactory<Article, Date>("date"));
+		tableColumn_Author.setCellValueFactory(new PropertyValueFactory<Article, String>("author"));
 
-    }
-
-    @FXML
-    void createNewNote(ActionEvent event) {
-        Article newArticle = new Article();
-        newArticle.setTitle("New Title");
-        newArticle.setDate(new Date());
-        databaseManager.write(newArticle);
-        myScreenManager.useScreen(ScreenType.ARTICLE_SCREEN);
-    }
-
-    @FXML
-    void enableFilter(ActionEvent event) {
-
-    }
-
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-    }
-
-    @Override
-    public void setScreenManager(ScreenManager screenManager) {
-        myScreenManager = screenManager;
-    }
-
-    @Override
-    public void updateScreen() {
-        drawAllTheArticlesInTheDiaryTable();
-    }
-
-    private void drawAllTheArticlesInTheDiaryTable() {
-        List<Article> articlesFromDatabase = databaseManager.readAll(Article.class);
-
-        ObservableList<Article> articles = FXCollections.observableArrayList(articlesFromDatabase);
-
-        tableColumn_Id.setCellValueFactory(new PropertyValueFactory<Article, Long>("id"));
-        tableColumn_Title.setCellValueFactory(new PropertyValueFactory<Article, String>("title"));
-        tableColumn_Date.setCellValueFactory(new PropertyValueFactory<Article, Date>("date"));
-        tableColumn_Author.setCellValueFactory(new PropertyValueFactory<Article, String>("author"));
-
-        diaryTable.setItems(articles);
-    }
+		diaryTable.setItems(articles);
+	}
 }

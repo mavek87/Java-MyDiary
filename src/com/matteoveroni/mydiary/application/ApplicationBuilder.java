@@ -7,7 +7,6 @@ import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
 import com.matteoveroni.mydiary.screen.ScreensFactory;
 import com.matteoveroni.mydiary.user.ApplicationUser;
-import java.io.IOException;
 import javafx.stage.Stage;
 
 /**
