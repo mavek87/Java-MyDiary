@@ -1,6 +1,6 @@
 package com.matteoveroni.mydiary.model;
 
-import com.matteoveroni.mydiary.diary.model.Diary;
+import com.matteoveroni.mydiary.diary.model.hibernate.PersistentHibernateDiary;
 import com.matteoveroni.mydiary.article.model.hibernate.PersistentHibernateArticle;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
  */
 public class DiaryTest {
 
-    private final Diary diary = new Diary();
+    private final PersistentHibernateDiary diary = new PersistentHibernateDiary();
        
     private static final String fakeArticleName = "fake123";
     private static final String realArticleName = "realArticle";

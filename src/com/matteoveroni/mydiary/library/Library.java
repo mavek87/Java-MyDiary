@@ -1,6 +1,6 @@
 package com.matteoveroni.mydiary.library;
 
-import com.matteoveroni.mydiary.diary.model.Diary;
+import com.matteoveroni.mydiary.diary.model.hibernate.PersistentHibernateDiary;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,15 +10,15 @@ import java.util.Map;
  */
 public class Library {
 
-    private final Map<String, Diary> library = new HashMap<>();
+    private final Map<String, PersistentHibernateDiary> library = new HashMap<>();
 
-    public void addDiary(String name, Diary newDiary) {
+    public void addDiary(String name, PersistentHibernateDiary newDiary) {
         if (!library.containsKey(name)) {
             library.put(name, newDiary);
         }
     }
 
-    public Diary getDiary(String diaryName) {
+    public PersistentHibernateDiary getDiary(String diaryName) {
         if (library.containsKey(diaryName)) {
             return library.get(diaryName);
         }
