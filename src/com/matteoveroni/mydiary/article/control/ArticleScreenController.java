@@ -73,7 +73,6 @@ public class ArticleScreenController implements Initializable, ManageableScreen,
     public void update() {
         try {
             currentArticle = model.getLastArticle();
-            System.out.println("\n\nCurrent Article -> " + currentArticle.getTitle());
             drawCurrentModelOnTheScene();
         } catch (Exception ex) {
             throw new RuntimeException(ex);
@@ -86,12 +85,8 @@ public class ArticleScreenController implements Initializable, ManageableScreen,
 
     @FXML
     void saveArticleButtonPressed(ActionEvent event) {
-
-        // Devo ottenere tutti i dati del messaggio attuali temporanei e salvarli nel db
         currentArticle.setTitle(articleTitle_txt.getText());
         currentArticle.setMessage(articleMessage_htmlEditor.getHtmlText());
-        System.out.println(articleMessage_htmlEditor.getHtmlText());
-
         model.saveCurrentArticle(currentArticle);
     }
 
