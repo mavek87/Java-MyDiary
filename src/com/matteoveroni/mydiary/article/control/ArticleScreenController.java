@@ -75,14 +75,13 @@ public class ArticleScreenController implements Initializable, ManageableScreen,
 	public void setScreenManager(ScreenManager screenManager) {
 		this.screenManager = screenManager;
 		screenManager.registerObserver(this);
-
 	}
 
 	@Override
 	public void update() {
 		try {
 			currentArticle = (Article) databaseManager.read(Article.class, ElementOnWhichOperate.LAST);
-			drawCurrentArticleOnTheScene();
+			drawCurrentModelOnTheScene();
 		} catch (Exception ex) {
 			throw new RuntimeException();
 		}
@@ -109,7 +108,7 @@ public class ArticleScreenController implements Initializable, ManageableScreen,
 		Article newArticleReaded = (Article) databaseManager.read(Article.class, currentArticle.getId() - 1);
 		if (newArticleReaded != null) {
 			currentArticle = newArticleReaded;
-			drawCurrentArticleOnTheScene();
+			drawCurrentModelOnTheScene();
 		}
 	}
 
@@ -118,7 +117,7 @@ public class ArticleScreenController implements Initializable, ManageableScreen,
 		Article newArticleReaded = (Article) databaseManager.read(Article.class, currentArticle.getId() + 1);
 		if (newArticleReaded != null) {
 			currentArticle = newArticleReaded;
-			drawCurrentArticleOnTheScene();
+			drawCurrentModelOnTheScene();
 		}
 	}
 
@@ -127,7 +126,7 @@ public class ArticleScreenController implements Initializable, ManageableScreen,
 		screenManager.useScreen(ScreenType.DIARY_SCREEN);
 	}
 
-	private void drawCurrentArticleOnTheScene() {
+	private void drawCurrentModelOnTheScene() {
 		resetCurrentSceneElements();
 
 		articleNumber_txt.setText(Objects.toString(currentArticle.getId(), null));
