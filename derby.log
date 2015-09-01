@@ -1,13 +1,13 @@
 ----------------------------------------------------------------
-Tue Sep 01 15:28:14 CEST 2015:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.3.0 - (1405108): instance a816c00e-014f-8917-fb86-0000008b8860 
-on database directory C:\Users\veroni\Documents\NetBeansProjects\Java-MyDiary\mydiarydb  with class loader java.net.URLClassLoader@91cee 
-Loaded from file:/C:/Users/veroni/Documents/NetBeansProjects/Java-MyDiary/dist/run653859350/lib/derby.jar
+Tue Sep 01 21:46:16 CEST 2015:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.3.2 - (1557835): instance a816c00e-014f-8a72-0edf-000006ccc8b8 
+on database directory /media/mavek/DATA/Lavoro/Programmi/Netbeans Project 8.0/Java-MyDiary/mydiarydb  with class loader java.net.URLClassLoader@6d2a585c 
+Loaded from file:/media/mavek/DATA/Lavoro/Programmi/Netbeans%20Project%208.0/Java-MyDiary/dist/run543208655/lib/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.7.0_45-b18
-user.dir=C:\Users\veroni\Documents\NetBeansProjects\Java-MyDiary
-os.name=Windows 7
-os.arch=x86
-os.version=6.1
+java.runtime.version=1.7.0_80-b15
+user.dir=/media/mavek/DATA/Lavoro/Programmi/Netbeans Project 8.0/Java-MyDiary
+os.name=Linux
+os.arch=amd64
+os.version=3.19.0-26-generic
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
