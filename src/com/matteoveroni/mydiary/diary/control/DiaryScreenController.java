@@ -1,6 +1,6 @@
 package com.matteoveroni.mydiary.diary.control;
 
-import com.matteoveroni.mydiary.article.model.Article;
+import com.matteoveroni.mydiary.article.model.hibernate.PersistentHibernateArticle;
 import com.matteoveroni.mydiary.database.DAO;
 import com.matteoveroni.mydiary.screen.ManageableScreen;
 import com.matteoveroni.mydiary.Observer;
@@ -32,17 +32,17 @@ public class DiaryScreenController implements Initializable, ManageableScreen, O
 	private final DAO databaseManager = DAO.getInstance();
 
 	@FXML
-	private TableView<Article> diaryTable;
+	private TableView<PersistentHibernateArticle> diaryTable;
 	@FXML
-	private TableColumn<Article, Long> tableColumn_Id;
+	private TableColumn<PersistentHibernateArticle, Long> tableColumn_Id;
 	@FXML
-	private TableColumn<Article, String> tableColumn_Title;
+	private TableColumn<PersistentHibernateArticle, String> tableColumn_Title;
 	@FXML
-	private TableColumn<Article, Date> tableColumn_Date;
+	private TableColumn<PersistentHibernateArticle, Date> tableColumn_Date;
 	@FXML
-	private TableColumn<Article, Date> tableColumn_Time;
+	private TableColumn<PersistentHibernateArticle, Date> tableColumn_Time;
 	@FXML
-	private TableColumn<Article, String> tableColumn_Author;
+	private TableColumn<PersistentHibernateArticle, String> tableColumn_Author;
 	@FXML
 	private Button btn_filter;
 	@FXML
@@ -89,7 +89,7 @@ public class DiaryScreenController implements Initializable, ManageableScreen, O
 
 	@FXML
 	void createNewNote(ActionEvent event) {
-		Article newArticle = new Article();
+		PersistentHibernateArticle newArticle = new PersistentHibernateArticle();
 		newArticle.setTitle("New Title");
 		newArticle.setDate(new Date());
 		databaseManager.write(newArticle);
@@ -102,14 +102,14 @@ public class DiaryScreenController implements Initializable, ManageableScreen, O
 	}
 
 	private void drawAllTheArticlesInTheDiaryTable() {
-		List<Article> articlesFromDatabase = databaseManager.readAll(Article.class);
+		List<PersistentHibernateArticle> articlesFromDatabase = databaseManager.readAll(PersistentHibernateArticle.class);
 
-		ObservableList<Article> articles = FXCollections.observableArrayList(articlesFromDatabase);
+		ObservableList<PersistentHibernateArticle> articles = FXCollections.observableArrayList(articlesFromDatabase);
 
-		tableColumn_Id.setCellValueFactory(new PropertyValueFactory<Article, Long>("id"));
-		tableColumn_Title.setCellValueFactory(new PropertyValueFactory<Article, String>("title"));
-		tableColumn_Date.setCellValueFactory(new PropertyValueFactory<Article, Date>("date"));
-		tableColumn_Author.setCellValueFactory(new PropertyValueFactory<Article, String>("author"));
+		tableColumn_Id.setCellValueFactory(new PropertyValueFactory<PersistentHibernateArticle, Long>("id"));
+		tableColumn_Title.setCellValueFactory(new PropertyValueFactory<PersistentHibernateArticle, String>("title"));
+		tableColumn_Date.setCellValueFactory(new PropertyValueFactory<PersistentHibernateArticle, Date>("date"));
+		tableColumn_Author.setCellValueFactory(new PropertyValueFactory<PersistentHibernateArticle, String>("author"));
 
 		diaryTable.setItems(articles);
 	}

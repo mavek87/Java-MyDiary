@@ -1,13 +1,15 @@
 package com.matteoveroni.mydiary.article.control;
 
-import com.matteoveroni.mydiary.article.model.Article;
+import com.matteoveroni.mydiary.article.model.hibernate.PersistentHibernateArticle;
 import com.matteoveroni.mydiary.screen.ManageableScreen;
 import com.matteoveroni.mydiary.Observer;
+import com.matteoveroni.mydiary.article.model.Article;
 import com.matteoveroni.mydiary.article.model.ArticleModel;
-import com.matteoveroni.mydiary.article.model.HibernateArticleModel;
+import com.matteoveroni.mydiary.article.model.hibernate.HibernateArticleModel;
 import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
 import java.net.URL;
+import java.util.Date;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -23,7 +25,7 @@ import javafx.scene.web.HTMLEditor;
  * @author Matteo Veroni
  */
 public class ArticleScreenController implements Initializable, ManageableScreen, Observer {
-
+    
     private ScreenManager screenManager;
     private ArticleModel model;
     private Article currentArticle;
@@ -60,36 +62,43 @@ public class ArticleScreenController implements Initializable, ManageableScreen,
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         model = new HibernateArticleModel();
-        currentArticle = new Article();
+        currentArticle = new PersistentHibernateArticle();
     }
-
+    
     @Override
     public void setScreenManager(ScreenManager screenManager) {
         this.screenManager = screenManager;
         screenManager.registerObserver(this);
     }
-
+    
     @Override
     public void update() {
         try {
             currentArticle = model.getLastArticle();
             drawCurrentModelOnTheScene();
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
+        } catch (Exception exNoArticlesReaded) {
+            try {
+                Article articleToCreate = new PersistentHibernateArticle();
+                articleToCreate.setTitle("Title");
+                articleToCreate.setDate(new Date());
+                currentArticle = model.createNewArticle(articleToCreate);
+            } catch (Exception exInCreationOfANewArticle) {
+                throw new RuntimeException(exInCreationOfANewArticle);
+            }
         }
     }
-
+    
     @FXML
     void articleMessageChanged(ActionEvent event) {
     }
-
+    
     @FXML
     void saveArticleButtonPressed(ActionEvent event) {
         currentArticle.setTitle(articleTitle_txt.getText());
         currentArticle.setMessage(articleMessage_htmlEditor.getHtmlText());
         model.saveCurrentArticle(currentArticle);
     }
-
+    
     @FXML
     void previousArticleButtonPressed(ActionEvent event) {
         Article newArticleReaded = model.getPreviousArticle(currentArticle);
@@ -98,7 +107,7 @@ public class ArticleScreenController implements Initializable, ManageableScreen,
             drawCurrentModelOnTheScene();
         }
     }
-
+    
     @FXML
     void nextArticleButtonPressed(ActionEvent event) {
         Article newArticleReaded = model.getNextArticle(currentArticle);
@@ -107,12 +116,12 @@ public class ArticleScreenController implements Initializable, ManageableScreen,
             drawCurrentModelOnTheScene();
         }
     }
-
+    
     @FXML
     void backButtonPressed(ActionEvent event) {
         screenManager.useScreen(ScreenType.DIARY_SCREEN);
     }
-
+    
     private void drawCurrentModelOnTheScene() {
         resetCurrentSceneElements();
         articleNumber_txt.setText(Objects.toString(currentArticle.getId(), null));
@@ -123,7 +132,7 @@ public class ArticleScreenController implements Initializable, ManageableScreen,
             articleData_txt.setText(currentArticle.getDate().toString());
         }
     }
-
+    
     private void resetCurrentSceneElements() {
         articleNumber_txt.setText("");
         articleTitle_txt.setText("");

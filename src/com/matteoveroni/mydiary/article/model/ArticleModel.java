@@ -15,4 +15,6 @@ public interface ArticleModel {
     public Article getNextArticle(Article currentArticle);
 
     public void saveCurrentArticle(Article articleToSave);
+    
+    public Article createNewArticle(Article articleToSave);
 }
