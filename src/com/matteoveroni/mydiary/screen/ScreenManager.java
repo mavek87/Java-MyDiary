@@ -81,6 +81,7 @@ public class ScreenManager implements Disposable, Observable{
 
 	@Override
 	public void dispose() {
+		observersScreens.clear();
 		mainStage.close();
 		applicationScreens.clear();
 	}
