@@ -62,8 +62,6 @@ public class ScreenManager implements Disposable, Observable {
 	public void useScreen(ScreenType screenTypeToUse) {
 		if (applicationScreens.containsKey(screenTypeToUse) && this.getApplicationStage() != null) {
 			Screen screen = applicationScreens.get(screenTypeToUse);
-//          ManageableScreen screenController = screen.getController();
-//          screenController.updateScreen();
 			notifyObservers();
 			mainStage.setScene(screen.getScene());
 			mainStage.show();
