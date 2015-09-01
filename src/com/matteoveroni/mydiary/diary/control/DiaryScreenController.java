@@ -1,7 +1,7 @@
 package com.matteoveroni.mydiary.diary.control;
 
 import com.matteoveroni.mydiary.article.model.Article;
-import com.matteoveroni.mydiary.database.DatabaseManager;
+import com.matteoveroni.mydiary.database.DAO;
 import com.matteoveroni.mydiary.screen.ManageableScreen;
 import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
@@ -28,7 +28,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class DiaryScreenController implements Initializable, ManageableScreen {
 
     private ScreenManager myScreenManager;
-    private final DatabaseManager databaseManager = DatabaseManager.getInstance();
+    private final DAO databaseManager = DAO.getInstance();
 
     @FXML
     private TableView<Article> diaryTable;

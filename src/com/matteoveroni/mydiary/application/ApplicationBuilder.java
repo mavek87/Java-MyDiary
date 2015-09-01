@@ -1,7 +1,7 @@
 package com.matteoveroni.mydiary.application;
 
-import com.matteoveroni.mydiary.database.DatabaseManager;
-import com.matteoveroni.mydiary.database.DatabaseManager.ElementOnWhichOperate;
+import com.matteoveroni.mydiary.database.DAO;
+import com.matteoveroni.mydiary.database.DAO.ElementOnWhichOperate;
 import com.matteoveroni.mydiary.screen.Screen;
 import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 public class ApplicationBuilder {
 
     private ApplicationManager applicationManager;
-    private final DatabaseManager databaseManager = DatabaseManager.getInstance();
+    private final DAO databaseManager = DAO.getInstance();
     private final ScreenManager screenManager;
     private final ScreensFactory screensFactory = ScreensFactory.getInstance();
     private ApplicationUser loggedInUser;

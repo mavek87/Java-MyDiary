@@ -1,7 +1,7 @@
 package com.matteoveroni.mydiary.login.control;
 
-import com.matteoveroni.mydiary.database.DatabaseManager;
-import com.matteoveroni.mydiary.database.DatabaseManager.ElementOnWhichOperate;
+import com.matteoveroni.mydiary.database.DAO;
+import com.matteoveroni.mydiary.database.DAO.ElementOnWhichOperate;
 import com.matteoveroni.mydiary.screen.ManageableScreen;
 import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
@@ -34,7 +34,7 @@ public class LoginScreenController implements Initializable, ManageableScreen {
     private Label lbl_loginFailedMessage;
 
     private ScreenManager screenManager;
-    private final DatabaseManager databaseManager = DatabaseManager.getInstance();
+    private final DAO databaseManager = DAO.getInstance();
     private ApplicationUser applicationUser;
 
     /**

@@ -1,8 +1,8 @@
 package com.matteoveroni.mydiary.article.control;
 
 import com.matteoveroni.mydiary.article.model.Article;
-import com.matteoveroni.mydiary.database.DatabaseManager;
-import com.matteoveroni.mydiary.database.DatabaseManager.ElementOnWhichOperate;
+import com.matteoveroni.mydiary.database.DAO;
+import com.matteoveroni.mydiary.database.DAO.ElementOnWhichOperate;
 import com.matteoveroni.mydiary.screen.ManageableScreen;
 import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
@@ -58,7 +58,7 @@ public class ArticleScreenController implements Initializable, ManageableScreen 
 
 	private Article currentArticle;
 	private ScreenManager myScreenManager;
-	private final DatabaseManager databaseManager = DatabaseManager.getInstance();
+	private final DAO databaseManager = DAO.getInstance();
 
 	/**
 	 * Initializes the controller class.

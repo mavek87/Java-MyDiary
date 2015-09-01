@@ -1,6 +1,6 @@
 package com.matteoveroni.mydiary.application;
 
-import com.matteoveroni.mydiary.database.DatabaseManager;
+import com.matteoveroni.mydiary.database.DAO;
 import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.matteoveroni.mydiary.user.ApplicationUser;
 import com.sun.media.jfxmediaimpl.MediaDisposer.Disposable;
@@ -12,10 +12,10 @@ import com.sun.media.jfxmediaimpl.MediaDisposer.Disposable;
 public class ApplicationManager implements Disposable {
 
     private final ScreenManager screenManager;
-    private final DatabaseManager databaseManager;
+    private final DAO databaseManager;
     private ApplicationUser loggedInUser;
 
-    public ApplicationManager(ScreenManager screenManager, DatabaseManager databaseManager) {
+    public ApplicationManager(ScreenManager screenManager, DAO databaseManager) {
         this.screenManager = screenManager;
         this.databaseManager = databaseManager;
     }
