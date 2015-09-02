@@ -1,7 +1,7 @@
 package com.matteoveroni.mydiary.login.control;
 
-import com.matteoveroni.mydiary.database.DAO;
-import com.matteoveroni.mydiary.database.DAO.ElementOnWhichOperate;
+import com.matteoveroni.mydiary.login.model.LoginModel;
+import com.matteoveroni.mydiary.login.model.hibernate.HibernateLoginModel;
 import com.matteoveroni.mydiary.screen.ManageableScreen;
 import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
@@ -24,85 +24,83 @@ import javafx.scene.control.TextField;
  */
 public class LoginScreenController implements Initializable, ManageableScreen {
 
-    @FXML
-    private TextField txt_username;
+	private ScreenManager screenManager;
+	private ApplicationUser applicationUser;
+	private final LoginModel model = new HibernateLoginModel();
 
-    @FXML
-    private PasswordField psw_password;
+	@FXML
+	private TextField txt_username;
+	@FXML
+	private PasswordField psw_password;
+	@FXML
+	private Label lbl_loginFailedMessage;
 
-    @FXML
-    private Label lbl_loginFailedMessage;
+	/**
+	 * Initializes the controller class.
+	 *
+	 * @param url
+	 * @param rb
+	 */
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		lbl_loginFailedMessage.setVisible(false);
+		addListenerToUsernameThatRemoveLoginErrorMessageOnFocus();
+		addListenerToPasswordThatRemoveLoginErrorMessageOnFocus();
+	}
 
-    private ScreenManager screenManager;
-    private final DAO databaseManager = DAO.getInstance();
-    private ApplicationUser applicationUser;
+	@Override
+	public void setScreenManager(ScreenManager screenManager) {
+		this.screenManager = screenManager;
+	}
 
-    /**
-     * Initializes the controller class.
-     *
-     * @param url
-     * @param rb
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        lbl_loginFailedMessage.setVisible(false);
-        addListenerToUsernameThatRemoveLoginErrorMessageOnFocus();
-        addListenerToPasswordThatRemoveLoginErrorMessageOnFocus();
-    }
+	@FXML
+	void tryToLogin(ActionEvent event) {
+		applicationUser = model.getFirstUser();
 
-    @Override
-    public void setScreenManager(ScreenManager screenManager) {
-        this.screenManager = screenManager;
-    }
+		if (applicationUser != null) {
+			if (txt_username.getText().equals(applicationUser.getName()) && psw_password.getText().equals(applicationUser.getPassword())) {
+				loginSuccessfullSoAccessApplication();
+			} else {
+				loginFailedPrintError();
+			}
+		}
+	}
 
-    @FXML
-    void tryToLogin(ActionEvent event) {
-        applicationUser = (ApplicationUser) databaseManager.read(ApplicationUser.class, ElementOnWhichOperate.FIRST);
+	private void loginFailedPrintError() {
+		txt_username.setText("");
+		psw_password.setText("");
+		lbl_loginFailedMessage.setVisible(true);
+	}
 
-        if (applicationUser != null) {
-            if (txt_username.getText().equals(applicationUser.getName()) && psw_password.getText().equals(applicationUser.getPassword())) {
-                loginSuccessfullSoAccessApplication();
-            } else {
-                loginFailedPrintError();
-            }
-        }
-    }
+	private void loginSuccessfullSoAccessApplication() {
+		screenManager.useScreen(ScreenType.DIARY_SCREEN);
+	}
 
-    private void loginFailedPrintError() {
-        txt_username.setText("");
-        psw_password.setText("");
-        lbl_loginFailedMessage.setVisible(true);
-    }
+	@FXML
+	void actionOnUsernameTextField(ActionEvent event) {
+		lbl_loginFailedMessage.setVisible(false);
+	}
 
-    private void loginSuccessfullSoAccessApplication() {
-        screenManager.useScreen(ScreenType.DIARY_SCREEN);
-    }
+	@FXML
+	void actionOnPasswordTextField(ActionEvent event) {
+		lbl_loginFailedMessage.setVisible(false);
+	}
 
-    @FXML
-    void actionOnUsernameTextField(ActionEvent event) {
-        lbl_loginFailedMessage.setVisible(false);
-    }
+	private void addListenerToUsernameThatRemoveLoginErrorMessageOnFocus() {
+		txt_username.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+				lbl_loginFailedMessage.setVisible(false);
+			}
+		});
+	}
 
-    @FXML
-    void actionOnPasswordTextField(ActionEvent event) {
-        lbl_loginFailedMessage.setVisible(false);
-    }
-
-    private void addListenerToUsernameThatRemoveLoginErrorMessageOnFocus() {
-        txt_username.focusedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                lbl_loginFailedMessage.setVisible(false);
-            }
-        });
-    }
-
-    private void addListenerToPasswordThatRemoveLoginErrorMessageOnFocus() {
-        psw_password.focusedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                lbl_loginFailedMessage.setVisible(false);
-            }
-        });
-    }
+	private void addListenerToPasswordThatRemoveLoginErrorMessageOnFocus() {
+		psw_password.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+				lbl_loginFailedMessage.setVisible(false);
+			}
+		});
+	}
 }

@@ -20,15 +20,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.web.HTMLEditor;
 
 /**
- * FXML Controller class
+ * Article Screen Controller class
  *
  * @author Matteo Veroni
  */
 public class ArticleScreenController implements Initializable, ManageableScreen, Observer {
     
     private ScreenManager screenManager;
-    private ArticleModel model;
-    private Article currentArticle;
+    private final ArticleModel model = new HibernateArticleModel();
+    private Article currentArticle = new PersistentHibernateArticle();
     
     @FXML
     private ResourceBundle resources;
@@ -61,8 +61,6 @@ public class ArticleScreenController implements Initializable, ManageableScreen,
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        model = new HibernateArticleModel();
-        currentArticle = new PersistentHibernateArticle();
     }
     
     @Override

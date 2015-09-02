@@ -7,7 +7,7 @@ public enum ScreenType {
 
     ARTICLE_SCREEN("Article Screen", "/com/matteoveroni/mydiary/article/view/ArticleScreenView.fxml"),
     DIARY_SCREEN("Diary Screen", "/com/matteoveroni/mydiary/diary/view/DiaryScreenView.fxml"),
-    LOGIN_SCREEN("Login Screen", "/com/matteoveroni/mydiary/login/view/LoginScreenView.fxml");
+    LOGIN_SCREEN("Login Screen", "/com/matteoveroni/mydiary/login/view/fxml/LoginScreenView.fxml");
 
     private final String name;
     private final String resourcePath;

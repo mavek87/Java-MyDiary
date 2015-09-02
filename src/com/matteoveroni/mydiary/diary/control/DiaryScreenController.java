@@ -26,15 +26,15 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
- * FXML Controller class
+ * Diary Screen Controller class
  *
  * @author Matteo Veroni
  */
 public class DiaryScreenController implements Initializable, ManageableScreen, Observer {
 
     private ScreenManager screenManager;
-    private Diary currentDiary;
-    private DiaryModel model;
+    private final Diary currentDiary = new PersistentHibernateDiary();
+    private final DiaryModel model = new HibernateDiaryModel();
 
     @FXML
     private TableView<Article> diaryTable;
@@ -61,11 +61,11 @@ public class DiaryScreenController implements Initializable, ManageableScreen, O
 
     /**
      * Initializes the controller class.
+	 * @param url
+	 * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        model = new HibernateDiaryModel();
-        currentDiary = new PersistentHibernateDiary();
     }
 
     @Override
