@@ -8,7 +8,7 @@ import java.util.List;
  * @author Matteo Veroni
  */
 public interface DiaryModel {
-
+	
     public Article getFirstArticle();
 
     public Article getLastArticle();
@@ -16,5 +16,7 @@ public interface DiaryModel {
     public List<Article> getAllTheArticles();
 
     public Article createNewArticle(Article articleToSave);
+	
+	public void removeArticle(Article articleToRemove);
 
 }

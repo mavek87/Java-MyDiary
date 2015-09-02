@@ -70,6 +70,24 @@ public class DAO implements Disposable {
 		}
 	}
 
+	public void delete(Object object) {
+		Session writeSession = null;
+		Transaction transaction = null;
+		try {
+			writeSession = sessionFactory.getCurrentSession();
+			transaction = writeSession.beginTransaction();
+			writeSession.delete(object);
+			writeSession.flush();
+			transaction.commit();
+		} catch (Exception ex) {
+			handleExceptionDuringTransaction(ex, transaction);
+		} finally {
+			if (writeSession != null && writeSession.isOpen()) {
+				writeSession.close();
+			}
+		}
+	}
+
 	public void update(Object object) {
 		Session writeSession = null;
 		Transaction transaction = null;
@@ -115,7 +133,7 @@ public class DAO implements Disposable {
 		try {
 			readSession = sessionFactory.getCurrentSession();
 			transaction = readSession.beginTransaction();
-			
+
 			Criteria queryCriteria = readSession.createCriteria(objectClass);
 			switch (elementOnWhichOperate) {
 				case FIRST:
