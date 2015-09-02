@@ -70,7 +70,7 @@ public class ApplicationBuilder {
 
     private void createApplicationMainUserIfDoesntExist() {
         try {
-            loggedInUser = (ApplicationUser) databaseManager.read(ApplicationUser.class, ElementOnWhichOperate.FIRST);
+            loggedInUser = (ApplicationUser) databaseManager.read(ApplicationUser.class, null, ElementOnWhichOperate.FIRST);
             if (loggedInUser == null) {
                 loggedInUser = new ApplicationUser();
                 loggedInUser.setName("matteo");

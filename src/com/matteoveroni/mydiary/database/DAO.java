@@ -12,6 +12,8 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +44,7 @@ public class DAO implements Disposable {
 
 	public enum ElementOnWhichOperate {
 
-		FIRST, LAST;
+		FIRST, LAST, REQUESTED, PREVIOUS, NEXT;
 	}
 
 	public static DAO getInstance() {
@@ -59,24 +61,6 @@ public class DAO implements Disposable {
 			writeSession = sessionFactory.getCurrentSession();
 			transaction = writeSession.beginTransaction();
 			writeSession.save(object);
-			writeSession.flush();
-			transaction.commit();
-		} catch (Exception ex) {
-			handleExceptionDuringTransaction(ex, transaction);
-		} finally {
-			if (writeSession != null && writeSession.isOpen()) {
-				writeSession.close();
-			}
-		}
-	}
-
-	public void delete(Object object) {
-		Session writeSession = null;
-		Transaction transaction = null;
-		try {
-			writeSession = sessionFactory.getCurrentSession();
-			transaction = writeSession.beginTransaction();
-			writeSession.delete(object);
 			writeSession.flush();
 			transaction.commit();
 		} catch (Exception ex) {
@@ -106,14 +90,66 @@ public class DAO implements Disposable {
 		}
 	}
 
-	public Object read(Class objectClass, Serializable serializable) {
+	public void delete(Object object) {
+		Session writeSession = null;
+		Transaction transaction = null;
+		try {
+			writeSession = sessionFactory.getCurrentSession();
+			transaction = writeSession.beginTransaction();
+			writeSession.delete(object);
+			writeSession.flush();
+			transaction.commit();
+		} catch (Exception ex) {
+			handleExceptionDuringTransaction(ex, transaction);
+		} finally {
+			if (writeSession != null && writeSession.isOpen()) {
+				writeSession.close();
+			}
+		}
+	}
+
+	public Object read(Class objectClass, Serializable serializable, ElementOnWhichOperate elementOnWhichOperate) {
 		Session readSession = null;
 		Transaction transaction = null;
 		Object objectReaded = null;
 		try {
 			readSession = sessionFactory.getCurrentSession();
 			transaction = readSession.beginTransaction();
-			objectReaded = readSession.get(objectClass, serializable);
+
+			Criteria queryCriteria;
+			switch (elementOnWhichOperate) {
+				case FIRST:
+					queryCriteria = readSession.createCriteria(objectClass)
+						.setFirstResult(0)
+						.setMaxResults(1);
+					objectReaded = queryCriteria.list().get(0);
+					break;
+				case LAST:
+					queryCriteria = readSession.createCriteria(objectClass)
+						.addOrder(Order.desc("id"))
+						.setFirstResult(0)
+						.setMaxResults(1);
+					objectReaded = queryCriteria.list().get(0);
+					break;
+				case REQUESTED:
+					objectReaded = readSession.get(objectClass, serializable);
+					break;
+				case PREVIOUS:
+					queryCriteria = readSession.createCriteria(objectClass)
+						.addOrder(Order.desc("id"))
+						.add(Restrictions.lt("id", serializable))
+						.setFirstResult(0)
+						.setMaxResults(1);
+					objectReaded = queryCriteria.list().get(0);
+					break;
+				case NEXT:
+					queryCriteria = readSession.createCriteria(objectClass)
+						.add(Restrictions.gt("id", serializable))
+						.setFirstResult(0)
+						.setMaxResults(1);
+					objectReaded = queryCriteria.list().get(0);
+					break;
+			}
 			readSession.flush();
 			transaction.commit();
 		} catch (Exception ex) {
@@ -124,40 +160,6 @@ public class DAO implements Disposable {
 			}
 		}
 		return objectReaded;
-	}
-
-	public Object read(Class objectClass, ElementOnWhichOperate elementOnWhichOperate) {
-		Session readSession = null;
-		Transaction transaction = null;
-		Object readedObject = null;
-		try {
-			readSession = sessionFactory.getCurrentSession();
-			transaction = readSession.beginTransaction();
-
-			Criteria queryCriteria = readSession.createCriteria(objectClass);
-			switch (elementOnWhichOperate) {
-				case FIRST:
-					queryCriteria.setFirstResult(0);
-					queryCriteria.setMaxResults(1);
-					break;
-				case LAST:
-					queryCriteria.addOrder(Order.desc("id"));
-					queryCriteria.setFirstResult(0);
-					queryCriteria.setMaxResults(1);
-					break;
-			}
-			readedObject = queryCriteria.list().get(0);
-
-			readSession.flush();
-			transaction.commit();
-		} catch (Exception ex) {
-			handleExceptionDuringTransaction(ex, transaction);
-		} finally {
-			if (readSession != null && readSession.isOpen()) {
-				readSession.close();
-			}
-		}
-		return readedObject;
 	}
 
 	public List readAll(Class objectClass) {
@@ -202,6 +204,16 @@ public class DAO implements Disposable {
 		return queryResults;
 	}
 
+//	IT DOESN'T WORKS NOW BUT IT COULD BE USEFULL TO IMPLEMENT IN THE FUTURE
+//	public int getNumberOfElementsInATable(Class objectClass) {
+//		int numberOfElementsInTheTable = 0;
+//		try {
+//			numberOfElementsInTheTable = (Integer) session.createCriteria(objectClass).setProjection(Projections.rowCount()).uniqueResult();
+//		} catch (Exception ex) {
+//		}
+//		return numberOfElementsInTheTable;
+//	}
+	
 	@Override
 	public void dispose() {
 		if (session != null && session.isOpen()) {

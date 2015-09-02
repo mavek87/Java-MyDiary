@@ -16,12 +16,12 @@ public class HibernateDiaryModel implements DiaryModel {
 
 	@Override
 	public Article getFirstArticle() {
-		return (Article) databaseManager.read(PersistentHibernateArticle.class, DAO.ElementOnWhichOperate.FIRST);
+		return (Article) databaseManager.read(PersistentHibernateArticle.class, null, DAO.ElementOnWhichOperate.FIRST);
 	}
 
 	@Override
 	public Article getLastArticle() {
-		return (Article) databaseManager.read(PersistentHibernateArticle.class, DAO.ElementOnWhichOperate.LAST);
+		return (Article) databaseManager.read(PersistentHibernateArticle.class, null, DAO.ElementOnWhichOperate.LAST);
 	}
 
 	@Override

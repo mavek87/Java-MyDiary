@@ -14,6 +14,6 @@ public class HibernateLoginModel implements LoginModel {
 
 	@Override
 	public ApplicationUser getFirstUser() {
-		return (ApplicationUser) databaseManager.read(ApplicationUser.class, DAO.ElementOnWhichOperate.FIRST);
+		return (ApplicationUser) databaseManager.read(ApplicationUser.class, null, DAO.ElementOnWhichOperate.FIRST);
 	}
 }
