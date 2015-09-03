@@ -1,8 +1,8 @@
 package com.matteoveroni.mydiary.diary.model.hibernate;
 
 import com.matteoveroni.mydiary.article.model.Article;
-import com.matteoveroni.mydiary.user.model.hibernate.PersistentHibernateUser;
 import com.matteoveroni.mydiary.diary.model.Diary;
+import com.matteoveroni.mydiary.user.model.User;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,18 +25,18 @@ public class PersistentHibernateDiary implements Serializable, Diary {
     private long id;
     
     @Column
-    private PersistentHibernateUser owner;
+    private User owner;
     
     @Transient
     private final Map<String, Article> articles = new HashMap<>();
 
     @Override
-    public PersistentHibernateUser getOwner() {
+    public User getOwner() {
         return owner;
     }
 
     @Override
-    public void setOwner(PersistentHibernateUser owner) {
+    public void setOwner(User owner) {
         this.owner = owner;
     }
     

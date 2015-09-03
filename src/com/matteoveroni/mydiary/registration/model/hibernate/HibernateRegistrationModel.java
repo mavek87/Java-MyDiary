@@ -2,8 +2,8 @@ package com.matteoveroni.mydiary.registration.model.hibernate;
 
 import com.matteoveroni.mydiary.database.DAO;
 import com.matteoveroni.mydiary.registration.model.RegistrationModel;
-import com.matteoveroni.mydiary.user.model.hibernate.PersistentHibernateUser;
 import com.matteoveroni.mydiary.user.model.User;
+import com.matteoveroni.mydiary.user.model.hibernate.PersistentHibernateUser;
 
 /**
  *

@@ -1,20 +1,19 @@
-package com.matteoveroni.mydiary.application;
+package com.matteoveroni.mydiary.application.builder;
 
+import com.matteoveroni.mydiary.application.manager.ApplicationManager;
 import com.matteoveroni.mydiary.database.DAO;
-import com.matteoveroni.mydiary.database.DAO.ElementOnWhichOperate;
 import com.matteoveroni.mydiary.screen.Screen;
 import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
 import com.matteoveroni.mydiary.screen.ScreensFactory;
 import com.matteoveroni.mydiary.user.model.User;
-import com.matteoveroni.mydiary.user.model.hibernate.PersistentHibernateUser;
 import javafx.stage.Stage;
 
 /**
  *
  * @author Matteo Veroni
  */
-public class ApplicationBuilder {
+public class ApplicationBuilder{
 
     private ApplicationManager applicationManager;
     private final DAO databaseManager = DAO.getInstance();
@@ -35,7 +34,6 @@ public class ApplicationBuilder {
         mainStageSetup();
         buildScreens();
         useInitialScreen();
-//        createApplicationMainUserIfDoesntExist();
         applicationManager = new ApplicationManager(screenManager, databaseManager);
         return applicationManager;
     }
@@ -67,20 +65,5 @@ public class ApplicationBuilder {
 //        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
 //        applicationManager.getApplicationStage().setX((primScreenBounds.getWidth() - applicationManager.getApplicationStage().getWidth()) / 2);
 //        applicationManager.getApplicationStage().setY((primScreenBounds.getHeight() - applicationManager.getApplicationStage().getHeight()) / 4);
-    }
-
-    private void createApplicationMainUserIfDoesntExist() {
-        try {
-            loggedInUser = (User) databaseManager.read(PersistentHibernateUser.class, null, ElementOnWhichOperate.FIRST);
-            if (loggedInUser == null) {
-                loggedInUser = new PersistentHibernateUser();
-                loggedInUser.setName("matteo");
-                loggedInUser.setPassword("pass");
-                loggedInUser.setAge(28);
-                databaseManager.write(loggedInUser);
-            }
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
-        }
     }
 }
