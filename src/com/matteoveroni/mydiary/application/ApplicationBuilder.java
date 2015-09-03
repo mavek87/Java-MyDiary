@@ -6,7 +6,8 @@ import com.matteoveroni.mydiary.screen.Screen;
 import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
 import com.matteoveroni.mydiary.screen.ScreensFactory;
-import com.matteoveroni.mydiary.user.model.hibernate.HibernateUser;
+import com.matteoveroni.mydiary.user.model.User;
+import com.matteoveroni.mydiary.user.model.hibernate.PersistentHibernateUser;
 import javafx.stage.Stage;
 
 /**
@@ -19,7 +20,7 @@ public class ApplicationBuilder {
     private final DAO databaseManager = DAO.getInstance();
     private final ScreenManager screenManager;
     private final ScreensFactory screensFactory = ScreensFactory.getInstance();
-    private HibernateUser loggedInUser;
+    private User loggedInUser;
 
     private final String applicationName;
     private final String applicationVersion;
@@ -34,7 +35,7 @@ public class ApplicationBuilder {
         mainStageSetup();
         buildScreens();
         useInitialScreen();
-        createApplicationMainUserIfDoesntExist();
+//        createApplicationMainUserIfDoesntExist();
         applicationManager = new ApplicationManager(screenManager, databaseManager);
         return applicationManager;
     }
@@ -70,9 +71,9 @@ public class ApplicationBuilder {
 
     private void createApplicationMainUserIfDoesntExist() {
         try {
-            loggedInUser = (HibernateUser) databaseManager.read(HibernateUser.class, null, ElementOnWhichOperate.FIRST);
+            loggedInUser = (User) databaseManager.read(PersistentHibernateUser.class, null, ElementOnWhichOperate.FIRST);
             if (loggedInUser == null) {
-                loggedInUser = new HibernateUser();
+                loggedInUser = new PersistentHibernateUser();
                 loggedInUser.setName("matteo");
                 loggedInUser.setPassword("pass");
                 loggedInUser.setAge(28);

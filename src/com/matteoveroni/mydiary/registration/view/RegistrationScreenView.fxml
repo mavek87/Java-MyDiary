@@ -16,7 +16,7 @@
                   <Label fx:id="lbl_Username" text="Username *" />
                   <TextField fx:id="txt_Username" />
                   <Label fx:id="lbl_Password" text="Password *" />
-                  <TextField fx:id="txt_Password" />
+                  <PasswordField fx:id="psw_Password" />
                   <Label fx:id="lbl_Name" text="Name" />
                   <TextField fx:id="txt_Name" />
                   <Label fx:id="lbl_Surname" text="Surname" />

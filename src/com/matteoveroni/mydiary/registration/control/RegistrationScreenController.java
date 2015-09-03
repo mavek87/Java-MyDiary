@@ -7,6 +7,7 @@ import com.matteoveroni.mydiary.screen.ManageableScreen;
 import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
 import com.matteoveroni.mydiary.user.model.User;
+import com.matteoveroni.mydiary.user.model.hibernate.PersistentHibernateUser;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -14,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 /**
@@ -25,7 +27,10 @@ public class RegistrationScreenController implements ManageableScreen, Initializ
 
     private ScreenManager screenManager;
     private RegistrationModel model = new HibernateRegistrationModel();
-    private User userToRegistrate;
+    private final User userToRegistrate = new PersistentHibernateUser();
+
+    private final int MIN_USERNAME_LENGTH = 6;
+    private final int MIN_PASSWORD_LENGTH = 6;
 
     @FXML
     private Label lbl_Username;
@@ -34,7 +39,7 @@ public class RegistrationScreenController implements ManageableScreen, Initializ
     @FXML
     private Label lbl_Password;
     @FXML
-    private TextField txt_Password;
+    private PasswordField psw_Password;
     @FXML
     private Label lbl_Name;
     @FXML
@@ -62,11 +67,11 @@ public class RegistrationScreenController implements ManageableScreen, Initializ
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
     }
 
     @Override
     public void update() {
+        resetAllTheFieldsOnTheForm();
     }
 
     @Override
@@ -82,27 +87,50 @@ public class RegistrationScreenController implements ManageableScreen, Initializ
     @FXML
     void registerUser(ActionEvent event) {
         if (areRequiredDataInsertedValid()) {
+            initializeUserToRegistrate();
             model.createNewUser(userToRegistrate);
             screenManager.useScreen(ScreenType.LOGIN_SCREEN);
+        } else {
+            resetUserAndPasswordFieldsOnTheForm();
         }
     }
 
     private boolean areRequiredDataInsertedValid() {
         String insertedUsername = txt_Username.getText();
-        String insertedPassword = txt_Password.getText();
-        if (isUsernameValid(insertedUsername) && isPasswordValid(insertedPassword)) {
-            return true;
-        }
-        return false;
+        String insertedPassword = psw_Password.getText();
+        return (isUsernameValid(insertedUsername) && isPasswordValid(insertedPassword));
     }
 
     private boolean isUsernameValid(String username) {
-        final int MIN_USERNAME_LENGTH = 6;
         return (!username.trim().equals("") && username.length() >= MIN_USERNAME_LENGTH);
     }
 
     private boolean isPasswordValid(String password) {
-        final int MIN_PASSWORD_LENGTH = 6;
         return (!password.trim().equals("") && password.length() >= MIN_PASSWORD_LENGTH);
+    }
+
+    private void initializeUserToRegistrate() {
+        userToRegistrate.setUsername(txt_Username.getText());
+        userToRegistrate.setPassword(psw_Password.getText());
+        userToRegistrate.setName(txt_Name.getText());
+        userToRegistrate.setSurname(txt_Surname.getText());
+        try {
+            userToRegistrate.setAge(Integer.parseInt(txt_Age.getText()));
+        } catch (Exception ex) {
+            userToRegistrate.setAge(0);
+        }
+    }
+
+    private void resetUserAndPasswordFieldsOnTheForm() {
+        txt_Username.setText("");
+        psw_Password.setText("");
+    }
+
+    private void resetAllTheFieldsOnTheForm() {
+        txt_Username.setText("");
+        psw_Password.setText("");
+        txt_Name.setText("");
+        txt_Surname.setText("");
+        txt_Age.setText("");
     }
 }

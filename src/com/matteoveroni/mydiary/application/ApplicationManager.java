@@ -2,7 +2,7 @@ package com.matteoveroni.mydiary.application;
 
 import com.matteoveroni.mydiary.database.DAO;
 import com.matteoveroni.mydiary.screen.ScreenManager;
-import com.matteoveroni.mydiary.user.model.hibernate.HibernateUser;
+import com.matteoveroni.mydiary.user.model.hibernate.PersistentHibernateUser;
 import com.sun.media.jfxmediaimpl.MediaDisposer.Disposable;
 
 /**
@@ -13,18 +13,18 @@ public class ApplicationManager implements Disposable {
 
     private final ScreenManager screenManager;
     private final DAO databaseManager;
-    private HibernateUser loggedInUser;
+    private PersistentHibernateUser loggedInUser;
 
     public ApplicationManager(ScreenManager screenManager, DAO databaseManager) {
         this.screenManager = screenManager;
         this.databaseManager = databaseManager;
     }
 
-    public HibernateUser getCurrentUser() {
+    public PersistentHibernateUser getCurrentUser() {
         return loggedInUser;
     }
     
-    public void setCurrentUser(HibernateUser loggedInUser){
+    public void setCurrentUser(PersistentHibernateUser loggedInUser){
         this.loggedInUser = loggedInUser;
     }
 

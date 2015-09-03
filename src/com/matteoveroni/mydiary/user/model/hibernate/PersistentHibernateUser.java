@@ -14,7 +14,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="UserData")
-public class HibernateUser implements Serializable, User {
+public class PersistentHibernateUser implements Serializable, User {
 
     @Id
     @GeneratedValue
@@ -22,7 +22,6 @@ public class HibernateUser implements Serializable, User {
     private long id;
     
     @Column
-    @Id
     private String username;
 
     @Column

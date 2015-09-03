@@ -2,7 +2,7 @@ package com.matteoveroni.mydiary.login.model.hibernate;
 
 import com.matteoveroni.mydiary.database.DAO;
 import com.matteoveroni.mydiary.login.model.LoginModel;
-import com.matteoveroni.mydiary.user.model.hibernate.HibernateUser;
+import com.matteoveroni.mydiary.user.model.User;
 
 /**
  *
@@ -10,20 +10,17 @@ import com.matteoveroni.mydiary.user.model.hibernate.HibernateUser;
  */
 public class HibernateLoginModel implements LoginModel {
 
-    private final DAO databaseManager = DAO.getInstance();
+    private final DAO DatabaseManager = DAO.getInstance();
+    private final String NAME_OF_THE_USER_TABLE = "UserData";
 
     @Override
-    public HibernateUser getFirstUser() {
-        return (HibernateUser) databaseManager.read(HibernateUser.class, null, DAO.ElementOnWhichOperate.FIRST);
-    }
-
-    public HibernateUser getUser(String searchedUsername) {
-        
-        String nameOfTheUserTable = "ApplicationUser";
-        
-        String query = "SELECT * FROM " + nameOfTheUserTable + 
-                       " WHERE USERNAME=\'" + searchedUsername +"\';";
-        
-        return (HibernateUser) databaseManager.query(query);
+    public User getUser(String searchedUsername) {
+        User userRetrieved = null;
+        try {
+            String query = "select * from " + NAME_OF_THE_USER_TABLE + " where username=\'" + searchedUsername + "\'";
+            userRetrieved = (User) DatabaseManager.querySQL(query);
+        } catch (Exception ex) {
+        }
+        return userRetrieved;
     }
 }

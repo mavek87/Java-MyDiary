@@ -2,7 +2,7 @@ package com.matteoveroni.mydiary.registration.model.hibernate;
 
 import com.matteoveroni.mydiary.database.DAO;
 import com.matteoveroni.mydiary.registration.model.RegistrationModel;
-import com.matteoveroni.mydiary.user.model.hibernate.HibernateUser;
+import com.matteoveroni.mydiary.user.model.hibernate.PersistentHibernateUser;
 import com.matteoveroni.mydiary.user.model.User;
 
 /**
@@ -20,7 +20,7 @@ public class HibernateRegistrationModel implements RegistrationModel {
 
     @Override
     public boolean isUserExistent(User user) {
-        return (databaseManager.read(HibernateUser.class, null, DAO.ElementOnWhichOperate.REQUESTED) != null);
+        return (databaseManager.read(PersistentHibernateUser.class, null, DAO.ElementOnWhichOperate.REQUESTED) != null);
     }
 
 }
