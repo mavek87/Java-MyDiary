@@ -49,18 +49,18 @@ public class LoginScreenController implements ManageableScreen, Initializable, O
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        lbl_loginFailedMessage.setVisible(false);
         addListenerToAllThePagesElementsThatRemoveLoginErrorMessageOnFocus();
     }
 
     @Override
     public void update() {
-        lbl_loginFailedMessage.setVisible(false);
+        resetAllTheFormElements();
     }
 
     @Override
     public void setScreenManager(ScreenManager screenManager) {
         this.screenManager = screenManager;
+        screenManager.registerObserver(this);
     }
 
     @FXML
@@ -68,7 +68,7 @@ public class LoginScreenController implements ManageableScreen, Initializable, O
         String insertedUsername = txt_username.getText();
         registeredUser = model.getUser(insertedUsername);
         if (registeredUser != null) {
-            if (txt_username.getText().equals(registeredUser.getName()) && psw_password.getText().equals(registeredUser.getPassword())) {
+            if (txt_username.getText().equals(registeredUser.getUsername()) && psw_password.getText().equals(registeredUser.getPassword())) {
                 loginSuccessfullSoAccessApplication();
             }
         } else {
@@ -115,5 +115,11 @@ public class LoginScreenController implements ManageableScreen, Initializable, O
             }
         };
         return changeListener;
+    }
+
+    private void resetAllTheFormElements() {
+        txt_username.setText("");
+        psw_password.setText("");
+        lbl_loginFailedMessage.setVisible(false);
     }
 }

@@ -16,11 +16,12 @@ import javax.persistence.Table;
 @Table(name="UserData")
 public class PersistentHibernateUser implements Serializable, User {
 
-    @Id
-    @GeneratedValue
-    @Column
-    private long id;
+//    @Id
+//    @GeneratedValue
+//    @Column
+//    private long id;
     
+    @Id
     @Column
     private String username;
 
@@ -36,15 +37,15 @@ public class PersistentHibernateUser implements Serializable, User {
     @Column
     private int age;
 
-    @Override
-    public long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(long id) {
-        this.id = id;
-    }
+//    @Override
+//    public long getId() {
+//        return id;
+//    }
+//
+//    @Override
+//    public void setId(long id) {
+//        this.id = id;
+//    }
     
     @Override
     public String getUsername(){

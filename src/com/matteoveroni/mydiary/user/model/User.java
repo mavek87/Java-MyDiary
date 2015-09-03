@@ -6,9 +6,9 @@ package com.matteoveroni.mydiary.user.model;
  */
 public interface User {
 
-    public long getId();
-
-    public void setId(long id);
+//    public long getId();
+//
+//    public void setId(long id);
 
     public String getUsername();
 
