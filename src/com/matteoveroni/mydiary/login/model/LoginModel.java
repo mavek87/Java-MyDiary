@@ -1,6 +1,6 @@
 package com.matteoveroni.mydiary.login.model;
 
-import com.matteoveroni.mydiary.user.UserData;
+import com.matteoveroni.mydiary.user.model.hibernate.HibernateUser;
 
 /**
  *
@@ -8,6 +8,6 @@ import com.matteoveroni.mydiary.user.UserData;
  */
 public interface LoginModel {
 
-	public UserData getFirstUser();
+	public HibernateUser getFirstUser();
 
 }

@@ -1,7 +1,7 @@
 package com.matteoveroni.mydiary.diary.model;
 
 import com.matteoveroni.mydiary.article.model.Article;
-import com.matteoveroni.mydiary.user.UserData;
+import com.matteoveroni.mydiary.user.model.hibernate.HibernateUser;
 
 /**
  *
@@ -9,9 +9,9 @@ import com.matteoveroni.mydiary.user.UserData;
  */
 public interface Diary {
 
-    public UserData getOwner();
+    public HibernateUser getOwner();
 
-    public void setOwner(UserData owner);
+    public void setOwner(HibernateUser owner);
 
     public void addArticle(String name, Article newArticle);
 

@@ -27,6 +27,6 @@
         <property name="hbm2ddl.auto">create</property>
         <!-- mapped tables -->
         <mapping class="com.matteoveroni.mydiary.article.model.hibernate.PersistentHibernateArticle"/>
-        <mapping class="com.matteoveroni.mydiary.user.UserData"/>
+        <mapping class="com.matteoveroni.mydiary.user.model.hibernate.HibernateUser"/>
     </session-factory>
 </hibernate-configuration>
