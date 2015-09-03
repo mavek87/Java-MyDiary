@@ -1,6 +1,6 @@
 package com.matteoveroni.mydiary.login.model;
 
-import com.matteoveroni.mydiary.user.ApplicationUser;
+import com.matteoveroni.mydiary.user.UserData;
 
 /**
  *
@@ -8,6 +8,6 @@ import com.matteoveroni.mydiary.user.ApplicationUser;
  */
 public interface LoginModel {
 
-	public ApplicationUser getFirstUser();
+	public UserData getFirstUser();
 
 }

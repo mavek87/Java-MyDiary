@@ -3,10 +3,15 @@ package com.matteoveroni.mydiary.registration.control;
 import com.matteoveroni.mydiary.Observer;
 import com.matteoveroni.mydiary.screen.ManageableScreen;
 import com.matteoveroni.mydiary.screen.ScreenManager;
+import com.matteoveroni.mydiary.screen.ScreenType;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 /**
  * Registration Screen Controller class
@@ -15,25 +20,62 @@ import javafx.fxml.Initializable;
  */
 public class RegistrationScreenController implements ManageableScreen, Initializable, Observer {
 
-	private ScreenManager screenManager;
+    private ScreenManager screenManager;
 
-	/**
-	 * Initializes the controller class.
-	 *
-	 * @param url
-	 * @param rb
-	 */
-	@Override
-	public void initialize(URL url, ResourceBundle rb) {
-		
-	}
+    @FXML
+    private Label lbl_Username;
+    @FXML
+    private TextField txt_Username;
+    @FXML
+    private Label lbl_Password;
+    @FXML
+    private TextField txt_Password;
+    @FXML
+    private Label lbl_Name;
+    @FXML
+    private TextField txt_Name;
+    @FXML
+    private Label lbl_Surname;
+    @FXML
+    private TextField txt_Surname;
+    @FXML
+    private Label lbl_Age;
+    @FXML
+    private TextField txt_Age;
+    @FXML
+    private Label lbl_Title;
+    @FXML
+    private Button cmd_Cancel;
+    @FXML
+    private Button cmd_Register;
 
-	@Override
-	public void update() {
-	}
+    /**
+     * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
 
-	@Override
-	public void setScreenManager(ScreenManager screenManager) {
-		this.screenManager = screenManager;
-	}
+    }
+
+    @Override
+    public void update() {
+    }
+
+    @Override
+    public void setScreenManager(ScreenManager screenManager) {
+        this.screenManager = screenManager;
+    }
+
+    @FXML
+    void cancelRegistration(ActionEvent event) {
+        screenManager.useScreen(ScreenType.LOGIN_SCREEN);
+    }
+
+    @FXML
+    void registerUser(ActionEvent event) {
+        screenManager.useScreen(ScreenType.LOGIN_SCREEN);
+    }
 }

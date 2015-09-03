@@ -1,7 +1,7 @@
 package com.matteoveroni.mydiary.diary.model;
 
 import com.matteoveroni.mydiary.article.model.Article;
-import com.matteoveroni.mydiary.user.ApplicationUser;
+import com.matteoveroni.mydiary.user.UserData;
 
 /**
  *
@@ -9,9 +9,9 @@ import com.matteoveroni.mydiary.user.ApplicationUser;
  */
 public interface Diary {
 
-    public ApplicationUser getOwner();
+    public UserData getOwner();
 
-    public void setOwner(ApplicationUser owner);
+    public void setOwner(UserData owner);
 
     public void addArticle(String name, Article newArticle);
 

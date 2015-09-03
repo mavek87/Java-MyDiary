@@ -6,7 +6,7 @@ import com.matteoveroni.mydiary.screen.Screen;
 import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
 import com.matteoveroni.mydiary.screen.ScreensFactory;
-import com.matteoveroni.mydiary.user.ApplicationUser;
+import com.matteoveroni.mydiary.user.UserData;
 import javafx.stage.Stage;
 
 /**
@@ -19,7 +19,7 @@ public class ApplicationBuilder {
     private final DAO databaseManager = DAO.getInstance();
     private final ScreenManager screenManager;
     private final ScreensFactory screensFactory = ScreensFactory.getInstance();
-    private ApplicationUser loggedInUser;
+    private UserData loggedInUser;
 
     private final String applicationName;
     private final String applicationVersion;
@@ -70,9 +70,9 @@ public class ApplicationBuilder {
 
     private void createApplicationMainUserIfDoesntExist() {
         try {
-            loggedInUser = (ApplicationUser) databaseManager.read(ApplicationUser.class, null, ElementOnWhichOperate.FIRST);
+            loggedInUser = (UserData) databaseManager.read(UserData.class, null, ElementOnWhichOperate.FIRST);
             if (loggedInUser == null) {
-                loggedInUser = new ApplicationUser();
+                loggedInUser = new UserData();
                 loggedInUser.setName("matteo");
                 loggedInUser.setPassword("pass");
                 loggedInUser.setAge(28);

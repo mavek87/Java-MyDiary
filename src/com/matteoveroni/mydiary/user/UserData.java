@@ -11,12 +11,16 @@ import javax.persistence.Id;
  * @author Matteo Veroni
  */
 @Entity
-public class ApplicationUser implements Serializable {
+public class UserData implements Serializable {
 
     @Id
     @GeneratedValue
     @Column
     private long id;
+    
+    @Column
+    @Id
+    private String username;
 
     @Column
     private String password;
@@ -36,6 +40,14 @@ public class ApplicationUser implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+    
+    public String getUsername(){
+        return this.username;
+    }
+    
+    public void setUsername(String username){
+        this.username = username;
     }
 
     public String getPassword() {

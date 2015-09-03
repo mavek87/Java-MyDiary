@@ -6,7 +6,7 @@ import com.matteoveroni.mydiary.login.model.hibernate.HibernateLoginModel;
 import com.matteoveroni.mydiary.screen.ManageableScreen;
 import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
-import com.matteoveroni.mydiary.user.ApplicationUser;
+import com.matteoveroni.mydiary.user.UserData;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -27,7 +27,7 @@ import javafx.scene.control.TextField;
 public class LoginScreenController implements ManageableScreen, Initializable, Observer {
 
 	private ScreenManager screenManager;
-	private ApplicationUser applicationUser;
+	private UserData applicationUser;
 	private final LoginModel model = new HibernateLoginModel();
 
 	@FXML
