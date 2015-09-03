@@ -77,6 +77,7 @@ public class RegistrationScreenController implements ManageableScreen, Initializ
     @Override
     public void setScreenManager(ScreenManager screenManager) {
         this.screenManager = screenManager;
+        screenManager.registerObserver(this);
     }
 
     @FXML

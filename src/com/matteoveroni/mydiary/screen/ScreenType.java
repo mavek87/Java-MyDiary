@@ -5,26 +5,25 @@ package com.matteoveroni.mydiary.screen;
  */
 public enum ScreenType {
 
-	ARTICLE_SCREEN("Article Screen", "/com/matteoveroni/mydiary/article/view/ArticleScreenView.fxml"),
-	DIARY_SCREEN("Diary Screen", "/com/matteoveroni/mydiary/diary/view/DiaryScreenView.fxml"),
-	LOGIN_SCREEN("Login Screen", "/com/matteoveroni/mydiary/login/view/fxml/LoginScreenView.fxml"),
-	REGISTRATION_SCREEN("Registration Screen", "/com/matteoveroni/mydiary/registration/view/RegistrationScreenView.fxml");
+    ARTICLE_SCREEN("Article Screen", "/com/matteoveroni/mydiary/article/view/ArticleScreenView.fxml"),
+    DIARY_SCREEN("Diary Screen", "/com/matteoveroni/mydiary/diary/view/DiaryScreenView.fxml"),
+    LOGIN_SCREEN("Login Screen", "/com/matteoveroni/mydiary/login/view/fxml/LoginScreenView.fxml"),
+    REGISTRATION_SCREEN("Registration Screen", "/com/matteoveroni/mydiary/registration/view/RegistrationScreenView.fxml");
 
-	private final String name;
+    private final String name;
+    private final String resourcePath;
 
-	private final String resourcePath;
+    ScreenType(String screenName, String screenResourcePath) {
+        this.name = screenName;
+        this.resourcePath = screenResourcePath;
+    }
 
-	ScreenType(String screenName, String screenResourcePath) {
-		this.name = screenName;
-		this.resourcePath = screenResourcePath;
-	}
+    public String getScreenName() {
+        return name;
+    }
 
-	public String getScreenName() {
-		return name;
-	}
-
-	public String getScreenResourcePath() {
-		return resourcePath;
-	}
+    public String getScreenResourcePath() {
+        return resourcePath;
+    }
 
 }
