@@ -6,7 +6,6 @@ import com.matteoveroni.mydiary.screen.Screen;
 import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
 import com.matteoveroni.mydiary.screen.ScreensFactory;
-import com.matteoveroni.mydiary.user.model.User;
 import javafx.stage.Stage;
 
 /**
@@ -19,7 +18,6 @@ public class ApplicationBuilder{
     private final DAO databaseManager = DAO.getInstance();
     private final ScreenManager screenManager;
     private final ScreensFactory screensFactory = ScreensFactory.getInstance();
-    private User loggedInUser;
 
     private final String applicationName;
     private final String applicationVersion;
@@ -31,20 +29,20 @@ public class ApplicationBuilder{
     }
 
     public ApplicationManager build() {
-        mainStageSetup();
-        buildScreens();
+        screenManagerSetup();
+        loadScreensInScreenManager();
         useInitialScreen();
         applicationManager = new ApplicationManager(screenManager, databaseManager);
         return applicationManager;
     }
 
-    private void mainStageSetup() {
+    private void screenManagerSetup() {
         screenManager.getApplicationStage().setTitle(applicationName + " - v. " + applicationVersion);
         screenManager.getApplicationStage().show();
         centerWindow();
     }
 
-    private void buildScreens() {
+    private void loadScreensInScreenManager() {
         int indexOfTheCurrentScreenToBuild = 0;
         try {
             for (ScreenType screenTypeToBuild : ScreenType.values()) {
