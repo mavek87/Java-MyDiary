@@ -1,5 +1,6 @@
 package com.matteoveroni.mydiary.login.control;
 
+import com.matteoveroni.mydiary.Observer;
 import com.matteoveroni.mydiary.login.model.LoginModel;
 import com.matteoveroni.mydiary.login.model.hibernate.HibernateLoginModel;
 import com.matteoveroni.mydiary.screen.ManageableScreen;
@@ -13,6 +14,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -22,18 +24,22 @@ import javafx.scene.control.TextField;
  *
  * @author Matteo Veroni
  */
-public class LoginScreenController implements Initializable, ManageableScreen {
+public class LoginScreenController implements ManageableScreen, Initializable, Observer {
 
 	private ScreenManager screenManager;
 	private ApplicationUser applicationUser;
 	private final LoginModel model = new HibernateLoginModel();
 
 	@FXML
-	private TextField txt_username;
-	@FXML
 	private PasswordField psw_password;
 	@FXML
+	private Button btn_register;
+	@FXML
 	private Label lbl_loginFailedMessage;
+	@FXML
+	private Button btn_login;
+	@FXML
+	private TextField txt_username;
 
 	/**
 	 * Initializes the controller class.
@@ -44,8 +50,12 @@ public class LoginScreenController implements Initializable, ManageableScreen {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		lbl_loginFailedMessage.setVisible(false);
-		addListenerToUsernameThatRemoveLoginErrorMessageOnFocus();
-		addListenerToPasswordThatRemoveLoginErrorMessageOnFocus();
+		addListenerToAllThePagesElementsThatRemoveLoginErrorMessageOnFocus();
+	}
+
+	@Override
+	public void update() {
+		lbl_loginFailedMessage.setVisible(false);
 	}
 
 	@Override
@@ -54,9 +64,8 @@ public class LoginScreenController implements Initializable, ManageableScreen {
 	}
 
 	@FXML
-	void tryToLogin(ActionEvent event) {
+	void login(ActionEvent event) {
 		applicationUser = model.getFirstUser();
-
 		if (applicationUser != null) {
 			if (txt_username.getText().equals(applicationUser.getName()) && psw_password.getText().equals(applicationUser.getPassword())) {
 				loginSuccessfullSoAccessApplication();
@@ -66,14 +75,9 @@ public class LoginScreenController implements Initializable, ManageableScreen {
 		}
 	}
 
-	private void loginFailedPrintError() {
-		txt_username.setText("");
-		psw_password.setText("");
-		lbl_loginFailedMessage.setVisible(true);
-	}
-
-	private void loginSuccessfullSoAccessApplication() {
-		screenManager.useScreen(ScreenType.DIARY_SCREEN);
+	@FXML
+	void register(ActionEvent event) {
+		screenManager.useScreen(ScreenType.REGISTRATION_SCREEN);
 	}
 
 	@FXML
@@ -86,21 +90,29 @@ public class LoginScreenController implements Initializable, ManageableScreen {
 		lbl_loginFailedMessage.setVisible(false);
 	}
 
-	private void addListenerToUsernameThatRemoveLoginErrorMessageOnFocus() {
-		txt_username.focusedProperty().addListener(new ChangeListener<Boolean>() {
-			@Override
-			public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-				lbl_loginFailedMessage.setVisible(false);
-			}
-		});
+	private void loginSuccessfullSoAccessApplication() {
+		screenManager.useScreen(ScreenType.DIARY_SCREEN);
 	}
 
-	private void addListenerToPasswordThatRemoveLoginErrorMessageOnFocus() {
-		psw_password.focusedProperty().addListener(new ChangeListener<Boolean>() {
+	private void loginFailedPrintError() {
+		txt_username.setText("");
+		psw_password.setText("");
+		lbl_loginFailedMessage.setVisible(true);
+	}
+
+	private void addListenerToAllThePagesElementsThatRemoveLoginErrorMessageOnFocus() {
+		txt_username.focusedProperty().addListener(listenerThatRemoveLoginErrorMessageWhenAnElementGainFocus());
+		psw_password.focusedProperty().addListener(listenerThatRemoveLoginErrorMessageWhenAnElementGainFocus());
+		btn_register.focusedProperty().addListener(listenerThatRemoveLoginErrorMessageWhenAnElementGainFocus());
+	}
+
+	private ChangeListener<Boolean> listenerThatRemoveLoginErrorMessageWhenAnElementGainFocus() {
+		ChangeListener changeListener = new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
 				lbl_loginFailedMessage.setVisible(false);
 			}
-		});
+		};
+		return changeListener;
 	}
 }
