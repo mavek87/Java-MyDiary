@@ -21,6 +21,6 @@ public interface Manager {
 	public User getLoggedUser();
 
 	public void setCurrentUser(User loggedInUser);
-
+    
 	public void dispose();
 }
