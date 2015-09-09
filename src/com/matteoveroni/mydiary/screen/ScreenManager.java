@@ -34,8 +34,6 @@ public class ScreenManager implements Disposable {
 	public void loadScreen(Screen screen) {
 		try {
 			screenControllers.add((Manageable)screen.getController());
-//			ManageableScreen screenController = screen.getController();
-//			screenController.setScreenManager(this);
 			applicationScreens.put(screen.getScreenType(), screen);
 		} catch (Exception ex) {
 			throw new RuntimeException(ex);

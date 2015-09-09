@@ -1,7 +1,7 @@
 package com.matteoveroni.mydiary.diary.control;
 
-import com.matteoveroni.mydiary.application.manager.ApplicationManager;
 import com.matteoveroni.mydiary.application.manager.Manageable;
+import com.matteoveroni.mydiary.application.manager.Manager;
 import com.matteoveroni.mydiary.article.model.hibernate.PersistentHibernateArticle;
 import com.matteoveroni.mydiary.patterns.Listener;
 import com.matteoveroni.mydiary.article.model.Article;
@@ -32,7 +32,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class DiaryScreenController implements Initializable, Manageable, Listener {
 
-	private ApplicationManager manager;
+	private Manager manager;
 	private final Diary currentDiary = new PersistentHibernateDiary();
 	private final DiaryModel model = new HibernateDiaryModel();
 
@@ -70,7 +70,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	}
 
 	@Override
-	public void setManager(ApplicationManager manager) {
+	public void setManager(Manager manager) {
 		this.manager = manager;
 		manager.registerListener(this);
 	}

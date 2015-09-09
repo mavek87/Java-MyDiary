@@ -1,7 +1,7 @@
 package com.matteoveroni.mydiary.login.control;
 
-import com.matteoveroni.mydiary.application.manager.ApplicationManager;
 import com.matteoveroni.mydiary.application.manager.Manageable;
+import com.matteoveroni.mydiary.application.manager.Manager;
 import com.matteoveroni.mydiary.patterns.Listener;
 import com.matteoveroni.mydiary.login.model.LoginModel;
 import com.matteoveroni.mydiary.login.model.hibernate.HibernateLoginModel;
@@ -26,7 +26,7 @@ import javafx.scene.control.TextField;
  */
 public class LoginScreenController implements Manageable, Initializable, Listener {
 
-    private ApplicationManager manager;
+    private Manager manager;
     private User registeredUser;
     private final LoginModel model = new HibernateLoginModel();
 
@@ -58,7 +58,7 @@ public class LoginScreenController implements Manageable, Initializable, Listene
     }
 
     @Override
-    public void setManager(ApplicationManager manager) {
+    public void setManager(Manager manager) {
         this.manager = manager;
         manager.registerListener(this);
     }

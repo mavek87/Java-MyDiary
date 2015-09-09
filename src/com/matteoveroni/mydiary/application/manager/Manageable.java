@@ -6,6 +6,6 @@ package com.matteoveroni.mydiary.application.manager;
  */
 public interface Manageable {
 
-	public void setManager(ApplicationManager manager);
+	public void setManager(Manager manager);
 
 }

@@ -2,7 +2,7 @@ package com.matteoveroni.mydiary.article.model.hibernate;
 
 import com.matteoveroni.mydiary.article.model.Article;
 import com.matteoveroni.mydiary.article.model.ArticleModel;
-import com.matteoveroni.mydiary.database.DAO;
+import com.matteoveroni.mydiary.database.DAOManager;
 
 /**
  *
@@ -10,26 +10,26 @@ import com.matteoveroni.mydiary.database.DAO;
  */
 public class HibernateArticleModel implements ArticleModel {
 
-	private final DAO databaseManager = DAO.getInstance();
+	private final DAOManager databaseManager = DAOManager.getInstance();
 
 	@Override
 	public Article getFirstArticle() {
-		return (Article) databaseManager.read(PersistentHibernateArticle.class, null, DAO.ElementOnWhichOperate.FIRST);
+		return (Article) databaseManager.read(PersistentHibernateArticle.class, null, DAOManager.ElementOnWhichOperate.FIRST);
 	}
 
 	@Override
 	public Article getLastArticle() {
-		return (Article) databaseManager.read(PersistentHibernateArticle.class, null, DAO.ElementOnWhichOperate.LAST);
+		return (Article) databaseManager.read(PersistentHibernateArticle.class, null, DAOManager.ElementOnWhichOperate.LAST);
 	}
 
 	@Override
 	public Article getPreviousArticle(Article currentArticle) {
-		return (Article) databaseManager.read(PersistentHibernateArticle.class, currentArticle.getId(), DAO.ElementOnWhichOperate.PREVIOUS);
+		return (Article) databaseManager.read(PersistentHibernateArticle.class, currentArticle.getId(), DAOManager.ElementOnWhichOperate.PREVIOUS);
 	}
 
 	@Override
 	public Article getNextArticle(Article currentArticle) {
-		return (Article) databaseManager.read(PersistentHibernateArticle.class, currentArticle.getId(), DAO.ElementOnWhichOperate.NEXT);
+		return (Article) databaseManager.read(PersistentHibernateArticle.class, currentArticle.getId(), DAOManager.ElementOnWhichOperate.NEXT);
 	}
 
 	@Override

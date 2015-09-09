@@ -1,6 +1,6 @@
 package com.matteoveroni.mydiary.application.manager;
 
-import com.matteoveroni.mydiary.database.DAO;
+import com.matteoveroni.mydiary.database.DAOManager;
 import com.matteoveroni.mydiary.patterns.Listenable;
 import com.matteoveroni.mydiary.patterns.Listener;
 import com.matteoveroni.mydiary.screen.ScreenManager;
@@ -14,14 +14,14 @@ import java.util.List;
  *
  * @author Matteo Veroni
  */
-public class ApplicationManager implements Disposable, Listenable {
+public class ApplicationManager implements Manager, Disposable, Listenable {
 
 	private final ScreenManager screenManager;
-	private final DAO databaseManager;
+	private final DAOManager databaseManager;
 	private final List<Listener> listeners = new ArrayList<>();
 	private User loggedInUser;
 
-	public ApplicationManager(ScreenManager screenManager, DAO databaseManager) {
+	public ApplicationManager(ScreenManager screenManager, DAOManager databaseManager) {
 		this.screenManager = screenManager;
 		this.databaseManager = databaseManager;
 		setThisApplicationManagerAsScreenControllersManager();
@@ -44,21 +44,19 @@ public class ApplicationManager implements Disposable, Listenable {
 			listener.update();
 		}
 	}
-
-//	@Override
-//	public void update() {
-//		notifyAllTheSubManagersListeners();
-//	}
 	
+	@Override
 	public void changeScreen(ScreenType screenType) {
 		screenManager.useScreen(screenType);
 		notifyListeners();
 	}
 
-	public User getCurrentUser() {
+	@Override
+	public User getLoggedUser() {
 		return loggedInUser;
 	}
 
+	@Override
 	public void setCurrentUser(User loggedInUser) {
 		this.loggedInUser = loggedInUser;
 //		notifyListeners();
@@ -70,13 +68,6 @@ public class ApplicationManager implements Disposable, Listenable {
 		databaseManager.dispose();
 	}
 
-//	private void registerThisManagerAsListenerOfAllTheSubManagers() {
-//		screenManager.registerListener(this);
-//	}
-//
-//	private void notifyAllTheSubManagersListeners() {
-//		screenManager.notifyListeners();
-//	}
 	private void setThisApplicationManagerAsScreenControllersManager() {
 		for (Manageable controller : screenManager.getScreenControllers()) {
 			controller.setManager(this);

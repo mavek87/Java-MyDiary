@@ -21,15 +21,15 @@ import org.slf4j.LoggerFactory;
  *
  * @author Matteo Veroni
  */
-public class DAO implements Disposable {
+public class DAOManager implements Disposable {
 
     private final SessionFactory sessionFactory;
     private final ServiceRegistry serviceRegistry;
     private Session session;
-    private static DAO databaseManagerInstance;
-    private static final Logger LOG = LoggerFactory.getLogger(DAO.class);
+    private static DAOManager databaseManagerInstance;
+    private static final Logger LOG = LoggerFactory.getLogger(DAOManager.class);
 
-    private DAO() {
+    private DAOManager() {
         Configuration configuration = new Configuration();
         configuration.configure();
         serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
@@ -46,9 +46,9 @@ public class DAO implements Disposable {
         FIRST, LAST, REQUESTED, PREVIOUS, NEXT;
     }
 
-    public static DAO getInstance() {
+    public static DAOManager getInstance() {
         if (databaseManagerInstance == null) {
-            databaseManagerInstance = new DAO();
+            databaseManagerInstance = new DAOManager();
         }
         return databaseManagerInstance;
     }

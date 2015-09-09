@@ -1,7 +1,7 @@
 package com.matteoveroni.mydiary.article.control;
 
-import com.matteoveroni.mydiary.application.manager.ApplicationManager;
 import com.matteoveroni.mydiary.application.manager.Manageable;
+import com.matteoveroni.mydiary.application.manager.Manager;
 import com.matteoveroni.mydiary.article.model.hibernate.PersistentHibernateArticle;
 import com.matteoveroni.mydiary.patterns.Listener;
 import com.matteoveroni.mydiary.article.model.Article;
@@ -26,7 +26,7 @@ import javafx.scene.web.HTMLEditor;
  */
 public class ArticleScreenController implements Initializable, Manageable, Listener {
     
-    private ApplicationManager manager;
+    private Manager manager;
     private final ArticleModel model = new HibernateArticleModel();
     private Article currentArticle = new PersistentHibernateArticle();
     
@@ -64,7 +64,7 @@ public class ArticleScreenController implements Initializable, Manageable, Liste
     }
     
     @Override
-    public void setManager(ApplicationManager manager) {
+    public void setManager(Manager manager) {
         this.manager = manager;
         manager.registerListener(this);
     }

@@ -1,12 +1,10 @@
 package com.matteoveroni.mydiary.registration.control;
 
-import com.matteoveroni.mydiary.application.manager.ApplicationManager;
 import com.matteoveroni.mydiary.application.manager.Manageable;
+import com.matteoveroni.mydiary.application.manager.Manager;
 import com.matteoveroni.mydiary.patterns.Listener;
 import com.matteoveroni.mydiary.registration.model.RegistrationModel;
 import com.matteoveroni.mydiary.registration.model.hibernate.HibernateRegistrationModel;
-import com.matteoveroni.mydiary.screen.ManageableScreen;
-import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
 import com.matteoveroni.mydiary.user.model.User;
 import com.matteoveroni.mydiary.user.model.hibernate.PersistentHibernateUser;
@@ -27,7 +25,7 @@ import javafx.scene.control.TextField;
  */
 public class RegistrationScreenController implements Manageable, Initializable, Listener {
 
-    private ApplicationManager manager;
+    private Manager manager;
     private RegistrationModel model = new HibernateRegistrationModel();
     private final User userToRegistrate = new PersistentHibernateUser();
 
@@ -77,7 +75,7 @@ public class RegistrationScreenController implements Manageable, Initializable, 
     }
 
     @Override
-    public void setManager(ApplicationManager manager) {
+    public void setManager(Manager manager) {
         this.manager = manager;
         manager.registerListener(this);
     }
