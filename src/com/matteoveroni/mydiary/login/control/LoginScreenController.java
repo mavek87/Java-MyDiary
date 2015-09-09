@@ -1,10 +1,10 @@
 package com.matteoveroni.mydiary.login.control;
 
-import com.matteoveroni.mydiary.Observer;
+import com.matteoveroni.mydiary.application.manager.ApplicationManager;
+import com.matteoveroni.mydiary.application.manager.Manageable;
+import com.matteoveroni.mydiary.patterns.Listener;
 import com.matteoveroni.mydiary.login.model.LoginModel;
 import com.matteoveroni.mydiary.login.model.hibernate.HibernateLoginModel;
-import com.matteoveroni.mydiary.screen.ManageableScreen;
-import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
 import com.matteoveroni.mydiary.user.model.User;
 import java.net.URL;
@@ -24,9 +24,9 @@ import javafx.scene.control.TextField;
  *
  * @author Matteo Veroni
  */
-public class LoginScreenController implements ManageableScreen, Initializable, Observer {
+public class LoginScreenController implements Manageable, Initializable, Listener {
 
-    private ScreenManager screenManager;
+    private ApplicationManager manager;
     private User registeredUser;
     private final LoginModel model = new HibernateLoginModel();
 
@@ -58,9 +58,9 @@ public class LoginScreenController implements ManageableScreen, Initializable, O
     }
 
     @Override
-    public void setScreenManager(ScreenManager screenManager) {
-        this.screenManager = screenManager;
-        screenManager.registerObserver(this);
+    public void setManager(ApplicationManager manager) {
+        this.manager = manager;
+        manager.registerListener(this);
     }
 
     @FXML
@@ -78,7 +78,7 @@ public class LoginScreenController implements ManageableScreen, Initializable, O
 
     @FXML
     void register(ActionEvent event) {
-        screenManager.useScreen(ScreenType.REGISTRATION_SCREEN);
+        manager.changeScreen(ScreenType.REGISTRATION_SCREEN);
     }
 
     @FXML
@@ -92,7 +92,7 @@ public class LoginScreenController implements ManageableScreen, Initializable, O
     }
 
     private void loginSuccessfullSoAccessApplication() {
-        screenManager.useScreen(ScreenType.DIARY_SCREEN);
+        manager.changeScreen(ScreenType.DIARY_SCREEN);
     }
 
     private void loginFailedPrintError() {

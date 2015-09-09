@@ -1,6 +1,8 @@
 package com.matteoveroni.mydiary.registration.control;
 
-import com.matteoveroni.mydiary.Observer;
+import com.matteoveroni.mydiary.application.manager.ApplicationManager;
+import com.matteoveroni.mydiary.application.manager.Manageable;
+import com.matteoveroni.mydiary.patterns.Listener;
 import com.matteoveroni.mydiary.registration.model.RegistrationModel;
 import com.matteoveroni.mydiary.registration.model.hibernate.HibernateRegistrationModel;
 import com.matteoveroni.mydiary.screen.ManageableScreen;
@@ -23,9 +25,9 @@ import javafx.scene.control.TextField;
  *
  * @author Matteo Veroni
  */
-public class RegistrationScreenController implements ManageableScreen, Initializable, Observer {
+public class RegistrationScreenController implements Manageable, Initializable, Listener {
 
-    private ScreenManager screenManager;
+    private ApplicationManager manager;
     private RegistrationModel model = new HibernateRegistrationModel();
     private final User userToRegistrate = new PersistentHibernateUser();
 
@@ -75,14 +77,14 @@ public class RegistrationScreenController implements ManageableScreen, Initializ
     }
 
     @Override
-    public void setScreenManager(ScreenManager screenManager) {
-        this.screenManager = screenManager;
-        screenManager.registerObserver(this);
+    public void setManager(ApplicationManager manager) {
+        this.manager = manager;
+        manager.registerListener(this);
     }
 
     @FXML
     void cancelRegistration(ActionEvent event) {
-        screenManager.useScreen(ScreenType.LOGIN_SCREEN);
+        manager.changeScreen(ScreenType.LOGIN_SCREEN);
     }
 
     @FXML
@@ -90,7 +92,7 @@ public class RegistrationScreenController implements ManageableScreen, Initializ
         if (areRequiredDataInsertedValid()) {
             initializeUserToRegistrate();
             model.createNewUser(userToRegistrate);
-            screenManager.useScreen(ScreenType.LOGIN_SCREEN);
+            manager.changeScreen(ScreenType.LOGIN_SCREEN);
         } else {
             resetUserAndPasswordFieldsOnTheForm();
         }

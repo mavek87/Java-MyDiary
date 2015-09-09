@@ -1,14 +1,14 @@
 package com.matteoveroni.mydiary.diary.control;
 
+import com.matteoveroni.mydiary.application.manager.ApplicationManager;
+import com.matteoveroni.mydiary.application.manager.Manageable;
 import com.matteoveroni.mydiary.article.model.hibernate.PersistentHibernateArticle;
-import com.matteoveroni.mydiary.screen.ManageableScreen;
-import com.matteoveroni.mydiary.Observer;
+import com.matteoveroni.mydiary.patterns.Listener;
 import com.matteoveroni.mydiary.article.model.Article;
 import com.matteoveroni.mydiary.diary.model.Diary;
 import com.matteoveroni.mydiary.diary.model.DiaryModel;
 import com.matteoveroni.mydiary.diary.model.hibernate.HibernateDiaryModel;
 import com.matteoveroni.mydiary.diary.model.hibernate.PersistentHibernateDiary;
-import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
 import java.net.URL;
 import java.util.Date;
@@ -30,9 +30,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
  *
  * @author Matteo Veroni
  */
-public class DiaryScreenController implements Initializable, ManageableScreen, Observer {
+public class DiaryScreenController implements Initializable, Manageable, Listener {
 
-	private ScreenManager screenManager;
+	private ApplicationManager manager;
 	private final Diary currentDiary = new PersistentHibernateDiary();
 	private final DiaryModel model = new HibernateDiaryModel();
 
@@ -70,9 +70,9 @@ public class DiaryScreenController implements Initializable, ManageableScreen, O
 	}
 
 	@Override
-	public void setScreenManager(ScreenManager screenManager) {
-		this.screenManager = screenManager;
-		screenManager.registerObserver(this);
+	public void setManager(ApplicationManager manager) {
+		this.manager = manager;
+		manager.registerListener(this);
 	}
 
 	@Override
@@ -82,7 +82,7 @@ public class DiaryScreenController implements Initializable, ManageableScreen, O
 
 	@FXML
 	void goToArticleScreen(ActionEvent event) {
-		screenManager.useScreen(ScreenType.ARTICLE_SCREEN);
+		manager.changeScreen(ScreenType.ARTICLE_SCREEN);
 	}
 
 	@FXML
@@ -105,7 +105,7 @@ public class DiaryScreenController implements Initializable, ManageableScreen, O
 		newArticle.setTitle("New Title");
 		newArticle.setDate(new Date());
 		model.createNewArticle(newArticle);
-		screenManager.useScreen(ScreenType.ARTICLE_SCREEN);
+		manager.changeScreen(ScreenType.ARTICLE_SCREEN);
 	}
 
 	@FXML

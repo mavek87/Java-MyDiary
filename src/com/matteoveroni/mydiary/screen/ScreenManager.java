@@ -1,7 +1,6 @@
 package com.matteoveroni.mydiary.screen;
 
-import com.matteoveroni.mydiary.Observer;
-import com.matteoveroni.mydiary.Observable;
+import com.matteoveroni.mydiary.application.manager.Manageable;
 import com.sun.media.jfxmediaimpl.MediaDisposer.Disposable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,31 +13,14 @@ import javafx.stage.Stage;
  *
  * @author Matteo Veroni
  */
-public class ScreenManager implements Disposable, Observable {
+public class ScreenManager implements Disposable {
 
 	private final Map<ScreenType, Screen> applicationScreens = new HashMap<>();
-	private final List<Observer> observersScreens = new ArrayList<>();
+	private final List<Manageable> screenControllers = new ArrayList<>();
 	private Stage mainStage;
 
 	public ScreenManager(Stage applicationStage) {
 		this.mainStage = applicationStage;
-	}
-
-	@Override
-	public void registerObserver(Observer newObserverScreen) {
-		observersScreens.add(newObserverScreen);
-	}
-
-	@Override
-	public void removeObserver(Observer observerScreen) {
-		observersScreens.remove(observerScreen);
-	}
-
-	@Override
-	public void notifyObservers() {
-		for (Observer observer : observersScreens) {
-			observer.update();
-		}
 	}
 
 	public void setApplicationStage(Stage stage) {
@@ -51,8 +33,9 @@ public class ScreenManager implements Disposable, Observable {
 
 	public void loadScreen(Screen screen) {
 		try {
-			ManageableScreen screenController = screen.getController();
-			screenController.setScreenManager(this);
+			screenControllers.add((Manageable)screen.getController());
+//			ManageableScreen screenController = screen.getController();
+//			screenController.setScreenManager(this);
 			applicationScreens.put(screen.getScreenType(), screen);
 		} catch (Exception ex) {
 			throw new RuntimeException(ex);
@@ -62,12 +45,15 @@ public class ScreenManager implements Disposable, Observable {
 	public void useScreen(ScreenType screenTypeToUse) {
 		if (applicationScreens.containsKey(screenTypeToUse) && this.getApplicationStage() != null) {
 			Screen screen = applicationScreens.get(screenTypeToUse);
-			notifyObservers();
 			mainStage.setScene(screen.getScene());
 			mainStage.show();
 		} else {
 			throw new RuntimeException("Screen Manager wasn\'t initialized with a main stage");
 		}
+	}
+	
+	public List<Manageable> getScreenControllers(){
+		return screenControllers;
 	}
 
 	public Scene getCurrentScene() {
@@ -76,8 +62,8 @@ public class ScreenManager implements Disposable, Observable {
 
 	@Override
 	public void dispose() {
-		observersScreens.clear();
 		mainStage.close();
+		screenControllers.clear();
 		applicationScreens.clear();
 	}
 }

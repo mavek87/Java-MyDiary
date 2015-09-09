@@ -1,12 +1,12 @@
 package com.matteoveroni.mydiary.article.control;
 
+import com.matteoveroni.mydiary.application.manager.ApplicationManager;
+import com.matteoveroni.mydiary.application.manager.Manageable;
 import com.matteoveroni.mydiary.article.model.hibernate.PersistentHibernateArticle;
-import com.matteoveroni.mydiary.screen.ManageableScreen;
-import com.matteoveroni.mydiary.Observer;
+import com.matteoveroni.mydiary.patterns.Listener;
 import com.matteoveroni.mydiary.article.model.Article;
 import com.matteoveroni.mydiary.article.model.ArticleModel;
 import com.matteoveroni.mydiary.article.model.hibernate.HibernateArticleModel;
-import com.matteoveroni.mydiary.screen.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
 import java.net.URL;
 import java.util.Date;
@@ -24,9 +24,9 @@ import javafx.scene.web.HTMLEditor;
  *
  * @author Matteo Veroni
  */
-public class ArticleScreenController implements Initializable, ManageableScreen, Observer {
+public class ArticleScreenController implements Initializable, Manageable, Listener {
     
-    private ScreenManager screenManager;
+    private ApplicationManager manager;
     private final ArticleModel model = new HibernateArticleModel();
     private Article currentArticle = new PersistentHibernateArticle();
     
@@ -64,9 +64,9 @@ public class ArticleScreenController implements Initializable, ManageableScreen,
     }
     
     @Override
-    public void setScreenManager(ScreenManager screenManager) {
-        this.screenManager = screenManager;
-        screenManager.registerObserver(this);
+    public void setManager(ApplicationManager manager) {
+        this.manager = manager;
+        manager.registerListener(this);
     }
     
     @Override
@@ -117,7 +117,7 @@ public class ArticleScreenController implements Initializable, ManageableScreen,
     
     @FXML
     void backButtonPressed(ActionEvent event) {
-        screenManager.useScreen(ScreenType.DIARY_SCREEN);
+        manager.changeScreen(ScreenType.DIARY_SCREEN);
     }
     
     private void drawCurrentModelOnTheScene() {
