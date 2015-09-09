@@ -2,7 +2,7 @@ package com.matteoveroni.mydiary.diary.model.hibernate;
 
 import com.matteoveroni.mydiary.article.model.Article;
 import com.matteoveroni.mydiary.article.model.hibernate.PersistentHibernateArticle;
-import com.matteoveroni.mydiary.database.DAOManager;
+import com.matteoveroni.mydiary.database.DAO;
 import com.matteoveroni.mydiary.diary.model.DiaryModel;
 import java.util.List;
 
@@ -12,16 +12,16 @@ import java.util.List;
  */
 public class HibernateDiaryModel implements DiaryModel {
 
-	private final DAOManager databaseManager = DAOManager.getInstance();
+	private final DAO databaseManager = DAO.getInstance();
 
 	@Override
 	public Article getFirstArticle() {
-		return (Article) databaseManager.read(PersistentHibernateArticle.class, null, DAOManager.ElementOnWhichOperate.FIRST);
+		return (Article) databaseManager.read(PersistentHibernateArticle.class, null, DAO.ElementsOnWhichOperate.FIRST);
 	}
 
 	@Override
 	public Article getLastArticle() {
-		return (Article) databaseManager.read(PersistentHibernateArticle.class, null, DAOManager.ElementOnWhichOperate.LAST);
+		return (Article) databaseManager.read(PersistentHibernateArticle.class, null, DAO.ElementsOnWhichOperate.LAST);
 	}
 
 	@Override

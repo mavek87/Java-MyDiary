@@ -1,6 +1,8 @@
-package com.matteoveroni.mydiary.screen;
+package com.matteoveroni.mydiary.screen.manager;
 
 import com.matteoveroni.mydiary.application.manager.Manageable;
+import com.matteoveroni.mydiary.screen.Screen;
+import com.matteoveroni.mydiary.screen.ScreenType;
 import com.sun.media.jfxmediaimpl.MediaDisposer.Disposable;
 import java.util.ArrayList;
 import java.util.HashMap;

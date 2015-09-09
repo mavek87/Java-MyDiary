@@ -28,10 +28,7 @@ public class MyDiary extends Application {
     public void stop() {
         applicationManager.dispose();
     }
-
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String[] args) {
         launch(args);
     }

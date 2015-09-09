@@ -1,9 +1,9 @@
 package com.matteoveroni.mydiary.application.manager;
 
-import com.matteoveroni.mydiary.database.DAOManager;
+import com.matteoveroni.mydiary.database.DAO;
 import com.matteoveroni.mydiary.patterns.Listenable;
 import com.matteoveroni.mydiary.patterns.Listener;
-import com.matteoveroni.mydiary.screen.ScreenManager;
+import com.matteoveroni.mydiary.screen.manager.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
 import com.matteoveroni.mydiary.user.model.User;
 import com.sun.media.jfxmediaimpl.MediaDisposer.Disposable;
@@ -16,61 +16,64 @@ import java.util.List;
  */
 public class ApplicationManager implements Manager, Disposable, Listenable {
 
-	private final ScreenManager screenManager;
-	private final DAOManager databaseManager;
-	private final List<Listener> listeners = new ArrayList<>();
-	private User loggedInUser;
+    private final ScreenManager screenManager;
+    private final DAO database;
+    private final List<Listener> listeners = new ArrayList<>();
+    private final List<Disposable> resourcesToDisposeWhenApplicationClose = new ArrayList<>();
+    private User loggedInUser;
 
-	public ApplicationManager(ScreenManager screenManager, DAOManager databaseManager) {
-		this.screenManager = screenManager;
-		this.databaseManager = databaseManager;
-		setThisApplicationManagerAsScreenControllersManager();
-		//		registerThisManagerAsListenerOfAllTheSubManagers();
-	}
+    public ApplicationManager(ScreenManager screenManager, DAO databaseAccessObject) {
+        this.screenManager = screenManager;
+        this.database = databaseAccessObject;
+        resourcesToDisposeWhenApplicationClose.add(this.screenManager);
+        resourcesToDisposeWhenApplicationClose.add(this.database);
+        setThisApplicationManagerAsScreenControllersManager();
+    }
 
-	@Override
-	public void registerListener(Listener listener) {
-		listeners.add(listener);
-	}
+    @Override
+    public void registerListener(Listener listener) {
+        listeners.add(listener);
+    }
 
-	@Override
-	public void removeListener(Listener listener) {
-		listeners.remove(listener);
-	}
+    @Override
+    public void removeListener(Listener listener) {
+        listeners.remove(listener);
+    }
 
-	@Override
-	public void notifyListeners() {
-		for (Listener listener : listeners) {
-			listener.update();
-		}
-	}
-	
-	@Override
-	public void changeScreen(ScreenType screenType) {
-		screenManager.useScreen(screenType);
-		notifyListeners();
-	}
+    @Override
+    public void notifyListeners() {
+        for (Listener listener : listeners) {
+            listener.update();
+        }
+    }
 
-	@Override
-	public User getLoggedUser() {
-		return loggedInUser;
-	}
+    @Override
+    public void changeScreen(ScreenType screenType) {
+        screenManager.useScreen(screenType);
+        notifyListeners();
+    }
 
-	@Override
-	public void setCurrentUser(User loggedInUser) {
-		this.loggedInUser = loggedInUser;
+    @Override
+    public User getLoggedUser() {
+        return loggedInUser;
+    }
+
+    @Override
+    public void setCurrentUser(User loggedInUser) {
+        this.loggedInUser = loggedInUser;
 //		notifyListeners();
-	}
+    }
 
-	@Override
-	public void dispose() {
-		screenManager.dispose();
-		databaseManager.dispose();
-	}
+    @Override
+    public void dispose() {
+        for(Disposable resource : resourcesToDisposeWhenApplicationClose){
+            resource.dispose();
+        }
+    }
 
-	private void setThisApplicationManagerAsScreenControllersManager() {
-		for (Manageable controller : screenManager.getScreenControllers()) {
-			controller.setManager(this);
-		}
-	}
+    private void setThisApplicationManagerAsScreenControllersManager() {
+        for (Manageable controller : screenManager.getScreenControllers()) {
+            controller.setManager(this);
+        }
+    }
 }

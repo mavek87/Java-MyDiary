@@ -21,15 +21,15 @@ import org.slf4j.LoggerFactory;
  *
  * @author Matteo Veroni
  */
-public class DAOManager implements Disposable {
+public class DAO implements Disposable {
 
     private final SessionFactory sessionFactory;
     private final ServiceRegistry serviceRegistry;
     private Session session;
-    private static DAOManager databaseManagerInstance;
-    private static final Logger LOG = LoggerFactory.getLogger(DAOManager.class);
+    private static DAO databaseManagerInstance;
+    private static final Logger LOG = LoggerFactory.getLogger(DAO.class);
 
-    private DAOManager() {
+    private DAO() {
         Configuration configuration = new Configuration();
         configuration.configure();
         serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
@@ -41,14 +41,14 @@ public class DAOManager implements Disposable {
         SAVE, READ, DELETE, ALTER;
     }
 
-    public enum ElementOnWhichOperate {
+    public enum ElementsOnWhichOperate {
 
         FIRST, LAST, REQUESTED, PREVIOUS, NEXT;
     }
 
-    public static DAOManager getInstance() {
+    public static DAO getInstance() {
         if (databaseManagerInstance == null) {
-            databaseManagerInstance = new DAOManager();
+            databaseManagerInstance = new DAO();
         }
         return databaseManagerInstance;
     }
@@ -107,7 +107,7 @@ public class DAOManager implements Disposable {
         }
     }
 
-    public Object read(Class objectClass, Serializable serializable, ElementOnWhichOperate elementOnWhichOperate) {
+    public Object read(Class objectClass, Serializable serializable, ElementsOnWhichOperate elementsOnWhichOperate) {
         Session readSession = null;
         Transaction transaction = null;
         Object objectReaded = null;
@@ -116,7 +116,7 @@ public class DAOManager implements Disposable {
             transaction = readSession.beginTransaction();
 
             Criteria queryCriteria;
-            switch (elementOnWhichOperate) {
+            switch (elementsOnWhichOperate) {
                 case FIRST:
                     queryCriteria = readSession.createCriteria(objectClass)
                         .setFirstResult(0)
@@ -203,15 +203,6 @@ public class DAOManager implements Disposable {
         return queryResults;
     }
 
-//	IT DOESN'T WORKS NOW BUT IT COULD BE USEFULL TO IMPLEMENT IN THE FUTURE
-//	public int getNumberOfElementsInATable(Class objectClass) {
-//		int numberOfElementsInTheTable = 0;
-//		try {
-//			numberOfElementsInTheTable = (Integer) session.createCriteria(objectClass).setProjection(Projections.rowCount()).uniqueResult();
-//		} catch (Exception ex) {
-//		}
-//		return numberOfElementsInTheTable;
-//	}
     @Override
     public void dispose() {
         if (session != null && session.isOpen()) {

@@ -1,11 +1,11 @@
 package com.matteoveroni.mydiary.application.builder;
 
 import com.matteoveroni.mydiary.application.manager.ApplicationManager;
-import com.matteoveroni.mydiary.database.DAOManager;
+import com.matteoveroni.mydiary.database.DAO;
 import com.matteoveroni.mydiary.screen.Screen;
-import com.matteoveroni.mydiary.screen.ScreenManager;
+import com.matteoveroni.mydiary.screen.manager.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
-import com.matteoveroni.mydiary.screen.ScreensFactory;
+import com.matteoveroni.mydiary.screen.factory.ScreensFactory;
 import javafx.stage.Stage;
 
 /**
@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 public class ApplicationBuilder {
 
 	private ApplicationManager applicationManager;
-	private final DAOManager databaseManager = DAOManager.getInstance();
+	private final DAO databaseManager = DAO.getInstance();
 	private final ScreenManager screenManager;
 	private final ScreensFactory screensFactory = ScreensFactory.getInstance();
 
