@@ -7,8 +7,8 @@ import com.matteoveroni.mydiary.screen.manager.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
 import com.matteoveroni.mydiary.user.model.User;
 import com.sun.media.jfxmediaimpl.MediaDisposer.Disposable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -18,8 +18,8 @@ public class ApplicationManager implements Manager, Disposable, Listenable {
 
     private final ScreenManager screenManager;
     private final DAO database;
-    private final List<Listener> listeners = new ArrayList<>();
-    private final List<Disposable> resourcesToDisposeWhenApplicationClose = new ArrayList<>();
+    private final Set<Listener> listeners = new HashSet<>();
+    private final Set<Disposable> resourcesToDisposeWhenApplicationClose = new HashSet<>();
     private User loggedInUser;
 
     public ApplicationManager(ScreenManager screenManager, DAO databaseAccessObject) {
@@ -61,7 +61,7 @@ public class ApplicationManager implements Manager, Disposable, Listenable {
     @Override
     public void setCurrentUser(User loggedInUser) {
         this.loggedInUser = loggedInUser;
-//		notifyListeners();
+		notifyListeners();
     }
 
     @Override
