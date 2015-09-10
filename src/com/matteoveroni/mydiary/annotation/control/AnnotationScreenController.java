@@ -28,7 +28,7 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 
 	private Manager manager;
 	private final AnnotationModel model = new HibernateAnnotationModel();
-	private Annotation currentArticle = new PersistentHibernateAnnotation();
+	private Annotation currentAnnotation = new PersistentHibernateAnnotation();
 
 	@FXML
 	private ResourceBundle resources;
@@ -74,8 +74,8 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 	@Override
 	public void update() {
 		try {
-			currentArticle = model.getLastArticle();
-			if (currentArticle == null) {
+			currentAnnotation = model.getLastAnnotation();
+			if (currentAnnotation == null) {
 				createFirstDefaultArticle();
 			}
 			drawCurrentModelOnTheScene();
@@ -85,32 +85,32 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 	}
 
 	@FXML
-	void articleMessageChanged(ActionEvent event) {
+	void annotationMessageChanged(ActionEvent event) {
 	}
 
 	@FXML
-	void saveArticleButtonPressed(ActionEvent event) {
-		currentArticle.setTitle(txt_title.getText());
-		currentArticle.setMessage(htmlEditor_message.getHtmlText());
-		currentArticle.setAuthor(manager.getLoggedInUser().getName());
+	void saveAnnotationButtonPressed(ActionEvent event) {
+		currentAnnotation.setTitle(txt_title.getText());
+		currentAnnotation.setMessage(htmlEditor_message.getHtmlText());
+		currentAnnotation.setAuthor(manager.getLoggedInUser().getName());
 		System.out.println(manager.getLoggedInUser().toString());
-		model.saveCurrentArticle(currentArticle);
+		model.saveCurrentAnnotation(currentAnnotation);
 	}
 
 	@FXML
-	void previousArticleButtonPressed(ActionEvent event) {
-		Annotation newArticleReaded = model.getPreviousArticle(currentArticle);
-		if (newArticleReaded != null) {
-			currentArticle = newArticleReaded;
+	void previousAnnotationButtonPressed(ActionEvent event) {
+		Annotation newAnnotationReaded = model.getPreviousAnnotation(currentAnnotation);
+		if (newAnnotationReaded != null) {
+			currentAnnotation = newAnnotationReaded;
 			drawCurrentModelOnTheScene();
 		}
 	}
 
 	@FXML
-	void nextArticleButtonPressed(ActionEvent event) {
-		Annotation newArticleReaded = model.getNextArticle(currentArticle);
-		if (newArticleReaded != null) {
-			currentArticle = newArticleReaded;
+	void nextAnnotationButtonPressed(ActionEvent event) {
+		Annotation newAnnotationReaded = model.getNextAnnotation(currentAnnotation);
+		if (newAnnotationReaded != null) {
+			currentAnnotation = newAnnotationReaded;
 			drawCurrentModelOnTheScene();
 		}
 	}
@@ -122,12 +122,15 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 
 	private void drawCurrentModelOnTheScene() {
 		resetCurrentSceneElements();
-		txt_annotationNumber.setText(Objects.toString(currentArticle.getId(), null));
-		txt_title.setText(currentArticle.getTitle());
-		htmlEditor_message.setHtmlText(currentArticle.getMessage());
-		txt_author.setText(currentArticle.getAuthor());
-		if (currentArticle.getCreationDate() != null) {
-			txt_creationDate.setText(currentArticle.getCreationDate().toString());
+		txt_annotationNumber.setText(Objects.toString(currentAnnotation.getId(), null));
+		txt_title.setText(currentAnnotation.getTitle());
+		htmlEditor_message.setHtmlText(currentAnnotation.getMessage());
+		txt_author.setText(currentAnnotation.getAuthor());
+		if (currentAnnotation.getCreationDate() != null) {
+			txt_creationDate.setText(currentAnnotation.getCreationDate().toString());
+		}
+		if (currentAnnotation.getLastModifationTimestamp() != null) {
+			txt_lastModificationDate.setText(currentAnnotation.getLastModifationTimestamp().toString());
 		}
 	}
 
@@ -146,6 +149,6 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 		articleToCreate.setMessage("");
 		articleToCreate.setCreationDate(new Date());
 		articleToCreate.setLastModificationTimestamp(new Date());
-		currentArticle = model.createNewArticle(articleToCreate);
+		currentAnnotation = model.createNewAnnotation(articleToCreate);
 	}
 }

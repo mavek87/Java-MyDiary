@@ -13,33 +13,33 @@ public class HibernateAnnotationModel implements AnnotationModel {
 	private final DAO databaseManager = DAO.getInstance();
 
 	@Override
-	public Annotation getFirstArticle() {
+	public Annotation getFirstAnnotation() {
 		return (Annotation) databaseManager.read(PersistentHibernateAnnotation.class, null, DAO.ElementsOnWhichOperate.FIRST);
 	}
 
 	@Override
-	public Annotation getLastArticle() {
+	public Annotation getLastAnnotation() {
 		return (Annotation) databaseManager.read(PersistentHibernateAnnotation.class, null, DAO.ElementsOnWhichOperate.LAST);
 	}
 
 	@Override
-	public Annotation getPreviousArticle(Annotation currentAnnotation) {
+	public Annotation getPreviousAnnotation(Annotation currentAnnotation) {
 		return (Annotation) databaseManager.read(PersistentHibernateAnnotation.class, currentAnnotation.getId(), DAO.ElementsOnWhichOperate.PREVIOUS);
 	}
 
 	@Override
-	public Annotation getNextArticle(Annotation currentAnnotation) {
+	public Annotation getNextAnnotation(Annotation currentAnnotation) {
 		return (Annotation) databaseManager.read(PersistentHibernateAnnotation.class, currentAnnotation.getId(), DAO.ElementsOnWhichOperate.NEXT);
 	}
 
 	@Override
-	public void saveCurrentArticle(Annotation annotationToSave) {
+	public void saveCurrentAnnotation(Annotation annotationToSave) {
 		databaseManager.update(annotationToSave);
 	}
 
 	@Override
-	public Annotation createNewArticle(Annotation annotationToSave) {
+	public Annotation createNewAnnotation(Annotation annotationToSave) {
 		databaseManager.write(annotationToSave);
-		return getFirstArticle();
+		return getFirstAnnotation();
 	}
 }

@@ -32,7 +32,7 @@ public class MyDiary extends Application {
 
 	@Override
 	public void stop() {
-		LOG.debug(" --> Application is going to be disposed");
+		LOG.debug(" ---> Application stop");
 		applicationManager.dispose();
 	}
 

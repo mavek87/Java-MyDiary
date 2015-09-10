@@ -6,15 +6,15 @@ package com.matteoveroni.mydiary.annotation.model;
  */
 public interface AnnotationModel {
     
-    public Annotation getFirstArticle();
+    public Annotation getFirstAnnotation();
 
-    public Annotation getLastArticle();
+    public Annotation getLastAnnotation();
 
-    public Annotation getPreviousArticle(Annotation currentArticle);
+    public Annotation getPreviousAnnotation(Annotation currentAnnotation);
 
-    public Annotation getNextArticle(Annotation currentArticle);
+    public Annotation getNextAnnotation(Annotation currentAnnotation);
 
-    public void saveCurrentArticle(Annotation articleToSave);
+    public void saveCurrentAnnotation(Annotation annotationToSave);
     
-    public Annotation createNewArticle(Annotation articleToSave);
+    public Annotation createNewAnnotation(Annotation annotationToSave);
 }
