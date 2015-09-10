@@ -1,7 +1,6 @@
 package com.matteoveroni.mydiary.application.manager;
 
 import com.matteoveroni.mydiary.database.DAO;
-import com.matteoveroni.mydiary.patterns.Command;
 import com.matteoveroni.mydiary.patterns.Listenable;
 import com.matteoveroni.mydiary.patterns.Listener;
 import com.matteoveroni.mydiary.screen.manager.ScreenManager;
@@ -55,14 +54,13 @@ public class ApplicationManager implements Manager, Disposable, Listenable {
     }
 
     @Override
-    public User getLoggedUser() {
-        return loggedInUser;
+    public User getLoggedInUser() {
+        return this.loggedInUser;
     }
 
     @Override
-    public void setCurrentUser(User loggedInUser) {
+    public void setLoggedInUser(User loggedInUser) {
         this.loggedInUser = loggedInUser;
-        notifyListeners();
     }
     
     @Override

@@ -18,9 +18,9 @@ public interface Manager {
 
 	public void changeScreen(ScreenType screenType);
 
-	public User getLoggedUser();
+	public User getLoggedInUser();
 
-	public void setCurrentUser(User loggedInUser);
+	public void setLoggedInUser(User loggedInUser);
     
 	public void dispose();
 }

@@ -27,7 +27,7 @@ import javafx.scene.control.TextField;
 public class LoginScreenController implements Manageable, Initializable, Listener {
 
     private Manager manager;
-    private User registeredUser;
+    private User user;
     private final LoginModel model = new HibernateLoginModel();
 
     @FXML
@@ -66,11 +66,9 @@ public class LoginScreenController implements Manageable, Initializable, Listene
     @FXML
     void login(ActionEvent event) {
         String insertedUsername = txt_username.getText();
-        registeredUser = model.getUser(insertedUsername);
-        if (registeredUser != null) {
-            if (txt_username.getText().equals(registeredUser.getUsername()) && psw_password.getText().equals(registeredUser.getPassword())) {
-                loginSuccessfullSoAccessApplication();
-            }
+        user = model.getUser(insertedUsername);
+        if (user != null && user.getPassword().equals(psw_password.getText())) {
+            loginSuccessfullSoAccessApplication();
         } else {
             loginFailedPrintError();
         }
@@ -92,6 +90,7 @@ public class LoginScreenController implements Manageable, Initializable, Listene
     }
 
     private void loginSuccessfullSoAccessApplication() {
+        manager.setLoggedInUser(user);
         manager.changeScreen(ScreenType.DIARY_SCREEN);
     }
 

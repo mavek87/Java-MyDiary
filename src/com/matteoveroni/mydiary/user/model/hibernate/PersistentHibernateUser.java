@@ -81,4 +81,9 @@ public class PersistentHibernateUser implements Serializable, User {
         this.age = age;
     }
     
+    @Override
+    public String toString(){
+        return getUsername(); 
+    }
+    
 }

@@ -79,6 +79,7 @@ public class ArticleScreenController implements Initializable, Manageable, Liste
                 Article articleToCreate = new PersistentHibernateArticle();
                 articleToCreate.setTitle("Title");
                 articleToCreate.setDate(new Date());
+                articleToCreate.setAuthor(manager.getLoggedInUser().toString());
                 currentArticle = model.createNewArticle(articleToCreate);
             } catch (Exception exInCreationOfANewArticle) {
                 throw new RuntimeException(exInCreationOfANewArticle);
@@ -94,6 +95,8 @@ public class ArticleScreenController implements Initializable, Manageable, Liste
     void saveArticleButtonPressed(ActionEvent event) {
         currentArticle.setTitle(articleTitle_txt.getText());
         currentArticle.setMessage(articleMessage_htmlEditor.getHtmlText());
+        currentArticle.setAuthor(manager.getLoggedInUser().getName());
+        System.out.println(manager.getLoggedInUser().toString());
         model.saveCurrentArticle(currentArticle);
     }
     

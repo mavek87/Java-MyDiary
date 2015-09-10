@@ -2,13 +2,9 @@ package com.matteoveroni.mydiary.user.model;
 
 /**
  *
- * @author MatteoVeroni
+ * @author Matteo Veroni
  */
 public interface User {
-
-//    public long getId();
-//
-//    public void setId(long id);
 
     public String getUsername();
 
@@ -29,4 +25,7 @@ public interface User {
     public int getAge();
 
     public void setAge(int age);
+    
+    @Override
+    public String toString();
 }

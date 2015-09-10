@@ -26,7 +26,7 @@ import javafx.scene.control.TextField;
 public class RegistrationScreenController implements Manageable, Initializable, Listener {
 
     private Manager manager;
-    private RegistrationModel model = new HibernateRegistrationModel();
+    private final RegistrationModel model = new HibernateRegistrationModel();
     private final User userToRegistrate = new PersistentHibernateUser();
 
     private final int MIN_USERNAME_LENGTH = 6;
@@ -123,7 +123,6 @@ public class RegistrationScreenController implements Manageable, Initializable, 
     }
 
     private void resetUserAndPasswordFieldsOnTheForm() {
-        txt_Username.setText("");
         psw_Password.setText("");
     }
 
