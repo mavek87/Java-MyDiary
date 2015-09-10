@@ -1,5 +1,7 @@
 package com.matteoveroni.mydiary.annotation.model;
 
+import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
+
 /**
  *
  * @author Matteo Veroni

@@ -2,9 +2,9 @@ package com.matteoveroni.mydiary.diary.control;
 
 import com.matteoveroni.mydiary.application.manager.Manageable;
 import com.matteoveroni.mydiary.application.manager.Manager;
-import com.matteoveroni.mydiary.annotation.model.hibernate.PersistentHibernateAnnotation;
+import com.matteoveroni.mydiary.annotation.model.bean.HibernateAnnotationBean;
 import com.matteoveroni.mydiary.patterns.Listener;
-import com.matteoveroni.mydiary.annotation.model.Annotation;
+import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
 import com.matteoveroni.mydiary.diary.model.Diary;
 import com.matteoveroni.mydiary.diary.model.DiaryModel;
 import com.matteoveroni.mydiary.diary.model.hibernate.HibernateDiaryModel;
@@ -100,7 +100,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 
 	@FXML
 	void createNewNote(ActionEvent event) {
-		Annotation newArticle = new PersistentHibernateAnnotation();
+		Annotation newArticle = new HibernateAnnotationBean();
 		newArticle.setTitle("New Title");
         newArticle.setAuthor(manager.getLoggedInUser().toString());
 		newArticle.setCreationDate(new Date());

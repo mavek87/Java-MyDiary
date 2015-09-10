@@ -2,11 +2,11 @@ package com.matteoveroni.mydiary.annotation.control;
 
 import com.matteoveroni.mydiary.application.manager.Manageable;
 import com.matteoveroni.mydiary.application.manager.Manager;
-import com.matteoveroni.mydiary.annotation.model.hibernate.PersistentHibernateAnnotation;
+import com.matteoveroni.mydiary.annotation.model.bean.HibernateAnnotationBean;
 import com.matteoveroni.mydiary.patterns.Listener;
-import com.matteoveroni.mydiary.annotation.model.Annotation;
+import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
 import com.matteoveroni.mydiary.annotation.model.AnnotationModel;
-import com.matteoveroni.mydiary.annotation.model.hibernate.HibernateAnnotationModel;
+import com.matteoveroni.mydiary.annotation.model.HibernateAnnotationModel;
 import com.matteoveroni.mydiary.screen.ScreenType;
 import java.net.URL;
 import java.util.Date;
@@ -28,7 +28,7 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 
 	private Manager manager;
 	private final AnnotationModel model = new HibernateAnnotationModel();
-	private Annotation currentAnnotation = new PersistentHibernateAnnotation();
+	private Annotation currentAnnotation = new HibernateAnnotationBean();
 
 	@FXML
 	private ResourceBundle resources;
@@ -143,7 +143,7 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 	}
 
 	private void createFirstDefaultArticle() {
-		Annotation articleToCreate = new PersistentHibernateAnnotation();
+		Annotation articleToCreate = new HibernateAnnotationBean();
 		articleToCreate.setTitle("Title");
 		articleToCreate.setAuthor(manager.getLoggedInUser().toString());
 		articleToCreate.setMessage("");

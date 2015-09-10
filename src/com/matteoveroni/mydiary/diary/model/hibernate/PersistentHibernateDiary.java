@@ -1,6 +1,6 @@
 package com.matteoveroni.mydiary.diary.model.hibernate;
 
-import com.matteoveroni.mydiary.annotation.model.Annotation;
+import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
 import com.matteoveroni.mydiary.diary.model.Diary;
 import com.matteoveroni.mydiary.user.model.User;
 import java.io.Serializable;

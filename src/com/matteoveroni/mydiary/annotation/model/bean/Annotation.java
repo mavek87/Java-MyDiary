@@ -1,4 +1,4 @@
-package com.matteoveroni.mydiary.annotation.model;
+package com.matteoveroni.mydiary.annotation.model.bean;
 
 import java.util.Date;
 

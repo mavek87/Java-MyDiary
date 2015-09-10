@@ -26,7 +26,7 @@
         <!-- create ==> Drop and re-create the database schema on startup | update ==> doesn't create the schema but update only information -->
         <property name="hbm2ddl.auto">update</property>
         <!-- mapped tables -->
-        <mapping class="com.matteoveroni.mydiary.annotation.model.hibernate.PersistentHibernateAnnotation"/>
+        <mapping class="com.matteoveroni.mydiary.annotation.model.bean.HibernateAnnotationBean"/>
         <mapping class="com.matteoveroni.mydiary.user.model.hibernate.PersistentHibernateUser"/>
     </session-factory>
 </hibernate-configuration>

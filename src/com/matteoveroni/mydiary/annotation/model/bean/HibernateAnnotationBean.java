@@ -1,6 +1,5 @@
-package com.matteoveroni.mydiary.annotation.model.hibernate;
+package com.matteoveroni.mydiary.annotation.model.bean;
 
-import com.matteoveroni.mydiary.annotation.model.Annotation;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -20,7 +19,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "Annotation")
-public class PersistentHibernateAnnotation implements Serializable, Annotation {
+public class HibernateAnnotationBean implements Serializable, Annotation {
 
 	@Id
 	@GeneratedValue

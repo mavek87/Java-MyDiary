@@ -1,7 +1,7 @@
-package com.matteoveroni.mydiary.annotation.model.hibernate;
+package com.matteoveroni.mydiary.annotation.model;
 
-import com.matteoveroni.mydiary.annotation.model.Annotation;
-import com.matteoveroni.mydiary.annotation.model.AnnotationModel;
+import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
+import com.matteoveroni.mydiary.annotation.model.bean.HibernateAnnotationBean;
 import com.matteoveroni.mydiary.database.DAO;
 
 /**
@@ -14,22 +14,22 @@ public class HibernateAnnotationModel implements AnnotationModel {
 
 	@Override
 	public Annotation getFirstAnnotation() {
-		return (Annotation) databaseManager.read(PersistentHibernateAnnotation.class, null, DAO.ElementsOnWhichOperate.FIRST);
+		return (Annotation) databaseManager.read(HibernateAnnotationBean.class, null, DAO.ElementsOnWhichOperate.FIRST);
 	}
 
 	@Override
 	public Annotation getLastAnnotation() {
-		return (Annotation) databaseManager.read(PersistentHibernateAnnotation.class, null, DAO.ElementsOnWhichOperate.LAST);
+		return (Annotation) databaseManager.read(HibernateAnnotationBean.class, null, DAO.ElementsOnWhichOperate.LAST);
 	}
 
 	@Override
 	public Annotation getPreviousAnnotation(Annotation currentAnnotation) {
-		return (Annotation) databaseManager.read(PersistentHibernateAnnotation.class, currentAnnotation.getId(), DAO.ElementsOnWhichOperate.PREVIOUS);
+		return (Annotation) databaseManager.read(HibernateAnnotationBean.class, currentAnnotation.getId(), DAO.ElementsOnWhichOperate.PREVIOUS);
 	}
 
 	@Override
 	public Annotation getNextAnnotation(Annotation currentAnnotation) {
-		return (Annotation) databaseManager.read(PersistentHibernateAnnotation.class, currentAnnotation.getId(), DAO.ElementsOnWhichOperate.NEXT);
+		return (Annotation) databaseManager.read(HibernateAnnotationBean.class, currentAnnotation.getId(), DAO.ElementsOnWhichOperate.NEXT);
 	}
 
 	@Override
