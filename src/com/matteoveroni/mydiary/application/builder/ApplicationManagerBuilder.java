@@ -14,18 +14,18 @@ import org.slf4j.LoggerFactory;
  *
  * @author Matteo Veroni
  */
-public class ApplicationBuilder {
+public class ApplicationManagerBuilder {
 
 	private ApplicationManager applicationManager;
 	private final DAO databaseManager = DAO.getInstance();
 	private final ScreenManager screenManager;
 	private final ScreensFactory screensFactory = ScreensFactory.getInstance();
-	private static final Logger LOG = LoggerFactory.getLogger(ApplicationBuilder.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ApplicationManagerBuilder.class);
 
 	private final String applicationName;
 	private final String applicationVersion;
 
-	public ApplicationBuilder(String applicationName, String applicationVersion, Stage primaryStage) {
+	public ApplicationManagerBuilder(String applicationName, String applicationVersion, Stage primaryStage) {
 		this.applicationName = applicationName;
 		this.applicationVersion = applicationVersion;
 		this.screenManager = new ScreenManager(primaryStage);

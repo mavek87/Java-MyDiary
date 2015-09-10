@@ -1,7 +1,7 @@
 package com.matteoveroni.mydiary;
 
 import com.matteoveroni.mydiary.application.manager.ApplicationManager;
-import com.matteoveroni.mydiary.application.builder.ApplicationBuilder;
+import com.matteoveroni.mydiary.application.builder.ApplicationManagerBuilder;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.stage.Stage;
@@ -18,15 +18,15 @@ public class MyDiary extends Application {
 	private static final String APPLICATION_VERSION = "0.0.16";
 	private static final Logger LOG = LoggerFactory.getLogger(MyDiary.class);
 
-	private ApplicationBuilder applicationBuilder;
+	private ApplicationManagerBuilder applicationManagerBuilder;
 	private ApplicationManager applicationManager;
 
 	@Override
 	public void start(Stage applicationStage) {
 		LOG.debug(" ---> Application started");
-		applicationBuilder = new ApplicationBuilder(APPLICATION_NAME, APPLICATION_VERSION, applicationStage);
+		applicationManagerBuilder = new ApplicationManagerBuilder(APPLICATION_NAME, APPLICATION_VERSION, applicationStage);
 		LOG.debug(" ---> ApplicationBuilder initialized");
-		applicationManager = applicationBuilder.build();
+		applicationManager = applicationManagerBuilder.build();
 		LOG.debug(" ---> ApplicationManager builded");
 	}
 

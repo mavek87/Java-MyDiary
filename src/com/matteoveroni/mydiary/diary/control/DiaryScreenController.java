@@ -87,7 +87,6 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 
 	@FXML
 	void goToFilterScreen(ActionEvent event) {
-
 	}
 
 	@FXML
@@ -105,6 +104,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 		newArticle.setTitle("New Title");
         newArticle.setAuthor(manager.getLoggedInUser().toString());
 		newArticle.setCreationDate(new Date());
+		newArticle.setLastModificationTimestamp(new Date());
 		model.createNewArticle(newArticle);
 		manager.changeScreen(ScreenType.ANNOTATION_SCREEN);
 	}
@@ -120,8 +120,8 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 
 		tableColumn_Id.setCellValueFactory(new PropertyValueFactory<Annotation, Long>("id"));
 		tableColumn_Title.setCellValueFactory(new PropertyValueFactory<Annotation, String>("title"));
-//		tableColumn_CreationDate.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("creationdate"));
-//		tableColumn_LastModificationDate.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("lastmodificationdate"));
+		tableColumn_CreationDate.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("creationdate"));
+		tableColumn_LastModificationDate.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("lastmodificationdate"));
 		tableColumn_Author.setCellValueFactory(new PropertyValueFactory<Annotation, String>("author"));
 
 		diaryTable.setItems(articles);

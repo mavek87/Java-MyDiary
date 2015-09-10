@@ -8,8 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -34,11 +37,11 @@ public class PersistentHibernateAnnotation implements Serializable, Annotation {
 	private String author;
 
 	@Column
-	@Temporal(javax.persistence.TemporalType.DATE)
+	@Temporal(TemporalType.DATE)
 	private Date creationDate;
 
 	@Column
-	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastModificationDate;
 
 	@Override
@@ -83,12 +86,13 @@ public class PersistentHibernateAnnotation implements Serializable, Annotation {
 
 	@Override
 	public Date getCreationDate() {
-		return creationDate;
+		return this.creationDate;
 	}
 
 	@Override
+	@PrePersist
 	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
+		this.creationDate = new Date();
 	}
 
 	@Override
@@ -97,7 +101,8 @@ public class PersistentHibernateAnnotation implements Serializable, Annotation {
 	}
 
 	@Override
+	@PreUpdate
 	public void setLastModificationTimestamp(Date lastModificationDate) {
-		this.lastModificationDate = lastModificationDate;
+		this.lastModificationDate = new Date();
 	}
 }

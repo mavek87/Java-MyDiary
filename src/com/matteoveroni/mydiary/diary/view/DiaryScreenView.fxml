@@ -14,7 +14,7 @@
           <TableColumn fx:id="tableColumn_Id" prefWidth="51.0" text="Id" />
           <TableColumn fx:id="tableColumn_Title" prefWidth="233.0" text="Title" />
             <TableColumn fx:id="tableColumn_CreationDate" prefWidth="106.0" text="Creation Date" />
-            <TableColumn fx:id="tableColumn_LastModification" prefWidth="192.0" text="Last Modification" />
+            <TableColumn fx:id="tableColumn_LastModificationDate" prefWidth="192.0" text="Last Modification" />
             <TableColumn fx:id="tableColumn_Author" prefWidth="196.0" text="Author" />
         </columns>
       </TableView>
