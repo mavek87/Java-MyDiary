@@ -4,7 +4,7 @@ import com.matteoveroni.mydiary.application.manager.ApplicationManager;
 import com.matteoveroni.mydiary.database.DAO;
 import com.matteoveroni.mydiary.screen.Screen;
 import com.matteoveroni.mydiary.screen.manager.ScreenManager;
-import com.matteoveroni.mydiary.screen.ScreenType;
+import com.matteoveroni.mydiary.screen.ScreensFramework;
 import com.matteoveroni.mydiary.screen.factory.ScreensFactory;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
@@ -52,13 +52,13 @@ public class ApplicationManagerBuilder {
 		LOG.debug(" ---> Starting to load all the screens in the screen manager");
 		int indexOfTheCurrentScreenToBuild = 0;
 		try {
-			for (ScreenType screenTypeToBuild : ScreenType.values()) {
+			for (ScreensFramework screenTypeToBuild : ScreensFramework.values()) {
 				Screen newScreen = screensFactory.createScreen(screenTypeToBuild);
 				screenManager.loadScreen(newScreen);
 				indexOfTheCurrentScreenToBuild++;
 			}
 		} catch (Exception ex) {
-			LOG.error(" ---> IMPOSSIBLE TO BUILD SCREEN -> \'" + ScreenType.values()[indexOfTheCurrentScreenToBuild] + "\'!\n\nException occurred: \n" + ex);
+			LOG.error(" ---> IMPOSSIBLE TO BUILD SCREEN -> \'" + ScreensFramework.values()[indexOfTheCurrentScreenToBuild] + "\'!\n\nException occurred: \n" + ex);
 			throw new RuntimeException(ex);
 			
 		}
@@ -66,7 +66,7 @@ public class ApplicationManagerBuilder {
 
 	private void useInitialScreen() {
 		LOG.debug(" ---> Use the login screen");
-		screenManager.useScreen(ScreenType.LOGIN_SCREEN);
+		screenManager.useScreen(ScreensFramework.LOGIN_SCREEN);
 	}
 
 	private void centerWindow() {

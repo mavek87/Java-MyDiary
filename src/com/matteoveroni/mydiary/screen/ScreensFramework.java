@@ -3,7 +3,7 @@ package com.matteoveroni.mydiary.screen;
 /**
  * @author Matteo Veroni
  */
-public enum ScreenType {
+public enum ScreensFramework {
 
     ANNOTATION_SCREEN("Annotation Screen", "/com/matteoveroni/mydiary/annotation/view/AnnotationScreenView.fxml"),
     DIARY_SCREEN("Diary Screen", "/com/matteoveroni/mydiary/diary/view/DiaryScreenView.fxml"),
@@ -13,7 +13,7 @@ public enum ScreenType {
     private final String name;
     private final String resourcePath;
 
-    ScreenType(String screenName, String screenResourcePath) {
+    ScreensFramework(String screenName, String screenResourcePath) {
         this.name = screenName;
         this.resourcePath = screenResourcePath;
     }

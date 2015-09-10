@@ -2,7 +2,7 @@ package com.matteoveroni.mydiary.screen.manager;
 
 import com.matteoveroni.mydiary.application.manager.Manageable;
 import com.matteoveroni.mydiary.screen.Screen;
-import com.matteoveroni.mydiary.screen.ScreenType;
+import com.matteoveroni.mydiary.screen.ScreensFramework;
 import com.sun.media.jfxmediaimpl.MediaDisposer.Disposable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +17,7 @@ import javafx.stage.Stage;
  */
 public class ScreenManager implements Disposable {
 
-	private final Map<ScreenType, Screen> applicationScreens = new HashMap<>();
+	private final Map<ScreensFramework, Screen> applicationScreens = new HashMap<>();
 	private final List<Manageable> screenControllers = new ArrayList<>();
 	private Screen currentScreen;
 	private Stage mainStage;
@@ -43,7 +43,7 @@ public class ScreenManager implements Disposable {
 		}
 	}
 
-	public void useScreen(ScreenType screenTypeToUse) {
+	public void useScreen(ScreensFramework screenTypeToUse) {
 		if (applicationScreens.containsKey(screenTypeToUse) && this.getApplicationStage() != null) {
 			Screen screenToUse = applicationScreens.get(screenTypeToUse);
 			currentScreen = screenToUse;

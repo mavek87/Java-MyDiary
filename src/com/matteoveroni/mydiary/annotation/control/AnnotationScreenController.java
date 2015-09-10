@@ -7,7 +7,7 @@ import com.matteoveroni.mydiary.patterns.Listener;
 import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
 import com.matteoveroni.mydiary.annotation.model.AnnotationModel;
 import com.matteoveroni.mydiary.annotation.model.HibernateAnnotationModel;
-import com.matteoveroni.mydiary.screen.ScreenType;
+import com.matteoveroni.mydiary.screen.ScreensFramework;
 import java.net.URL;
 import java.util.Date;
 import java.util.Objects;
@@ -76,7 +76,7 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 		try {
 			currentAnnotation = model.getLastAnnotation();
 			if (currentAnnotation == null) {
-				createFirstDefaultArticle();
+				createFirstDefaultAnnotation();
 			}
 			drawCurrentModelOnTheScene();
 		} catch (Exception ex) {
@@ -117,7 +117,7 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 
 	@FXML
 	void backButtonPressed(ActionEvent event) {
-		manager.changeScreen(ScreenType.DIARY_SCREEN);
+		manager.changeScreen(ScreensFramework.DIARY_SCREEN);
 	}
 
 	private void drawCurrentModelOnTheScene() {
@@ -142,13 +142,13 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 		txt_creationDate.setText("");
 	}
 
-	private void createFirstDefaultArticle() {
-		Annotation articleToCreate = new HibernateAnnotationBean();
-		articleToCreate.setTitle("Title");
-		articleToCreate.setAuthor(manager.getLoggedInUser().toString());
-		articleToCreate.setMessage("");
-		articleToCreate.setCreationDate(new Date());
-		articleToCreate.setLastModificationTimestamp(new Date());
-		currentAnnotation = model.createNewAnnotation(articleToCreate);
+	private void createFirstDefaultAnnotation() {
+		Annotation annotationToCreate = new HibernateAnnotationBean();
+		annotationToCreate.setTitle("Title");
+		annotationToCreate.setAuthor(manager.getLoggedInUser().toString());
+		annotationToCreate.setMessage("");
+		annotationToCreate.setCreationDate(new Date());
+		annotationToCreate.setLastModificationTimestamp(new Date());
+		currentAnnotation = model.createNewAnnotation(annotationToCreate);
 	}
 }

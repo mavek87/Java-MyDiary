@@ -1,7 +1,7 @@
 package com.matteoveroni.mydiary.application.manager;
 
 import com.matteoveroni.mydiary.patterns.Listener;
-import com.matteoveroni.mydiary.screen.ScreenType;
+import com.matteoveroni.mydiary.screen.ScreensFramework;
 import com.matteoveroni.mydiary.user.model.bean.User;
 
 /**
@@ -16,7 +16,7 @@ public interface Manager {
 
 	public void notifyListeners();
 
-	public void changeScreen(ScreenType screenType);
+	public void changeScreen(ScreensFramework screenType);
 
 	public User getLoggedInUser();
 

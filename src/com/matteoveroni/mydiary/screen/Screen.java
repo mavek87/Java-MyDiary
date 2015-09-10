@@ -12,13 +12,13 @@ import javafx.scene.Scene;
  */
 public class Screen {
 
-	private final ScreenType screenType;
+	private final ScreensFramework screenType;
 	private FXMLLoader fxml;
 	private String name;
 	private String resourcePath;
 	private Scene scene;
 
-	public Screen(ScreenType selectedScreenType) throws IOException {
+	public Screen(ScreensFramework selectedScreenType) throws IOException {
 		screenType = selectedScreenType;
 		fxml = new FXMLLoader(getClass().getResource(screenType.getScreenResourcePath()));
 		name = screenType.name();
@@ -26,7 +26,7 @@ public class Screen {
 		scene = new Scene((Parent) fxml.load());
 	}
 
-	public ScreenType getScreenType() {
+	public ScreensFramework getScreenType() {
 		return screenType;
 	}
 

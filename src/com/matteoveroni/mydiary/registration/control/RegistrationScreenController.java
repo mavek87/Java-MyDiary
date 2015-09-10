@@ -5,7 +5,7 @@ import com.matteoveroni.mydiary.application.manager.Manager;
 import com.matteoveroni.mydiary.patterns.Listener;
 import com.matteoveroni.mydiary.registration.model.RegistrationModel;
 import com.matteoveroni.mydiary.registration.model.bean.HibernateRegistrationModel;
-import com.matteoveroni.mydiary.screen.ScreenType;
+import com.matteoveroni.mydiary.screen.ScreensFramework;
 import com.matteoveroni.mydiary.user.model.bean.User;
 import com.matteoveroni.mydiary.user.model.bean.HibernateUserBean;
 import java.net.URL;
@@ -82,7 +82,7 @@ public class RegistrationScreenController implements Manageable, Initializable, 
 
     @FXML
     void cancelRegistration(ActionEvent event) {
-        manager.changeScreen(ScreenType.LOGIN_SCREEN);
+        manager.changeScreen(ScreensFramework.LOGIN_SCREEN);
     }
 
     @FXML
@@ -90,7 +90,7 @@ public class RegistrationScreenController implements Manageable, Initializable, 
         if (areRequiredDataInsertedValid()) {
             initializeUserToRegistrate();
             model.createNewUser(userToRegistrate);
-            manager.changeScreen(ScreenType.LOGIN_SCREEN);
+            manager.changeScreen(ScreensFramework.LOGIN_SCREEN);
         } else {
             resetUserAndPasswordFieldsOnTheForm();
         }

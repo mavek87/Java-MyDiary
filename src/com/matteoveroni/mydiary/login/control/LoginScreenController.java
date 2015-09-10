@@ -5,7 +5,7 @@ import com.matteoveroni.mydiary.application.manager.Manager;
 import com.matteoveroni.mydiary.patterns.Listener;
 import com.matteoveroni.mydiary.login.model.LoginModel;
 import com.matteoveroni.mydiary.login.model.bean.HibernateLoginModel;
-import com.matteoveroni.mydiary.screen.ScreenType;
+import com.matteoveroni.mydiary.screen.ScreensFramework;
 import com.matteoveroni.mydiary.user.model.bean.User;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -76,7 +76,7 @@ public class LoginScreenController implements Manageable, Initializable, Listene
 
     @FXML
     void register(ActionEvent event) {
-        manager.changeScreen(ScreenType.REGISTRATION_SCREEN);
+        manager.changeScreen(ScreensFramework.REGISTRATION_SCREEN);
     }
 
     @FXML
@@ -91,7 +91,7 @@ public class LoginScreenController implements Manageable, Initializable, Listene
 
     private void loginSuccessfullSoAccessApplication() {
         manager.setLoggedInUser(user);
-        manager.changeScreen(ScreenType.DIARY_SCREEN);
+        manager.changeScreen(ScreensFramework.DIARY_SCREEN);
     }
 
     private void loginFailedPrintError() {

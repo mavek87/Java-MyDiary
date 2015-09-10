@@ -1,7 +1,7 @@
 package com.matteoveroni.mydiary.screen.factory;
 
 import com.matteoveroni.mydiary.screen.Screen;
-import com.matteoveroni.mydiary.screen.ScreenType;
+import com.matteoveroni.mydiary.screen.ScreensFramework;
 import java.io.IOException;
 
 /**
@@ -22,7 +22,7 @@ public class ScreensFactory {
 		return screenFactory;
 	}
 
-	public Screen createScreen(ScreenType typeOfTheScreenToCreate) throws IOException {
+	public Screen createScreen(ScreensFramework typeOfTheScreenToCreate) throws IOException {
 		Screen screen = new Screen(typeOfTheScreenToCreate);
 		return screen;
 	}

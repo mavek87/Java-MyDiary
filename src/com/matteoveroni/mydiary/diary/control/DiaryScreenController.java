@@ -9,7 +9,7 @@ import com.matteoveroni.mydiary.diary.model.bean.Diary;
 import com.matteoveroni.mydiary.diary.model.DiaryModel;
 import com.matteoveroni.mydiary.diary.model.HibernateDiaryModel;
 import com.matteoveroni.mydiary.diary.model.bean.HibernateDiaryBean;
-import com.matteoveroni.mydiary.screen.ScreenType;
+import com.matteoveroni.mydiary.screen.ScreensFramework;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
@@ -82,7 +82,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 
 	@FXML
 	void goToAnnotationScreen(ActionEvent event) {
-		manager.changeScreen(ScreenType.ANNOTATION_SCREEN);
+		manager.changeScreen(ScreensFramework.ANNOTATION_SCREEN);
 	}
 
 	@FXML
@@ -106,7 +106,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 		newAnnotation.setCreationDate(new Date());
 		newAnnotation.setLastModificationTimestamp(new Date());
 		model.createNewAnnotation(newAnnotation);
-		manager.changeScreen(ScreenType.ANNOTATION_SCREEN);
+		manager.changeScreen(ScreensFramework.ANNOTATION_SCREEN);
 	}
 
 	@FXML
@@ -122,8 +122,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 		tableColumn_Title.setCellValueFactory(new PropertyValueFactory<Annotation, String>("title"));
 		tableColumn_CreationDate.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("creationdate"));
 		tableColumn_LastModificationDate.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("lastmodificationdate"));
-		tableColumn_Author.setCellValueFactory(new PropertyValueFactory<Annotation, String>("author"));
-
+		tableColumn_Author.setCellValueFactory(new PropertyValueFactory<Annotation, String>("author"));        
 		diaryTable.setItems(annotations);
 	}
 }
