@@ -104,7 +104,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 		Article newArticle = new PersistentHibernateArticle();
 		newArticle.setTitle("New Title");
         newArticle.setAuthor(manager.getLoggedInUser().toString());
-		newArticle.setDate(new Date());
+		newArticle.setCreationDate(new Date());
 		model.createNewArticle(newArticle);
 		manager.changeScreen(ScreenType.ARTICLE_SCREEN);
 	}

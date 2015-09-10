@@ -19,71 +19,85 @@ import javax.persistence.Temporal;
 @Table(name = "Article")
 public class PersistentHibernateArticle implements Serializable, Article {
 
-    @Id
-    @GeneratedValue
-    private long id;
+	@Id
+	@GeneratedValue
+	private long id;
 
-    @Column
-    private String title;
+	@Column
+	private String title;
 
-    @Column(columnDefinition = "CLOB")
-    @Lob
-    private String message;
+	@Column(columnDefinition = "CLOB")
+	@Lob
+	private String message;
 
-    @Column
-    private String author;
+	@Column
+	private String author;
 
-    @Column
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date date;
+	@Column
+	@Temporal(javax.persistence.TemporalType.DATE)
+	private Date creationDate;
 
-    @Override
-    public long getId() {
-        return id;
-    }
+	@Column
+	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
+	private Date lastModificationDate;
 
-    @Override
-    public void setId(long id) {
-        this.id = id;
-    }
+	@Override
+	public long getId() {
+		return id;
+	}
 
-    @Override
-    public String getTitle() {
-        return title;
-    }
+	@Override
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    @Override
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	@Override
+	public String getTitle() {
+		return title;
+	}
 
-    @Override
-    public String getMessage() {
-        return message;
-    }
+	@Override
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    @Override
-    public void setMessage(String message) {
-        this.message = message;
-    }
+	@Override
+	public String getMessage() {
+		return message;
+	}
 
-    @Override
-    public String getAuthor() {
-        return author;
-    }
+	@Override
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
-    @Override
-    public void setAuthor(String author) {
-        this.author = author;
-    }
+	@Override
+	public String getAuthor() {
+		return author;
+	}
 
-    @Override
-    public Date getDate() {
-        return date;
-    }
+	@Override
+	public void setAuthor(String author) {
+		this.author = author;
+	}
 
-    @Override
-    public void setDate(Date date) {
-        this.date = date;
-    }
+	@Override
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	@Override
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	@Override
+	public Date getLastModifationTimestamp() {
+		return this.lastModificationDate;
+	}
+
+	@Override
+	public void setLastModificationTimestamp(Date lastModificationDate) {
+		this.lastModificationDate = lastModificationDate;
+	}
 }

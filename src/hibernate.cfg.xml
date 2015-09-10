@@ -24,7 +24,7 @@
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>
         <!-- create ==> Drop and re-create the database schema on startup | update ==> doesn't create the schema but update only information -->
-        <property name="hbm2ddl.auto">update</property>
+        <property name="hbm2ddl.auto">create</property>
         <!-- mapped tables -->
         <mapping class="com.matteoveroni.mydiary.article.model.hibernate.PersistentHibernateArticle"/>
         <mapping class="com.matteoveroni.mydiary.user.model.hibernate.PersistentHibernateUser"/>

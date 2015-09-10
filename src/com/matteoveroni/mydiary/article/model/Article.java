@@ -24,7 +24,11 @@ public interface Article {
 
     public void setAuthor(String author);
 
-    public Date getDate();
+    public Date getCreationDate();
 
-    public void setDate(Date date);
+    public void setCreationDate(Date creationDate);
+	
+	public Date getLastModifationTimestamp();
+	
+	public void setLastModificationTimestamp(Date lastModificationDate);
 }
