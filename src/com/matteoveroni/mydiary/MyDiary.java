@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 public class MyDiary extends Application {
 
 	private static final String APPLICATION_NAME = "MyDiary";
-	private static final String APPLICATION_VERSION = "0.0.16";
+	private static final String APPLICATION_VERSION = "0.0.17";
 	private static final Logger LOG = LoggerFactory.getLogger(MyDiary.class);
 
 	private ApplicationManagerBuilder applicationManagerBuilder;

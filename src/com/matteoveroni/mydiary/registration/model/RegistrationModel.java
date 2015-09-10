@@ -1,6 +1,6 @@
 package com.matteoveroni.mydiary.registration.model;
 
-import com.matteoveroni.mydiary.user.model.User;
+import com.matteoveroni.mydiary.user.model.bean.User;
 
 /**
  *

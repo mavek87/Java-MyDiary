@@ -1,4 +1,4 @@
-package com.matteoveroni.mydiary.user.model;
+package com.matteoveroni.mydiary.user.model.bean;
 
 /**
  *

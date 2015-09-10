@@ -1,4 +1,4 @@
-package com.matteoveroni.mydiary.diary.model.hibernate;
+package com.matteoveroni.mydiary.diary.model;
 
 import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
 import com.matteoveroni.mydiary.annotation.model.bean.HibernateAnnotationBean;

@@ -4,10 +4,10 @@ import com.matteoveroni.mydiary.application.manager.Manageable;
 import com.matteoveroni.mydiary.application.manager.Manager;
 import com.matteoveroni.mydiary.patterns.Listener;
 import com.matteoveroni.mydiary.registration.model.RegistrationModel;
-import com.matteoveroni.mydiary.registration.model.hibernate.HibernateRegistrationModel;
+import com.matteoveroni.mydiary.registration.model.bean.HibernateRegistrationModel;
 import com.matteoveroni.mydiary.screen.ScreenType;
-import com.matteoveroni.mydiary.user.model.User;
-import com.matteoveroni.mydiary.user.model.hibernate.PersistentHibernateUser;
+import com.matteoveroni.mydiary.user.model.bean.User;
+import com.matteoveroni.mydiary.user.model.bean.HibernateUserBean;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -27,7 +27,7 @@ public class RegistrationScreenController implements Manageable, Initializable, 
 
     private Manager manager;
     private final RegistrationModel model = new HibernateRegistrationModel();
-    private final User userToRegistrate = new PersistentHibernateUser();
+    private final User userToRegistrate = new HibernateUserBean();
 
     private final int MIN_USERNAME_LENGTH = 6;
     private final int MIN_PASSWORD_LENGTH = 6;

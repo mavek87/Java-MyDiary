@@ -1,7 +1,7 @@
-package com.matteoveroni.mydiary.diary.model;
+package com.matteoveroni.mydiary.diary.model.bean;
 
 import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
-import com.matteoveroni.mydiary.user.model.User;
+import com.matteoveroni.mydiary.user.model.bean.User;
 
 /**
  *

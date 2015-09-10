@@ -2,7 +2,7 @@ package com.matteoveroni.mydiary.application.manager;
 
 import com.matteoveroni.mydiary.patterns.Listener;
 import com.matteoveroni.mydiary.screen.ScreenType;
-import com.matteoveroni.mydiary.user.model.User;
+import com.matteoveroni.mydiary.user.model.bean.User;
 
 /**
  *

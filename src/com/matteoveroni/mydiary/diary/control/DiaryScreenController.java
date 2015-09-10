@@ -5,10 +5,10 @@ import com.matteoveroni.mydiary.application.manager.Manager;
 import com.matteoveroni.mydiary.annotation.model.bean.HibernateAnnotationBean;
 import com.matteoveroni.mydiary.patterns.Listener;
 import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
-import com.matteoveroni.mydiary.diary.model.Diary;
+import com.matteoveroni.mydiary.diary.model.bean.Diary;
 import com.matteoveroni.mydiary.diary.model.DiaryModel;
-import com.matteoveroni.mydiary.diary.model.hibernate.HibernateDiaryModel;
-import com.matteoveroni.mydiary.diary.model.hibernate.PersistentHibernateDiary;
+import com.matteoveroni.mydiary.diary.model.HibernateDiaryModel;
+import com.matteoveroni.mydiary.diary.model.bean.HibernateDiaryBean;
 import com.matteoveroni.mydiary.screen.ScreenType;
 import java.net.URL;
 import java.util.Date;
@@ -33,7 +33,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class DiaryScreenController implements Initializable, Manageable, Listener {
 
 	private Manager manager;
-	private final Diary currentDiary = new PersistentHibernateDiary();
+	private final Diary currentDiary = new HibernateDiaryBean();
 	private final DiaryModel model = new HibernateDiaryModel();
 
 	@FXML

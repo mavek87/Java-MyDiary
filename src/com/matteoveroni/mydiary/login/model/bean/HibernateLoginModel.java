@@ -1,9 +1,9 @@
-package com.matteoveroni.mydiary.login.model.hibernate;
+package com.matteoveroni.mydiary.login.model.bean;
 
 import com.matteoveroni.mydiary.database.DAO;
 import com.matteoveroni.mydiary.login.model.LoginModel;
-import com.matteoveroni.mydiary.user.model.User;
-import com.matteoveroni.mydiary.user.model.hibernate.PersistentHibernateUser;
+import com.matteoveroni.mydiary.user.model.bean.User;
+import com.matteoveroni.mydiary.user.model.bean.HibernateUserBean;
 
 /**
  *
@@ -19,7 +19,7 @@ public class HibernateLoginModel implements LoginModel {
         User userRetrieved = null;
         try {
 
-            userRetrieved = (User) DatabaseManager.read(PersistentHibernateUser.class, searchedUsername, DAO.ElementsOnWhichOperate.REQUESTED);
+            userRetrieved = (User) DatabaseManager.read(HibernateUserBean.class, searchedUsername, DAO.ElementsOnWhichOperate.REQUESTED);
 //
 //            String query = "select * from " + NAME_OF_THE_USER_TABLE + " where USERNAME=\'" + searchedUsername + "\'";
 //            userRetrieved = (User) DatabaseManager.querySQL(query);

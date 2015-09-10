@@ -27,6 +27,6 @@
         <property name="hbm2ddl.auto">update</property>
         <!-- mapped tables -->
         <mapping class="com.matteoveroni.mydiary.annotation.model.bean.HibernateAnnotationBean"/>
-        <mapping class="com.matteoveroni.mydiary.user.model.hibernate.PersistentHibernateUser"/>
+        <mapping class="com.matteoveroni.mydiary.user.model.bean.HibernateUserBean"/>
     </session-factory>
 </hibernate-configuration>

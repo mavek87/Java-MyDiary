@@ -6,7 +6,7 @@ import com.matteoveroni.mydiary.patterns.Listenable;
 import com.matteoveroni.mydiary.patterns.Listener;
 import com.matteoveroni.mydiary.screen.manager.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreenType;
-import com.matteoveroni.mydiary.user.model.User;
+import com.matteoveroni.mydiary.user.model.bean.User;
 import com.sun.media.jfxmediaimpl.MediaDisposer.Disposable;
 import java.util.HashSet;
 import java.util.Set;

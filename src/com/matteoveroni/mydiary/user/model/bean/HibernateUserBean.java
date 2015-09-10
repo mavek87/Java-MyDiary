@@ -1,6 +1,5 @@
-package com.matteoveroni.mydiary.user.model.hibernate;
+package com.matteoveroni.mydiary.user.model.bean;
 
-import com.matteoveroni.mydiary.user.model.User;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +12,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="UserData")
-public class PersistentHibernateUser implements Serializable, User {
+public class HibernateUserBean implements Serializable, User {
 
     @Id
     @Column

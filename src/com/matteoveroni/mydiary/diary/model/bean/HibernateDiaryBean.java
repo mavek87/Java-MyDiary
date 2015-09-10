@@ -1,8 +1,7 @@
-package com.matteoveroni.mydiary.diary.model.hibernate;
+package com.matteoveroni.mydiary.diary.model.bean;
 
 import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
-import com.matteoveroni.mydiary.diary.model.Diary;
-import com.matteoveroni.mydiary.user.model.User;
+import com.matteoveroni.mydiary.user.model.bean.User;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +17,7 @@ import javax.persistence.Transient;
  */
 
 @Entity
-public class PersistentHibernateDiary implements Serializable, Diary {
+public class HibernateDiaryBean implements Serializable, Diary {
     
     @Id 
     @GeneratedValue
