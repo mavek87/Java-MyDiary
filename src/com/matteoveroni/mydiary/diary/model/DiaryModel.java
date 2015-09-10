@@ -9,14 +9,14 @@ import java.util.List;
  */
 public interface DiaryModel {
 	
-    public Annotation getFirstArticle();
+    public Annotation getFirstAnnotation();
 
-    public Annotation getLastArticle();
+    public Annotation getLastAnnotation();
 
-    public List<Annotation> getAllTheArticles();
+    public List<Annotation> getAllTheAnnotations();
 
-    public Annotation createNewArticle(Annotation articleToSave);
+    public Annotation createNewAnnotation(Annotation articleToSave);
 	
-	public void removeArticle(Annotation articleToRemove);
+	public void removeAnnotation(Annotation articleToRemove);
 
 }
