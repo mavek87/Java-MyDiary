@@ -1,6 +1,6 @@
 package com.matteoveroni.mydiary.diary.model;
 
-import com.matteoveroni.mydiary.article.model.Article;
+import com.matteoveroni.mydiary.annotation.model.Annotation;
 import java.util.List;
 
 /**
@@ -9,14 +9,14 @@ import java.util.List;
  */
 public interface DiaryModel {
 	
-    public Article getFirstArticle();
+    public Annotation getFirstArticle();
 
-    public Article getLastArticle();
+    public Annotation getLastArticle();
 
-    public List<Article> getAllTheArticles();
+    public List<Annotation> getAllTheArticles();
 
-    public Article createNewArticle(Article articleToSave);
+    public Annotation createNewArticle(Annotation articleToSave);
 	
-	public void removeArticle(Article articleToRemove);
+	public void removeArticle(Annotation articleToRemove);
 
 }

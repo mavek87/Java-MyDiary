@@ -1,4 +1,4 @@
-package com.matteoveroni.mydiary.article.model;
+package com.matteoveroni.mydiary.annotation.model;
 
 import java.util.Date;
 
@@ -6,7 +6,7 @@ import java.util.Date;
  *
  * @author Matteo Veroni
  */
-public interface Article {
+public interface Annotation {
 
     public long getId();
 

@@ -1,6 +1,6 @@
 package com.matteoveroni.mydiary.diary.model.hibernate;
 
-import com.matteoveroni.mydiary.article.model.Article;
+import com.matteoveroni.mydiary.annotation.model.Annotation;
 import com.matteoveroni.mydiary.diary.model.Diary;
 import com.matteoveroni.mydiary.user.model.User;
 import java.io.Serializable;
@@ -28,7 +28,7 @@ public class PersistentHibernateDiary implements Serializable, Diary {
     private User owner;
     
     @Transient
-    private final Map<String, Article> articles = new HashMap<>();
+    private final Map<String, Annotation> articles = new HashMap<>();
 
     @Override
     public User getOwner() {
@@ -41,12 +41,12 @@ public class PersistentHibernateDiary implements Serializable, Diary {
     }
     
     @Override
-    public void addArticle(String name, Article newArticle){
+    public void addArticle(String name, Annotation newArticle){
         articles.put(name, newArticle);
     }
     
     @Override
-    public Article getArticle(String name){
+    public Annotation getArticle(String name){
         if(articles.containsKey(name)){
             return articles.get(name);
         }

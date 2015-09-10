@@ -1,6 +1,6 @@
-package com.matteoveroni.mydiary.article.model.hibernate;
+package com.matteoveroni.mydiary.annotation.model.hibernate;
 
-import com.matteoveroni.mydiary.article.model.Article;
+import com.matteoveroni.mydiary.annotation.model.Annotation;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -17,7 +17,7 @@ import javax.persistence.Temporal;
  */
 @Entity
 @Table(name = "Article")
-public class PersistentHibernateArticle implements Serializable, Article {
+public class PersistentHibernateAnnotation implements Serializable, Annotation {
 
 	@Id
 	@GeneratedValue

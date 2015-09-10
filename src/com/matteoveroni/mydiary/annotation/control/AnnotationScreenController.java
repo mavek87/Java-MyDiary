@@ -1,12 +1,12 @@
-package com.matteoveroni.mydiary.article.control;
+package com.matteoveroni.mydiary.annotation.control;
 
 import com.matteoveroni.mydiary.application.manager.Manageable;
 import com.matteoveroni.mydiary.application.manager.Manager;
-import com.matteoveroni.mydiary.article.model.hibernate.PersistentHibernateArticle;
+import com.matteoveroni.mydiary.annotation.model.hibernate.PersistentHibernateAnnotation;
 import com.matteoveroni.mydiary.patterns.Listener;
-import com.matteoveroni.mydiary.article.model.Article;
-import com.matteoveroni.mydiary.article.model.ArticleModel;
-import com.matteoveroni.mydiary.article.model.hibernate.HibernateArticleModel;
+import com.matteoveroni.mydiary.annotation.model.Annotation;
+import com.matteoveroni.mydiary.annotation.model.AnnotationModel;
+import com.matteoveroni.mydiary.annotation.model.hibernate.HibernateAnnotationModel;
 import com.matteoveroni.mydiary.screen.ScreenType;
 import java.net.URL;
 import java.util.Date;
@@ -20,41 +20,40 @@ import javafx.scene.control.TextField;
 import javafx.scene.web.HTMLEditor;
 
 /**
- * Article Screen Controller class
+ * Annotation Screen Controller class
  *
  * @author Matteo Veroni
  */
-public class ArticleScreenController implements Initializable, Manageable, Listener {
+public class AnnotationScreenController implements Initializable, Manageable, Listener {
 
 	private Manager manager;
-	private final ArticleModel model = new HibernateArticleModel();
-	private Article currentArticle = new PersistentHibernateArticle();
+	private final AnnotationModel model = new HibernateAnnotationModel();
+	private Annotation currentArticle = new PersistentHibernateAnnotation();
 
 	@FXML
 	private ResourceBundle resources;
 	@FXML
 	private URL location;
 	@FXML
-	private TextField txt_articleTitle;
+	private TextField txt_title;
 	@FXML
-	private TextField txt_articleAuthor;
+	private TextField txt_author;
 	@FXML
-	private TextField txt_articleData;
+	private TextField txt_creationDate;
 	@FXML
-	private TextField txt_articleLastModification;
+	private TextField txt_lastModificationDate;
 	@FXML
-	private HTMLEditor htmlEditor_articleMessage;
+	private HTMLEditor htmlEditor_message;
 	@FXML
-	private Button btn_previousArticle;
+	private Button btn_previousAnnotation;
 	@FXML
-	private Button btn_nextArticle;
+	private Button btn_nextAnnotation;
 	@FXML
-	private Button btn_backArticle;
+	private Button btn_back;
 	@FXML
-	private Button btn_saveArticle;
-
+	private Button btn_saveAnnotation;
 	@FXML
-	private TextField txt_articleNumber;
+	private TextField txt_annotationNumber;
 
 	/**
 	 * Initializes the controller class.
@@ -91,8 +90,8 @@ public class ArticleScreenController implements Initializable, Manageable, Liste
 
 	@FXML
 	void saveArticleButtonPressed(ActionEvent event) {
-		currentArticle.setTitle(txt_articleTitle.getText());
-		currentArticle.setMessage(htmlEditor_articleMessage.getHtmlText());
+		currentArticle.setTitle(txt_title.getText());
+		currentArticle.setMessage(htmlEditor_message.getHtmlText());
 		currentArticle.setAuthor(manager.getLoggedInUser().getName());
 		System.out.println(manager.getLoggedInUser().toString());
 		model.saveCurrentArticle(currentArticle);
@@ -100,7 +99,7 @@ public class ArticleScreenController implements Initializable, Manageable, Liste
 
 	@FXML
 	void previousArticleButtonPressed(ActionEvent event) {
-		Article newArticleReaded = model.getPreviousArticle(currentArticle);
+		Annotation newArticleReaded = model.getPreviousArticle(currentArticle);
 		if (newArticleReaded != null) {
 			currentArticle = newArticleReaded;
 			drawCurrentModelOnTheScene();
@@ -109,7 +108,7 @@ public class ArticleScreenController implements Initializable, Manageable, Liste
 
 	@FXML
 	void nextArticleButtonPressed(ActionEvent event) {
-		Article newArticleReaded = model.getNextArticle(currentArticle);
+		Annotation newArticleReaded = model.getNextArticle(currentArticle);
 		if (newArticleReaded != null) {
 			currentArticle = newArticleReaded;
 			drawCurrentModelOnTheScene();
@@ -123,25 +122,25 @@ public class ArticleScreenController implements Initializable, Manageable, Liste
 
 	private void drawCurrentModelOnTheScene() {
 		resetCurrentSceneElements();
-		txt_articleNumber.setText(Objects.toString(currentArticle.getId(), null));
-		txt_articleTitle.setText(currentArticle.getTitle());
-		htmlEditor_articleMessage.setHtmlText(currentArticle.getMessage());
-		txt_articleAuthor.setText(currentArticle.getAuthor());
+		txt_annotationNumber.setText(Objects.toString(currentArticle.getId(), null));
+		txt_title.setText(currentArticle.getTitle());
+		htmlEditor_message.setHtmlText(currentArticle.getMessage());
+		txt_author.setText(currentArticle.getAuthor());
 		if (currentArticle.getCreationDate() != null) {
-			txt_articleData.setText(currentArticle.getCreationDate().toString());
+			txt_creationDate.setText(currentArticle.getCreationDate().toString());
 		}
 	}
 
 	private void resetCurrentSceneElements() {
-		txt_articleNumber.setText("");
-		txt_articleTitle.setText("");
-		htmlEditor_articleMessage.setHtmlText("");
-		txt_articleAuthor.setText("");
-		txt_articleData.setText("");
+		txt_annotationNumber.setText("");
+		txt_title.setText("");
+		htmlEditor_message.setHtmlText("");
+		txt_author.setText("");
+		txt_creationDate.setText("");
 	}
 
 	private void createFirstDefaultArticle() {
-		Article articleToCreate = new PersistentHibernateArticle();
+		Annotation articleToCreate = new PersistentHibernateAnnotation();
 		articleToCreate.setTitle("Title");
 		articleToCreate.setAuthor(manager.getLoggedInUser().toString());
 		articleToCreate.setMessage("");

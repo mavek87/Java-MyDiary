@@ -2,9 +2,9 @@ package com.matteoveroni.mydiary.diary.control;
 
 import com.matteoveroni.mydiary.application.manager.Manageable;
 import com.matteoveroni.mydiary.application.manager.Manager;
-import com.matteoveroni.mydiary.article.model.hibernate.PersistentHibernateArticle;
+import com.matteoveroni.mydiary.annotation.model.hibernate.PersistentHibernateAnnotation;
 import com.matteoveroni.mydiary.patterns.Listener;
-import com.matteoveroni.mydiary.article.model.Article;
+import com.matteoveroni.mydiary.annotation.model.Annotation;
 import com.matteoveroni.mydiary.diary.model.Diary;
 import com.matteoveroni.mydiary.diary.model.DiaryModel;
 import com.matteoveroni.mydiary.diary.model.hibernate.HibernateDiaryModel;
@@ -37,17 +37,17 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	private final DiaryModel model = new HibernateDiaryModel();
 
 	@FXML
-	private TableView<Article> diaryTable;
+	private TableView<Annotation> diaryTable;
 	@FXML
-	private TableColumn<Article, Long> tableColumn_Id;
+	private TableColumn<Annotation, Long> tableColumn_Id;
 	@FXML
-	private TableColumn<Article, String> tableColumn_Title;
+	private TableColumn<Annotation, String> tableColumn_Title;
 	@FXML
-	private TableColumn<Article, Date> tableColumn_Date;
+	private TableColumn<Annotation, Date> tableColumn_Date;
 	@FXML
-	private TableColumn<Article, Date> tableColumn_Time;
+	private TableColumn<Annotation, Date> tableColumn_Time;
 	@FXML
-	private TableColumn<Article, String> tableColumn_Author;
+	private TableColumn<Annotation, String> tableColumn_Author;
 	@FXML
 	private Button btn_filter;
 	@FXML
@@ -82,7 +82,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 
 	@FXML
 	void goToArticleScreen(ActionEvent event) {
-		manager.changeScreen(ScreenType.ARTICLE_SCREEN);
+		manager.changeScreen(ScreenType.ANNOTATION_SCREEN);
 	}
 
 	@FXML
@@ -92,7 +92,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 
 	@FXML
 	void removeNotes(ActionEvent event) {
-		Article currentArticleSelected = diaryTable.getSelectionModel().getSelectedItem();
+		Annotation currentArticleSelected = diaryTable.getSelectionModel().getSelectedItem();
 		if (currentArticleSelected != null) {
 			model.removeArticle(currentArticleSelected);
 			updateScene();
@@ -101,12 +101,12 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 
 	@FXML
 	void createNewNote(ActionEvent event) {
-		Article newArticle = new PersistentHibernateArticle();
+		Annotation newArticle = new PersistentHibernateAnnotation();
 		newArticle.setTitle("New Title");
         newArticle.setAuthor(manager.getLoggedInUser().toString());
 		newArticle.setCreationDate(new Date());
 		model.createNewArticle(newArticle);
-		manager.changeScreen(ScreenType.ARTICLE_SCREEN);
+		manager.changeScreen(ScreenType.ANNOTATION_SCREEN);
 	}
 
 	@FXML
@@ -114,14 +114,14 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	}
 
 	private void updateScene() {
-		List<Article> articlesFromDatabase = model.getAllTheArticles();
+		List<Annotation> articlesFromDatabase = model.getAllTheArticles();
 
-		ObservableList<Article> articles = FXCollections.observableArrayList(articlesFromDatabase);
+		ObservableList<Annotation> articles = FXCollections.observableArrayList(articlesFromDatabase);
 
-		tableColumn_Id.setCellValueFactory(new PropertyValueFactory<Article, Long>("id"));
-		tableColumn_Title.setCellValueFactory(new PropertyValueFactory<Article, String>("title"));
-		tableColumn_Date.setCellValueFactory(new PropertyValueFactory<Article, Date>("date"));
-		tableColumn_Author.setCellValueFactory(new PropertyValueFactory<Article, String>("author"));
+		tableColumn_Id.setCellValueFactory(new PropertyValueFactory<Annotation, Long>("id"));
+		tableColumn_Title.setCellValueFactory(new PropertyValueFactory<Annotation, String>("title"));
+		tableColumn_Date.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("date"));
+		tableColumn_Author.setCellValueFactory(new PropertyValueFactory<Annotation, String>("author"));
 
 		diaryTable.setItems(articles);
 	}

@@ -1,7 +1,7 @@
 package com.matteoveroni.mydiary.model;
 
 import com.matteoveroni.mydiary.diary.model.hibernate.PersistentHibernateDiary;
-import com.matteoveroni.mydiary.article.model.hibernate.PersistentHibernateArticle;
+import com.matteoveroni.mydiary.annotation.model.hibernate.PersistentHibernateAnnotation;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -24,7 +24,7 @@ public class DiaryTest {
     @Test
     public void testAddAndGetRealArticle(){
         assertNull(diary.getArticle(realArticleName));
-        PersistentHibernateArticle realArticle = new PersistentHibernateArticle();
+        PersistentHibernateAnnotation realArticle = new PersistentHibernateAnnotation();
         diary.addArticle(realArticleName, realArticle);
         assertNotNull(diary.getArticle(realArticleName));
     }
