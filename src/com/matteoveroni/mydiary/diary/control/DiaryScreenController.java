@@ -43,9 +43,9 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	@FXML
 	private TableColumn<Annotation, String> tableColumn_Title;
 	@FXML
-	private TableColumn<Annotation, Date> tableColumn_Date;
+	private TableColumn<Annotation, Date> tableColumn_CreationDate;
 	@FXML
-	private TableColumn<Annotation, Date> tableColumn_Time;
+	private TableColumn<Annotation, Date> tableColumn_LastModificationDate;
 	@FXML
 	private TableColumn<Annotation, String> tableColumn_Author;
 	@FXML
@@ -120,7 +120,8 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 
 		tableColumn_Id.setCellValueFactory(new PropertyValueFactory<Annotation, Long>("id"));
 		tableColumn_Title.setCellValueFactory(new PropertyValueFactory<Annotation, String>("title"));
-		tableColumn_Date.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("date"));
+		tableColumn_CreationDate.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("creationdate"));
+		tableColumn_LastModificationDate.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("lastmodificationdate"));
 		tableColumn_Author.setCellValueFactory(new PropertyValueFactory<Annotation, String>("author"));
 
 		diaryTable.setItems(articles);

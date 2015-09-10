@@ -9,13 +9,13 @@
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.matteoveroni.mydiary.diary.control.DiaryScreenController">
    <children>
       <Button fx:id="btn_button" layoutX="458.0" layoutY="536.0" mnemonicParsing="false" onAction="#goToArticleScreen" prefHeight="41.0" prefWidth="200.0" text="Button" />
-      <TableView fx:id="diaryTable" layoutX="10.0" layoutY="28.0" prefHeight="480.0" prefWidth="780.0">
+      <TableView fx:id="diaryTable" editable="true" layoutX="10.0" layoutY="28.0" prefHeight="480.0" prefWidth="780.0">
         <columns>
-          <TableColumn fx:id="tableColumn_Id" prefWidth="58.0" text="Id" />
-          <TableColumn fx:id="tableColumn_Title" prefWidth="271.0" text="Title" />
-            <TableColumn fx:id="tableColumn_Date" prefWidth="110.0" text="Date" />
-            <TableColumn fx:id="tableColumn_Time" prefWidth="105.0" text="Time" />
-            <TableColumn fx:id="tableColumn_Author" prefWidth="234.0" text="Author" />
+          <TableColumn fx:id="tableColumn_Id" prefWidth="51.0" text="Id" />
+          <TableColumn fx:id="tableColumn_Title" prefWidth="233.0" text="Title" />
+            <TableColumn fx:id="tableColumn_CreationDate" prefWidth="106.0" text="Creation Date" />
+            <TableColumn fx:id="tableColumn_LastModification" prefWidth="192.0" text="Last Modification" />
+            <TableColumn fx:id="tableColumn_Author" prefWidth="196.0" text="Author" />
         </columns>
       </TableView>
       <Button fx:id="btn_removeNotes" layoutX="10.0" layoutY="536.0" mnemonicParsing="false" onAction="#removeNotes" prefHeight="41.0" prefWidth="113.0" text="Remove" />

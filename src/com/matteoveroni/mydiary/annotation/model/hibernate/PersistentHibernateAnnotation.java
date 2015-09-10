@@ -16,7 +16,7 @@ import javax.persistence.Temporal;
  * @author Matteo Veroni
  */
 @Entity
-@Table(name = "Article")
+@Table(name = "Annotation")
 public class PersistentHibernateAnnotation implements Serializable, Annotation {
 
 	@Id
