@@ -120,8 +120,8 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 
 		tableColumn_Id.setCellValueFactory(new PropertyValueFactory<Annotation, Long>("id"));
 		tableColumn_Title.setCellValueFactory(new PropertyValueFactory<Annotation, String>("title"));
-		tableColumn_CreationDate.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("creationdate"));
-		tableColumn_LastModificationDate.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("lastmodificationdate"));
+//		tableColumn_CreationDate.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("creationdate"));
+//		tableColumn_LastModificationDate.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("lastmodificationdate"));
 		tableColumn_Author.setCellValueFactory(new PropertyValueFactory<Annotation, String>("author"));
 
 		diaryTable.setItems(articles);

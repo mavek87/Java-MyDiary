@@ -2,7 +2,6 @@ package com.matteoveroni.mydiary;
 
 import com.matteoveroni.mydiary.application.manager.ApplicationManager;
 import com.matteoveroni.mydiary.application.builder.ApplicationBuilder;
-import com.matteoveroni.mydiary.database.DAO;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.stage.Stage;
@@ -24,11 +23,11 @@ public class MyDiary extends Application {
 
 	@Override
 	public void start(Stage applicationStage) {
-		LOG.debug(" --> Application started");
+		LOG.debug(" ---> Application started");
 		applicationBuilder = new ApplicationBuilder(APPLICATION_NAME, APPLICATION_VERSION, applicationStage);
-		LOG.debug(" --> ApplicationBuilder initialized");
+		LOG.debug(" ---> ApplicationBuilder initialized");
 		applicationManager = applicationBuilder.build();
-		LOG.debug(" --> ApplicationManager builded");
+		LOG.debug(" ---> ApplicationManager builded");
 	}
 
 	@Override
