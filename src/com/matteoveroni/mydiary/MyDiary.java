@@ -12,14 +12,15 @@ import org.slf4j.LoggerFactory;
  *
  * @author Matteo Veroni
  * @version 0.0.18
- *
- * www.matteoveroni.com || www.infoeinternet.com
- *
+ * 
+ * Author Web Sites: 
+ *		<br/>	<a href="http://www.matteoveroni.com">www.matteoveroni.com</a>
+ *		<br/>	<a href="http://www.infoeinternet.com">www.infoeinternet.com</a>
  */
 public class MyDiary extends Application {
 
     private static final String APPLICATION_NAME = "MyDiary";
-    private static final String APPLICATION_VERSION = "0.0.18";
+    private static final String APPLICATION_VERSION = "0.0.19";
     private static final Logger LOG = LoggerFactory.getLogger(MyDiary.class);
 
     private ApplicationManagerBuilder applicationManagerBuilder;

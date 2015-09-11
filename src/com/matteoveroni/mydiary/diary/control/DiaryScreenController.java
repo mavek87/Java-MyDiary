@@ -3,7 +3,7 @@ package com.matteoveroni.mydiary.diary.control;
 import com.matteoveroni.mydiary.application.manager.Manageable;
 import com.matteoveroni.mydiary.application.manager.Manager;
 import com.matteoveroni.mydiary.annotation.model.bean.HibernateAnnotationBean;
-import com.matteoveroni.mydiary.patterns.Listener;
+import com.matteoveroni.mydiary.utility.patterns.Listener;
 import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
 import com.matteoveroni.mydiary.diary.model.bean.Diary;
 import com.matteoveroni.mydiary.diary.model.DiaryModel;
@@ -11,6 +11,8 @@ import com.matteoveroni.mydiary.diary.model.HibernateDiaryModel;
 import com.matteoveroni.mydiary.diary.model.bean.HibernateDiaryBean;
 import com.matteoveroni.mydiary.screen.ScreensFramework;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -67,6 +69,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		diaryTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 	}
 
 	@Override
@@ -102,7 +105,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	void createNewAnnotation(ActionEvent event) {
 		Annotation newAnnotation = new HibernateAnnotationBean();
 		newAnnotation.setTitle("New Title");
-        newAnnotation.setAuthor(manager.getLoggedInUser().toString());
+		newAnnotation.setAuthor(manager.getLoggedInUser().toString());
 		newAnnotation.setCreationDate(new Date());
 		newAnnotation.setLastModificationTimestamp(new Date());
 		model.createNewAnnotation(newAnnotation);
@@ -115,14 +118,14 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 
 	private void updateScene() {
 		List<Annotation> annotationsFromDatabase = model.getAllTheAnnotations();
-		
+
 		ObservableList<Annotation> annotations = FXCollections.observableArrayList(annotationsFromDatabase);
 
 		tableColumn_Id.setCellValueFactory(new PropertyValueFactory<Annotation, Long>("id"));
 		tableColumn_Title.setCellValueFactory(new PropertyValueFactory<Annotation, String>("title"));
 		tableColumn_CreationDate.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("creationDate"));
 		tableColumn_LastModificationTimestamp.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("lastModificationTimestamp"));
-		tableColumn_Author.setCellValueFactory(new PropertyValueFactory<Annotation, String>("author"));        
+		tableColumn_Author.setCellValueFactory(new PropertyValueFactory<Annotation, String>("author"));
 		diaryTable.setItems(annotations);
 	}
 }

@@ -2,8 +2,8 @@ package com.matteoveroni.mydiary.application.manager;
 
 import com.matteoveroni.mydiary.MyDiary;
 import com.matteoveroni.mydiary.database.DAO;
-import com.matteoveroni.mydiary.patterns.Listenable;
-import com.matteoveroni.mydiary.patterns.Listener;
+import com.matteoveroni.mydiary.utility.patterns.Listenable;
+import com.matteoveroni.mydiary.utility.patterns.Listener;
 import com.matteoveroni.mydiary.screen.manager.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreensFramework;
 import com.matteoveroni.mydiary.user.model.bean.User;

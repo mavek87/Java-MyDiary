@@ -1,0 +1,7 @@
+/*
+ * DiaryScreenView Stylesheet file.
+ */
+
+#diary-table .table-cell {
+    -fx-alignment: CENTER;
+}

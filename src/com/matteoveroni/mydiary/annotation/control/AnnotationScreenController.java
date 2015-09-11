@@ -3,14 +3,13 @@ package com.matteoveroni.mydiary.annotation.control;
 import com.matteoveroni.mydiary.application.manager.Manageable;
 import com.matteoveroni.mydiary.application.manager.Manager;
 import com.matteoveroni.mydiary.annotation.model.bean.HibernateAnnotationBean;
-import com.matteoveroni.mydiary.patterns.Listener;
+import com.matteoveroni.mydiary.utility.patterns.Listener;
 import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
 import com.matteoveroni.mydiary.annotation.model.AnnotationModel;
 import com.matteoveroni.mydiary.annotation.model.HibernateAnnotationModel;
+import com.matteoveroni.mydiary.utility.date.formatter.DateFormatter;
 import com.matteoveroni.mydiary.screen.ScreensFramework;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -31,8 +30,6 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 	private Manager manager;
 	private final AnnotationModel model = new HibernateAnnotationModel();
 	private Annotation currentAnnotation = new HibernateAnnotationBean();
-	private final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-	private final DateFormat timestampFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
 
 	@FXML
 	private ResourceBundle resources;
@@ -133,10 +130,10 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 			htmlEditor_message.setHtmlText(currentAnnotation.getMessage());
 		}
 		if (currentAnnotation.getCreationDate() != null) {
-			txt_creationDate.setText(dateFormat.format(currentAnnotation.getCreationDate()));
+			txt_creationDate.setText(DateFormatter.dateFormat(currentAnnotation.getCreationDate()));
 		}
 		if (currentAnnotation.getLastModificationTimestamp() != null) {
-			txt_lastModificationDate.setText(timestampFormat.format(currentAnnotation.getLastModificationTimestamp()));
+			txt_lastModificationDate.setText(DateFormatter.dateFormat(currentAnnotation.getLastModificationTimestamp()));
 		}
 	}
 

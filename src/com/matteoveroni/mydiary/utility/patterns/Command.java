@@ -1,4 +1,4 @@
-package com.matteoveroni.mydiary.patterns;
+package com.matteoveroni.mydiary.utility.patterns;
 
 /**
  *

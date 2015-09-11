@@ -5,25 +5,31 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.matteoveroni.mydiary.diary.control.DiaryScreenController">
-   <children>
-      <Button fx:id="btn_button" layoutX="458.0" layoutY="536.0" mnemonicParsing="false" onAction="#goToAnnotationScreen" prefHeight="41.0" prefWidth="200.0" text="Button" />
-      <TableView fx:id="diaryTable" editable="true" layoutX="10.0" layoutY="28.0" prefHeight="480.0" prefWidth="780.0">
-        <columns>
-          <TableColumn fx:id="tableColumn_Id" prefWidth="51.0" text="Id" />
-          <TableColumn fx:id="tableColumn_Title" prefWidth="282.0" text="Title" />
-            <TableColumn fx:id="tableColumn_CreationDate" prefWidth="102.0" text="Creation Date" />
-            <TableColumn fx:id="tableColumn_LastModificationTimestamp" prefWidth="151.0" text="Last Modification Date" />
-            <TableColumn fx:id="tableColumn_Author" prefWidth="192.0" text="Author" />
-        </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
-      <Button fx:id="btn_removeAnnotation" layoutX="10.0" layoutY="536.0" mnemonicParsing="false" onAction="#removeAnnotation" prefHeight="41.0" prefWidth="113.0" text="Remove" />
-      <Button fx:id="btn_createNewAnnotation" layoutX="677.0" layoutY="536.0" mnemonicParsing="false" onAction="#createNewAnnotation" prefHeight="41.0" prefWidth="113.0" text="Create" />
-      <CheckBox fx:id="chk_enableFilter" layoutX="201.0" layoutY="549.0" mnemonicParsing="false" onAction="#enableFilter" text="Enable Filter" />
-      <Button fx:id="btn_filter" layoutX="338.0" layoutY="537.0" mnemonicParsing="false" onAction="#goToFilterScreen" prefHeight="41.0" prefWidth="62.0" text="Filter" />
-   </children>
+    <stylesheets>
+        <URL value="@css/DiaryScreenView.css" />
+    </stylesheets>
+    <children>
+        <Button fx:id="btn_button" layoutX="458.0" layoutY="536.0" mnemonicParsing="false" onAction="#goToAnnotationScreen" prefHeight="41.0" prefWidth="200.0" text="Button" />
+        <TableView id="diary-table" fx:id="diaryTable" editable="true" layoutX="10.0" layoutY="28.0" prefHeight="480.0" prefWidth="780.0">
+            <columns>
+                <TableColumn fx:id="tableColumn_Id" prefWidth="51.0" text="Id" />
+                <TableColumn fx:id="tableColumn_Title" prefWidth="282.0" text="Title" />
+                <TableColumn fx:id="tableColumn_CreationDate" prefWidth="102.0" text="Creation Date" />
+                <TableColumn fx:id="tableColumn_LastModificationTimestamp" prefWidth="151.0" text="Last Modification Date" />
+                <TableColumn fx:id="tableColumn_Author" prefWidth="192.0" text="Author" />
+            </columns>
+        </TableView>
+        <Button fx:id="btn_removeAnnotation" layoutX="10.0" layoutY="536.0" mnemonicParsing="false" onAction="#removeAnnotation" prefHeight="41.0" prefWidth="113.0" text="Remove" />
+        <Button fx:id="btn_createNewAnnotation" layoutX="677.0" layoutY="536.0" mnemonicParsing="false" onAction="#createNewAnnotation" prefHeight="41.0" prefWidth="113.0" text="Create" />
+        <CheckBox fx:id="chk_enableFilter" layoutX="201.0" layoutY="549.0" mnemonicParsing="false" onAction="#enableFilter" text="Enable Filter" />
+        <Button fx:id="btn_filter" layoutX="338.0" layoutY="537.0" mnemonicParsing="false" onAction="#goToFilterScreen" prefHeight="41.0" prefWidth="62.0" text="Filter" />
+    </children>
 </AnchorPane>

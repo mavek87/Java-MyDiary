@@ -2,7 +2,7 @@ package com.matteoveroni.mydiary.registration.control;
 
 import com.matteoveroni.mydiary.application.manager.Manageable;
 import com.matteoveroni.mydiary.application.manager.Manager;
-import com.matteoveroni.mydiary.patterns.Listener;
+import com.matteoveroni.mydiary.utility.patterns.Listener;
 import com.matteoveroni.mydiary.registration.model.RegistrationModel;
 import com.matteoveroni.mydiary.registration.model.bean.HibernateRegistrationModel;
 import com.matteoveroni.mydiary.screen.ScreensFramework;
