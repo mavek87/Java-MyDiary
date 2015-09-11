@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -100,8 +99,8 @@ public class HibernateAnnotationBean implements Serializable, Annotation {
 	}
 
 	@Override
-	@PreUpdate
+//	@PreUpdate
 	public void setLastModificationTimestamp(Date lastModificationDate) {
-		this.lastModificationDate = new Date();
+		this.lastModificationDate = lastModificationDate;
 	}
 }

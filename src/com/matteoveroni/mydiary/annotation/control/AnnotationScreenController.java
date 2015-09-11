@@ -9,6 +9,8 @@ import com.matteoveroni.mydiary.annotation.model.AnnotationModel;
 import com.matteoveroni.mydiary.annotation.model.HibernateAnnotationModel;
 import com.matteoveroni.mydiary.screen.ScreensFramework;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -29,6 +31,8 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 	private Manager manager;
 	private final AnnotationModel model = new HibernateAnnotationModel();
 	private Annotation currentAnnotation = new HibernateAnnotationBean();
+	private final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	private final DateFormat timestampFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
 	@FXML
 	private ResourceBundle resources;
@@ -36,8 +40,6 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 	private URL location;
 	@FXML
 	private TextField txt_title;
-	@FXML
-	private TextField txt_author;
 	@FXML
 	private TextField txt_creationDate;
 	@FXML
@@ -92,8 +94,14 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 	void saveAnnotationButtonPressed(ActionEvent event) {
 		currentAnnotation.setTitle(txt_title.getText());
 		currentAnnotation.setMessage(htmlEditor_message.getHtmlText());
-		currentAnnotation.setAuthor(manager.getLoggedInUser().getName());
-		System.out.println(manager.getLoggedInUser().toString());
+		currentAnnotation.setAuthor(manager.getLoggedInUser().toString());
+
+		Date lastModificationDate = new Date();
+		String lastModificationFormattedDate = timestampFormat.format(lastModificationDate);
+
+		txt_lastModificationDate.setText(lastModificationFormattedDate);
+		currentAnnotation.setLastModificationTimestamp(lastModificationDate);
+
 		model.saveCurrentAnnotation(currentAnnotation);
 	}
 
@@ -123,14 +131,17 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 	private void drawCurrentModelOnTheScene() {
 		resetCurrentSceneElements();
 		txt_annotationNumber.setText(Objects.toString(currentAnnotation.getId(), null));
-		txt_title.setText(currentAnnotation.getTitle());
-		htmlEditor_message.setHtmlText(currentAnnotation.getMessage());
-		txt_author.setText(currentAnnotation.getAuthor());
+		if (currentAnnotation.getTitle() != null) {
+			txt_title.setText(currentAnnotation.getTitle());
+		}
+		if (currentAnnotation.getMessage() != null) {
+			htmlEditor_message.setHtmlText(currentAnnotation.getMessage());
+		}
 		if (currentAnnotation.getCreationDate() != null) {
-			txt_creationDate.setText(currentAnnotation.getCreationDate().toString());
+			txt_creationDate.setText(dateFormat.format(currentAnnotation.getCreationDate()));
 		}
 		if (currentAnnotation.getLastModifationTimestamp() != null) {
-			txt_lastModificationDate.setText(currentAnnotation.getLastModifationTimestamp().toString());
+			txt_lastModificationDate.setText(timestampFormat.format(currentAnnotation.getLastModifationTimestamp()));
 		}
 	}
 
@@ -138,8 +149,8 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 		txt_annotationNumber.setText("");
 		txt_title.setText("");
 		htmlEditor_message.setHtmlText("");
-		txt_author.setText("");
 		txt_creationDate.setText("");
+		txt_lastModificationDate.setText("");
 	}
 
 	private void createFirstDefaultAnnotation() {
