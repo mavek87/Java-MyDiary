@@ -32,98 +32,93 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class DiaryScreenController implements Initializable, Manageable, Listener {
 
-	private Manager manager;
-	private final Diary currentDiary = new HibernateDiaryBean();
-	private final DiaryModel model = new HibernateDiaryModel();
+    private Manager manager;
+    private final Diary currentDiary = new HibernateDiaryBean();
+    private final DiaryModel model = new HibernateDiaryModel();
 
-	@FXML
-	private TableView<Annotation> diaryTable;
-	@FXML
-	private TableColumn<Annotation, Long> tableColumn_Id;
-	@FXML
-	private TableColumn<Annotation, String> tableColumn_Title;
-	@FXML
-	private TableColumn<Annotation, Date> tableColumn_CreationDate;
-	@FXML
-	private TableColumn<Annotation, Date> tableColumn_LastModificationTimestamp;
-	@FXML
-	private TableColumn<Annotation, String> tableColumn_Author;
-	@FXML
-	private Button btn_filter;
-	@FXML
-	private Button btn_button;
-	@FXML
-	private Button btn_createNewAnnotation;
-	@FXML
-	private CheckBox chk_enableFilter;
-	@FXML
-	private Button btn_removeAnnotation;
+    @FXML
+    private TableView<Annotation> diaryTable;
+    @FXML
+    private TableColumn<Annotation, Long> tableColumn_Id;
+    @FXML
+    private TableColumn<Annotation, String> tableColumn_Title;
+    @FXML
+    private TableColumn<Annotation, Date> tableColumn_CreationDate;
+    @FXML
+    private TableColumn<Annotation, Date> tableColumn_LastModificationTimestamp;
+    @FXML
+    private TableColumn<Annotation, String> tableColumn_Author;
+    @FXML
+    private Button btn_filter;
+    @FXML
+    private Button btn_button;
+    @FXML
+    private Button btn_createNewAnnotation;
+    @FXML
+    private CheckBox chk_enableFilter;
+    @FXML
+    private Button btn_removeAnnotation;
 
-	/**
-	 * Initializes the DiaryScreenController class.
-	 *
-	 * @param url
-	 * @param rb
-	 */
-	@Override
-	public void initialize(URL url, ResourceBundle rb) {
-		diaryTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-	}
+    /**
+     * Initializes the DiaryScreenController class.
+     *
+     * @param url
+     * @param rb
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        diaryTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-	@Override
-	public void setManager(Manager manager) {
-		this.manager = manager;
-		manager.registerListener(this);
-	}
+        tableColumn_Id.setCellValueFactory(new PropertyValueFactory<Annotation, Long>("id"));
+        tableColumn_Title.setCellValueFactory(new PropertyValueFactory<Annotation, String>("title"));
+        tableColumn_CreationDate.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("creationDate"));
+        tableColumn_LastModificationTimestamp.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("lastModificationTimestamp"));
+        tableColumn_Author.setCellValueFactory(new PropertyValueFactory<Annotation, String>("author"));
+    }
 
-	@Override
-	public void update() {
-		updateScene();
-	}
+    @Override
+    public void setManager(Manager manager) {
+        this.manager = manager;
+        manager.registerListener(this);
+    }
 
-	@FXML
-	void goToAnnotationScreen(ActionEvent event) {
-		manager.changeScreen(ScreensFramework.ANNOTATION_SCREEN);
-	}
+    @Override
+    public void update() {
+        List<Annotation> annotationsFromDatabase = model.getAllTheAnnotations();
+        ObservableList<Annotation> annotations = FXCollections.observableArrayList(annotationsFromDatabase);
+        diaryTable.setItems(annotations);
+    }
 
-	@FXML
-	void goToFilterScreen(ActionEvent event) {
-	}
+    @FXML
+    void goToAnnotationScreen(ActionEvent event) {
+        manager.changeScreen(ScreensFramework.ANNOTATION_SCREEN);
+    }
 
-	@FXML
-	void removeAnnotation(ActionEvent event) {
-		Annotation currentAnnotationSelected = diaryTable.getSelectionModel().getSelectedItem();
-		if (currentAnnotationSelected != null) {
-			model.removeAnnotation(currentAnnotationSelected);
-			updateScene();
-		}
-	}
+    @FXML
+    void goToFilterScreen(ActionEvent event) {
+    }
 
-	@FXML
-	void createNewAnnotation(ActionEvent event) {
-		Annotation newAnnotation = new HibernateAnnotationBean();
-		newAnnotation.setTitle("New Title");
-		newAnnotation.setAuthor(manager.getLoggedInUser().toString());
-		newAnnotation.setCreationDate(new Date());
-		newAnnotation.setLastModificationTimestamp(new Date());
-		model.createNewAnnotation(newAnnotation);
-		manager.changeScreen(ScreensFramework.ANNOTATION_SCREEN);
-	}
+    @FXML
+    void removeAnnotation(ActionEvent event) {
+        Annotation currentAnnotationSelected = diaryTable.getSelectionModel().getSelectedItem();
+        if (currentAnnotationSelected != null) {
+            model.removeAnnotation(currentAnnotationSelected);
+            update();
+        }
+    }
 
-	@FXML
-	void enableFilter(ActionEvent event) {
-	}
+    @FXML
+    void createNewAnnotation(ActionEvent event) {
+        Annotation newAnnotation = new HibernateAnnotationBean();
+        newAnnotation.setTitle("New Title");
+        newAnnotation.setAuthor(manager.getLoggedInUser().toString());
+        newAnnotation.setCreationDate(new Date());
+        newAnnotation.setLastModificationTimestamp(new Date());
+        model.createNewAnnotation(newAnnotation);
+        manager.changeScreen(ScreensFramework.ANNOTATION_SCREEN);
+    }
 
-	private void updateScene() {
-		List<Annotation> annotationsFromDatabase = model.getAllTheAnnotations();
-
-		ObservableList<Annotation> annotations = FXCollections.observableArrayList(annotationsFromDatabase);
-
-		tableColumn_Id.setCellValueFactory(new PropertyValueFactory<Annotation, Long>("id"));
-		tableColumn_Title.setCellValueFactory(new PropertyValueFactory<Annotation, String>("title"));
-		tableColumn_CreationDate.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("creationDate"));
-		tableColumn_LastModificationTimestamp.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("lastModificationTimestamp"));
-		tableColumn_Author.setCellValueFactory(new PropertyValueFactory<Annotation, String>("author"));
-		diaryTable.setItems(annotations);
-	}
+    @FXML
+    void enableFilter(ActionEvent event) {
+    }
 }
