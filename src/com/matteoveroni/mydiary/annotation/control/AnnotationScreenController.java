@@ -32,7 +32,7 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 	private final AnnotationModel model = new HibernateAnnotationModel();
 	private Annotation currentAnnotation = new HibernateAnnotationBean();
 	private final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-	private final DateFormat timestampFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+	private final DateFormat timestampFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
 
 	@FXML
 	private ResourceBundle resources;
@@ -95,14 +95,9 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 		currentAnnotation.setTitle(txt_title.getText());
 		currentAnnotation.setMessage(htmlEditor_message.getHtmlText());
 		currentAnnotation.setAuthor(manager.getLoggedInUser().toString());
-
-		Date lastModificationDate = new Date();
-		String lastModificationFormattedDate = timestampFormat.format(lastModificationDate);
-
-		txt_lastModificationDate.setText(lastModificationFormattedDate);
-		currentAnnotation.setLastModificationTimestamp(lastModificationDate);
-
+		currentAnnotation.setLastModificationTimestamp(new Date());
 		model.saveCurrentAnnotation(currentAnnotation);
+		drawCurrentModelOnTheScene();
 	}
 
 	@FXML
@@ -140,8 +135,8 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 		if (currentAnnotation.getCreationDate() != null) {
 			txt_creationDate.setText(dateFormat.format(currentAnnotation.getCreationDate()));
 		}
-		if (currentAnnotation.getLastModifationTimestamp() != null) {
-			txt_lastModificationDate.setText(timestampFormat.format(currentAnnotation.getLastModifationTimestamp()));
+		if (currentAnnotation.getLastModificationTimestamp() != null) {
+			txt_lastModificationDate.setText(timestampFormat.format(currentAnnotation.getLastModificationTimestamp()));
 		}
 	}
 
@@ -160,6 +155,6 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 		annotationToCreate.setMessage("");
 		annotationToCreate.setCreationDate(new Date());
 		annotationToCreate.setLastModificationTimestamp(new Date());
-		currentAnnotation = model.createNewAnnotation(annotationToCreate);
+		currentAnnotation = model.saveNewAnnotation(annotationToCreate);
 	}
 }

@@ -28,7 +28,7 @@ public interface Annotation {
 
     public void setCreationDate(Date creationDate);
 	
-	public Date getLastModifationTimestamp();
+	public Date getLastModificationTimestamp();
 	
 	public void setLastModificationTimestamp(Date lastModificationDate);
 }

@@ -3,7 +3,6 @@ package com.matteoveroni.mydiary.diary.model;
 import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
 import com.matteoveroni.mydiary.annotation.model.bean.HibernateAnnotationBean;
 import com.matteoveroni.mydiary.database.DAO;
-import com.matteoveroni.mydiary.diary.model.DiaryModel;
 import java.util.List;
 
 /**

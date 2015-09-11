@@ -26,7 +26,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
- * FXML Controller class
+ * DiaryScreenController Controller class
  *
  * @author Matteo Veroni
  */
@@ -45,7 +45,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	@FXML
 	private TableColumn<Annotation, Date> tableColumn_CreationDate;
 	@FXML
-	private TableColumn<Annotation, Date> tableColumn_LastModificationDate;
+	private TableColumn<Annotation, Date> tableColumn_LastModificationTimestamp;
 	@FXML
 	private TableColumn<Annotation, String> tableColumn_Author;
 	@FXML
@@ -60,7 +60,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	private Button btn_removeAnnotation;
 
 	/**
-	 * Initializes the controller class.
+	 * Initializes the DiaryScreenController class.
 	 *
 	 * @param url
 	 * @param rb
@@ -115,13 +115,13 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 
 	private void updateScene() {
 		List<Annotation> annotationsFromDatabase = model.getAllTheAnnotations();
-
+		
 		ObservableList<Annotation> annotations = FXCollections.observableArrayList(annotationsFromDatabase);
 
 		tableColumn_Id.setCellValueFactory(new PropertyValueFactory<Annotation, Long>("id"));
 		tableColumn_Title.setCellValueFactory(new PropertyValueFactory<Annotation, String>("title"));
-		tableColumn_CreationDate.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("creationdate"));
-		tableColumn_LastModificationDate.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("lastmodificationdate"));
+		tableColumn_CreationDate.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("creationDate"));
+		tableColumn_LastModificationTimestamp.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("lastModificationTimestamp"));
 		tableColumn_Author.setCellValueFactory(new PropertyValueFactory<Annotation, String>("author"));        
 		diaryTable.setItems(annotations);
 	}

@@ -40,7 +40,7 @@ public class HibernateAnnotationBean implements Serializable, Annotation {
 
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date lastModificationDate;
+	private Date lastModificationTimestamp;
 
 	@Override
 	public long getId() {
@@ -94,13 +94,12 @@ public class HibernateAnnotationBean implements Serializable, Annotation {
 	}
 
 	@Override
-	public Date getLastModifationTimestamp() {
-		return this.lastModificationDate;
+	public Date getLastModificationTimestamp() {
+		return this.lastModificationTimestamp;
 	}
 
 	@Override
-//	@PreUpdate
-	public void setLastModificationTimestamp(Date lastModificationDate) {
-		this.lastModificationDate = lastModificationDate;
+	public void setLastModificationTimestamp(Date lastModificationTimestamp) {
+		this.lastModificationTimestamp = lastModificationTimestamp;
 	}
 }

@@ -18,5 +18,5 @@ public interface AnnotationModel {
 
     public void saveCurrentAnnotation(Annotation annotationToSave);
     
-    public Annotation createNewAnnotation(Annotation annotationToSave);
+    public Annotation saveNewAnnotation(Annotation annotationToSave);
 }

@@ -38,8 +38,8 @@ public class HibernateAnnotationModel implements AnnotationModel {
 	}
 
 	@Override
-	public Annotation createNewAnnotation(Annotation annotationToSave) {
-		databaseManager.write(annotationToSave);
+	public Annotation saveNewAnnotation(Annotation newAnnotationToSave) {
+		databaseManager.write(newAnnotationToSave);
 		return getFirstAnnotation();
 	}
 }
