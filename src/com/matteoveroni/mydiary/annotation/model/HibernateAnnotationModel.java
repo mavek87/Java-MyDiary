@@ -33,13 +33,12 @@ public class HibernateAnnotationModel implements AnnotationModel {
 	}
 
 	@Override
-	public void saveCurrentAnnotation(Annotation annotationToSave) {
-		databaseManager.update(annotationToSave);
+	public void updateAnnotation(Annotation annotationToUpdate) {
+		databaseManager.update(annotationToUpdate);
 	}
 
 	@Override
-	public Annotation saveNewAnnotation(Annotation newAnnotationToSave) {
-		databaseManager.write(newAnnotationToSave);
-		return getFirstAnnotation();
+	public void saveAnnotation(Annotation annotationToSave) {
+		databaseManager.write(annotationToSave);
 	}
 }

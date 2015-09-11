@@ -3,11 +3,11 @@ package com.matteoveroni.mydiary.annotation.control;
 import com.matteoveroni.mydiary.application.manager.Manageable;
 import com.matteoveroni.mydiary.application.manager.Manager;
 import com.matteoveroni.mydiary.annotation.model.bean.HibernateAnnotationBean;
-import com.matteoveroni.mydiary.utility.patterns.Listener;
+import com.matteoveroni.mydiary.utilities.patterns.Listener;
 import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
 import com.matteoveroni.mydiary.annotation.model.AnnotationModel;
 import com.matteoveroni.mydiary.annotation.model.HibernateAnnotationModel;
-import com.matteoveroni.mydiary.utility.date.formatter.DateFormatter;
+import com.matteoveroni.mydiary.utilities.date.formatter.DateFormatter;
 import com.matteoveroni.mydiary.screen.ScreensFramework;
 import java.net.URL;
 import java.util.Date;
@@ -93,7 +93,7 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 		currentAnnotation.setMessage(htmlEditor_message.getHtmlText());
 		currentAnnotation.setAuthor(manager.getLoggedInUser().toString());
 		currentAnnotation.setLastModificationTimestamp(new Date());
-		model.saveCurrentAnnotation(currentAnnotation);
+		model.updateAnnotation(currentAnnotation);
 		drawCurrentModelOnTheScene();
 	}
 
@@ -133,7 +133,7 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 			txt_creationDate.setText(DateFormatter.dateFormat(currentAnnotation.getCreationDate()));
 		}
 		if (currentAnnotation.getLastModificationTimestamp() != null) {
-			txt_lastModificationDate.setText(DateFormatter.dateFormat(currentAnnotation.getLastModificationTimestamp()));
+			txt_lastModificationDate.setText(DateFormatter.timestampFormat(currentAnnotation.getLastModificationTimestamp()));
 		}
 	}
 
@@ -146,12 +146,14 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 	}
 
 	private void createFirstDefaultAnnotation() {
-		Annotation annotationToCreate = new HibernateAnnotationBean();
-		annotationToCreate.setTitle("Title");
-		annotationToCreate.setAuthor(manager.getLoggedInUser().toString());
-		annotationToCreate.setMessage("");
-		annotationToCreate.setCreationDate(new Date());
-		annotationToCreate.setLastModificationTimestamp(new Date());
-		currentAnnotation = model.saveNewAnnotation(annotationToCreate);
+		Annotation newAnnotation = new HibernateAnnotationBean();
+		newAnnotation.setTitle("Title");
+		newAnnotation.setAuthor(manager.getLoggedInUser().toString());
+		newAnnotation.setMessage("");
+        Date currentDate = new Date();
+		newAnnotation.setCreationDate(currentDate);
+		newAnnotation.setLastModificationTimestamp(currentDate);
+		model.saveAnnotation(newAnnotation);
+        currentAnnotation = newAnnotation;
 	}
 }

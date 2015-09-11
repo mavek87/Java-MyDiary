@@ -2,7 +2,7 @@ package com.matteoveroni.mydiary.login.control;
 
 import com.matteoveroni.mydiary.application.manager.Manageable;
 import com.matteoveroni.mydiary.application.manager.Manager;
-import com.matteoveroni.mydiary.utility.patterns.Listener;
+import com.matteoveroni.mydiary.utilities.patterns.Listener;
 import com.matteoveroni.mydiary.login.model.LoginModel;
 import com.matteoveroni.mydiary.login.model.bean.HibernateLoginModel;
 import com.matteoveroni.mydiary.screen.ScreensFramework;

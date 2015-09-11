@@ -1,4 +1,4 @@
-package com.matteoveroni.mydiary.utility.date.formatter;
+package com.matteoveroni.mydiary.utilities.date.formatter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -13,11 +13,11 @@ public class DateFormatter {
 	private final static DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	private final static DateFormat timestampFormat = new SimpleDateFormat("dd/MM/yyyy | HH:mm:ss ");
 	
-	public final static String dateFormat(Date dateToFormat) {
-		return dateFormat.format(dateToFormat);
+	public final static String dateFormat(Date date) {
+		return dateFormat.format(date);
 	}
 	
-	public final static String timestampFormat(Date timestampToFormat) {
-		return timestampFormat.format(timestampToFormat);
+	public final static String timestampFormat(Date date) {
+		return timestampFormat.format(date);
 	}
 }

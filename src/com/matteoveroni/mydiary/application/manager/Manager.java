@@ -1,6 +1,6 @@
 package com.matteoveroni.mydiary.application.manager;
 
-import com.matteoveroni.mydiary.utility.patterns.Listener;
+import com.matteoveroni.mydiary.utilities.patterns.Listener;
 import com.matteoveroni.mydiary.screen.ScreensFramework;
 import com.matteoveroni.mydiary.user.model.bean.User;
 

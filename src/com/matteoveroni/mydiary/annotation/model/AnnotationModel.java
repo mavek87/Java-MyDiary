@@ -16,7 +16,7 @@ public interface AnnotationModel {
 
     public Annotation getNextAnnotation(Annotation currentAnnotation);
 
-    public void saveCurrentAnnotation(Annotation annotationToSave);
+    public void updateAnnotation(Annotation annotationToUpdate);
     
-    public Annotation saveNewAnnotation(Annotation annotationToSave);
+    public void saveAnnotation(Annotation annotationToSave);
 }
