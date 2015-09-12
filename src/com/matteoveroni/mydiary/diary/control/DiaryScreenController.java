@@ -15,6 +15,8 @@ import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -38,7 +40,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
     private Manager manager;
     private final Diary currentDiary = new HibernateDiaryBean();
     private final DiaryModel model = new HibernateDiaryModel();
-    private Annotation selectedAnnotation;
+    private Annotation currentSelectedAnnotation;
 
     @FXML
     private TableView<Annotation> diaryTable;
@@ -53,9 +55,9 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
     @FXML
     private TableColumn<Annotation, String> tableColumn_Author;
     @FXML
-    private Button btn_filter;
+    private Button btn_filterAnnotations;
     @FXML
-    private Button btn_button;
+    private Button btn_openAnnotation;
     @FXML
     private Button btn_createNewAnnotation;
     @FXML
@@ -79,11 +81,25 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
         tableColumn_LastModificationTimestamp.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("lastModificationTimestamp"));
         tableColumn_Author.setCellValueFactory(new PropertyValueFactory<Annotation, String>("author"));
 
+        diaryTable.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                if (newPropertyValue) {
+                    // Focus on
+                    if (diaryTable.getSelectionModel().getSelectedItem() != null) {
+                        currentSelectedAnnotation = diaryTable.getSelectionModel().getSelectedItem();
+                        btn_openAnnotation.setDisable(false);
+                        btn_removeAnnotation.setDisable(false);
+                    }
+                }
+            }
+        });
+
         diaryTable.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                    selectedAnnotation = diaryTable.getSelectionModel().getSelectedItem();
+                    currentSelectedAnnotation = diaryTable.getSelectionModel().getSelectedItem();
                     openSelectedAnnotation();
                 }
             }
@@ -98,6 +114,9 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 
     @Override
     public void update(DataObjectMessage pushedData) {
+        currentSelectedAnnotation = null;
+        btn_openAnnotation.setDisable(true);
+        btn_removeAnnotation.setDisable(true);
         List<Annotation> annotationsFromDatabase = model.getAllTheAnnotations();
         ObservableList<Annotation> annotations = FXCollections.observableArrayList(annotationsFromDatabase);
         diaryTable.setItems(annotations);
@@ -105,9 +124,8 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 
     @FXML
     void goToAnnotationScreen(ActionEvent event) {
-        Annotation currentAnnotationSelected = diaryTable.getSelectionModel().getSelectedItem();
-        if (currentAnnotationSelected != null) {
-            manager.storeObjectToPush(currentAnnotationSelected, DiaryScreenController.class);
+        if (currentSelectedAnnotation != null) {
+            manager.storeObjectToPush(currentSelectedAnnotation, DiaryScreenController.class);
             manager.changeScreen(ScreensFramework.ANNOTATION_SCREEN);
         }
     }
@@ -118,9 +136,8 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 
     @FXML
     void removeAnnotation(ActionEvent event) {
-        Annotation currentAnnotationSelected = diaryTable.getSelectionModel().getSelectedItem();
-        if (currentAnnotationSelected != null) {
-            model.removeAnnotation(currentAnnotationSelected);
+        if (currentSelectedAnnotation != null) {
+            model.removeAnnotation(currentSelectedAnnotation);
             update(null);
         }
     }
@@ -141,8 +158,8 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
     }
 
     private void openSelectedAnnotation() {
-        if (selectedAnnotation != null) {
-            manager.storeObjectToPush(selectedAnnotation, DiaryScreenController.class);
+        if (currentSelectedAnnotation != null) {
+            manager.storeObjectToPush(currentSelectedAnnotation, DiaryScreenController.class);
             manager.changeScreen(ScreensFramework.ANNOTATION_SCREEN);
         }
     }

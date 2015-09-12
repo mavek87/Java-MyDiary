@@ -1,8 +1,8 @@
 ----------------------------------------------------------------
-Sat Sep 12 22:15:57 CEST 2015:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.3.2 - (1557835): instance a816c00e-014f-c333-34ff-000006d024e0 
+Sat Sep 12 22:45:32 CEST 2015:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.3.2 - (1557835): instance a816c00e-014f-c34e-4512-000008c529d8 
 on database directory /media/mavek/DATA/Lavoro/Programmi/Netbeans Project 8.0/Java-MyDiary/mydiarydb  with class loader java.net.URLClassLoader@65d4ab0e 
-Loaded from file:/media/mavek/DATA/Lavoro/Programmi/Netbeans%20Project%208.0/Java-MyDiary/dist/run91953948/lib/derby.jar
+Loaded from file:/media/mavek/DATA/Lavoro/Programmi/Netbeans%20Project%208.0/Java-MyDiary/dist/run1036751925/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.7.0_80-b15
 user.dir=/media/mavek/DATA/Lavoro/Programmi/Netbeans Project 8.0/Java-MyDiary
