@@ -2,11 +2,13 @@ package com.matteoveroni.mydiary.annotation.control;
 
 import com.matteoveroni.mydiary.application.manager.Manageable;
 import com.matteoveroni.mydiary.application.manager.Manager;
-import com.matteoveroni.mydiary.annotation.model.bean.HibernateAnnotationBean;
 import com.matteoveroni.mydiary.utilities.patterns.Listener;
 import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
 import com.matteoveroni.mydiary.annotation.model.AnnotationModel;
-import com.matteoveroni.mydiary.annotation.model.HibernateAnnotationModel;
+import com.matteoveroni.mydiary.annotation.model.AnnotationModelFactory;
+import com.matteoveroni.mydiary.annotation.model.AnnotationModelType;
+import com.matteoveroni.mydiary.annotation.model.bean.AnnotationType;
+import com.matteoveroni.mydiary.annotation.model.bean.AnnotationFactory;
 import com.matteoveroni.mydiary.utilities.date.formatter.DateFormatter;
 import com.matteoveroni.mydiary.screen.ScreensFramework;
 import java.net.URL;
@@ -28,8 +30,8 @@ import javafx.scene.web.HTMLEditor;
 public class AnnotationScreenController implements Initializable, Manageable, Listener {
 
 	private Manager manager;
-	private final AnnotationModel model = new HibernateAnnotationModel();
-	private Annotation currentAnnotation = new HibernateAnnotationBean();
+	private final AnnotationModel model = AnnotationModelFactory.createAnnotationModel(AnnotationModelType.HIBERNATE_ANNOTATION_MODEL);
+	private Annotation currentAnnotation = AnnotationFactory.createAnnotation(AnnotationType.HIBERNATE);
 
 	@FXML
 	private ResourceBundle resources;
@@ -146,7 +148,7 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 	}
 
 	private void createFirstDefaultAnnotation() {
-		Annotation newAnnotation = new HibernateAnnotationBean();
+		Annotation newAnnotation = AnnotationFactory.createAnnotation(AnnotationType.HIBERNATE);
 		newAnnotation.setTitle("Title");
 		newAnnotation.setAuthor(manager.getLoggedInUser().toString());
 		newAnnotation.setMessage("");
