@@ -29,133 +29,139 @@ import javafx.scene.web.HTMLEditor;
  */
 public class AnnotationScreenController implements Initializable, Manageable, Listener {
 
-	private Manager manager;
-	private final AnnotationModel model = AnnotationModelFactory.createAnnotationModel(AnnotationModelType.HIBERNATE_ANNOTATION_MODEL);
-	private Annotation currentAnnotation = AnnotationFactory.createAnnotation(AnnotationType.HIBERNATE);
+    private Manager manager;
+    private final AnnotationModel model = AnnotationModelFactory.createAnnotationModel(AnnotationModelType.HIBERNATE_ANNOTATION_MODEL);
+    private Annotation currentAnnotation = AnnotationFactory.createAnnotation(AnnotationType.HIBERNATE);
 
-	@FXML
-	private ResourceBundle resources;
-	@FXML
-	private URL location;
-	@FXML
-	private TextField txt_title;
-	@FXML
-	private TextField txt_creationDate;
-	@FXML
-	private TextField txt_lastModificationDate;
-	@FXML
-	private HTMLEditor htmlEditor_message;
-	@FXML
-	private Button btn_previousAnnotation;
-	@FXML
-	private Button btn_nextAnnotation;
-	@FXML
-	private Button btn_back;
-	@FXML
-	private Button btn_saveAnnotation;
-	@FXML
-	private TextField txt_annotationNumber;
+    @FXML
+    private ResourceBundle resources;
+    @FXML
+    private URL location;
+    @FXML
+    private TextField txt_title;
+    @FXML
+    private TextField txt_creationDate;
+    @FXML
+    private TextField txt_lastModificationDate;
+    @FXML
+    private HTMLEditor htmlEditor_message;
+    @FXML
+    private Button btn_previousAnnotation;
+    @FXML
+    private Button btn_nextAnnotation;
+    @FXML
+    private Button btn_back;
+    @FXML
+    private Button btn_saveAnnotation;
+    @FXML
+    private TextField txt_annotationNumber;
 
-	/**
-	 * Initializes the controller class.
-	 *
-	 * @param url
-	 * @param rb
-	 */
-	@Override
-	public void initialize(URL url, ResourceBundle rb) {
-	}
+    /**
+     * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+    }
 
-	@Override
-	public void setManager(Manager manager) {
-		this.manager = manager;
-		manager.registerListener(this);
-	}
+    @Override
+    public void setManager(Manager manager) {
+        this.manager = manager;
+        manager.registerListener(this);
+    }
 
-	@Override
-	public void update() {
-		try {
-			currentAnnotation = model.getLastAnnotation();
-			if (currentAnnotation == null) {
-				createFirstDefaultAnnotation();
-			}
-			drawCurrentModelOnTheScene();
-		} catch (Exception ex) {
-			throw new RuntimeException(ex);
-		}
-	}
+    @Override
+    public void update() {
+        try {
+            currentAnnotation = model.getLastAnnotation();
+            if (currentAnnotation == null) {
+                createFirstDefaultAnnotation();
+            }
+            drawCurrentModelOnTheScene();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 
-	@FXML
-	void annotationMessageChanged(ActionEvent event) {
-	}
+    @FXML
+    void annotationMessageChanged(ActionEvent event) {
+    }
 
-	@FXML
-	void saveAnnotationButtonPressed(ActionEvent event) {
-		currentAnnotation.setTitle(txt_title.getText());
-		currentAnnotation.setMessage(htmlEditor_message.getHtmlText());
-		currentAnnotation.setAuthor(manager.getLoggedInUser().toString());
-		currentAnnotation.setLastModificationTimestamp(new Date());
-		model.updateAnnotation(currentAnnotation);
-		drawCurrentModelOnTheScene();
-	}
+    @FXML
+    void saveAnnotationButtonPressed(ActionEvent event) {
+        currentAnnotation.setTitle(txt_title.getText());
+        currentAnnotation.setMessage(htmlEditor_message.getHtmlText());
+        currentAnnotation.setAuthor(manager.getLoggedInUser().toString());
+        currentAnnotation.setLastModificationTimestamp(new Date());
+        model.updateAnnotation(currentAnnotation);
+        drawCurrentModelOnTheScene();
+    }
 
-	@FXML
-	void previousAnnotationButtonPressed(ActionEvent event) {
-		Annotation newAnnotationReaded = model.getPreviousAnnotation(currentAnnotation);
-		if (newAnnotationReaded != null) {
-			currentAnnotation = newAnnotationReaded;
-			drawCurrentModelOnTheScene();
-		}
-	}
+    @FXML
+    void previousAnnotationButtonPressed(ActionEvent event) {
+        Annotation newAnnotationReaded = model.getPreviousAnnotation(currentAnnotation);
+        if (newAnnotationReaded != null) {
+            currentAnnotation = newAnnotationReaded;
+            drawCurrentModelOnTheScene();
+        } else if (model.getLastAnnotation() != null) {
+            currentAnnotation = model.getLastAnnotation();
+            drawCurrentModelOnTheScene();
+        }
+    }
 
-	@FXML
-	void nextAnnotationButtonPressed(ActionEvent event) {
-		Annotation newAnnotationReaded = model.getNextAnnotation(currentAnnotation);
-		if (newAnnotationReaded != null) {
-			currentAnnotation = newAnnotationReaded;
-			drawCurrentModelOnTheScene();
-		}
-	}
+    @FXML
+    void nextAnnotationButtonPressed(ActionEvent event) {
+        Annotation newAnnotationReaded = model.getNextAnnotation(currentAnnotation);
+        if (newAnnotationReaded != null) {
+            currentAnnotation = newAnnotationReaded;
+            drawCurrentModelOnTheScene();
+        } else if (model.getFirstAnnotation() != null) {
+            currentAnnotation = model.getFirstAnnotation();
+            drawCurrentModelOnTheScene();
+        }
+    }
 
-	@FXML
-	void backButtonPressed(ActionEvent event) {
-		manager.changeScreen(ScreensFramework.DIARY_SCREEN);
-	}
+    @FXML
+    void backButtonPressed(ActionEvent event) {
+        manager.changeScreen(ScreensFramework.DIARY_SCREEN);
+    }
 
-	private void drawCurrentModelOnTheScene() {
-		resetCurrentSceneElements();
-		txt_annotationNumber.setText(Objects.toString(currentAnnotation.getId(), null));
-		if (currentAnnotation.getTitle() != null) {
-			txt_title.setText(currentAnnotation.getTitle());
-		}
-		if (currentAnnotation.getMessage() != null) {
-			htmlEditor_message.setHtmlText(currentAnnotation.getMessage());
-		}
-		if (currentAnnotation.getCreationDate() != null) {
-			txt_creationDate.setText(DateFormatter.dateFormat(currentAnnotation.getCreationDate()));
-		}
-		if (currentAnnotation.getLastModificationTimestamp() != null) {
-			txt_lastModificationDate.setText(DateFormatter.timestampFormat(currentAnnotation.getLastModificationTimestamp()));
-		}
-	}
+    private void drawCurrentModelOnTheScene() {
+        resetCurrentSceneElements();
+        txt_annotationNumber.setText(Objects.toString(currentAnnotation.getId(), null));
+        if (currentAnnotation.getTitle() != null) {
+            txt_title.setText(currentAnnotation.getTitle());
+        }
+        if (currentAnnotation.getMessage() != null) {
+            htmlEditor_message.setHtmlText(currentAnnotation.getMessage());
+        }
+        if (currentAnnotation.getCreationDate() != null) {
+            txt_creationDate.setText(DateFormatter.dateFormat(currentAnnotation.getCreationDate()));
+        }
+        if (currentAnnotation.getLastModificationTimestamp() != null) {
+            txt_lastModificationDate.setText(DateFormatter.timestampFormat(currentAnnotation.getLastModificationTimestamp()));
+        }
+    }
 
-	private void resetCurrentSceneElements() {
-		txt_annotationNumber.setText("");
-		txt_title.setText("");
-		htmlEditor_message.setHtmlText("");
-		txt_creationDate.setText("");
-		txt_lastModificationDate.setText("");
-	}
+    private void resetCurrentSceneElements() {
+        txt_annotationNumber.setText("");
+        txt_title.setText("");
+        htmlEditor_message.setHtmlText("");
+        txt_creationDate.setText("");
+        txt_lastModificationDate.setText("");
+    }
 
-	private void createFirstDefaultAnnotation() {
-		Annotation newAnnotation = AnnotationFactory.createAnnotation(AnnotationType.HIBERNATE);
-		newAnnotation.setTitle("Title");
-		newAnnotation.setAuthor(manager.getLoggedInUser().toString());
-		newAnnotation.setMessage("");
+    private void createFirstDefaultAnnotation() {
+        Annotation newAnnotation = AnnotationFactory.createAnnotation(AnnotationType.HIBERNATE);
+        newAnnotation.setTitle("Title");
+        newAnnotation.setAuthor(manager.getLoggedInUser().toString());
+        newAnnotation.setMessage("");
         Date currentDate = new Date();
-		newAnnotation.setCreationDate(currentDate);
-		newAnnotation.setLastModificationTimestamp(currentDate);
-		model.saveAnnotation(newAnnotation);
+        newAnnotation.setCreationDate(currentDate);
+        newAnnotation.setLastModificationTimestamp(currentDate);
+        model.saveAnnotation(newAnnotation);
         currentAnnotation = newAnnotation;
-	}
+    }
 }

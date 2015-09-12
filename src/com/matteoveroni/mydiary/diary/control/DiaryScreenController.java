@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -24,6 +25,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 /**
  * DiaryScreenController Controller class
@@ -74,6 +76,18 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
         tableColumn_CreationDate.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("creationDate"));
         tableColumn_LastModificationTimestamp.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("lastModificationTimestamp"));
         tableColumn_Author.setCellValueFactory(new PropertyValueFactory<Annotation, String>("author"));
+
+        diaryTable.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                    Annotation selectedAnnotation = diaryTable.getSelectionModel().getSelectedItem();
+                    if (selectedAnnotation != null) {
+                        System.out.println(selectedAnnotation.getTitle());
+                    }
+                }
+            }
+        });
     }
 
     @Override
