@@ -1,5 +1,7 @@
 package com.matteoveroni.mydiary.system.events;
 
+import com.matteoveroni.mydiary.controlles.interfaces.ScreenController;
+
 public class EventoCambiaSchermata extends SystemEvent {
 
     private final ScreenController controllerSchermo;

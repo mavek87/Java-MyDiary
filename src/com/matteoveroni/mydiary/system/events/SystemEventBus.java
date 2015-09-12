@@ -1,14 +1,15 @@
 package com.matteoveroni.mydiary.system.events;
 
+import com.sun.media.jfxmediaimpl.MediaDisposer.Disposable;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
-public class SystemEventBus {
+public class SystemEventBus implements Disposable {
 
     private final static int MAX_EVENTS_IN_QUEUE = 100;
 
-    private final ArrayList<SystemEventListener> listeners = new ArrayList<SystemEventListener>(5);
-    private final PriorityQueue<SystemEvent> events = new PriorityQueue<SystemEvent>(MAX_EVENTS_IN_QUEUE);
+    private final ArrayList<SystemEventListener> listeners = new ArrayList<>(5);
+    private final PriorityQueue<SystemEvent> events = new PriorityQueue<>(MAX_EVENTS_IN_QUEUE);
 
     public synchronized void addEventListener(SystemEventListener busListener) {
         if (!listeners.contains(busListener)) {
@@ -35,7 +36,8 @@ public class SystemEventBus {
         }
     }
 
-    public void clear() {
+    @Override
+    public void dispose() {
         listeners.clear();
         events.clear();
     }

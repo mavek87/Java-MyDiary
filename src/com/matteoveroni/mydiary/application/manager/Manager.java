@@ -10,17 +10,19 @@ import com.matteoveroni.mydiary.user.model.bean.User;
  */
 public interface Manager {
 
-	public void registerListener(Listener listener);
+    public void registerListener(Listener listener);
 
-	public void removeListener(Listener listener);
+    public void removeListener(Listener listener);
 
-	public void notifyListeners();
+    public void notifyListeners(DataObjectMessage dataToPush);
 
-	public void changeScreen(ScreensFramework screenType);
+    public void changeScreen(ScreensFramework screenType);
 
-	public User getLoggedInUser();
+    public User getLoggedInUser();
 
-	public void setLoggedInUser(User loggedInUser);
-    
-	public void dispose();
+    public void setLoggedInUser(User loggedInUser);
+
+    public void storeObjectToPush(Object dataToPush, Class senderClass);
+
+    public void dispose();
 }

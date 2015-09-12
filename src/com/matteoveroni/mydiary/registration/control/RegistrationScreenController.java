@@ -1,5 +1,6 @@
 package com.matteoveroni.mydiary.registration.control;
 
+import com.matteoveroni.mydiary.application.manager.DataObjectMessage;
 import com.matteoveroni.mydiary.application.manager.Manageable;
 import com.matteoveroni.mydiary.application.manager.Manager;
 import com.matteoveroni.mydiary.utilities.patterns.Listener;
@@ -70,7 +71,7 @@ public class RegistrationScreenController implements Manageable, Initializable, 
     }
 
     @Override
-    public void update() {
+    public void update(DataObjectMessage pushedData) {
         resetAllTheFieldsOnTheForm();
     }
 

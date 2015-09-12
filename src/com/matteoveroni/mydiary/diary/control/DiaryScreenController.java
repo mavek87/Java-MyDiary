@@ -5,6 +5,7 @@ import com.matteoveroni.mydiary.application.manager.Manager;
 import com.matteoveroni.mydiary.annotation.model.bean.HibernateAnnotationBean;
 import com.matteoveroni.mydiary.utilities.patterns.Listener;
 import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
+import com.matteoveroni.mydiary.application.manager.DataObjectMessage;
 import com.matteoveroni.mydiary.diary.model.bean.Diary;
 import com.matteoveroni.mydiary.diary.model.DiaryModel;
 import com.matteoveroni.mydiary.diary.model.HibernateDiaryModel;
@@ -37,6 +38,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
     private Manager manager;
     private final Diary currentDiary = new HibernateDiaryBean();
     private final DiaryModel model = new HibernateDiaryModel();
+    private Annotation selectedAnnotation;
 
     @FXML
     private TableView<Annotation> diaryTable;
@@ -81,10 +83,8 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
             @Override
             public void handle(MouseEvent event) {
                 if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                    Annotation selectedAnnotation = diaryTable.getSelectionModel().getSelectedItem();
-                    if (selectedAnnotation != null) {
-                        System.out.println(selectedAnnotation.getTitle());
-                    }
+                    selectedAnnotation = diaryTable.getSelectionModel().getSelectedItem();
+                    openSelectedAnnotation();
                 }
             }
         });
@@ -97,7 +97,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
     }
 
     @Override
-    public void update() {
+    public void update(DataObjectMessage pushedData) {
         List<Annotation> annotationsFromDatabase = model.getAllTheAnnotations();
         ObservableList<Annotation> annotations = FXCollections.observableArrayList(annotationsFromDatabase);
         diaryTable.setItems(annotations);
@@ -105,7 +105,11 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 
     @FXML
     void goToAnnotationScreen(ActionEvent event) {
-        manager.changeScreen(ScreensFramework.ANNOTATION_SCREEN);
+        Annotation currentAnnotationSelected = diaryTable.getSelectionModel().getSelectedItem();
+        if (currentAnnotationSelected != null) {
+            manager.storeObjectToPush(currentAnnotationSelected, DiaryScreenController.class);
+            manager.changeScreen(ScreensFramework.ANNOTATION_SCREEN);
+        }
     }
 
     @FXML
@@ -117,7 +121,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
         Annotation currentAnnotationSelected = diaryTable.getSelectionModel().getSelectedItem();
         if (currentAnnotationSelected != null) {
             model.removeAnnotation(currentAnnotationSelected);
-            update();
+            update(null);
         }
     }
 
@@ -134,5 +138,12 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 
     @FXML
     void enableFilter(ActionEvent event) {
+    }
+
+    private void openSelectedAnnotation() {
+        if (selectedAnnotation != null) {
+            manager.storeObjectToPush(selectedAnnotation, DiaryScreenController.class);
+            manager.changeScreen(ScreensFramework.ANNOTATION_SCREEN);
+        }
     }
 }

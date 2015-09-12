@@ -1,5 +1,7 @@
 package com.matteoveroni.mydiary.utilities.patterns;
 
+import com.matteoveroni.mydiary.application.manager.DataObjectMessage;
+
 /**
  *
  * @author Matteo Veroni
@@ -7,5 +9,5 @@ package com.matteoveroni.mydiary.utilities.patterns;
 public interface Listenable {
 	public void registerListener(Listener listener);
 	public void removeListener(Listener listener);
-	public void notifyListeners();
+	public void notifyListeners(DataObjectMessage objectToPush);
 }

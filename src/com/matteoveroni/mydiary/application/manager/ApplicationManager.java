@@ -19,67 +19,83 @@ import org.slf4j.LoggerFactory;
  */
 public class ApplicationManager implements Manager, Disposable, Listenable {
 
-	private final ScreenManager screenManager;
-	private final DAO database;
-	private User loggedInUser;
-	private final Set<Listener> listeners = new HashSet<>();
-	private final Set<Disposable> resourcesToDisposeWhenApplicationClose = new HashSet<>();
-	private static final Logger LOG = LoggerFactory.getLogger(MyDiary.class);
+    private final ScreenManager screenManager;
+    private final DAO database;
+    private User loggedInUser;
 
-	public ApplicationManager(ScreenManager screenManager, DAO databaseAccessObject) {
-		this.screenManager = screenManager;
-		this.database = databaseAccessObject;
-		resourcesToDisposeWhenApplicationClose.add(this.screenManager);
-		resourcesToDisposeWhenApplicationClose.add(this.database);
-		setThisApplicationManagerAsScreenControllersManager();
-		LOG.debug(" ---> ApplicationManagerInitialized");
-	}
+    private final Set<Listener> listeners = new HashSet<>();
+    private DataObjectMessage dataToPush;
 
-	@Override
-	public void registerListener(Listener listener) {
-		listeners.add(listener);
-	}
+    private final Set<Disposable> resourcesToDisposeWhenApplicationClose = new HashSet<>();
 
-	@Override
-	public void removeListener(Listener listener) {
-		listeners.remove(listener);
-	}
+    private static final Logger LOG = LoggerFactory.getLogger(MyDiary.class);
 
-	@Override
-	public void notifyListeners() {
-		for (Listener listener : listeners) {
-			listener.update();
-		}
-	}
+    public ApplicationManager(ScreenManager screenManager, DAO databaseAccessObject) {
+        this.screenManager = screenManager;
+        this.database = databaseAccessObject;
+        resourcesToDisposeWhenApplicationClose.add(this.screenManager);
+        resourcesToDisposeWhenApplicationClose.add(this.database);
+        setThisApplicationManagerAsScreenControllersManager();
+        LOG.debug(" ---> ApplicationManagerInitialized");
+    }
 
-	@Override
-	public void changeScreen(ScreensFramework screenType) {
-		LOG.debug(" ---> Changing screen from " + screenManager.getCurrentScreen().getName() + " to " + screenType);
-		screenManager.useScreen(screenType);
-		notifyListeners();
-	}
+    @Override
+    public void registerListener(Listener listener) {
+        listeners.add(listener);
+    }
 
-	@Override
-	public User getLoggedInUser() {
-		return this.loggedInUser;
-	}
+    @Override
+    public void removeListener(Listener listener) {
+        listeners.remove(listener);
+    }
 
-	@Override
-	public void setLoggedInUser(User loggedInUser) {
-		this.loggedInUser = loggedInUser;
-	}
+    @Override
+    public void notifyListeners(DataObjectMessage dataToPush) {
+        for (Listener listener : listeners) {
+            listener.update(dataToPush);
+        }
+    }
 
-	@Override
-	public void dispose() {
-		for (Disposable resource : resourcesToDisposeWhenApplicationClose) {
-			resource.dispose();
-		}
-	}
+    @Override
+    public void changeScreen(ScreensFramework screenType) {
+        LOG.debug(" ---> Changing screen from " + screenManager.getCurrentScreen().getName() + " to " + screenType);
+        notifyListeners(dataToPush);
+        screenManager.useScreen(screenType);
+        clearObjectToPush();
+    }
 
-	private void setThisApplicationManagerAsScreenControllersManager() {
-		LOG.debug(" ---> Setting the application manager as manager for all the controllers");
-		for (Manageable controller : screenManager.getScreenControllers()) {
-			controller.setManager(this);
-		}
-	}
+    @Override
+    public User getLoggedInUser() {
+        return this.loggedInUser;
+    }
+
+    @Override
+    public void setLoggedInUser(User loggedInUser) {
+        this.loggedInUser = loggedInUser;
+    }
+
+    @Override
+    public void storeObjectToPush(Object dataToPush, Class senderClass) {
+        this.dataToPush = new DataObjectMessage();
+        this.dataToPush.setData(dataToPush);
+        this.dataToPush.setSenderClass(senderClass);
+    }
+
+    private void clearObjectToPush() {
+        this.dataToPush = null;
+    }
+
+    private void setThisApplicationManagerAsScreenControllersManager() {
+        LOG.debug(" ---> Setting the application manager as manager for all the controllers");
+        for (Manageable controller : screenManager.getScreenControllers()) {
+            controller.setManager(this);
+        }
+    }
+
+    @Override
+    public void dispose() {
+        for (Disposable resource : resourcesToDisposeWhenApplicationClose) {
+            resource.dispose();
+        }
+    }
 }

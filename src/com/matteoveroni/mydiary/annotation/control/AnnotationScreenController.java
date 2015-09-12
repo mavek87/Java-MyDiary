@@ -9,6 +9,9 @@ import com.matteoveroni.mydiary.annotation.model.AnnotationModelFactory;
 import com.matteoveroni.mydiary.annotation.model.AnnotationModelType;
 import com.matteoveroni.mydiary.annotation.model.bean.AnnotationType;
 import com.matteoveroni.mydiary.annotation.model.bean.AnnotationFactory;
+import com.matteoveroni.mydiary.application.manager.DataObjectMessage;
+import com.matteoveroni.mydiary.diary.control.DiaryScreenController;
+import com.matteoveroni.mydiary.exceptions.CriticalRuntimeException;
 import com.matteoveroni.mydiary.utilities.date.formatter.DateFormatter;
 import com.matteoveroni.mydiary.screen.ScreensFramework;
 import java.net.URL;
@@ -21,6 +24,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.web.HTMLEditor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Annotation Screen Controller class
@@ -32,6 +37,8 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
     private Manager manager;
     private final AnnotationModel model = AnnotationModelFactory.createAnnotationModel(AnnotationModelType.HIBERNATE_ANNOTATION_MODEL);
     private Annotation currentAnnotation = AnnotationFactory.createAnnotation(AnnotationType.HIBERNATE);
+
+    private static final Logger LOG = LoggerFactory.getLogger(AnnotationScreenController.class);
 
     @FXML
     private ResourceBundle resources;
@@ -73,15 +80,21 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
     }
 
     @Override
-    public void update() {
+    public void update(DataObjectMessage pushedData) {
         try {
-            currentAnnotation = model.getLastAnnotation();
-            if (currentAnnotation == null) {
-                createFirstDefaultAnnotation();
+            if (pushedData != null && pushedData.getSenderClass().equals(DiaryScreenController.class)) {
+                Annotation annotationSended = (Annotation) pushedData.getData();
+                currentAnnotation = model.getAnnotation(annotationSended.getId());
+            } else {
+                currentAnnotation = model.getLastAnnotation();
+                if (currentAnnotation == null) {
+                    createFirstDefaultAnnotation();
+                }
             }
             drawCurrentModelOnTheScene();
         } catch (Exception ex) {
-            throw new RuntimeException(ex);
+            LOG.error("Critical Runtime Exception Occurred -> " + ex.getMessage());
+            throw new CriticalRuntimeException(ex, manager);
         }
     }
 

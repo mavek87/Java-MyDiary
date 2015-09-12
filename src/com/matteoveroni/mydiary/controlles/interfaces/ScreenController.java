@@ -1,4 +1,4 @@
-package com.matteoveroni.mydiary.system.events;
+package com.matteoveroni.mydiary.controlles.interfaces;
 
 import com.matteoveroni.mydiary.application.manager.Manager;
 
