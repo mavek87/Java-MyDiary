@@ -11,6 +11,8 @@ public interface AnnotationModel {
     public Annotation getFirstAnnotation();
 
     public Annotation getLastAnnotation();
+    
+    public Annotation getAnnotation(long annotationId);
 
     public Annotation getPreviousAnnotation(Annotation currentAnnotation);
 

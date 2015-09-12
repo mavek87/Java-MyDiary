@@ -17,7 +17,7 @@ public class Screen {
 	private String name;
 	private String resourcePath;
 	private Scene scene;
-
+    
 	public Screen(ScreensFramework selectedScreenType) throws IOException {
 		screenType = selectedScreenType;
 		fxml = new FXMLLoader(getClass().getResource(screenType.getScreenResourcePath()));
