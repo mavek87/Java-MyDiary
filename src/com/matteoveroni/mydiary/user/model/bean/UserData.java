@@ -29,7 +29,7 @@ public class UserData implements Serializable {
     private String lastName;
 
     @Column
-    private int age;
+    private Integer age;
 
     @OneToMany
     private Collection<Diary> diaries = new HashSet<>();
@@ -66,11 +66,11 @@ public class UserData implements Serializable {
         this.lastName = lastName;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 

@@ -94,7 +94,7 @@ public class RegistrationScreenController implements Manageable, Initializable, 
             manager.changeScreen(ScreensFramework.LOGIN_SCREEN);
         } else {
             resetUserAndPasswordFieldsOnTheForm();
-            JOptionPane.showMessageDialog(null, "Username and Password can\'t be less than 6 characters. Choose a longer Username and Password!", "Username/Password Invalid", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Username and Password can\'t be less than 6 characters long. Choose longer Username and Password!", "Username/Password Invalid", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -120,7 +120,7 @@ public class RegistrationScreenController implements Manageable, Initializable, 
         try {
             userToRegister.setAge(Integer.parseInt(txt_Age.getText()));
         } catch (Exception ex) {
-            userToRegister.setAge(0);
+//            userToRegister.setAge(0);
         }
     }
 
