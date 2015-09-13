@@ -25,7 +25,7 @@
          </font></Label>
       <TabPane layoutX="41.0" layoutY="111.0" prefHeight="430.0" prefWidth="721.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab fx:id="pane_selectDiary" text="Select Diary">
+          <Tab fx:id="tab_selectDiary" closable="false" onSelectionChanged="#tabSelectDiaryActive" text="Select Diary">
                <content>
                   <BorderPane prefHeight="259.0" prefWidth="721.0">
                      <center>
@@ -35,12 +35,12 @@
                         <Label alignment="CENTER" prefHeight="15.0" prefWidth="247.0" text="Choose a Diary" BorderPane.alignment="CENTER" />
                      </left>
                      <bottom>
-                        <Button fx:id="cmd_openDiary" mnemonicParsing="false" onAction="#openSelectedDiary" prefHeight="40.0" prefWidth="140.0" text="Open Diary" BorderPane.alignment="CENTER" />
+                        <Button fx:id="btn_openDiary" mnemonicParsing="false" onAction="#openSelectedDiary" prefHeight="40.0" prefWidth="140.0" text="Open Diary" BorderPane.alignment="CENTER" />
                      </bottom>
                   </BorderPane>
                </content>
             </Tab>
-          <Tab fx:id="pane_createNewDiary" text="Create New Diary">
+          <Tab fx:id="tab_createNewDiary" closable="false" onSelectionChanged="#tabCreateNewDiaryActive" text="Create New Diary">
                <content>
                   <BorderPane prefHeight="200.0" prefWidth="200.0">
                      <center>
@@ -61,11 +61,11 @@
                         </GridPane>
                      </center>
                      <bottom>
-                        <Button fx:id="cmd_createDiary" mnemonicParsing="false" onAction="#createNewDiary" prefHeight="40.0" prefWidth="140.0" text="Create Diary" BorderPane.alignment="CENTER" />
+                        <Button fx:id="btn_createDiary" mnemonicParsing="false" onAction="#createNewDiary" prefHeight="40.0" prefWidth="140.0" text="Create Diary" BorderPane.alignment="CENTER" />
                      </bottom>
                   </BorderPane>
                </content></Tab>
-            <Tab fx:id="pane_manageDiary" text="Manage Diary">
+            <Tab fx:id="tab_manageDiary" closable="false" onSelectionChanged="#tabManageDiaryActive" text="Manage Diary">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
               </content>

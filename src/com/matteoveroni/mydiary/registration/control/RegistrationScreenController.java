@@ -56,9 +56,9 @@ public class RegistrationScreenController implements Manageable, Initializable, 
     @FXML
     private Label lbl_Title;
     @FXML
-    private Button cmd_Cancel;
+    private Button btn_Cancel;
     @FXML
-    private Button cmd_Register;
+    private Button btn_Register;
 
     /**
      * Initializes the controller class.

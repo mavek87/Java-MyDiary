@@ -72,6 +72,9 @@ public class ApplicationManagerBuilder {
     private void setWindowDimensions(Stage primaryStage) {
         primaryStage.setWidth(800);
         primaryStage.setHeight(600);
+        primaryStage.setMaxWidth(800);
+        primaryStage.setMaxHeight(600);
+        primaryStage.setResizable(false);
     }
 
     private void centerWindow(Stage primaryStage) {

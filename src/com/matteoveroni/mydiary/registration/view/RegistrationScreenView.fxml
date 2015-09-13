@@ -18,61 +18,61 @@
         <URL value="@css/RegistrationScreenView.css" />
     </stylesheets>
     <children>
-        <BorderPane layoutX="260.0" layoutY="140.0" prefHeight="480.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <BorderPane layoutX="260.0" layoutY="140.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <center>
-                <VBox prefHeight="496.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+                <VBox prefHeight="444.0" prefWidth="800.0" BorderPane.alignment="CENTER">
                     <children>
                         <Label fx:id="lbl_Username" alignment="BOTTOM_CENTER" prefHeight="50.0" prefWidth="129.0" text="Username *">
                      <font>
                         <Font size="21.0" />
                      </font></Label>
-                        <TextField fx:id="txt_Username" prefHeight="40.0" prefWidth="800.0" />
+                        <TextField fx:id="txt_Username" prefHeight="35.0" prefWidth="800.0" />
                         <Label fx:id="lbl_Password" alignment="BOTTOM_LEFT" prefHeight="50.0" prefWidth="147.0" text="Password *">
                      <font>
                         <Font size="21.0" />
                      </font></Label>
-                        <PasswordField fx:id="psw_Password" prefHeight="40.0" prefWidth="800.0" />
+                        <PasswordField fx:id="psw_Password" prefHeight="35.0" prefWidth="800.0" />
                         <Label fx:id="lbl_Name" alignment="BOTTOM_CENTER" prefHeight="50.0" prefWidth="114.0" text="FirstName">
                      <font>
                         <Font size="21.0" />
                      </font></Label>
-                        <TextField fx:id="txt_Name" prefHeight="40.0" prefWidth="800.0" />
+                        <TextField fx:id="txt_Name" prefHeight="35.0" prefWidth="800.0" />
                         <Label fx:id="lbl_Surname" alignment="BOTTOM_CENTER" prefHeight="50.0" prefWidth="113.0" text="LastName">
                      <font>
                         <Font size="21.0" />
                      </font></Label>
-                        <TextField fx:id="txt_Surname" prefHeight="45.0" prefWidth="800.0" />
+                        <TextField fx:id="txt_Surname" prefHeight="35.0" prefWidth="800.0" />
                         <Label fx:id="lbl_Age" alignment="BOTTOM_CENTER" prefHeight="50.0" prefWidth="50.0" text="Age">
                      <font>
                         <Font size="21.0" />
                      </font></Label>
-                        <TextField fx:id="txt_Age" prefHeight="42.0" prefWidth="800.0" />
+                        <TextField fx:id="txt_Age" prefHeight="35.0" prefWidth="800.0" />
                     </children>
                 </VBox>
             </center>
             <top>
-                <Label fx:id="lbl_Title" alignment="CENTER" prefHeight="50.0" prefWidth="301.0" text="User Registration" BorderPane.alignment="CENTER">
+                <Label fx:id="lbl_Title" alignment="CENTER" prefHeight="39.0" prefWidth="301.0" text="User Registration" BorderPane.alignment="CENTER">
                     <font>
                         <Font size="30.0" />
                     </font>
                 </Label>
             </top>
-            <bottom>
-                <HBox prefHeight="53.0" prefWidth="800.0" BorderPane.alignment="CENTER">
-                    <children>
-                        <Button fx:id="cmd_Cancel" mnemonicParsing="false" onAction="#cancelRegistration" prefHeight="80.0" prefWidth="399.0" text="Cancel">
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                        </Button>
-                        <Button fx:id="cmd_Register" mnemonicParsing="false" onAction="#registerUser" prefHeight="80.0" prefWidth="402.0" text="Register">
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                        </Button>
-                    </children>
-                </HBox>
-            </bottom>
+         <bottom>
+            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="btn_Register" mnemonicParsing="false" onAction="#registerUser" prefHeight="100.0" prefWidth="400.0" text="Register">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btn_Cancel" mnemonicParsing="false" onAction="#cancelRegistration" prefHeight="100.0" prefWidth="400.0" text="Cancel">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </bottom>
         </BorderPane>
     </children>
 </AnchorPane>
