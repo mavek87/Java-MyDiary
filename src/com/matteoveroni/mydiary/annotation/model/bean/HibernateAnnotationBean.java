@@ -1,5 +1,6 @@
 package com.matteoveroni.mydiary.annotation.model.bean;
 
+import com.matteoveroni.mydiary.diary.model.bean.Diary;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -7,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -31,8 +33,11 @@ public class HibernateAnnotationBean implements Serializable, Annotation {
 	@Lob
 	private String message;
 
-	@Column
-	private String author;
+//	@Column
+//	private String author;
+    
+    @ManyToOne
+    private Diary diary;
 
 	@Column
 	@Temporal(TemporalType.DATE)
@@ -72,15 +77,23 @@ public class HibernateAnnotationBean implements Serializable, Annotation {
 		this.message = message;
 	}
 
-	@Override
-	public String getAuthor() {
-		return author;
-	}
+//	@Override
+//	public String getAuthor() {
+//		return author;
+//	}
+//
+//	@Override
+//	public void setAuthor(String author) {
+//		this.author = author;
+//	}
 
-	@Override
-	public void setAuthor(String author) {
-		this.author = author;
-	}
+    public Diary getDiary() {
+        return diary;
+    }
+
+    public void setDiary(Diary diary) {
+        this.diary = diary;
+    }
 
 	@Override
 	public Date getCreationDate() {

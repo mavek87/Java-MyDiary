@@ -1,5 +1,6 @@
 package com.matteoveroni.mydiary.annotation.model.bean;
 
+import com.matteoveroni.mydiary.diary.model.bean.Diary;
 import java.util.Date;
 
 /**
@@ -20,9 +21,9 @@ public interface Annotation {
 
     public void setMessage(String message);
 
-    public String getAuthor();
+    public Diary getDiary();
 
-    public void setAuthor(String author);
+    public void setDiary(Diary diary);
 
     public Date getCreationDate();
 

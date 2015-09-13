@@ -143,7 +143,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
     void createNewAnnotation(ActionEvent event) {
         Annotation newAnnotation = new HibernateAnnotationBean();
         newAnnotation.setTitle("New Title");
-        newAnnotation.setAuthor(manager.getLoggedInUser().toString());
+//        newAnnotation.setAuthor(manager.getLoggedInUser().toString());
         newAnnotation.setCreationDate(new Date());
         newAnnotation.setLastModificationTimestamp(new Date());
         model.createNewAnnotation(newAnnotation);

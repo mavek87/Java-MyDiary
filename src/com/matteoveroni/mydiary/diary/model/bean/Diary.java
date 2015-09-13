@@ -1,12 +1,17 @@
 package com.matteoveroni.mydiary.diary.model.bean;
 
+import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
+import com.matteoveroni.mydiary.annotation.model.bean.HibernateAnnotationBean;
 import com.matteoveroni.mydiary.user.model.bean.UserData;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -25,8 +30,9 @@ public class Diary implements Serializable {
     @ManyToOne
     private UserData ownerUser;
 
-//    @Transient
-//    private final Map<String, Annotation> articles = new HashMap<>();
+    @OneToMany
+    private List<HibernateAnnotationBean> annotations = new ArrayList<>();
+
     public long getId() {
         return id;
     }
@@ -51,6 +57,17 @@ public class Diary implements Serializable {
         this.ownerUser = ownerUser;
     }
 
+    public List<HibernateAnnotationBean> getAnnotations() {
+        return annotations;
+    }
+
+    public void setAnnotations(List<HibernateAnnotationBean> annotations) {
+        this.annotations = annotations;
+    }
+
+//    @Transient
+//    private final Map<String, Annotation> articles = new HashMap<>();
+    
 //    @Override
 //    public void addArticle(String name, Annotation newArticle) {
 //        articles.put(name, newArticle);

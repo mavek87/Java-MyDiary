@@ -11,6 +11,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -30,7 +32,7 @@ import javax.swing.JOptionPane;
 public class LibraryScreenController implements Initializable, Manageable, Listener {
 
     private Manager manager;
-    private final Diary selectedDiary = new Diary();
+    private Diary selectedDiary = new Diary();
     private final LibraryModel model = new LibraryModel();
     List<Diary> userDiaries = new ArrayList<>();
     List<String> userDiariesStringsForCombobox = new ArrayList<>();
@@ -58,6 +60,18 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        cmb_chooseDiary.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+
+                int index = cmb_chooseDiary.getSelectionModel().getSelectedIndex();
+
+                System.out.println("Value is::" + newValue);
+
+                selectedDiary = userDiaries.get(index);
+            }
+        });
     }
 
     @Override
