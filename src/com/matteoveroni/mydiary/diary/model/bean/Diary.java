@@ -2,6 +2,7 @@ package com.matteoveroni.mydiary.diary.model.bean;
 
 import com.matteoveroni.mydiary.user.model.bean.UserData;
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,6 +19,9 @@ public class Diary implements Serializable {
     @GeneratedValue
     private long id;
 
+    @Column
+    private String name;
+
     @ManyToOne
     private UserData ownerUser;
 
@@ -29,6 +33,14 @@ public class Diary implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public UserData getOwnerUser() {
@@ -43,7 +55,6 @@ public class Diary implements Serializable {
 //    public void addArticle(String name, Annotation newArticle) {
 //        articles.put(name, newArticle);
 //    }
-
 //    @Override
 //    public Annotation getArticle(String name) {
 //        if (articles.containsKey(name)) {

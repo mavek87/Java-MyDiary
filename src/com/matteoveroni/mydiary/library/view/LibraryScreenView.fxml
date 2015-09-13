@@ -40,7 +40,7 @@
                   </BorderPane>
                </content>
             </Tab>
-          <Tab fx:id="pane_createNewDiary" closable="false" text="Create New Diary">
+          <Tab fx:id="pane_createNewDiary" text="Create New Diary">
                <content>
                   <BorderPane prefHeight="200.0" prefWidth="200.0">
                      <center>

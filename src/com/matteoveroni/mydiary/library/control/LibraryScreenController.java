@@ -12,7 +12,11 @@ import com.matteoveroni.mydiary.diary.model.bean.Diary;
 import com.matteoveroni.mydiary.login.control.LoginScreenController;
 import com.matteoveroni.mydiary.screen.ScreensFramework;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -29,9 +33,8 @@ import javafx.scene.control.TextField;
 public class LibraryScreenController implements Initializable, Manageable, Listener {
 
     private Manager manager;
-    private final Diary currentDiary = new Diary();
+    private final Diary selectedDiary = new Diary();
     private final DiaryModel model = new HibernateDiaryModel();
-    private Annotation currentSelectedAnnotation;
 
     @FXML
     private Tab pane_manageDiary;
@@ -44,7 +47,7 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
     @FXML
     private Button cmd_openDiary;
     @FXML
-    private ComboBox<?> cmb_chooseDiary;
+    private ComboBox<Diary> cmb_chooseDiary;
     @FXML
     private TextField txt_newDiaryName;
 
@@ -56,10 +59,6 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cmd_createDiary.setDisable(true);
-//        if (cmb_chooseDiary.getItems().size() == 0) {
-//            cmd_openDiary.setDisable(true);
-//        }
     }
 
     @Override
@@ -71,23 +70,56 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
     @Override
     public void update(DataObjectMessage pushedData) {
         if (manager.getLoggedInUser() != null) {
-            if (pushedData != null && pushedData.getSenderClass().equals(LoginScreenController.class)) {
-                DAO databaseManager = DAO.getInstance();
-                Diary diary = new Diary();
-                databaseManager.read(Diary.class, manager.getLoggedInUser(), DAO.ElementsOnWhichOperate.REQUESTED);
-                diary.setOwnerUser(manager.getLoggedInUser());
-                databaseManager.write(diary);
+            DAO databaseManager = DAO.getInstance();
+
+            List<Diary> diaries = databaseManager.readAll(Diary.class);
+            List<Diary> userDiaries = new ArrayList<>();
+
+            for (Diary diary : diaries) {
+                if (diary.getOwnerUser().equals(manager.getLoggedInUser())) {
+                    userDiaries.add(diary);
+                }
             }
+
+            ObservableList<Diary> observableUserDiaries = FXCollections.observableArrayList(userDiaries);
+            cmb_chooseDiary.setItems(observableUserDiaries);
+        }
+
+        if (cmb_chooseDiary.getItems().size() == 0) {
+            cmd_openDiary.setDisable(true);
         }
     }
 
     @FXML
+    void openDiaryPaneSelected(ActionEvent event) {
+//        cmd_createDiary.setDisable(true);
+        
+    }
+
+    @FXML
     void openSelectedDiary(ActionEvent event) {
-        manager.changeScreen(ScreensFramework.DIARY_SCREEN);
+        if (selectedDiary != null) {
+            manager.storeObjectToPush(selectedDiary, LibraryScreenController.class);
+            manager.changeScreen(ScreensFramework.DIARY_SCREEN);
+        }
+    }
+
+    @FXML
+    void createNewDiaryPaneSelected(ActionEvent event) {
+        
     }
 
     @FXML
     void createNewDiary(ActionEvent event) {
+        DAO databaseManager = DAO.getInstance();
+        Diary diary = new Diary();
+        diary.setOwnerUser(manager.getLoggedInUser());
+        databaseManager.write(diary);
+    }
+
+    @FXML
+    void manageDiaryPaneSelected(ActionEvent event) {
+
     }
 
     private void resetSelectionPane() {
