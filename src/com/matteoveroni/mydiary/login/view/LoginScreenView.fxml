@@ -13,51 +13,64 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="251.0" prefWidth="553.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.matteoveroni.mydiary.login.control.LoginScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.matteoveroni.mydiary.login.control.LoginScreenController">
     <stylesheets>
-        <URL value="@css/LoginScreenView.css"/>
+        <URL value="@css/LoginScreenView.css" />
     </stylesheets>
     <children>
         <VBox layoutX="181.0" layoutY="14.0" prefHeight="251.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <AnchorPane prefHeight="50.0" prefWidth="600.0" />
-                <AnchorPane prefHeight="50.0" prefWidth="600.0">
+                <AnchorPane prefHeight="200.0" prefWidth="800.0">
                     <children>
-                        <TextField fx:id="txt_username" layoutX="206.0" layoutY="14.0" prefHeight="25.0" prefWidth="220.0" />
-                        <Label layoutX="123.0" layoutY="18.0" prefHeight="20.0" prefWidth="91.0" text="User">
+                        <Label alignment="CENTER" layoutX="265.0" layoutY="38.0" prefHeight="60.0" prefWidth="271.0" text="MyDiary">
                             <font>
-                                <Font size="15.0" />
+                                <Font size="51.0" />
                             </font>
                         </Label>
                     </children>
                 </AnchorPane>
-                <AnchorPane prefHeight="50.0" prefWidth="600.0">
+                <AnchorPane prefHeight="180.0" prefWidth="798.0">
                     <children>
-                        <PasswordField fx:id="psw_password" layoutX="207.0" layoutY="13.0" prefHeight="25.0" prefWidth="220.0" />
-                        <Label layoutX="126.0" layoutY="16.0" prefHeight="20.0" prefWidth="91.0" text="Password">
+                        <TextField fx:id="txt_username" layoutX="267.0" layoutY="39.0" prefHeight="47.0" prefWidth="371.0">
+                        </TextField>
+                        <Label alignment="CENTER" layoutX="80.0" layoutY="48.0" prefHeight="28.0" prefWidth="125.0" text="Username">
                             <font>
-                                <Font size="15.0" />
+                                <Font size="23.0" />
                             </font>
                         </Label>
                     </children>
                 </AnchorPane>
-                <AnchorPane prefHeight="50.0" prefWidth="600.0">
+                <AnchorPane prefHeight="164.0" prefWidth="800.0">
                     <children>
-                        <Button fx:id="btn_login" layoutX="327.0" layoutY="10.0" mnemonicParsing="false" onAction="#login" prefHeight="30.0" prefWidth="100.0" text="Login">
+                        <PasswordField fx:id="psw_password" layoutX="264.0" layoutY="37.0" prefHeight="47.0" prefWidth="371.0" />
+                        <Label alignment="CENTER" layoutX="78.0" layoutY="46.0" prefHeight="28.0" prefWidth="125.0" text="Password">
                             <font>
-                                <Font size="14.0" />
+                                <Font size="23.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </AnchorPane>
+                <AnchorPane prefHeight="232.0" prefWidth="800.0">
+                    <children>
+                        <Button fx:id="btn_login" layoutX="196.0" layoutY="42.0" mnemonicParsing="false" onAction="#login" prefHeight="84.0" prefWidth="185.0" text="Login">
+                            <font>
+                                <Font size="25.0" />
                             </font>
                         </Button>
-                        <Button fx:id="btn_register" layoutX="207.0" layoutY="10.0" mnemonicParsing="false" onAction="#register" prefHeight="30.0" prefWidth="100.0" text="Register">
+                        <Button fx:id="btn_register" layoutX="464.0" layoutY="42.0" mnemonicParsing="false" onAction="#register" prefHeight="84.0" prefWidth="185.0" text="Register">
                             <font>
-                                <Font size="14.0" />
+                                <Font size="25.0" />
                             </font>
                         </Button>
                     </children>
                 </AnchorPane>
-                <AnchorPane prefHeight="50.0" prefWidth="600.0">
+                <AnchorPane prefHeight="144.0" prefWidth="800.0">
                     <children>
-                        <Label fx:id="lbl_loginFailedMessage" layoutX="121.0" layoutY="18.0" text="Wrong Username or Password please try again!" textFill="#ff0202" />
+                        <Label fx:id="lbl_loginFailedMessage" layoutX="197.0" layoutY="30.0" text="Wrong Username or Password please try again!" textFill="#ff0202">
+                            <font>
+                                <Font size="17.0" />
+                            </font>
+                        </Label>
                     </children>
                 </AnchorPane>
             </children>

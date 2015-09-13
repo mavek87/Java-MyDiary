@@ -6,6 +6,7 @@ import com.matteoveroni.mydiary.screen.Screen;
 import com.matteoveroni.mydiary.screen.manager.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreensFramework;
 import com.matteoveroni.mydiary.screen.factory.ScreenFactory;
+import javafx.geometry.Rectangle2D;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,9 @@ public class ApplicationManagerBuilder {
     public ApplicationManagerBuilder(String applicationName, String applicationVersion, Stage primaryStage) {
         this.applicationName = applicationName;
         this.applicationVersion = applicationVersion;
+        primaryStage.setWidth(800);
+        primaryStage.setHeight(600);
+        centerWindow(primaryStage);
         this.screenManager = new ScreenManager(primaryStage);
     }
 
@@ -42,9 +46,9 @@ public class ApplicationManagerBuilder {
 
     private void screenManagerSetup() {
         LOG.debug(" ---> Starting to setup the screen manager");
-        screenManager.getApplicationStage().setTitle(applicationName + " - v. " + applicationVersion);
+        screenManager.getApplicationStage().setTitle("\t" + applicationName + " - v. " + applicationVersion);
         screenManager.getApplicationStage().show();
-        centerWindow();
+//        centerWindow();
     }
 
     private void loadScreensInScreenManager() {
@@ -67,13 +71,16 @@ public class ApplicationManagerBuilder {
         screenManager.useScreen(ScreensFramework.LOGIN_SCREEN);
     }
 
-    private void centerWindow() {
+    private void centerWindow(Stage primaryStage) {
 //        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
 //        applicationManager.getApplicationStage().setX((primScreenBounds.getWidth() - applicationManager.getApplicationStage().getWidth()) / 2);
 //        applicationManager.getApplicationStage().setY((primScreenBounds.getHeight() - applicationManager.getApplicationStage().getHeight()) / 4);
 //	primaryStage.show();
-//        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-//        primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
-//        primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);
+        Rectangle2D primScreenBounds = javafx.stage.Screen.getPrimary().getVisualBounds();
+        System.out.println("s getHeight: " + primScreenBounds.getHeight() + " | s getWidth: " + primScreenBounds.getWidth());
+        System.out.println("p getHeight: " + primaryStage.getHeight() + " | p getWidth: " + primaryStage.getWidth());
+
+        primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
+        primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);
     }
 }
