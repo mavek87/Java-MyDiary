@@ -6,7 +6,7 @@ import com.matteoveroni.mydiary.utilities.patterns.Listenable;
 import com.matteoveroni.mydiary.utilities.patterns.Listener;
 import com.matteoveroni.mydiary.screen.manager.ScreenManager;
 import com.matteoveroni.mydiary.screen.ScreensFramework;
-import com.matteoveroni.mydiary.user.model.bean.User;
+import com.matteoveroni.mydiary.user.model.bean.UserData;
 import com.sun.media.jfxmediaimpl.MediaDisposer.Disposable;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,7 +21,7 @@ public class ApplicationManager implements Manager, Disposable, Listenable {
 
     private final ScreenManager screenManager;
     private final DAO database;
-    private User loggedInUser;
+    private UserData loggedInUser;
 
     private final Set<Listener> listeners = new HashSet<>();
     private DataObjectMessage dataToPush;
@@ -59,18 +59,22 @@ public class ApplicationManager implements Manager, Disposable, Listenable {
     @Override
     public void changeScreen(ScreensFramework screenType) {
         LOG.debug(" ---> Changing screen from " + screenManager.getCurrentScreen().getName() + " to " + screenType);
-        notifyListeners(dataToPush);
+        if (dataToPush == null) {
+            notifyListeners(null);
+        } else {
+            notifyListeners(dataToPush);
+        }
         screenManager.useScreen(screenType);
         clearObjectToPush();
     }
 
     @Override
-    public User getLoggedInUser() {
+    public UserData getLoggedInUser() {
         return this.loggedInUser;
     }
 
     @Override
-    public void setLoggedInUser(User loggedInUser) {
+    public void setLoggedInUser(UserData loggedInUser) {
         this.loggedInUser = loggedInUser;
     }
 

@@ -5,11 +5,13 @@ import com.matteoveroni.mydiary.application.manager.Manager;
 import com.matteoveroni.mydiary.utilities.patterns.Listener;
 import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
 import com.matteoveroni.mydiary.application.manager.DataObjectMessage;
+import com.matteoveroni.mydiary.database.DAO;
 import com.matteoveroni.mydiary.diary.model.bean.Diary;
 import com.matteoveroni.mydiary.diary.model.DiaryModel;
 import com.matteoveroni.mydiary.diary.model.HibernateDiaryModel;
-import com.matteoveroni.mydiary.diary.model.bean.HibernateDiaryBean;
+import com.matteoveroni.mydiary.diary.model.bean.Diary;
 import com.matteoveroni.mydiary.screen.ScreensFramework;
+import com.matteoveroni.mydiary.user.model.bean.UserData;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -28,7 +30,7 @@ import javafx.scene.control.TextField;
 public class LibraryScreenController implements Initializable, Manageable, Listener {
 
     private Manager manager;
-    private final Diary currentDiary = new HibernateDiaryBean();
+    private final Diary currentDiary = new Diary();
     private final DiaryModel model = new HibernateDiaryModel();
     private Annotation currentSelectedAnnotation;
 
@@ -56,8 +58,9 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cmd_createDiary.setDisable(true);
-//        cmd_openDiary.setDisable(true);
-
+//        if (cmb_chooseDiary.getItems().size() == 0) {
+//            cmd_openDiary.setDisable(true);
+//        }
     }
 
     @Override
@@ -68,6 +71,10 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
 
     @Override
     public void update(DataObjectMessage pushedData) {
+        DAO databaseManager = DAO.getInstance();
+        Diary diary = new Diary();
+        diary.setOwnerUser((UserData)manager.getLoggedInUser());
+        databaseManager.write(diary);
     }
 
     @FXML
@@ -78,16 +85,16 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
     @FXML
     void createNewDiary(ActionEvent event) {
     }
-    
-    private void resetSelectionPane(){
-        
+
+    private void resetSelectionPane() {
+
     }
-    
-    private void resetCreationPane(){
-        
+
+    private void resetCreationPane() {
+
     }
-    
-    private void resetManagementPane(){
-        
+
+    private void resetManagementPane() {
+
     }
 }

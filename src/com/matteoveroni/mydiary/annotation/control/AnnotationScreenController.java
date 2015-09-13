@@ -93,8 +93,8 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
             }
             drawCurrentModelOnTheScene();
         } catch (Exception ex) {
-            LOG.error("Critical Runtime Exception Occurred -> " + ex.getMessage());
-            throw new CriticalRuntimeException(ex, manager);
+//            LOG.error("Critical Runtime Exception Occurred -> " + ex.getMessage());
+//            throw new CriticalRuntimeException(ex, manager);
         }
     }
 
@@ -167,14 +167,14 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
     }
 
     private void createFirstDefaultAnnotation() {
-        Annotation newAnnotation = AnnotationFactory.createAnnotation(AnnotationType.HIBERNATE);
-        newAnnotation.setTitle("Title");
-        newAnnotation.setAuthor(manager.getLoggedInUser().toString());
-        newAnnotation.setMessage("");
-        Date currentDate = new Date();
-        newAnnotation.setCreationDate(currentDate);
-        newAnnotation.setLastModificationTimestamp(currentDate);
-        model.saveAnnotation(newAnnotation);
-        currentAnnotation = newAnnotation;
+//        Annotation newAnnotation = AnnotationFactory.createAnnotation(AnnotationType.HIBERNATE);
+//        newAnnotation.setTitle("Title");
+//        newAnnotation.setAuthor(manager.getLoggedInUser().toString());
+//        newAnnotation.setMessage("");
+//        Date currentDate = new Date();
+//        newAnnotation.setCreationDate(currentDate);
+//        newAnnotation.setLastModificationTimestamp(currentDate);
+//        model.saveAnnotation(newAnnotation);
+//        currentAnnotation = newAnnotation;
     }
 }

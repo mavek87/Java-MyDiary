@@ -9,7 +9,7 @@ import com.matteoveroni.mydiary.application.manager.DataObjectMessage;
 import com.matteoveroni.mydiary.diary.model.bean.Diary;
 import com.matteoveroni.mydiary.diary.model.DiaryModel;
 import com.matteoveroni.mydiary.diary.model.HibernateDiaryModel;
-import com.matteoveroni.mydiary.diary.model.bean.HibernateDiaryBean;
+import com.matteoveroni.mydiary.diary.model.bean.Diary;
 import com.matteoveroni.mydiary.screen.ScreensFramework;
 import java.net.URL;
 import java.util.Date;
@@ -38,7 +38,7 @@ import javafx.scene.input.MouseEvent;
 public class DiaryScreenController implements Initializable, Manageable, Listener {
 
     private Manager manager;
-    private final Diary currentDiary = new HibernateDiaryBean();
+    private final Diary currentDiary = new Diary();
     private final DiaryModel model = new HibernateDiaryModel();
     private Annotation currentSelectedAnnotation;
 
@@ -85,7 +85,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
             @Override
             public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
                 if (newPropertyValue) {
-                    // Focus on
+                    // diaryTable's focus ON
                     if (diaryTable.getSelectionModel().getSelectedItem() != null) {
                         currentSelectedAnnotation = diaryTable.getSelectionModel().getSelectedItem();
                         btn_openAnnotation.setDisable(false);
@@ -131,10 +131,6 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
     }
 
     @FXML
-    void goToFilterScreen(ActionEvent event) {
-    }
-
-    @FXML
     void removeAnnotation(ActionEvent event) {
         if (currentSelectedAnnotation != null) {
             model.removeAnnotation(currentSelectedAnnotation);
@@ -151,6 +147,10 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
         newAnnotation.setLastModificationTimestamp(new Date());
         model.createNewAnnotation(newAnnotation);
         manager.changeScreen(ScreensFramework.ANNOTATION_SCREEN);
+    }
+
+    @FXML
+    void goToFilterScreen(ActionEvent event) {
     }
 
     @FXML

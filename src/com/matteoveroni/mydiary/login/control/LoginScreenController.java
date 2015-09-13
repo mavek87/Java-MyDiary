@@ -7,7 +7,7 @@ import com.matteoveroni.mydiary.utilities.patterns.Listener;
 import com.matteoveroni.mydiary.login.model.LoginModel;
 import com.matteoveroni.mydiary.login.model.bean.HibernateLoginModel;
 import com.matteoveroni.mydiary.screen.ScreensFramework;
-import com.matteoveroni.mydiary.user.model.bean.User;
+import com.matteoveroni.mydiary.user.model.bean.UserData;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -28,7 +28,7 @@ import javafx.scene.control.TextField;
 public class LoginScreenController implements Manageable, Initializable, Listener {
 
     private Manager manager;
-    private User user;
+    private UserData user;
     private final LoginModel model = new HibernateLoginModel();
 
     @FXML
@@ -64,10 +64,10 @@ public class LoginScreenController implements Manageable, Initializable, Listene
         manager.registerListener(this);
     }
 
-    @FXML
+    @FXML 
     void login(ActionEvent event) {
         String insertedUsername = txt_username.getText();
-        user = model.getUser(insertedUsername);
+        user = model.searchUser(insertedUsername);
         if (user != null && user.getPassword().equals(psw_password.getText())) {
             loginSuccessfullSoAccessApplication();
         } else {

@@ -1,19 +1,55 @@
 package com.matteoveroni.mydiary.diary.model.bean;
 
 import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
-import com.matteoveroni.mydiary.user.model.bean.User;
+import com.matteoveroni.mydiary.user.model.bean.UserData;
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author Matteo Veroni
  */
-public interface Diary {
+@Entity
+public class Diary implements Serializable {
 
-    public User getOwner();
+    @Id
+    @GeneratedValue
+    private long id;
 
-    public void setOwner(User owner);
+    @ManyToOne
+    private UserData ownerUser;
 
-    public void addArticle(String name, Annotation newArticle);
+//    @Transient
+//    private final Map<String, Annotation> articles = new HashMap<>();
+    public long getId() {
+        return id;
+    }
 
-    public Annotation getArticle(String name);
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public UserData getOwnerUser() {
+        return ownerUser;
+    }
+
+    public void setOwnerUser(UserData ownerUser) {
+        this.ownerUser = ownerUser;
+    }
+
+//    @Override
+//    public void addArticle(String name, Annotation newArticle) {
+//        articles.put(name, newArticle);
+//    }
+
+//    @Override
+//    public Annotation getArticle(String name) {
+//        if (articles.containsKey(name)) {
+//            return articles.get(name);
+//        }
+//        return null;
+//    }
 }

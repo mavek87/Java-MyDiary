@@ -7,8 +7,8 @@ import com.matteoveroni.mydiary.utilities.patterns.Listener;
 import com.matteoveroni.mydiary.registration.model.RegistrationModel;
 import com.matteoveroni.mydiary.registration.model.bean.HibernateRegistrationModel;
 import com.matteoveroni.mydiary.screen.ScreensFramework;
-import com.matteoveroni.mydiary.user.model.bean.User;
-import com.matteoveroni.mydiary.user.model.bean.HibernateUserBean;
+import com.matteoveroni.mydiary.user.model.bean.UserData;
+import com.matteoveroni.mydiary.user.model.bean.UserData;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -28,7 +28,7 @@ public class RegistrationScreenController implements Manageable, Initializable, 
 
     private Manager manager;
     private final RegistrationModel model = new HibernateRegistrationModel();
-    private final User userToRegistrate = new HibernateUserBean();
+    private final UserData userToRegister = new UserData();
 
     private final int MIN_USERNAME_LENGTH = 6;
     private final int MIN_PASSWORD_LENGTH = 6;
@@ -89,8 +89,8 @@ public class RegistrationScreenController implements Manageable, Initializable, 
     @FXML
     void registerUser(ActionEvent event) {
         if (areRequiredDataInsertedValid()) {
-            initializeUserToRegistrate();
-            model.createNewUser(userToRegistrate);
+            initializeUserToRegister();
+            model.createNewUser(userToRegister);
             manager.changeScreen(ScreensFramework.LOGIN_SCREEN);
         } else {
             resetUserAndPasswordFieldsOnTheForm();
@@ -111,15 +111,15 @@ public class RegistrationScreenController implements Manageable, Initializable, 
         return (!password.trim().equals("") && password.length() >= MIN_PASSWORD_LENGTH);
     }
 
-    private void initializeUserToRegistrate() {
-        userToRegistrate.setUsername(txt_Username.getText());
-        userToRegistrate.setPassword(psw_Password.getText());
-        userToRegistrate.setName(txt_Name.getText());
-        userToRegistrate.setSurname(txt_Surname.getText());
+    private void initializeUserToRegister() {
+        userToRegister.setUsername(txt_Username.getText());
+        userToRegister.setPassword(psw_Password.getText());
+        userToRegister.setFirstName(txt_Name.getText());
+        userToRegister.setLastName(txt_Surname.getText());
         try {
-            userToRegistrate.setAge(Integer.parseInt(txt_Age.getText()));
+            userToRegister.setAge(Integer.parseInt(txt_Age.getText()));
         } catch (Exception ex) {
-            userToRegistrate.setAge(0);
+            userToRegister.setAge(0);
         }
     }
 

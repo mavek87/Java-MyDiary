@@ -24,9 +24,10 @@
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">false</property>
         <!-- create ==> Drop and re-create the database schema on startup | update ==> doesn't create the schema but update only information -->
-        <property name="hbm2ddl.auto">update</property>
+        <property name="hbm2ddl.auto">create</property>
         <!-- mapped tables -->
+        <mapping class="com.matteoveroni.mydiary.user.model.bean.UserData"/>
+        <mapping class="com.matteoveroni.mydiary.diary.model.bean.Diary"/>
         <mapping class="com.matteoveroni.mydiary.annotation.model.bean.HibernateAnnotationBean"/>
-        <mapping class="com.matteoveroni.mydiary.user.model.bean.HibernateUserBean"/>
     </session-factory>
 </hibernate-configuration>

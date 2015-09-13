@@ -1,6 +1,6 @@
 package com.matteoveroni.mydiary.registration.model;
 
-import com.matteoveroni.mydiary.user.model.bean.User;
+import com.matteoveroni.mydiary.user.model.bean.UserData;
 
 /**
  *
@@ -8,7 +8,7 @@ import com.matteoveroni.mydiary.user.model.bean.User;
  */
 public interface RegistrationModel {
 
-    public void createNewUser(User user);
+    public void createNewUser(UserData user);
 
-    public boolean isUserExistent(User user);
+    public boolean isUserExistent(UserData user);
 }

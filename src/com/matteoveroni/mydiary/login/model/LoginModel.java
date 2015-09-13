@@ -1,6 +1,6 @@
 package com.matteoveroni.mydiary.login.model;
 
-import com.matteoveroni.mydiary.user.model.bean.User;
+import com.matteoveroni.mydiary.user.model.bean.UserData;
 
 /**
  *
@@ -8,6 +8,6 @@ import com.matteoveroni.mydiary.user.model.bean.User;
  */
 public interface LoginModel {
 
-	public User getUser(String username);
+	public UserData searchUser(String username);
 
 }
