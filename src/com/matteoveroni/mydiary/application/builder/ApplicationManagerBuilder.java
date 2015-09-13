@@ -28,8 +28,7 @@ public class ApplicationManagerBuilder {
     public ApplicationManagerBuilder(String applicationName, String applicationVersion, Stage primaryStage) {
         this.applicationName = applicationName;
         this.applicationVersion = applicationVersion;
-        primaryStage.setWidth(800);
-        primaryStage.setHeight(600);
+        setWindowDimensions(primaryStage);
         centerWindow(primaryStage);
         this.screenManager = new ScreenManager(primaryStage);
     }
@@ -48,7 +47,6 @@ public class ApplicationManagerBuilder {
         LOG.debug(" ---> Starting to setup the screen manager");
         screenManager.getApplicationStage().setTitle("\t" + applicationName + " - v. " + applicationVersion);
         screenManager.getApplicationStage().show();
-//        centerWindow();
     }
 
     private void loadScreensInScreenManager() {
@@ -71,14 +69,13 @@ public class ApplicationManagerBuilder {
         screenManager.useScreen(ScreensFramework.LOGIN_SCREEN);
     }
 
+    private void setWindowDimensions(Stage primaryStage) {
+        primaryStage.setWidth(800);
+        primaryStage.setHeight(600);
+    }
+
     private void centerWindow(Stage primaryStage) {
-//        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-//        applicationManager.getApplicationStage().setX((primScreenBounds.getWidth() - applicationManager.getApplicationStage().getWidth()) / 2);
-//        applicationManager.getApplicationStage().setY((primScreenBounds.getHeight() - applicationManager.getApplicationStage().getHeight()) / 4);
-//	primaryStage.show();
         Rectangle2D primScreenBounds = javafx.stage.Screen.getPrimary().getVisualBounds();
-        System.out.println("s getHeight: " + primScreenBounds.getHeight() + " | s getWidth: " + primScreenBounds.getWidth());
-        System.out.println("p getHeight: " + primaryStage.getHeight() + " | p getWidth: " + primaryStage.getWidth());
 
         primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
         primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);

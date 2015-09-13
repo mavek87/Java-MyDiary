@@ -7,6 +7,7 @@ public enum ScreensFramework {
 
 	ANNOTATION_SCREEN("Annotation Screen", "/com/matteoveroni/mydiary/annotation/view/AnnotationScreenView.fxml"),
 	DIARY_SCREEN("Diary Screen", "/com/matteoveroni/mydiary/diary/view/DiaryScreenView.fxml"),
+    LIBRARY_SCREEN("Library Screen", "/com/matteoveroni/mydiary/library/view/LibraryScreenView.fxml"),
 	LOGIN_SCREEN("Login Screen", "/com/matteoveroni/mydiary/login/view/LoginScreenView.fxml"),
 	REGISTRATION_SCREEN("Registration Screen", "/com/matteoveroni/mydiary/registration/view/RegistrationScreenView.fxml");
 

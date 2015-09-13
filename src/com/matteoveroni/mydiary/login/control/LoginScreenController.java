@@ -92,7 +92,7 @@ public class LoginScreenController implements Manageable, Initializable, Listene
 
     private void loginSuccessfullSoAccessApplication() {
         manager.setLoggedInUser(user);
-        manager.changeScreen(ScreensFramework.DIARY_SCREEN);
+        manager.changeScreen(ScreensFramework.LIBRARY_SCREEN);
     }
 
     private void loginFailedPrintError() {
