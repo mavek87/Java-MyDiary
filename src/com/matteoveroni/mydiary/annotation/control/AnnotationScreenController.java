@@ -81,20 +81,22 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 
     @Override
     public void update(DataObjectMessage pushedData) {
-        try {
-            if (pushedData != null && pushedData.getSenderClass().equals(DiaryScreenController.class)) {
-                Annotation annotationSended = (Annotation) pushedData.getData();
-                currentAnnotation = model.getAnnotation(annotationSended.getId());
-            } else {
-                currentAnnotation = model.getLastAnnotation();
-                if (currentAnnotation == null) {
-                    createFirstDefaultAnnotation();
+        if (manager.getLoggedInUser() != null) {
+            try {
+                if (pushedData != null && pushedData.getSenderClass().equals(DiaryScreenController.class)) {
+                    Annotation annotationSended = (Annotation) pushedData.getData();
+                    currentAnnotation = model.getAnnotation(annotationSended.getId());
+                } else {
+                    currentAnnotation = model.getLastAnnotation();
+                    if (currentAnnotation == null) {
+                        createFirstDefaultAnnotation();
+                    }
                 }
+                drawCurrentModelOnTheScene();
+            } catch (Exception ex) {
+                LOG.error("Critical Runtime Exception Occurred -> " + ex.getMessage());
+                throw new CriticalRuntimeException(ex, manager);
             }
-            drawCurrentModelOnTheScene();
-        } catch (Exception ex) {
-//            LOG.error("Critical Runtime Exception Occurred -> " + ex.getMessage());
-//            throw new CriticalRuntimeException(ex, manager);
         }
     }
 
@@ -167,14 +169,14 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
     }
 
     private void createFirstDefaultAnnotation() {
-//        Annotation newAnnotation = AnnotationFactory.createAnnotation(AnnotationType.HIBERNATE);
-//        newAnnotation.setTitle("Title");
-//        newAnnotation.setAuthor(manager.getLoggedInUser().toString());
-//        newAnnotation.setMessage("");
-//        Date currentDate = new Date();
-//        newAnnotation.setCreationDate(currentDate);
-//        newAnnotation.setLastModificationTimestamp(currentDate);
-//        model.saveAnnotation(newAnnotation);
-//        currentAnnotation = newAnnotation;
+        Annotation newAnnotation = AnnotationFactory.createAnnotation(AnnotationType.HIBERNATE);
+        newAnnotation.setTitle("Title");
+        newAnnotation.setAuthor(manager.getLoggedInUser().toString());
+        newAnnotation.setMessage("");
+        Date currentDate = new Date();
+        newAnnotation.setCreationDate(currentDate);
+        newAnnotation.setLastModificationTimestamp(currentDate);
+        model.saveAnnotation(newAnnotation);
+        currentAnnotation = newAnnotation;
     }
 }

@@ -2,6 +2,7 @@ package com.matteoveroni.mydiary.application.manager;
 
 import com.matteoveroni.mydiary.MyDiary;
 import com.matteoveroni.mydiary.database.DAO;
+import com.matteoveroni.mydiary.screen.Screen;
 import com.matteoveroni.mydiary.utilities.patterns.Listenable;
 import com.matteoveroni.mydiary.utilities.patterns.Listener;
 import com.matteoveroni.mydiary.screen.manager.ScreenManager;
@@ -59,13 +60,16 @@ public class ApplicationManager implements Manager, Disposable, Listenable {
     @Override
     public void changeScreen(ScreensFramework screenType) {
         LOG.debug(" ---> Changing screen from " + screenManager.getCurrentScreen().getName() + " to " + screenType);
-        if (dataToPush == null) {
-            notifyListeners(null);
-        } else {
-            notifyListeners(dataToPush);
-        }
+
+        notifyListeners(dataToPush);
+
         screenManager.useScreen(screenType);
         clearObjectToPush();
+    }
+
+    @Override
+    public Screen getCurrentScreen() {
+        return screenManager.getCurrentScreen();
     }
 
     @Override

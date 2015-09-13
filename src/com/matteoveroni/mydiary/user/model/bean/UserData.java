@@ -7,9 +7,7 @@ import java.util.HashSet;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 /**
  *
@@ -34,7 +32,6 @@ public class UserData implements Serializable {
     private int age;
 
     @OneToMany
-    @JoinColumn(nullable = true)
     private Collection<Diary> diaries = new HashSet<>();
 
     public String getUsername() {

@@ -6,12 +6,11 @@ import com.matteoveroni.mydiary.utilities.patterns.Listener;
 import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
 import com.matteoveroni.mydiary.application.manager.DataObjectMessage;
 import com.matteoveroni.mydiary.database.DAO;
-import com.matteoveroni.mydiary.diary.model.bean.Diary;
 import com.matteoveroni.mydiary.diary.model.DiaryModel;
 import com.matteoveroni.mydiary.diary.model.HibernateDiaryModel;
 import com.matteoveroni.mydiary.diary.model.bean.Diary;
+import com.matteoveroni.mydiary.login.control.LoginScreenController;
 import com.matteoveroni.mydiary.screen.ScreensFramework;
-import com.matteoveroni.mydiary.user.model.bean.UserData;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -71,10 +70,15 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
 
     @Override
     public void update(DataObjectMessage pushedData) {
-        DAO databaseManager = DAO.getInstance();
-        Diary diary = new Diary();
-        diary.setOwnerUser((UserData)manager.getLoggedInUser());
-        databaseManager.write(diary);
+        if (manager.getLoggedInUser() != null) {
+            if (pushedData != null && pushedData.getSenderClass().equals(LoginScreenController.class)) {
+                DAO databaseManager = DAO.getInstance();
+                Diary diary = new Diary();
+                databaseManager.read(Diary.class, manager.getLoggedInUser(), DAO.ElementsOnWhichOperate.REQUESTED);
+                diary.setOwnerUser(manager.getLoggedInUser());
+                databaseManager.write(diary);
+            }
+        }
     }
 
     @FXML

@@ -1,5 +1,6 @@
 package com.matteoveroni.mydiary.application.manager;
 
+import com.matteoveroni.mydiary.screen.Screen;
 import com.matteoveroni.mydiary.utilities.patterns.Listener;
 import com.matteoveroni.mydiary.screen.ScreensFramework;
 import com.matteoveroni.mydiary.user.model.bean.UserData;
@@ -17,6 +18,8 @@ public interface Manager {
     public void notifyListeners(DataObjectMessage dataToPush);
 
     public void changeScreen(ScreensFramework screenType);
+
+    public Screen getCurrentScreen();
 
     public UserData getLoggedInUser();
 
