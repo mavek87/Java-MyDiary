@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
+import javax.swing.JOptionPane;
 
 /**
  * DiaryScreenController Controller class
@@ -31,6 +32,8 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
     private Manager manager;
     private final Diary selectedDiary = new Diary();
     private final LibraryModel model = new LibraryModel();
+    List<Diary> userDiaries = new ArrayList<>();
+    List<String> userDiariesStringsForCombobox = new ArrayList<>();
 
     @FXML
     private Tab tab_manageDiary;
@@ -43,7 +46,7 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
     @FXML
     private Button btn_openDiary;
     @FXML
-    private ComboBox<Diary> cmb_chooseDiary;
+    private ComboBox<String> cmb_chooseDiary;
     @FXML
     private TextField txt_newDiaryName;
 
@@ -89,25 +92,29 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
             diary.setOwnerUser(manager.getLoggedInUser());
             model.createNewDiary(diary);
             update(null);
+            JOptionPane.showMessageDialog(null, "New Diary \'" + diary.getName() + "\' created!");
         }
     }
 
     @FXML
     void tabSelectDiaryActive() {
-//        resetCreateNewDiaryTab();
-//        resetManageDiaryTab();
         updateDiaryComboBox();
         if (cmb_chooseDiary.getItems().size() == 0) {
+            cmb_chooseDiary.setPromptText("Empty");
             btn_openDiary.setDisable(true);
         } else {
+            cmb_chooseDiary.setPromptText("Select a diary");
             btn_openDiary.setDisable(false);
+//
+//            if (cmb_chooseDiary.getSelectionModel() != null) {
+//                System.out.println(cmb_chooseDiary.getSelectionModel());
+//            }
         }
     }
 
     @FXML
     void tabCreateNewDiaryActive() {
-//        resetSelectDiaryTab();
-//        resetManageDiaryTab();
+        txt_newDiaryName.setText("");
     }
 
     @FXML
@@ -118,30 +125,18 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
 
     private void updateDiaryComboBox() {
         List<Diary> allTheDiaries = model.readAllTheDiaries();
-        List<Diary> userDiaries = new ArrayList<>();
+
+        userDiaries.clear();
+        userDiariesStringsForCombobox.clear();
 
         for (Diary diary : allTheDiaries) {
-            if (diary.getOwnerUser().equals(manager.getLoggedInUser())) {
+            if (diary.getOwnerUser().getUsername().equals(manager.getLoggedInUser().getUsername())) {
                 userDiaries.add(diary);
+                userDiariesStringsForCombobox.add(diary.getId() + " - " + diary.getName() + " - " + diary.getOwnerUser());
             }
         }
 
-        ObservableList<Diary> observableUserDiaries = FXCollections.observableArrayList(userDiaries);
+        ObservableList<String> observableUserDiaries = FXCollections.observableArrayList(userDiariesStringsForCombobox);
         cmb_chooseDiary.setItems(observableUserDiaries);
-    }
-
-    private void resetSelectDiaryTab() {
-//        btn_createDiary.setDisable(true);
-//        btn_openDiary.setDisable(false);
-    }
-
-    private void resetCreateNewDiaryTab() {
-//        txt_newDiaryName.setText("");
-//        btn_createDiary.setDisable(false);
-    }
-
-    private void resetManageDiaryTab() {
-//        btn_createDiary.setDisable(true);
-//        btn_openDiary.setDisable(true);
     }
 }

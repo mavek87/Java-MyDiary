@@ -8,7 +8,6 @@ import com.matteoveroni.mydiary.registration.model.RegistrationModel;
 import com.matteoveroni.mydiary.registration.model.bean.HibernateRegistrationModel;
 import com.matteoveroni.mydiary.screen.ScreensFramework;
 import com.matteoveroni.mydiary.user.model.bean.UserData;
-import com.matteoveroni.mydiary.user.model.bean.UserData;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -18,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javax.swing.JOptionPane;
 
 /**
  * Registration Screen Controller class
@@ -94,6 +94,7 @@ public class RegistrationScreenController implements Manageable, Initializable, 
             manager.changeScreen(ScreensFramework.LOGIN_SCREEN);
         } else {
             resetUserAndPasswordFieldsOnTheForm();
+            JOptionPane.showMessageDialog(null, "Username and Password can\'t be less than 6 characters. Choose a longer Username and Password!", "Username/Password Invalid", JOptionPane.ERROR_MESSAGE);
         }
     }
 
