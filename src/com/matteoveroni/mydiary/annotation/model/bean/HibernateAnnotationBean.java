@@ -87,10 +87,12 @@ public class HibernateAnnotationBean implements Serializable, Annotation {
 //		this.author = author;
 //	}
 
+	@Override
     public Diary getDiary() {
         return diary;
     }
 
+	@Override
     public void setDiary(Diary diary) {
         this.diary = diary;
     }
