@@ -3,7 +3,11 @@ package com.matteoveroni.mydiary.diary.model;
 import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
 import com.matteoveroni.mydiary.annotation.model.bean.HibernateAnnotationBean;
 import com.matteoveroni.mydiary.database.DAO;
+import com.matteoveroni.mydiary.diary.model.bean.Diary;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import org.hibernate.Session;
 
 /**
  *
@@ -12,30 +16,46 @@ import java.util.List;
 public class HibernateDiaryModel implements DiaryModel {
 
 	private final DAO databaseManager = DAO.getInstance();
+	private Diary diary;
+
+	@Override
+	public void setDiary(Diary diary) {
+		this.diary = diary;
+	}
 
 	@Override
 	public Annotation getFirstAnnotation() {
-		return (Annotation) databaseManager.read(HibernateAnnotationBean.class, null, DAO.ElementsOnWhichOperate.FIRST);
+		return diary.getAnnotations().get(0);
+//		return (Annotation) databaseManager.read(HibernateAnnotationBean.class, null, DAO.ElementsOnWhichOperate.FIRST);
 	}
 
 	@Override
 	public Annotation getLastAnnotation() {
-		return (Annotation) databaseManager.read(HibernateAnnotationBean.class, null, DAO.ElementsOnWhichOperate.LAST);
+		int numberOfAnnotations = diary.getAnnotations().size();
+		return diary.getAnnotations().get(numberOfAnnotations-1);
+//		return (Annotation) databaseManager.read(HibernateAnnotationBean.class, null, DAO.ElementsOnWhichOperate.LAST);
 	}
 
 	@Override
-	public List<Annotation> getAllTheAnnotations() {
-		return databaseManager.readAll(HibernateAnnotationBean.class);
+	public Iterator getAllTheAnnotations() {
+//		Session session = databaseManager.openSession();
+//		List<HibernateAnnotationBean> hibernateAnnotations = diary.getAnnotations();
+//		List<Annotation> annotations = new ArrayList<>();
+//		for(HibernateAnnotationBean annotation : hibernateAnnotations){
+//			annotations.add((Annotation)annotation);
+//		}
+//		databaseManager.closeSession(session);
+//		return annotations;
+		return diary.getAnnotations().iterator();
 	}
 
 	@Override
-	public Annotation createNewAnnotation(Annotation annotationToSave) {
-		databaseManager.write(annotationToSave);
-		return getFirstAnnotation();
+	public void createNewAnnotation(Annotation annotationToSave) {
+		diary.getAnnotations().add((HibernateAnnotationBean)annotationToSave);
 	}
 
 	@Override
 	public void removeAnnotation(Annotation annotationToRemove) {
-		databaseManager.delete(annotationToRemove);
+		diary.getAnnotations().remove((HibernateAnnotationBean)annotationToRemove);
 	}
 }

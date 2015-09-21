@@ -9,9 +9,13 @@ import com.matteoveroni.mydiary.application.manager.DataObjectMessage;
 import com.matteoveroni.mydiary.diary.model.DiaryModel;
 import com.matteoveroni.mydiary.diary.model.HibernateDiaryModel;
 import com.matteoveroni.mydiary.diary.model.bean.Diary;
+import com.matteoveroni.mydiary.exceptions.CriticalRuntimeException;
+import com.matteoveroni.mydiary.library.control.LibraryScreenController;
 import com.matteoveroni.mydiary.screen.ScreensFramework;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -28,6 +32,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * DiaryScreenController Controller class
@@ -36,132 +42,153 @@ import javafx.scene.input.MouseEvent;
  */
 public class DiaryScreenController implements Initializable, Manageable, Listener {
 
-    private Manager manager;
-    private final Diary currentDiary = new Diary();
-    private final DiaryModel model = new HibernateDiaryModel();
-    private Annotation currentSelectedAnnotation;
+	private Manager manager;
+	private final DiaryModel model = new HibernateDiaryModel();
+	private Diary currentDiary = new Diary();
+	private Annotation currentSelectedAnnotation;
 
-    @FXML
-    private TableView<Annotation> diaryTable;
-    @FXML
-    private TableColumn<Annotation, Long> tableColumn_Id;
-    @FXML
-    private TableColumn<Annotation, String> tableColumn_Title;
-    @FXML
-    private TableColumn<Annotation, Date> tableColumn_CreationDate;
-    @FXML
-    private TableColumn<Annotation, Date> tableColumn_LastModificationTimestamp;
-    @FXML
-    private TableColumn<Annotation, String> tableColumn_Author;
-    @FXML
-    private Button btn_filterAnnotations;
-    @FXML
-    private Button btn_openAnnotation;
-    @FXML
-    private Button btn_createNewAnnotation;
-    @FXML
-    private CheckBox chk_enableFilter;
-    @FXML
-    private Button btn_removeAnnotation;
+	private static final Logger LOG = LoggerFactory.getLogger(DiaryScreenController.class);
 
-    /**
-     * Initializes the DiaryScreenController class.
-     *
-     * @param url
-     * @param rb
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        diaryTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+	@FXML
+	private TableView<Annotation> diaryTable;
+	@FXML
+	private TableColumn<Annotation, Long> tableColumn_Id;
+	@FXML
+	private TableColumn<Annotation, String> tableColumn_Title;
+	@FXML
+	private TableColumn<Annotation, Date> tableColumn_CreationDate;
+	@FXML
+	private TableColumn<Annotation, Date> tableColumn_LastModificationTimestamp;
+	@FXML
+	private TableColumn<Annotation, String> tableColumn_Author;
+	@FXML
+	private Button btn_filterAnnotations;
+	@FXML
+	private Button btn_openAnnotation;
+	@FXML
+	private Button btn_createNewAnnotation;
+	@FXML
+	private CheckBox chk_enableFilter;
+	@FXML
+	private Button btn_removeAnnotation;
 
-        tableColumn_Id.setCellValueFactory(new PropertyValueFactory<Annotation, Long>("id"));
-        tableColumn_Title.setCellValueFactory(new PropertyValueFactory<Annotation, String>("title"));
-        tableColumn_CreationDate.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("creationDate"));
-        tableColumn_LastModificationTimestamp.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("lastModificationTimestamp"));
-        tableColumn_Author.setCellValueFactory(new PropertyValueFactory<Annotation, String>("author"));
+	/**
+	 * Initializes the DiaryScreenController class.
+	 *
+	 * @param url
+	 * @param rb
+	 */
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		diaryTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        diaryTable.focusedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                if (newPropertyValue) {
-                    // diaryTable's focus ON
-                    if (diaryTable.getSelectionModel().getSelectedItem() != null) {
-                        currentSelectedAnnotation = diaryTable.getSelectionModel().getSelectedItem();
-                        btn_openAnnotation.setDisable(false);
-                        btn_removeAnnotation.setDisable(false);
-                    }
-                }
-            }
-        });
+		tableColumn_Id.setCellValueFactory(new PropertyValueFactory<Annotation, Long>("id"));
+		tableColumn_Title.setCellValueFactory(new PropertyValueFactory<Annotation, String>("title"));
+		tableColumn_CreationDate.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("creationDate"));
+		tableColumn_LastModificationTimestamp.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("lastModificationTimestamp"));
+		tableColumn_Author.setCellValueFactory(new PropertyValueFactory<Annotation, String>("author"));
 
-        diaryTable.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                    currentSelectedAnnotation = diaryTable.getSelectionModel().getSelectedItem();
-                    openSelectedAnnotation();
-                }
-            }
-        });
-    }
+		diaryTable.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+				if (newPropertyValue) {
+					// diaryTable's focus ON
+					if (diaryTable.getSelectionModel().getSelectedItem() != null) {
+						currentSelectedAnnotation = diaryTable.getSelectionModel().getSelectedItem();
+						btn_openAnnotation.setDisable(false);
+						btn_removeAnnotation.setDisable(false);
+					}
+				}
+			}
+		});
 
-    @Override
-    public void setManager(Manager manager) {
-        this.manager = manager;
-        manager.registerListener(this);
-    }
+		diaryTable.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+					currentSelectedAnnotation = diaryTable.getSelectionModel().getSelectedItem();
+					openSelectedAnnotation();
+				}
+			}
+		});
+	}
 
-    @Override
-    public void update(DataObjectMessage pushedData) {
-        if (manager.getLoggedInUser() != null) {
-            currentSelectedAnnotation = null;
-            btn_openAnnotation.setDisable(true);
-            btn_removeAnnotation.setDisable(true);
-            List<Annotation> annotationsFromDatabase = model.getAllTheAnnotations();
-            ObservableList<Annotation> annotations = FXCollections.observableArrayList(annotationsFromDatabase);
-            diaryTable.setItems(annotations);
-        }
-    }
+	@Override
+	public void setManager(Manager manager) {
+		this.manager = manager;
+		manager.registerListener(this);
+	}
 
-    @FXML
-    void goToAnnotationScreen(ActionEvent event) {
-        if (currentSelectedAnnotation != null) {
-            manager.storeObjectToPush(currentSelectedAnnotation, DiaryScreenController.class);
-            manager.changeScreen(ScreensFramework.ANNOTATION_SCREEN);
-        }
-    }
+	@Override
+	public void update(DataObjectMessage pushedData) {
+		if (manager.getLoggedInUser() != null) {
+			try {
+				if (pushedData != null && pushedData.getSenderClass().equals(LibraryScreenController.class)) {
+					currentDiary = (Diary) pushedData.getData();
+					model.setDiary(currentDiary);
+					currentSelectedAnnotation = null;
+//					List<HibernateAnnotationBean> annotationsFromDatabase = model.getAllTheAnnotations();
 
-    @FXML
-    void removeAnnotation(ActionEvent event) {
-        if (currentSelectedAnnotation != null) {
-            model.removeAnnotation(currentSelectedAnnotation);
-            update(null);
-        }
-    }
+					Iterator iterator = model.getAllTheAnnotations();
+					ArrayList<Annotation> annotations = new ArrayList<>();
+					Annotation annotation;
 
-    @FXML
-    void createNewAnnotation(ActionEvent event) {
-        Annotation newAnnotation = new HibernateAnnotationBean();
-        newAnnotation.setTitle("New Title");
+					while (iterator.hasNext()) {
+						annotation = (Annotation) iterator.next();
+						annotations.add(annotation);
+					}
+					
+					ObservableList<Annotation> annotationsForTable = FXCollections.observableArrayList(annotations);
+					diaryTable.setItems(annotationsForTable);
+					btn_openAnnotation.setDisable(true);
+					btn_removeAnnotation.setDisable(true);
+				}
+			} catch (Exception ex) {
+				LOG.error("Critical Runtime Exception Occurred -> " + ex.getMessage());
+				throw new CriticalRuntimeException(ex, manager);
+			}
+		}
+	}
+
+	@FXML
+	void goToAnnotationScreen(ActionEvent event) {
+		if (currentSelectedAnnotation != null) {
+			manager.storeObjectToPush(currentSelectedAnnotation, DiaryScreenController.class);
+			manager.changeScreen(ScreensFramework.ANNOTATION_SCREEN);
+		}
+	}
+
+	@FXML
+	void removeAnnotation(ActionEvent event) {
+		if (currentSelectedAnnotation != null) {
+			model.removeAnnotation(currentSelectedAnnotation);
+			update(null);
+		}
+	}
+
+	@FXML
+	void createNewAnnotation(ActionEvent event) {
+		Annotation newAnnotation = new HibernateAnnotationBean();
+		newAnnotation.setTitle("New Title");
 //        newAnnotation.setAuthor(manager.getLoggedInUser().toString());
-        newAnnotation.setCreationDate(new Date());
-        newAnnotation.setLastModificationTimestamp(new Date());
-        model.createNewAnnotation(newAnnotation);
-        manager.changeScreen(ScreensFramework.ANNOTATION_SCREEN);
-    }
+		newAnnotation.setCreationDate(new Date());
+		newAnnotation.setLastModificationTimestamp(new Date());
+		model.createNewAnnotation(newAnnotation);
+		manager.changeScreen(ScreensFramework.ANNOTATION_SCREEN);
+	}
 
-    @FXML
-    void goToFilterScreen(ActionEvent event) {
-    }
+	@FXML
+	void goToFilterScreen(ActionEvent event) {
+	}
 
-    @FXML
-    void enableFilter(ActionEvent event) {
-    }
+	@FXML
+	void enableFilter(ActionEvent event) {
+	}
 
-    private void openSelectedAnnotation() {
-        if (currentSelectedAnnotation != null) {
-            manager.storeObjectToPush(currentSelectedAnnotation, DiaryScreenController.class);
-            manager.changeScreen(ScreensFramework.ANNOTATION_SCREEN);
-        }
-    }
+	private void openSelectedAnnotation() {
+		if (currentSelectedAnnotation != null) {
+			manager.storeObjectToPush(currentSelectedAnnotation, DiaryScreenController.class);
+			manager.changeScreen(ScreensFramework.ANNOTATION_SCREEN);
+		}
+	}
 }

@@ -1,6 +1,9 @@
 package com.matteoveroni.mydiary.diary.model;
 
 import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
+import com.matteoveroni.mydiary.annotation.model.bean.HibernateAnnotationBean;
+import com.matteoveroni.mydiary.diary.model.bean.Diary;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -8,15 +11,19 @@ import java.util.List;
  * @author Matteo Veroni
  */
 public interface DiaryModel {
+
+	public void setDiary(Diary diary);
+
+	public Annotation getFirstAnnotation();
+
+	public Annotation getLastAnnotation();
+
+//    public List<HibernateAnnotationBean> getAllTheAnnotations();
 	
-    public Annotation getFirstAnnotation();
+	public Iterator getAllTheAnnotations();
 
-    public Annotation getLastAnnotation();
+	public void createNewAnnotation(Annotation annotationToSave);
 
-    public List<Annotation> getAllTheAnnotations();
-
-    public Annotation createNewAnnotation(Annotation articleToSave);
-	
-	public void removeAnnotation(Annotation articleToRemove);
+	public void removeAnnotation(Annotation annotationToRemove);
 
 }

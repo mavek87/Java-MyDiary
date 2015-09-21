@@ -83,7 +83,7 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 	public void update(DataObjectMessage pushedData) {
 		if (manager.getLoggedInUser() != null) {
 			try {
-				if (pushedData != null && pushedData.getData() != null && pushedData.getSenderClass().equals(DiaryScreenController.class)) {
+				if (pushedData != null && pushedData.getSenderClass().equals(DiaryScreenController.class)) {
 					System.out.println("pushed data " + pushedData.getSenderClass().toString());
 					Annotation annotationSended = (Annotation) pushedData.getData();
 					currentAnnotation = model.getAnnotation(annotationSended.getId());

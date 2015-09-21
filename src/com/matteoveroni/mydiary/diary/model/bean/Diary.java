@@ -1,6 +1,5 @@
 package com.matteoveroni.mydiary.diary.model.bean;
 
-import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
 import com.matteoveroni.mydiary.annotation.model.bean.HibernateAnnotationBean;
 import com.matteoveroni.mydiary.user.model.bean.UserData;
 import java.io.Serializable;
