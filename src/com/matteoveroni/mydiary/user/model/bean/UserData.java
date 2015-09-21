@@ -6,14 +6,17 @@ import java.util.Collection;
 import java.util.HashSet;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author Matteo Veroni
  */
 @Entity
+@Table(name="Users")
 public class UserData implements Serializable {
 
     @Id
@@ -32,6 +35,7 @@ public class UserData implements Serializable {
     private Integer age;
 
     @OneToMany
+//    (fetch = FetchType.EAGER)
     private Collection<Diary> diaries = new HashSet<>();
 
     public String getUsername() {

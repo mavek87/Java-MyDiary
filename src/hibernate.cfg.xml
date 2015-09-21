@@ -28,6 +28,6 @@
         <!-- mapped tables -->
         <mapping class="com.matteoveroni.mydiary.user.model.bean.UserData"/>
         <mapping class="com.matteoveroni.mydiary.diary.model.bean.Diary"/>
-        <mapping class="com.matteoveroni.mydiary.annotation.model.bean.HibernateAnnotationBean"/>
+        <mapping class="com.matteoveroni.mydiary.annotation.model.bean.Annotation"/>
     </session-factory>
 </hibernate-configuration>

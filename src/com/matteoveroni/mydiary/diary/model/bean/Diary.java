@@ -7,8 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -30,6 +33,8 @@ public class Diary implements Serializable {
     private UserData ownerUser;
 
     @OneToMany
+//    (fetch = FetchType.EAGER)
+    @JoinTable(name = "DIARY_ANNOTATIONS", joinColumns = @JoinColumn(name = "DIARY_ID"))
     private List<Annotation> annotations = new ArrayList<>();
 
     public long getId() {
@@ -66,7 +71,6 @@ public class Diary implements Serializable {
 
 //    @Transient
 //    private final Map<String, Annotation> articles = new HashMap<>();
-    
 //    @Override
 //    public void addArticle(String name, Annotation newArticle) {
 //        articles.put(name, newArticle);
