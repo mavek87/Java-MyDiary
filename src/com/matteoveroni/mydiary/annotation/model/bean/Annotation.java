@@ -1,35 +1,95 @@
 package com.matteoveroni.mydiary.annotation.model.bean;
 
 import com.matteoveroni.mydiary.diary.model.bean.Diary;
+import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
  * @author Matteo Veroni
  */
-public interface Annotation {
+@Entity
+@Table(name = "Annotation")
+public class Annotation implements Serializable {
 
-    public long getId();
+	@Id
+	@GeneratedValue
+	private long id;
 
-    public void setId(long id);
+	@Column
+	private String title;
 
-    public String getTitle();
+	@Column(columnDefinition = "CLOB")
+	@Lob
+	private String message;
 
-    public void setTitle(String title);
+    @ManyToOne
+    private Diary diary;
 
-    public String getMessage();
+	@Column
+	@Temporal(TemporalType.DATE)
+	private Date creationDate;
 
-    public void setMessage(String message);
+	@Column
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date lastModificationTimestamp;
 
-    public Diary getDiary();
+	public long getId() {
+		return id;
+	}
 
-    public void setDiary(Diary diary);
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public Date getCreationDate();
+	public String getTitle() {
+		return title;
+	}
 
-    public void setCreationDate(Date creationDate);
-	
-	public Date getLastModificationTimestamp();
-	
-	public void setLastModificationTimestamp(Date lastModificationDate);
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+    public Diary getDiary() {
+        return diary;
+    }
+
+    public void setDiary(Diary diary) {
+        this.diary = diary;
+    }
+
+	public Date getCreationDate() {
+		return this.creationDate;
+	}
+
+	@PrePersist
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = new Date();
+	}
+
+	public Date getLastModificationTimestamp() {
+		return this.lastModificationTimestamp;
+	}
+
+	public void setLastModificationTimestamp(Date lastModificationTimestamp) {
+		this.lastModificationTimestamp = lastModificationTimestamp;
+	}
 }

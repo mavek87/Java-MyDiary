@@ -1,24 +1,41 @@
 package com.matteoveroni.mydiary.annotation.model;
 
 import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
+import com.matteoveroni.mydiary.database.DAO;
 
 /**
  *
  * @author Matteo Veroni
  */
-public interface AnnotationModel {
-    
-    public Annotation getFirstAnnotation();
+public class AnnotationModel{
 
-    public Annotation getLastAnnotation();
-    
-    public Annotation getAnnotation(long annotationId);
+    private final DAO databaseManager = DAO.getInstance();
 
-    public Annotation getPreviousAnnotation(Annotation currentAnnotation);
+    public Annotation getFirstAnnotation() {
+        return (Annotation) databaseManager.read(Annotation.class, null, DAO.ElementsOnWhichOperate.FIRST);
+    }
 
-    public Annotation getNextAnnotation(Annotation currentAnnotation);
+    public Annotation getLastAnnotation() {
+        return (Annotation) databaseManager.read(Annotation.class, null, DAO.ElementsOnWhichOperate.LAST);
+    }
 
-    public void updateAnnotation(Annotation annotationToUpdate);
-    
-    public void saveAnnotation(Annotation annotationToSave);
+    public Annotation getAnnotation(long annotationId) {
+        return (Annotation) databaseManager.read(Annotation.class, annotationId, DAO.ElementsOnWhichOperate.REQUESTED);
+    }
+
+    public Annotation getPreviousAnnotation(Annotation currentAnnotation) {
+        return (Annotation) databaseManager.read(Annotation.class, currentAnnotation.getId(), DAO.ElementsOnWhichOperate.PREVIOUS);
+    }
+
+    public Annotation getNextAnnotation(Annotation currentAnnotation) {
+        return (Annotation) databaseManager.read(Annotation.class, currentAnnotation.getId(), DAO.ElementsOnWhichOperate.NEXT);
+    }
+
+    public void updateAnnotation(Annotation annotationToUpdate) {
+        databaseManager.update(annotationToUpdate);
+    }
+
+    public void saveAnnotation(Annotation annotationToSave) {
+        databaseManager.write(annotationToSave);
+    }
 }

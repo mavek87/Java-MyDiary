@@ -1,6 +1,6 @@
 package com.matteoveroni.mydiary.diary.model.bean;
 
-import com.matteoveroni.mydiary.annotation.model.bean.HibernateAnnotationBean;
+import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
 import com.matteoveroni.mydiary.user.model.bean.UserData;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class Diary implements Serializable {
     private UserData ownerUser;
 
     @OneToMany
-    private List<HibernateAnnotationBean> annotations = new ArrayList<>();
+    private List<Annotation> annotations = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -56,11 +56,11 @@ public class Diary implements Serializable {
         this.ownerUser = ownerUser;
     }
 
-    public List<HibernateAnnotationBean> getAnnotations() {
+    public List<Annotation> getAnnotations() {
         return annotations;
     }
 
-    public void setAnnotations(List<HibernateAnnotationBean> annotations) {
+    public void setAnnotations(List<Annotation> annotations) {
         this.annotations = annotations;
     }
 

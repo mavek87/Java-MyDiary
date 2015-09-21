@@ -2,20 +2,16 @@ package com.matteoveroni.mydiary.diary.control;
 
 import com.matteoveroni.mydiary.application.manager.Manageable;
 import com.matteoveroni.mydiary.application.manager.Manager;
-import com.matteoveroni.mydiary.annotation.model.bean.HibernateAnnotationBean;
 import com.matteoveroni.mydiary.utilities.patterns.Listener;
 import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
 import com.matteoveroni.mydiary.application.manager.DataObjectMessage;
 import com.matteoveroni.mydiary.diary.model.DiaryModel;
-import com.matteoveroni.mydiary.diary.model.HibernateDiaryModel;
 import com.matteoveroni.mydiary.diary.model.bean.Diary;
 import com.matteoveroni.mydiary.exceptions.CriticalRuntimeException;
 import com.matteoveroni.mydiary.library.control.LibraryScreenController;
 import com.matteoveroni.mydiary.screen.ScreensFramework;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -43,7 +39,7 @@ import org.slf4j.LoggerFactory;
 public class DiaryScreenController implements Initializable, Manageable, Listener {
 
 	private Manager manager;
-	private final DiaryModel model = new HibernateDiaryModel();
+	private final DiaryModel model = new DiaryModel();
 	private Diary currentDiary = new Diary();
 	private Annotation currentSelectedAnnotation;
 
@@ -127,18 +123,13 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 					currentDiary = (Diary) pushedData.getData();
 					model.setDiary(currentDiary);
 					currentSelectedAnnotation = null;
-//					List<HibernateAnnotationBean> annotationsFromDatabase = model.getAllTheAnnotations();
+                    
+                    
+					List<Annotation> annotationsFromDatabase = model.getAllTheAnnotations();
 
-					Iterator iterator = model.getAllTheAnnotations();
-					ArrayList<Annotation> annotations = new ArrayList<>();
-					Annotation annotation;
-
-					while (iterator.hasNext()) {
-						annotation = (Annotation) iterator.next();
-						annotations.add(annotation);
-					}
 					
-					ObservableList<Annotation> annotationsForTable = FXCollections.observableArrayList(annotations);
+					
+					ObservableList<Annotation> annotationsForTable = FXCollections.observableArrayList(annotationsFromDatabase);
 					diaryTable.setItems(annotationsForTable);
 					btn_openAnnotation.setDisable(true);
 					btn_removeAnnotation.setDisable(true);
@@ -168,7 +159,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 
 	@FXML
 	void createNewAnnotation(ActionEvent event) {
-		Annotation newAnnotation = new HibernateAnnotationBean();
+		Annotation newAnnotation = new Annotation();
 		newAnnotation.setTitle("New Title");
 //        newAnnotation.setAuthor(manager.getLoggedInUser().toString());
 		newAnnotation.setCreationDate(new Date());

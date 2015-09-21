@@ -5,10 +5,6 @@ import com.matteoveroni.mydiary.application.manager.Manager;
 import com.matteoveroni.mydiary.utilities.patterns.Listener;
 import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
 import com.matteoveroni.mydiary.annotation.model.AnnotationModel;
-import com.matteoveroni.mydiary.annotation.model.AnnotationModelFactory;
-import com.matteoveroni.mydiary.annotation.model.AnnotationModelType;
-import com.matteoveroni.mydiary.annotation.model.bean.AnnotationType;
-import com.matteoveroni.mydiary.annotation.model.bean.AnnotationFactory;
 import com.matteoveroni.mydiary.application.manager.DataObjectMessage;
 import com.matteoveroni.mydiary.diary.control.DiaryScreenController;
 import com.matteoveroni.mydiary.exceptions.CriticalRuntimeException;
@@ -35,8 +31,8 @@ import org.slf4j.LoggerFactory;
 public class AnnotationScreenController implements Initializable, Manageable, Listener {
 
 	private Manager manager;
-	private final AnnotationModel model = AnnotationModelFactory.createAnnotationModel(AnnotationModelType.HIBERNATE_ANNOTATION_MODEL);
-	private Annotation currentAnnotation = AnnotationFactory.createAnnotation(AnnotationType.HIBERNATE);
+	private final AnnotationModel model = new AnnotationModel();
+	private Annotation currentAnnotation = new Annotation();
 
 	private static final Logger LOG = LoggerFactory.getLogger(AnnotationScreenController.class);
 
