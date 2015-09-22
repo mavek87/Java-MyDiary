@@ -130,19 +130,21 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
 	}
 
 	private void updateDiaryComboBox() {
-		List<Diary> allTheDiaries = model.readAllTheDiaries();
+		if (model.readAllTheDiaries() != null) {
+			List<Diary> allTheDiaries = model.readAllTheDiaries();
 
-		userDiaries.clear();
-		userDiariesStringsForCombobox.clear();
+			userDiaries.clear();
+			userDiariesStringsForCombobox.clear();
 
-		for (Diary diary : allTheDiaries) {
-			if (diary.getOwnerUser().getUsername().equals(manager.getLoggedInUser().getUsername())) {
-				userDiaries.add(diary);
-				userDiariesStringsForCombobox.add(diary.getId() + " - " + diary.getName() + " - " + diary.getOwnerUser());
+			for (Diary diary : allTheDiaries) {
+				if (diary.getOwnerUser().getUsername().equals(manager.getLoggedInUser().getUsername())) {
+					userDiaries.add(diary);
+					userDiariesStringsForCombobox.add(diary.getId() + " - " + diary.getName() + " - " + diary.getOwnerUser());
+				}
 			}
-		}
 
-		ObservableList<String> observableUserDiaries = FXCollections.observableArrayList(userDiariesStringsForCombobox);
-		cmb_chooseDiary.setItems(observableUserDiaries);
+			ObservableList<String> observableUserDiaries = FXCollections.observableArrayList(userDiariesStringsForCombobox);
+			cmb_chooseDiary.setItems(observableUserDiaries);
+		}
 	}
 }
