@@ -5,7 +5,6 @@ import com.matteoveroni.mydiary.application.manager.Manageable;
 import com.matteoveroni.mydiary.application.manager.Manager;
 import com.matteoveroni.mydiary.utilities.patterns.Listener;
 import com.matteoveroni.mydiary.login.model.LoginModel;
-import com.matteoveroni.mydiary.login.model.bean.HibernateLoginModel;
 import com.matteoveroni.mydiary.screen.ScreensFramework;
 import com.matteoveroni.mydiary.user.model.bean.UserData;
 import java.net.URL;
@@ -29,7 +28,7 @@ public class LoginScreenController implements Manageable, Initializable, Listene
 
     private Manager manager;
     private UserData user;
-    private final LoginModel model = new HibernateLoginModel();
+    private final LoginModel model = new LoginModel();
 
     @FXML
     private PasswordField psw_password;
