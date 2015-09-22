@@ -100,7 +100,7 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
 			Diary diary = new Diary();
 			diary.setName(txt_newDiaryName.getText());
 			diary.setOwnerUser(manager.getLoggedInUser());
-			model.createNewDiary(diary);
+			model.createNewDiary(diary, manager.getLoggedInUser());
 			update(null);
 			JOptionPane.showMessageDialog(null, "New Diary \'" + diary.getName() + "\' created!");
 			txt_newDiaryName.setText("");

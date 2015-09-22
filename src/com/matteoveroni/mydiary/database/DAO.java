@@ -65,15 +65,14 @@ public class DAO implements Disposable {
 
 	public void write(Object object) {
 		Session writeSession = null;
-		Transaction transaction = null;
 		try {
 			writeSession = sessionFactory.getCurrentSession();
-			transaction = writeSession.beginTransaction();
+			writeSession.beginTransaction();
 			writeSession.save(object);
 			writeSession.flush();
-			transaction.commit();
+			writeSession.getTransaction().commit();
 		} catch (Exception ex) {
-			handleExceptionDuringTransaction(ex, transaction);
+			handleExceptionDuringTransaction(ex, writeSession.getTransaction());
 		} finally {
 			if (writeSession != null && writeSession.isOpen()) {
 				writeSession.close();
@@ -83,15 +82,14 @@ public class DAO implements Disposable {
 
 	public void update(Object object) {
 		Session writeSession = null;
-		Transaction transaction = null;
 		try {
 			writeSession = sessionFactory.getCurrentSession();
-			transaction = writeSession.beginTransaction();
+			writeSession.beginTransaction();
 			writeSession.update(object);
 			writeSession.flush();
-			transaction.commit();
+			writeSession.getTransaction().commit();
 		} catch (Exception ex) {
-			handleExceptionDuringTransaction(ex, transaction);
+			handleExceptionDuringTransaction(ex, writeSession.getTransaction());
 		} finally {
 			if (writeSession != null && writeSession.isOpen()) {
 				writeSession.close();
@@ -101,15 +99,14 @@ public class DAO implements Disposable {
 
 	public void delete(Object object) {
 		Session writeSession = null;
-		Transaction transaction = null;
 		try {
 			writeSession = sessionFactory.getCurrentSession();
-			transaction = writeSession.beginTransaction();
+			writeSession.beginTransaction();
 			writeSession.delete(object);
 			writeSession.flush();
-			transaction.commit();
+			writeSession.getTransaction().commit();
 		} catch (Exception ex) {
-			handleExceptionDuringTransaction(ex, transaction);
+			handleExceptionDuringTransaction(ex, writeSession.getTransaction());
 		} finally {
 			if (writeSession != null && writeSession.isOpen()) {
 				writeSession.close();
@@ -119,11 +116,10 @@ public class DAO implements Disposable {
 
 	public Object read(Class objectClass, Serializable serializable, ElementsOnWhichOperate elementsOnWhichOperate) {
 		Session readSession = null;
-		Transaction transaction = null;
 		Object objectReaded = null;
 		try {
 			readSession = sessionFactory.getCurrentSession();
-			transaction = readSession.beginTransaction();
+			readSession.beginTransaction();
 
 			Criteria queryCriteria;
 			switch (elementsOnWhichOperate) {
@@ -160,9 +156,9 @@ public class DAO implements Disposable {
 					break;
 			}
 			readSession.flush();
-			transaction.commit();
+			readSession.getTransaction().commit();
 		} catch (Exception ex) {
-			handleExceptionDuringTransaction(ex, transaction);
+			handleExceptionDuringTransaction(ex, readSession.getTransaction());
 		} finally {
 			if (readSession != null && readSession.isOpen()) {
 				readSession.close();
@@ -173,17 +169,16 @@ public class DAO implements Disposable {
 
 	public List readAll(Class objectClass) {
 		Session readSession = null;
-		Transaction transaction = null;
 		List readedElements = new ArrayList<>();
 		try {
 			readSession = sessionFactory.getCurrentSession();
-			transaction = readSession.beginTransaction();
+			readSession.beginTransaction();
 			Criteria queryCriteria = readSession.createCriteria(objectClass);
 			readedElements = queryCriteria.list();
 			readSession.flush();
-			transaction.commit();
+			readSession.getTransaction().commit();
 		} catch (Exception ex) {
-			handleExceptionDuringTransaction(ex, transaction);
+			handleExceptionDuringTransaction(ex, readSession.getTransaction());
 		} finally {
 			if (readSession != null && readSession.isOpen()) {
 				readSession.close();
@@ -194,17 +189,16 @@ public class DAO implements Disposable {
 
 	public List querySQL(String requestedQuery) {
 		Session querySession = null;
-		Transaction transaction = null;
 		List queryResults = null;
 		try {
 			querySession = sessionFactory.getCurrentSession();
-			transaction = querySession.beginTransaction();
+			querySession.beginTransaction();
 			Query query = querySession.createSQLQuery(requestedQuery);
 			queryResults = query.list();
 			querySession.flush();
-			transaction.commit();
+			querySession.getTransaction().commit();
 		} catch (Exception ex) {
-			handleExceptionDuringTransaction(ex, transaction);
+			handleExceptionDuringTransaction(ex, querySession.getTransaction());
 		} finally {
 			if (querySession != null && querySession.isOpen()) {
 				querySession.close();
@@ -227,6 +221,6 @@ public class DAO implements Disposable {
 		if (transactionWithException != null) {
 			transactionWithException.rollback();
 		}
-		LOG.error("An exception occurred! Last transaction was rolled back! Exception: " + ex);
+		LOG.error("An exception occurred! Last transaction was rolled back! Exception --> " + ex);
 	}
 }

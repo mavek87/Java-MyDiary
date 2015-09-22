@@ -22,64 +22,50 @@ import javax.persistence.OneToMany;
 @Entity
 public class Diary implements Serializable {
 
-    @Id
-    @GeneratedValue
-    private long id;
+	@Id
+	@GeneratedValue
+	private long id;
 
-    @Column
-    private String name;
+	@Column
+	private String name;
 
-    @ManyToOne
-    private UserData ownerUser;
+	@ManyToOne
+	@JoinColumn(name = "USER_ID")
+	private UserData ownerUser;
 
-    @OneToMany
-//    (fetch = FetchType.EAGER)
-    @JoinTable(name = "DIARY_ANNOTATIONS", joinColumns = @JoinColumn(name = "DIARY_ID"))
-    private List<Annotation> annotations = new ArrayList<>();
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "DIARIES_ANNOTATIONS", joinColumns = @JoinColumn(name = "DIARY_ID"))
+	private List<Annotation> annotations = new ArrayList<>();
 
-    public long getId() {
-        return id;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public UserData getOwnerUser() {
-        return ownerUser;
-    }
+	public UserData getOwnerUser() {
+		return ownerUser;
+	}
 
-    public void setOwnerUser(UserData ownerUser) {
-        this.ownerUser = ownerUser;
-    }
+	public void setOwnerUser(UserData ownerUser) {
+		this.ownerUser = ownerUser;
+	}
 
-    public List<Annotation> getAnnotations() {
-        return annotations;
-    }
+	public List<Annotation> getAnnotations() {
+		return annotations;
+	}
 
-    public void setAnnotations(List<Annotation> annotations) {
-        this.annotations = annotations;
-    }
-
-//    @Transient
-//    private final Map<String, Annotation> articles = new HashMap<>();
-//    @Override
-//    public void addArticle(String name, Annotation newArticle) {
-//        articles.put(name, newArticle);
-//    }
-//    @Override
-//    public Annotation getArticle(String name) {
-//        if (articles.containsKey(name)) {
-//            return articles.get(name);
-//        }
-//        return null;
-//    }
+	public void setAnnotations(List<Annotation> annotations) {
+		this.annotations = annotations;
+	}
 }

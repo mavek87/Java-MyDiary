@@ -5,8 +5,10 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
@@ -31,8 +33,9 @@ public class Annotation implements Serializable {
 	@Lob
 	private String message;
 
-    @ManyToOne
-    private Diary diary;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "ANNOTATION_ID")
+	private Diary diary;
 
 	@Column
 	@Temporal(TemporalType.DATE)
@@ -66,13 +69,13 @@ public class Annotation implements Serializable {
 		this.message = message;
 	}
 
-    public Diary getDiary() {
-        return diary;
-    }
+	public Diary getDiary() {
+		return diary;
+	}
 
-    public void setDiary(Diary diary) {
-        this.diary = diary;
-    }
+	public void setDiary(Diary diary) {
+		this.diary = diary;
+	}
 
 	public Date getCreationDate() {
 		return this.creationDate;
