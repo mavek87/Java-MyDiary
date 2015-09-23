@@ -127,7 +127,7 @@ public class RegistrationScreenController implements Manageable, Initializable, 
 		userToRegister.setLastName(txt_Surname.getText());
 		try {
 			userToRegister.setAge(Integer.parseInt(txt_Age.getText()));
-		} catch (Exception ex) {
+		} catch (NumberFormatException ex) {
 		}
 	}
 

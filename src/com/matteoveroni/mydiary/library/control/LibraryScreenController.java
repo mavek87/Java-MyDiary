@@ -25,7 +25,7 @@ import javafx.scene.control.TextField;
 import javax.swing.JOptionPane;
 
 /**
- * DiaryScreenController Controller class
+ * LibraryScreenController Controller class
  *
  * @author Matteo Veroni
  */
@@ -60,7 +60,6 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-
 		cmb_chooseDiary.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
