@@ -80,7 +80,7 @@ public class NoteScreenController implements Initializable, Manageable, Listener
 		if (manager.getLoggedInUser() != null) {
 			try {
 				if (pushedData != null && pushedData.getSenderClass().equals(DiaryScreenController.class)) {
-					System.out.println("pushed data " + pushedData.getSenderClass().toString());
+					LOG.debug("---> pushed data " + pushedData.getSenderClass().toString());
 					Note sendedNote = (Note) pushedData.getData();
 					currentNote = model.getNote(sendedNote.getId());
 					drawCurrentModelOnTheScene();

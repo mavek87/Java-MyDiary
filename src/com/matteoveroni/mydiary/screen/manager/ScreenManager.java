@@ -50,7 +50,7 @@ public class ScreenManager implements Disposable {
 			mainStage.setScene(screenToUse.getScene());
 			mainStage.show();
 		} else {
-			throw new RuntimeException("Screen Manager wasn\'t initialized with a main stage");
+			throw new RuntimeException(" ---> Screen Manager wasn\'t initialized with a main stage");
 		}
 	}
 

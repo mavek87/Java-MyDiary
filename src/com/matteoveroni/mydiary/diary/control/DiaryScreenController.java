@@ -125,7 +125,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
                     currentSelectedNote = null;
 
                     List<Note> notesFromDatabase = model.getAllTheNotes();
-                    System.out.println("notes size" + notesFromDatabase.size());
+                    LOG.debug("---> notes size" + notesFromDatabase.size());
 
                     if (notesFromDatabase.size() > 0) {
                         ObservableList<Note> annotationsForTable = FXCollections.observableArrayList(notesFromDatabase);
@@ -135,7 +135,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
                     btn_removeNote.setDisable(true);
                 }
             } catch (Exception ex) {
-                LOG.error("Critical Runtime Exception Occurred -> " + ex.getMessage());
+                LOG.error("---> Critical Runtime Exception Occurred -> " + ex.getMessage());
                 throw new CriticalRuntimeException(ex, manager);
             }
         }

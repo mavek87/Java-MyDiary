@@ -22,7 +22,7 @@ public class LoginModel {
 		UserData searchedUser = null;
 		try {
 			String QUERY = "select * from " + NAME_OF_THE_USER_TABLE + " where USERNAME=\'" + searchedUsername + "\'";
-			LOG.debug("QUERY -> " + QUERY);
+			LOG.debug("---> QUERY -> " + QUERY);
 			usersRetrieved = databaseManager.querySQL(QUERY, UserData.class);
 			if (usersRetrieved.size() == 1) {
 				searchedUser = usersRetrieved.get(0);
@@ -30,7 +30,7 @@ public class LoginModel {
 				throw new Exception("Database invalid - multiple users with same username!");
 			}
 		} catch (Exception ex) {
-			LOG.error(ex.getMessage());
+			LOG.error("---> " + ex.getMessage());
 		}
 		return searchedUser;
 	}

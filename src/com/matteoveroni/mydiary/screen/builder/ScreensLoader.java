@@ -30,7 +30,8 @@ public class ScreensLoader {
                 indexOfTheCurrentScreenToBuild++;
             }
         } catch (Exception ex) {
-            LOG.error(" ---> IMPOSSIBLE TO BUILD SCREEN -> \'" + ScreensFramework.values()[indexOfTheCurrentScreenToBuild] + "\'!\n\nException occurred: \n" + ex);
+            LOG.error(" ---> IMPOSSIBLE TO BUILD SCREEN -> \'" + ScreensFramework.values()[indexOfTheCurrentScreenToBuild] + "\'!\n\n");
+            LOG.error(" ---> Exception occurred: \n" + ex);
             throw new RuntimeException(ex);
         }
         return null;

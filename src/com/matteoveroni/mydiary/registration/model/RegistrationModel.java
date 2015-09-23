@@ -33,16 +33,16 @@ public class RegistrationModel {
 		List<UserData> usersRetrieved;
 		try {
 			String QUERY = "select * from " + NAME_OF_THE_USER_TABLE + " where USERNAME=\'" + user.getUsername() + "\'";
-			LOG.debug("QUERY -> " + QUERY);
+			LOG.debug("---> QUERY -> " + QUERY);
 			usersRetrieved = databaseManager.querySQL(QUERY, UserData.class);
 			if (usersRetrieved.isEmpty()) {
-				LOG.debug("User with this username doesn\'t exist yet");
+				LOG.debug("---> User with this username doesn\'t exist yet");
 				return false;
 			}
 		} catch (Exception ex) {
-			LOG.error(ex.getMessage());
+			LOG.error("---> " + ex.getMessage());
 		}
-		LOG.debug("User with this username exists yet");
+		LOG.debug("---> User with this username exists yet");
 		return true;
 	}
 }

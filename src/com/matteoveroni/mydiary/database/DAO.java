@@ -224,6 +224,6 @@ public class DAO implements Disposable {
 		if (transactionWithException != null) {
 			transactionWithException.rollback();
 		}
-		LOG.error("An exception occurred! Last transaction was rolled back! Exception --> " + ex);
+		LOG.error("---> An exception occurred! Last transaction was rolled back! Exception --> " + ex);
 	}
 }
