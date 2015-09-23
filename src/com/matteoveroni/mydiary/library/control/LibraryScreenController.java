@@ -98,7 +98,6 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
 		if (txt_newDiaryName.getText() != null && !txt_newDiaryName.getText().trim().equals("")) {
 			Diary diary = new Diary();
 			diary.setName(txt_newDiaryName.getText());
-			diary.setOwnerUser(manager.getLoggedInUser());
 			if (model.createNewDiary(diary, manager.getLoggedInUser())) {
 				update(null);
 				JOptionPane.showMessageDialog(null, "New Diary \'" + diary.getName() + "\' created!");
@@ -132,21 +131,21 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
 	}
 
 	private void updateDiaryComboBox() {
-		if (model.readAllTheDiaries() != null) {
-			List<Diary> allTheDiaries = model.readAllTheDiaries();
-
-			userDiaries.clear();
-			userDiariesStringsForCombobox.clear();
-
-			for (Diary diary : allTheDiaries) {
-				if (diary.getOwnerUser().getUsername().equals(manager.getLoggedInUser().getUsername())) {
-					userDiaries.add(diary);
-					userDiariesStringsForCombobox.add(diary.getId() + " - " + diary.getName() + " - " + diary.getOwnerUser());
-				}
-			}
-
-			ObservableList<String> observableUserDiaries = FXCollections.observableArrayList(userDiariesStringsForCombobox);
-			cmb_chooseDiary.setItems(observableUserDiaries);
-		}
+//		if (model.readAllTheDiaries() != null) {
+//			List<Diary> allTheDiaries = model.readAllTheDiaries();
+//
+//			userDiaries.clear();
+//			userDiariesStringsForCombobox.clear();
+//
+//			for (Diary diary : allTheDiaries) {
+//				if (diary.getOwnerUser().getUsername().equals(manager.getLoggedInUser().getUsername())) {
+//					userDiaries.add(diary);
+//					userDiariesStringsForCombobox.add(diary.getId() + " - " + diary.getName() + " - " + diary.getOwnerUser());
+//				}
+//			}
+//
+//			ObservableList<String> observableUserDiaries = FXCollections.observableArrayList(userDiariesStringsForCombobox);
+//			cmb_chooseDiary.setItems(observableUserDiaries);
+//		}
 	}
 }

@@ -28,9 +28,6 @@ public class Diary implements Serializable {
     @Column
     private String name;
 
-    @ManyToOne
-    private UserData ownerUser;
-
     @OneToMany
 //    (fetch = FetchType.EAGER)
 //    @Fetch(value = FetchMode.SUBSELECT)
@@ -58,15 +55,7 @@ public class Diary implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
-    public UserData getOwnerUser() {
-        return ownerUser;
-    }
-
-    public void setOwnerUser(UserData ownerUser) {
-        this.ownerUser = ownerUser;
-    }
-
+    
     public List<Note> getNotes() {
         return notes;
     }

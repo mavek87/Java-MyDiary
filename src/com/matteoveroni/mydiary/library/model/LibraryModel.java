@@ -20,17 +20,17 @@ public class LibraryModel {
 	public boolean createNewDiary(Diary diary, UserData user) {
 		try {
 			if (user.getDiaries() == null) {
-				LOG.debug("---> User " + user.getUsername() + " has no diaries.. creating the first one");
+				LOG.debug(" ---> User " + user.getUsername() + " has no diaries.. creating the first one");
 				ArrayList<Diary> updatedListOfUsersDiaries = new ArrayList<>();
 				updatedListOfUsersDiaries.add(diary);
 				user.setDiaries(updatedListOfUsersDiaries);
 			} else {
-				LOG.debug("---> User " + user.getUsername() + " has some diaries.. adding a new one");
+				LOG.debug(" ---> User " + user.getUsername() + " has some diaries.. adding a new one");
 				user.getDiaries().add(diary);
 			}
-			LOG.debug("---> Creating diary " + user.getUsername() + " in the DB...");
+			LOG.debug(" ---> Creating diary " + diary.getName()+ " in the DB...");
 			databaseManager.write(diary);
-			LOG.debug("---> Updating user " + user.getUsername() + " in the DB...");
+			LOG.debug(" ---> Updating user " + user.getUsername() + " in the DB...");
 			databaseManager.update(user);
 			return true;
 		} catch (Exception ex) {
