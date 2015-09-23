@@ -71,7 +71,7 @@ public class Diary implements Serializable {
 		this.ownerUser = ownerUser;
 	}
 
-	public List<Note> getAnnotations() {
+	public List<Note> getNotes() {
 		return annotations;
 	}
 

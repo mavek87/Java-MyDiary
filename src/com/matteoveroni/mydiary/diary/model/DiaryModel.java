@@ -19,30 +19,30 @@ public class DiaryModel {
         this.diary = diary;
     }
 
-    public Note getFirstAnnotation() {
-        return diary.getAnnotations().get(0);
+    public Note getFirstNote() {
+        return diary.getNotes().get(0);
 //		return (Annotation) databaseManager.read(HibernateAnnotationBean.class, null, DAO.ElementsOnWhichOperate.FIRST);
     }
 
-    public Note getLastAnnotation() {
-        int numberOfAnnotations = diary.getAnnotations().size();
-        return diary.getAnnotations().get(numberOfAnnotations - 1);
+    public Note getLastNote() {
+        int numberOfNotes = diary.getNotes().size();
+        return diary.getNotes().get(numberOfNotes - 1);
 //		return (Annotation) databaseManager.read(HibernateAnnotationBean.class, null, DAO.ElementsOnWhichOperate.LAST);
     }
 
     public List<Note> getAllTheNotes() {
         Session session = databaseManager.openSession();
-        List<Note> hibernateAnnotations = diary.getAnnotations();
+        List<Note> hibernateNotes = diary.getNotes();
         databaseManager.closeSession(session);
-//        System.out.println("aaaaaaa " + diary.getAnnotations().size());
-        return hibernateAnnotations;
+//        System.out.println("aaaaaaa " + diary.getNotes().size());
+        return hibernateNotes;
     }
 
-    public void createNewNote(Note annotationToSave) {
-        diary.getAnnotations().add((Note) annotationToSave);
+    public void createNewNote(Note noteToSave) {
+        diary.getNotes().add((Note) noteToSave);
     }
 
-    public void removeAnnotation(Note annotationToRemove) {
-        diary.getAnnotations().remove((Note) annotationToRemove);
+    public void removeNote(Note noteToRemove) {
+        diary.getNotes().remove((Note) noteToRemove);
     }
 }

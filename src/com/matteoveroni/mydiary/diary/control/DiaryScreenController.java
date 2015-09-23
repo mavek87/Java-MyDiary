@@ -152,7 +152,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
     @FXML
     void removeNote(ActionEvent event) {
         if (currentSelectedNote != null) {
-            model.removeAnnotation(currentSelectedNote);
+            model.removeNote(currentSelectedNote);
             update(null);
         }
     }
