@@ -1,5 +1,6 @@
 package com.matteoveroni.mydiary.screen;
 
+import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

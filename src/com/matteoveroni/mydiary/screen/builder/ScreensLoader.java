@@ -1,7 +1,7 @@
 package com.matteoveroni.mydiary.screen.builder;
 
 import com.matteoveroni.mydiary.screen.Screen;
-import com.matteoveroni.mydiary.screen.ScreensFramework;
+import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
 import com.matteoveroni.mydiary.screen.factory.ScreenFactory;
 import com.matteoveroni.mydiary.screen.manager.ScreenManager;
 import java.util.List;

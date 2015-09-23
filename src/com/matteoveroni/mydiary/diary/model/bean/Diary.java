@@ -1,6 +1,6 @@
 package com.matteoveroni.mydiary.diary.model.bean;
 
-import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
+import com.matteoveroni.mydiary.note.model.bean.Note;
 import com.matteoveroni.mydiary.user.model.bean.UserData;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ public class Diary implements Serializable {
 //		inverseJoinColumns = {
 //			@JoinColumn(name = "USER_ID", referencedColumnName = "ID")
 //		})
-	private List<Annotation> annotations = new ArrayList<>();
+	private List<Note> annotations = new ArrayList<>();
 
 	public long getId() {
 		return id;
@@ -71,11 +71,11 @@ public class Diary implements Serializable {
 		this.ownerUser = ownerUser;
 	}
 
-	public List<Annotation> getAnnotations() {
+	public List<Note> getAnnotations() {
 		return annotations;
 	}
 
-	public void setAnnotations(List<Annotation> annotations) {
+	public void setAnnotations(List<Note> annotations) {
 		this.annotations = annotations;
 	}
 }

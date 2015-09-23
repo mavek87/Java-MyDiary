@@ -4,7 +4,7 @@ import com.matteoveroni.mydiary.application.manager.ApplicationManager;
 import com.matteoveroni.mydiary.database.DAO;
 import com.matteoveroni.mydiary.screen.Screen;
 import com.matteoveroni.mydiary.screen.manager.ScreenManager;
-import com.matteoveroni.mydiary.screen.ScreensFramework;
+import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
 import com.matteoveroni.mydiary.screen.factory.ScreenFactory;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Stage;

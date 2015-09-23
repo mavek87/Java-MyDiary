@@ -1,15 +1,15 @@
-package com.matteoveroni.mydiary.annotation.control;
+package com.matteoveroni.mydiary.note.control;
 
 import com.matteoveroni.mydiary.application.manager.Manageable;
 import com.matteoveroni.mydiary.application.manager.Manager;
 import com.matteoveroni.mydiary.utilities.patterns.Listener;
-import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
-import com.matteoveroni.mydiary.annotation.model.AnnotationModel;
+import com.matteoveroni.mydiary.note.model.bean.Note;
+import com.matteoveroni.mydiary.note.model.NoteModel;
 import com.matteoveroni.mydiary.application.manager.DataObjectMessage;
 import com.matteoveroni.mydiary.diary.control.DiaryScreenController;
 import com.matteoveroni.mydiary.exceptions.CriticalRuntimeException;
 import com.matteoveroni.mydiary.utilities.date.formatter.DateFormatter;
-import com.matteoveroni.mydiary.screen.ScreensFramework;
+import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
 import java.net.URL;
 import java.util.Date;
 import java.util.Objects;
@@ -28,13 +28,13 @@ import org.slf4j.LoggerFactory;
  *
  * @author Matteo Veroni
  */
-public class AnnotationScreenController implements Initializable, Manageable, Listener {
+public class NoteScreenController implements Initializable, Manageable, Listener {
 
 	private Manager manager;
-	private final AnnotationModel model = new AnnotationModel();
-	private Annotation currentAnnotation = new Annotation();
+	private final NoteModel model = new NoteModel();
+	private Note currentNote = new Note();
 
-	private static final Logger LOG = LoggerFactory.getLogger(AnnotationScreenController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(NoteScreenController.class);
 
 	@FXML
 	private ResourceBundle resources;
@@ -47,17 +47,17 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 	@FXML
 	private TextField txt_lastModificationDate;
 	@FXML
-	private HTMLEditor htmlEditor_message;
+	private HTMLEditor htmlEditor_noteMessage;
 	@FXML
-	private Button btn_previousAnnotation;
+	private Button btn_previousNote;
 	@FXML
-	private Button btn_nextAnnotation;
+	private Button btn_nextNote;
 	@FXML
 	private Button btn_back;
 	@FXML
-	private Button btn_saveAnnotation;
+	private Button btn_saveNote;
 	@FXML
-	private TextField txt_annotationNumber;
+	private TextField txt_noteNumber;
 
 	/**
 	 * Initializes the controller class.
@@ -81,8 +81,8 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 			try {
 				if (pushedData != null && pushedData.getSenderClass().equals(DiaryScreenController.class)) {
 					System.out.println("pushed data " + pushedData.getSenderClass().toString());
-					Annotation annotationSended = (Annotation) pushedData.getData();
-					currentAnnotation = model.getAnnotation(annotationSended.getId());
+					Note sendedNote = (Note) pushedData.getData();
+					currentNote = model.getNote(sendedNote.getId());
 					drawCurrentModelOnTheScene();
 				}
 			} catch (Exception ex) {
@@ -93,39 +93,39 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 	}
 
 	@FXML
-	void annotationMessageChanged(ActionEvent event) {
+	void noteMessageChanged(ActionEvent event) {
 	}
 
 	@FXML
-	void saveAnnotationButtonPressed(ActionEvent event) {
-		currentAnnotation.setTitle(txt_title.getText());
-		currentAnnotation.setMessage(htmlEditor_message.getHtmlText());
+	void saveNoteButtonPressed(ActionEvent event) {
+		currentNote.setTitle(txt_title.getText());
+		currentNote.setMessage(htmlEditor_noteMessage.getHtmlText());
 //        currentAnnotation.setAuthor(manager.getLoggedInUser().toString());
-		currentAnnotation.setLastModificationTimestamp(new Date());
-		model.updateAnnotation(currentAnnotation);
+		currentNote.setLastModificationTimestamp(new Date());
+		model.updateNote(currentNote);
 		drawCurrentModelOnTheScene();
 	}
 
 	@FXML
-	void previousAnnotationButtonPressed(ActionEvent event) {
-		Annotation newAnnotationReaded = model.getPreviousAnnotation(currentAnnotation);
-		if (newAnnotationReaded != null) {
-			currentAnnotation = newAnnotationReaded;
+	void previousNoteButtonPressed(ActionEvent event) {
+		Note newNoteReaded = model.getPreviousNote(currentNote);
+		if (newNoteReaded != null) {
+			currentNote = newNoteReaded;
 			drawCurrentModelOnTheScene();
-		} else if (model.getLastAnnotation() != null) {
-			currentAnnotation = model.getLastAnnotation();
+		} else if (model.getLastNote() != null) {
+			currentNote = model.getLastNote();
 			drawCurrentModelOnTheScene();
 		}
 	}
 
 	@FXML
-	void nextAnnotationButtonPressed(ActionEvent event) {
-		Annotation newAnnotationReaded = model.getNextAnnotation(currentAnnotation);
-		if (newAnnotationReaded != null) {
-			currentAnnotation = newAnnotationReaded;
+	void nextNoteButtonPressed(ActionEvent event) {
+		Note newNoteReaded = model.getNextNote(currentNote);
+		if (newNoteReaded != null) {
+			currentNote = newNoteReaded;
 			drawCurrentModelOnTheScene();
-		} else if (model.getFirstAnnotation() != null) {
-			currentAnnotation = model.getFirstAnnotation();
+		} else if (model.getFirstNote() != null) {
+			currentNote = model.getFirstNote();
 			drawCurrentModelOnTheScene();
 		}
 	}
@@ -137,25 +137,25 @@ public class AnnotationScreenController implements Initializable, Manageable, Li
 
 	private void drawCurrentModelOnTheScene() {
 		resetCurrentSceneElements();
-		txt_annotationNumber.setText(Objects.toString(currentAnnotation.getId(), null));
-		if (currentAnnotation.getTitle() != null) {
-			txt_title.setText(currentAnnotation.getTitle());
+		txt_noteNumber.setText(Objects.toString(currentNote.getId(), null));
+		if (currentNote.getTitle() != null) {
+			txt_title.setText(currentNote.getTitle());
 		}
-		if (currentAnnotation.getMessage() != null) {
-			htmlEditor_message.setHtmlText(currentAnnotation.getMessage());
+		if (currentNote.getMessage() != null) {
+			htmlEditor_noteMessage.setHtmlText(currentNote.getMessage());
 		}
-		if (currentAnnotation.getCreationDate() != null) {
-			txt_creationDate.setText(DateFormatter.dateFormat(currentAnnotation.getCreationDate()));
+		if (currentNote.getCreationDate() != null) {
+			txt_creationDate.setText(DateFormatter.dateFormat(currentNote.getCreationDate()));
 		}
-		if (currentAnnotation.getLastModificationTimestamp() != null) {
-			txt_lastModificationDate.setText(DateFormatter.timestampFormat(currentAnnotation.getLastModificationTimestamp()));
+		if (currentNote.getLastModificationTimestamp() != null) {
+			txt_lastModificationDate.setText(DateFormatter.timestampFormat(currentNote.getLastModificationTimestamp()));
 		}
 	}
 
 	private void resetCurrentSceneElements() {
-		txt_annotationNumber.setText("");
+		txt_noteNumber.setText("");
 		txt_title.setText("");
-		htmlEditor_message.setHtmlText("");
+		htmlEditor_noteMessage.setHtmlText("");
 		txt_creationDate.setText("");
 		txt_lastModificationDate.setText("");
 	}

@@ -6,7 +6,7 @@ import com.matteoveroni.mydiary.utilities.patterns.Listener;
 import com.matteoveroni.mydiary.application.manager.DataObjectMessage;
 import com.matteoveroni.mydiary.diary.model.bean.Diary;
 import com.matteoveroni.mydiary.library.model.LibraryModel;
-import com.matteoveroni.mydiary.screen.ScreensFramework;
+import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;

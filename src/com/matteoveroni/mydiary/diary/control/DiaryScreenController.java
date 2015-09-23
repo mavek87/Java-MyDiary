@@ -3,13 +3,13 @@ package com.matteoveroni.mydiary.diary.control;
 import com.matteoveroni.mydiary.application.manager.Manageable;
 import com.matteoveroni.mydiary.application.manager.Manager;
 import com.matteoveroni.mydiary.utilities.patterns.Listener;
-import com.matteoveroni.mydiary.annotation.model.bean.Annotation;
+import com.matteoveroni.mydiary.note.model.bean.Note;
 import com.matteoveroni.mydiary.application.manager.DataObjectMessage;
 import com.matteoveroni.mydiary.diary.model.DiaryModel;
 import com.matteoveroni.mydiary.diary.model.bean.Diary;
 import com.matteoveroni.mydiary.exceptions.CriticalRuntimeException;
 import com.matteoveroni.mydiary.library.control.LibraryScreenController;
-import com.matteoveroni.mydiary.screen.ScreensFramework;
+import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
@@ -41,32 +41,32 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
     private Manager manager;
     private final DiaryModel model = new DiaryModel();
     private Diary currentDiary = new Diary();
-    private Annotation currentSelectedAnnotation;
+    private Note currentSelectedNote;
 
     private static final Logger LOG = LoggerFactory.getLogger(DiaryScreenController.class);
 
     @FXML
-    private TableView<Annotation> diaryTable;
+    private TableView<Note> diaryTable;
     @FXML
-    private TableColumn<Annotation, Long> tableColumn_Id;
+    private TableColumn<Note, Long> tableColumn_Id;
     @FXML
-    private TableColumn<Annotation, String> tableColumn_Title;
+    private TableColumn<Note, String> tableColumn_Title;
     @FXML
-    private TableColumn<Annotation, Date> tableColumn_CreationDate;
+    private TableColumn<Note, Date> tableColumn_CreationDate;
     @FXML
-    private TableColumn<Annotation, Date> tableColumn_LastModificationTimestamp;
+    private TableColumn<Note, Date> tableColumn_LastModificationTimestamp;
     @FXML
-    private TableColumn<Annotation, String> tableColumn_Author;
+    private TableColumn<Note, String> tableColumn_Author;
     @FXML
-    private Button btn_filterAnnotations;
+    private Button btn_filterNote;
     @FXML
-    private Button btn_openAnnotation;
+    private Button btn_openNote;
     @FXML
-    private Button btn_createNewAnnotation;
+    private Button btn_createNewNote;
     @FXML
     private CheckBox chk_enableFilter;
     @FXML
-    private Button btn_removeAnnotation;
+    private Button btn_removeNote;
 
     /**
      * Initializes the DiaryScreenController class.
@@ -78,11 +78,11 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
     public void initialize(URL url, ResourceBundle rb) {
         diaryTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        tableColumn_Id.setCellValueFactory(new PropertyValueFactory<Annotation, Long>("id"));
-        tableColumn_Title.setCellValueFactory(new PropertyValueFactory<Annotation, String>("title"));
-        tableColumn_CreationDate.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("creationDate"));
-        tableColumn_LastModificationTimestamp.setCellValueFactory(new PropertyValueFactory<Annotation, Date>("lastModificationTimestamp"));
-        tableColumn_Author.setCellValueFactory(new PropertyValueFactory<Annotation, String>("author"));
+        tableColumn_Id.setCellValueFactory(new PropertyValueFactory<Note, Long>("id"));
+        tableColumn_Title.setCellValueFactory(new PropertyValueFactory<Note, String>("title"));
+        tableColumn_CreationDate.setCellValueFactory(new PropertyValueFactory<Note, Date>("creationDate"));
+        tableColumn_LastModificationTimestamp.setCellValueFactory(new PropertyValueFactory<Note, Date>("lastModificationTimestamp"));
+        tableColumn_Author.setCellValueFactory(new PropertyValueFactory<Note, String>("author"));
 
         diaryTable.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -90,9 +90,9 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
                 if (newPropertyValue) {
                     // diaryTable's focus ON
                     if (diaryTable.getSelectionModel().getSelectedItem() != null) {
-                        currentSelectedAnnotation = diaryTable.getSelectionModel().getSelectedItem();
-                        btn_openAnnotation.setDisable(false);
-                        btn_removeAnnotation.setDisable(false);
+                        currentSelectedNote = diaryTable.getSelectionModel().getSelectedItem();
+                        btn_openNote.setDisable(false);
+                        btn_removeNote.setDisable(false);
                     }
                 }
             }
@@ -102,8 +102,8 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
             @Override
             public void handle(MouseEvent event) {
                 if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                    currentSelectedAnnotation = diaryTable.getSelectionModel().getSelectedItem();
-                    openSelectedAnnotation();
+                    currentSelectedNote = diaryTable.getSelectionModel().getSelectedItem();
+                    openSelectedNote();
                 }
             }
         });
@@ -122,17 +122,17 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
                 if (pushedData != null && pushedData.getSenderClass().equals(LibraryScreenController.class)) {
                     currentDiary = (Diary) pushedData.getData();
                     model.setDiary(currentDiary);
-                    currentSelectedAnnotation = null;
+                    currentSelectedNote = null;
 
-                    List<Annotation> annotationsFromDatabase = model.getAllTheAnnotations();
-                    System.out.println("32rr233r232r23rr3223rr232r32r32r3" + annotationsFromDatabase.size());
+                    List<Note> noteFromDatabase = model.getAllTheNotes();
+                    System.out.println("32rr233r232r23rr3223rr232r32r32r3" + noteFromDatabase.size());
 
-                    if (annotationsFromDatabase.size() > 0) {
-                        ObservableList<Annotation> annotationsForTable = FXCollections.observableArrayList(annotationsFromDatabase);
+                    if (noteFromDatabase.size() > 0) {
+                        ObservableList<Note> annotationsForTable = FXCollections.observableArrayList(noteFromDatabase);
                         diaryTable.setItems(annotationsForTable);
                     }
-                    btn_openAnnotation.setDisable(true);
-                    btn_removeAnnotation.setDisable(true);
+                    btn_openNote.setDisable(true);
+                    btn_removeNote.setDisable(true);
                 }
             } catch (Exception ex) {
                 LOG.error("Critical Runtime Exception Occurred -> " + ex.getMessage());
@@ -142,30 +142,30 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
     }
 
     @FXML
-    void goToAnnotationScreen(ActionEvent event) {
-        if (currentSelectedAnnotation != null) {
-            manager.storeObjectToPush(currentSelectedAnnotation, DiaryScreenController.class);
-            manager.changeScreen(ScreensFramework.ANNOTATION_SCREEN);
+    void goToNoteScreen(ActionEvent event) {
+        if (currentSelectedNote != null) {
+            manager.storeObjectToPush(currentSelectedNote, DiaryScreenController.class);
+            manager.changeScreen(ScreensFramework.NOTE_SCREEN);
         }
     }
 
     @FXML
-    void removeAnnotation(ActionEvent event) {
-        if (currentSelectedAnnotation != null) {
-            model.removeAnnotation(currentSelectedAnnotation);
+    void removeNote(ActionEvent event) {
+        if (currentSelectedNote != null) {
+            model.removeAnnotation(currentSelectedNote);
             update(null);
         }
     }
 
     @FXML
-    void createNewAnnotation(ActionEvent event) {
-        Annotation newAnnotation = new Annotation();
-        newAnnotation.setTitle("New Title");
+    void createNewNote(ActionEvent event) {
+        Note newNote = new Note();
+        newNote.setTitle("New Title");
 //        newAnnotation.setAuthor(manager.getLoggedInUser().toString());
-        newAnnotation.setCreationDate(new Date());
-        newAnnotation.setLastModificationTimestamp(new Date());
-        model.createNewAnnotation(newAnnotation);
-        manager.changeScreen(ScreensFramework.ANNOTATION_SCREEN);
+        newNote.setCreationDate(new Date());
+        newNote.setLastModificationTimestamp(new Date());
+        model.createNewNote(newNote);
+        manager.changeScreen(ScreensFramework.NOTE_SCREEN);
     }
 
     @FXML
@@ -176,10 +176,10 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
     void enableFilter(ActionEvent event) {
     }
 
-    private void openSelectedAnnotation() {
-        if (currentSelectedAnnotation != null) {
-            manager.storeObjectToPush(currentSelectedAnnotation, DiaryScreenController.class);
-            manager.changeScreen(ScreensFramework.ANNOTATION_SCREEN);
+    private void openSelectedNote() {
+        if (currentSelectedNote != null) {
+            manager.storeObjectToPush(currentSelectedNote, DiaryScreenController.class);
+            manager.changeScreen(ScreensFramework.NOTE_SCREEN);
         }
     }
 }

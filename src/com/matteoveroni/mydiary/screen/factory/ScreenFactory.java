@@ -1,7 +1,7 @@
 package com.matteoveroni.mydiary.screen.factory;
 
 import com.matteoveroni.mydiary.screen.Screen;
-import com.matteoveroni.mydiary.screen.ScreensFramework;
+import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
 import java.io.IOException;
 
 /**
