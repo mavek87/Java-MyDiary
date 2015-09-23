@@ -22,7 +22,13 @@ public interface Manager {
     public Screen getCurrentScreen();
 
     public UserData getLoggedInUser();
-
+    
+    public String getApplicationName();
+        
+    public String getApplicationVersion();
+    
+    public String getApplicationTitle();
+    
     public void setLoggedInUser(UserData loggedInUser);
 
     public void storeObjectToPush(Object dataToPush, Class senderClass);

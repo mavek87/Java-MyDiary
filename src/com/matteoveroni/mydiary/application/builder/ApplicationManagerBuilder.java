@@ -38,7 +38,7 @@ public class ApplicationManagerBuilder {
         screenManagerSetup();
         loadScreensInScreenManager();
         useInitialScreen();
-        applicationManager = new ApplicationManager(screenManager, databaseManager);
+        applicationManager = new ApplicationManager(applicationName, applicationVersion, screenManager, databaseManager);
         LOG.debug(" ---> Application manager builded");
         return applicationManager;
     }

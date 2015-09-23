@@ -124,11 +124,11 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
                     model.setDiary(currentDiary);
                     currentSelectedNote = null;
 
-                    List<Note> noteFromDatabase = model.getAllTheNotes();
-                    System.out.println("32rr233r232r23rr3223rr232r32r32r3" + noteFromDatabase.size());
+                    List<Note> notesFromDatabase = model.getAllTheNotes();
+                    System.out.println("notes size" + notesFromDatabase.size());
 
-                    if (noteFromDatabase.size() > 0) {
-                        ObservableList<Note> annotationsForTable = FXCollections.observableArrayList(noteFromDatabase);
+                    if (notesFromDatabase.size() > 0) {
+                        ObservableList<Note> annotationsForTable = FXCollections.observableArrayList(notesFromDatabase);
                         diaryTable.setItems(annotationsForTable);
                     }
                     btn_openNote.setDisable(true);

@@ -98,11 +98,11 @@ public class RegistrationScreenController implements Manageable, Initializable, 
 				manager.changeScreen(ScreensFramework.LOGIN_SCREEN);
 			} else {
 				clearUserFieldOnTheForm();
-				JOptionPane.showMessageDialog(null, "Username already taken by another user... please choose another one!", "Username already exists", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Username already taken by another user... please choose another one!", manager.getApplicationTitle() + "Username already exists", JOptionPane.ERROR_MESSAGE);
 			}
 		} else {
 			clearUserAndPasswordFieldsOnTheForm();
-			JOptionPane.showMessageDialog(null, "Username and Password can\'t be less than 6 characters long. Choose longer Username and Password!", "Username/Password Invalid", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Username and Password can\'t be less than 6 characters long. Choose longer Username and Password!", manager.getApplicationTitle() + "Username/Password Invalid", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 

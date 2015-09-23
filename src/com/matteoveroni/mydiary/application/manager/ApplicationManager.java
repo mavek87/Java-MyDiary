@@ -24,6 +24,9 @@ public class ApplicationManager implements Manager, Disposable, Listenable {
     private final DAO database;
     private UserData loggedInUser;
 
+    private final String applicationName;
+    private final String applicationVersion;
+
     private final Set<Listener> listeners = new HashSet<>();
     private DataObjectMessage dataToPush;
 
@@ -31,7 +34,9 @@ public class ApplicationManager implements Manager, Disposable, Listenable {
 
     private static final Logger LOG = LoggerFactory.getLogger(MyDiary.class);
 
-    public ApplicationManager(ScreenManager screenManager, DAO databaseAccessObject) {
+    public ApplicationManager(String applicationName, String applicationVersion, ScreenManager screenManager, DAO databaseAccessObject) {
+        this.applicationName = applicationName;
+        this.applicationVersion = applicationVersion;
         this.screenManager = screenManager;
         this.database = databaseAccessObject;
         resourcesToDisposeWhenApplicationClose.add(this.screenManager);
@@ -106,4 +111,20 @@ public class ApplicationManager implements Manager, Disposable, Listenable {
             resource.dispose();
         }
     }
+
+    @Override
+    public String getApplicationName() {
+        return applicationName;
+    }
+
+    @Override
+    public String getApplicationVersion() {
+        return applicationVersion;
+    }
+
+    @Override
+    public String getApplicationTitle() {
+        return this.getApplicationName() + " - v. " + this.getApplicationVersion() + " | ";
+    }
+
 }
