@@ -3,6 +3,8 @@ package com.matteoveroni.mydiary.login.model;
 import com.matteoveroni.mydiary.database.DAO;
 import com.matteoveroni.mydiary.user.model.bean.UserData;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -10,25 +12,25 @@ import java.util.List;
  */
 public class LoginModel {
 
-	private final DAO DatabaseManager = DAO.getInstance();
+	private final DAO databaseManager = DAO.getInstance();
 	private final String NAME_OF_THE_USER_TABLE = "USERS";
+
+	private static final Logger LOG = LoggerFactory.getLogger(LoginModel.class);
 
 	public UserData searchUser(String searchedUsername) {
 		List<UserData> usersRetrieved;
 		UserData searchedUser = null;
 		try {
-			//            userRetrieved = (UserData) DatabaseManager.read(UserData.class, searchedUsername, DAO.ElementsOnWhichOperate.REQUESTED);
-
 			String QUERY = "select * from " + NAME_OF_THE_USER_TABLE + " where USERNAME=\'" + searchedUsername + "\'";
-
-			usersRetrieved = DatabaseManager.querySQL(QUERY);
-
-			if (usersRetrieved.size() > 1) {
-				throw new Exception("Database invalid - multiple users with same username!");
-			} else {
+			LOG.debug("QUERY -> " + QUERY);
+			usersRetrieved = databaseManager.querySQL(QUERY, UserData.class);
+			if (usersRetrieved.size() == 1) {
 				searchedUser = usersRetrieved.get(0);
+			} else {
+				throw new Exception("Database invalid - multiple users with same username!");
 			}
 		} catch (Exception ex) {
+			LOG.error(ex.getMessage());
 		}
 		return searchedUser;
 	}

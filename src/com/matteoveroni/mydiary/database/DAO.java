@@ -187,13 +187,16 @@ public class DAO implements Disposable {
 		return readedElements;
 	}
 
-	public List querySQL(String requestedQuery) {
+	public List querySQL(String requestedQuery, Class entityClass) {
 		Session querySession = null;
 		List queryResults = null;
+		if (entityClass == null) {
+			entityClass = Object.class;
+		}
 		try {
 			querySession = sessionFactory.getCurrentSession();
 			querySession.beginTransaction();
-			Query query = querySession.createSQLQuery(requestedQuery);
+			Query query = querySession.createSQLQuery(requestedQuery).addEntity(entityClass);
 			queryResults = query.list();
 			querySession.flush();
 			querySession.getTransaction().commit();
