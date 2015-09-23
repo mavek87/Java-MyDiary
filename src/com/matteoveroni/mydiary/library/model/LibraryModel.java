@@ -14,32 +14,45 @@ import org.slf4j.LoggerFactory;
  */
 public class LibraryModel {
 
-	private final DAO databaseManager = DAO.getInstance();
-	private static final Logger LOG = LoggerFactory.getLogger(LibraryModel.class);
+    private final DAO databaseManager = DAO.getInstance();
+    private static final Logger LOG = LoggerFactory.getLogger(LibraryModel.class);
 
-	public boolean createNewDiary(Diary diary, UserData user) {
-		try {
-			if (user.getDiaries() == null) {
-				LOG.debug(" ---> User " + user.getUsername() + " has no diaries.. creating the first one");
-				ArrayList<Diary> updatedListOfUsersDiaries = new ArrayList<>();
-				updatedListOfUsersDiaries.add(diary);
-				user.setDiaries(updatedListOfUsersDiaries);
-			} else {
-				LOG.debug(" ---> User " + user.getUsername() + " has some diaries.. adding a new one");
-				user.getDiaries().add(diary);
-			}
-			LOG.debug(" ---> Creating diary " + diary.getName()+ " in the DB...");
-			databaseManager.write(diary);
-			LOG.debug(" ---> Updating user " + user.getUsername() + " in the DB...");
-			databaseManager.update(user);
-			return true;
-		} catch (Exception ex) {
-			LOG.error(ex.getMessage());
-		}
-		return false;
-	}
+    public boolean createNewDiary(Diary diary, UserData user) {
+        try {
+            if (user.getDiaries() == null) {
+                LOG.debug(" ---> User " + user.getUsername() + " has no diaries.. creating the first one");
+                ArrayList<Diary> updatedListOfUsersDiaries = new ArrayList<>();
+                updatedListOfUsersDiaries.add(diary);
+                user.setDiaries(updatedListOfUsersDiaries);
+            } else {
+                LOG.debug(" ---> User " + user.getUsername() + " has some diaries.. adding a new one");
+                user.getDiaries().add(diary);
+            }
+            LOG.debug(" ---> Creating diary " + diary.getName() + " in the DB...");
+            databaseManager.write(diary);
+            LOG.debug(" ---> Updating user " + user.getUsername() + " in the DB...");
+            databaseManager.update(user);
+            return true;
+        } catch (Exception ex) {
+            LOG.error(ex.getMessage());
+        }
+        return false;
+    }
 
-	public List readAllTheDiaries() {
-		return databaseManager.readAll(Diary.class);
-	}
+    public List<Diary> getDiariesForUser(UserData user) {
+
+        final String USERS_DIARIES_TABLE = "USERS_DIARIES";
+        List<Diary> diariesRetrieved = null;
+        try {
+            String QUERY_FIND_DIARIES_IDS_FOR_CURRENT_USER = "select DIARY_ID from " + USERS_DIARIES_TABLE + " where USER_ID=\'" + user.getId() + "\'";
+            LOG.debug(" ---> QUERY_FIND_DIARIES_IDS_FOR_CURRENT_USER -> " + QUERY_FIND_DIARIES_IDS_FOR_CURRENT_USER);
+            List<Long> diariesIdRetrieved = databaseManager.querySQL(QUERY_FIND_DIARIES_IDS_FOR_CURRENT_USER, Long.class);
+            for(Long diaryId : diariesIdRetrieved){
+                diariesRetrieved.add((Diary)databaseManager.read(Diary.class, diaryId, DAO.ElementsOnWhichOperate.REQUESTED));
+            }
+        } catch (Exception ex) {
+            LOG.error(" ---> " + ex.getMessage());
+        }
+        return diariesRetrieved;
+    }
 }
