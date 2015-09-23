@@ -1,4 +1,4 @@
-package com.matteoveroni.mydiary.registration.model.bean;
+package com.matteoveroni.mydiary.registration.model;
 
 import com.matteoveroni.mydiary.database.DAO;
 import com.matteoveroni.mydiary.user.model.bean.UserData;

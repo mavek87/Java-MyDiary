@@ -2,8 +2,9 @@ package com.matteoveroni.mydiary.user.model.bean;
 
 import com.matteoveroni.mydiary.diary.model.bean.Diary;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,15 +14,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 /**
  *
  * @author Matteo Veroni
  */
 @Entity
-@Table(name = "Users")
+@Table(name = "USERS")
 public class UserData implements Serializable {
 
 	@Id
@@ -44,7 +43,6 @@ public class UserData implements Serializable {
 	private Integer age;
 
 	@OneToMany(fetch = FetchType.EAGER)
-//	@Fetch(FetchMode.JOIN) 
 	@JoinTable(name = "USERS_DIARIES",
 		joinColumns = {
 			@JoinColumn(name = "USER_ID", referencedColumnName = "ID")
@@ -52,7 +50,7 @@ public class UserData implements Serializable {
 		inverseJoinColumns = {
 			@JoinColumn(name = "DIARY_ID", referencedColumnName = "ID")
 		})
-	private Collection<Diary> diaries = new HashSet<>();
+	private List<Diary> diaries = new ArrayList<>();
 
 	public long getId() {
 		return id;
@@ -102,11 +100,11 @@ public class UserData implements Serializable {
 		this.age = age;
 	}
 
-	public Collection<Diary> getDiaries() {
+	public List<Diary> getDiaries() {
 		return diaries;
 	}
 
-	public void setDiaries(Collection<Diary> diaries) {
+	public void setDiaries(List<Diary> diaries) {
 		this.diaries = diaries;
 	}
 

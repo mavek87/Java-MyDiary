@@ -7,75 +7,71 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import javax.persistence.Table;
 
 /**
  *
  * @author Matteo Veroni
  */
 @Entity
+@Table(name="DIARIES")
 public class Diary implements Serializable {
 
-	@Id
-	@GeneratedValue
-	private long id;
+    @Id
+    @GeneratedValue
+    private long id;
 
-	@Column
-	private String name;
+    @Column
+    private String name;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-//	@Fetch(FetchMode.JOIN)
-	private UserData ownerUser;
+    @ManyToOne
+    private UserData ownerUser;
 
-	@OneToMany
-//	(fetch = FetchType.EAGER)
-//	@Fetch(FetchMode.JOIN)
-//	@JoinTable(name = "DIARIES_ANNOTATIONS",
-//		joinColumns = {
-//			@JoinColumn(name = "DIARY_ID", referencedColumnName = "ID")
-//		},
-//		inverseJoinColumns = {
-//			@JoinColumn(name = "USER_ID", referencedColumnName = "ID")
-//		})
-	private List<Note> annotations = new ArrayList<>();
+    @OneToMany
+//    (fetch = FetchType.EAGER)
+//    @Fetch(value = FetchMode.SUBSELECT)
+//    @JoinTable(name = "DIARIES_NOTES",
+//        joinColumns = {
+//            @JoinColumn(name = "DIARY_ID", referencedColumnName = "ID")
+//        },
+//        inverseJoinColumns = {
+//            @JoinColumn(name = "NOTE_ID", referencedColumnName = "ID")
+//        })
+    private List<Note> notes = new ArrayList<>();
 
-	public long getId() {
-		return id;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public UserData getOwnerUser() {
-		return ownerUser;
-	}
+    public UserData getOwnerUser() {
+        return ownerUser;
+    }
 
-	public void setOwnerUser(UserData ownerUser) {
-		this.ownerUser = ownerUser;
-	}
+    public void setOwnerUser(UserData ownerUser) {
+        this.ownerUser = ownerUser;
+    }
 
-	public List<Note> getNotes() {
-		return annotations;
-	}
+    public List<Note> getNotes() {
+        return notes;
+    }
 
-	public void setAnnotations(List<Note> annotations) {
-		this.annotations = annotations;
-	}
+    public void setNotes(List<Note> notes) {
+        this.notes = notes;
+    }
 }

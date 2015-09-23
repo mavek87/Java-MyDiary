@@ -34,7 +34,6 @@ public class Note implements Serializable {
 	private String message;
 
 	@ManyToOne
-//	(fetch = FetchType.EAGER)
 	private Diary diary;
 
 	@Column
