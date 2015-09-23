@@ -1,8 +1,8 @@
 ----------------------------------------------------------------
-Wed Sep 23 12:25:33 CEST 2015:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.3.0 - (1405108): instance a816c00e-014f-f9bc-a066-00000089d3a8 
+Wed Sep 23 12:40:21 CEST 2015:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.3.0 - (1405108): instance a816c00e-014f-f9ca-2eb2-0000008aac68 
 on database directory C:\Users\veroni\Documents\NetBeansProjects\MyDiary\mydiarydb  with class loader java.net.URLClassLoader@91cee 
-Loaded from file:/C:/Users/veroni/Documents/NetBeansProjects/MyDiary/dist/run1928824445/lib/derby.jar
+Loaded from file:/C:/Users/veroni/Documents/NetBeansProjects/MyDiary/dist/run1678471172/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.7.0_45-b18
 user.dir=C:\Users\veroni\Documents\NetBeansProjects\MyDiary

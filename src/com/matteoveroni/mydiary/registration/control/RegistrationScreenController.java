@@ -87,9 +87,14 @@ public class RegistrationScreenController implements Manageable, Initializable, 
 
 	@FXML
 	void registerUser(ActionEvent event) {
-		if (areUsernameAndPasswordInserted()) {
+		if (isUsernameAndPasswordInserted()) {
 			setNewUserInstanceUsingTheDataInsertedOnTheForm();
 			if (model.createNewUser(userToRegister)) {
+				JOptionPane.showMessageDialog(null,
+					"\n Username: " + userToRegister.getUsername()
+					+ "\n FirstName: " + userToRegister.getFirstName()
+					+ "\n LastName: " + userToRegister.getLastName()
+					+ "\n Age: " + userToRegister.getAge(), "User registered! ", JOptionPane.INFORMATION_MESSAGE);
 				manager.changeScreen(ScreensFramework.LOGIN_SCREEN);
 			} else {
 				clearUserFieldOnTheForm();
@@ -101,7 +106,7 @@ public class RegistrationScreenController implements Manageable, Initializable, 
 		}
 	}
 
-	private boolean areUsernameAndPasswordInserted() {
+	private boolean isUsernameAndPasswordInserted() {
 		String insertedUsername = txt_Username.getText();
 		String insertedPassword = psw_Password.getText();
 		return (isUsernameValid(insertedUsername) && isPasswordValid(insertedPassword));
