@@ -33,8 +33,9 @@ public class Annotation implements Serializable {
 	@Lob
 	private String message;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "ANNOTATION_ID")
+	@ManyToOne
+//	(fetch = FetchType.EAGER)
+//	@JoinColumn(name = "ANNOTATION_ID")
 	private Diary diary;
 
 	@Column

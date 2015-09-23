@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  *
@@ -29,12 +31,20 @@ public class Diary implements Serializable {
 	@Column
 	private String name;
 
-	@ManyToOne
-	@JoinColumn(name = "USER_ID")
+	@ManyToOne(fetch = FetchType.EAGER)
+//	@Fetch(FetchMode.JOIN)
 	private UserData ownerUser;
 
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "DIARIES_ANNOTATIONS", joinColumns = @JoinColumn(name = "DIARY_ID"))
+	@OneToMany
+//	(fetch = FetchType.EAGER)
+//	@Fetch(FetchMode.JOIN)
+//	@JoinTable(name = "DIARIES_ANNOTATIONS",
+//		joinColumns = {
+//			@JoinColumn(name = "DIARY_ID", referencedColumnName = "ID")
+//		},
+//		inverseJoinColumns = {
+//			@JoinColumn(name = "USER_ID", referencedColumnName = "ID")
+//		})
 	private List<Annotation> annotations = new ArrayList<>();
 
 	public long getId() {
