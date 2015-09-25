@@ -3,6 +3,7 @@ package com.matteoveroni.mydiary.library.model;
 import com.matteoveroni.mydiary.database.DAO;
 import com.matteoveroni.mydiary.diary.model.bean.Diary;
 import com.matteoveroni.mydiary.user.model.bean.UserData;
+import com.matteoveroni.mydiary.utilities.formatters.ExceptionsFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -16,6 +17,7 @@ public class LibraryModel {
 
     private final DAO databaseManager = DAO.getInstance();
     private static final Logger LOG = LoggerFactory.getLogger(LibraryModel.class);
+    private final String USERS_DIARIES_TABLE = "USERS_DIARIES";
 
     public boolean createNewDiary(Diary diary, UserData user) {
         try {
@@ -34,24 +36,22 @@ public class LibraryModel {
             databaseManager.update(user);
             return true;
         } catch (Exception ex) {
-            LOG.error(ex.getMessage());
+            LOG.error(" ---> " + ExceptionsFormatter.toString(ex));
         }
         return false;
     }
 
     public List<Diary> getDiariesForUser(UserData user) {
-
-        final String USERS_DIARIES_TABLE = "USERS_DIARIES";
         List<Diary> diariesRetrieved = null;
         try {
-            String QUERY_FIND_DIARIES_IDS_FOR_CURRENT_USER = "select DIARY_ID from " + USERS_DIARIES_TABLE + " where USER_ID=\'" + user.getId() + "\'";
+            final String QUERY_FIND_DIARIES_IDS_FOR_CURRENT_USER = "select DIARY_ID from " + USERS_DIARIES_TABLE + " where USER_ID=\'" + user.getId() + "\'";
             LOG.debug(" ---> QUERY_FIND_DIARIES_IDS_FOR_CURRENT_USER -> " + QUERY_FIND_DIARIES_IDS_FOR_CURRENT_USER);
             List<Long> diariesIdRetrieved = databaseManager.querySQL(QUERY_FIND_DIARIES_IDS_FOR_CURRENT_USER, Long.class);
-            for(Long diaryId : diariesIdRetrieved){
-                diariesRetrieved.add((Diary)databaseManager.read(Diary.class, diaryId, DAO.ElementsOnWhichOperate.REQUESTED));
+            for (Long diaryId : diariesIdRetrieved) {
+                diariesRetrieved.add((Diary) databaseManager.read(Diary.class, diaryId, DAO.ElementsOnWhichOperate.REQUESTED));
             }
         } catch (Exception ex) {
-            LOG.error(" ---> " + ex.getMessage());
+            LOG.error(" ---> " + ExceptionsFormatter.toString(ex));
         }
         return diariesRetrieved;
     }

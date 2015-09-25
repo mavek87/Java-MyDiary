@@ -23,6 +23,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javax.swing.JOptionPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * LibraryScreenController Controller class
@@ -36,6 +38,7 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
     private final LibraryModel model = new LibraryModel();
     List<Diary> userDiaries = new ArrayList<>();
     List<String> userDiariesStringsForCombobox = new ArrayList<>();
+    private static final Logger LOG = LoggerFactory.getLogger(LibraryScreenController.class);
 
     @FXML
     private Tab tab_manageDiary;
@@ -132,16 +135,20 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
     }
 
     private void updateDiaryComboBox() {
-//        List<Diary> findedUserDiaries = model.getDiariesForUser(manager.getLoggedInUser());
-//        if (findedUserDiaries != null && findedUserDiaries.size() > 0) {
-//            userDiaries.clear();
-//            userDiariesStringsForCombobox.clear();
-//            for (Diary diary : findedUserDiaries) {
-//                userDiaries.add(diary);
-//                userDiariesStringsForCombobox.add(diary.getId() + " - " + diary.getName() + " - " + manager.getLoggedInUser());
-//            }
-//            ObservableList<String> observableUserDiaries = FXCollections.observableArrayList(userDiariesStringsForCombobox);
-//            cmb_chooseDiary.setItems(observableUserDiaries);
-//        }
+        try {
+            List<Diary> findedUserDiaries = model.getDiariesForUser(manager.getLoggedInUser());
+            if (findedUserDiaries != null && findedUserDiaries.size() > 0) {
+                userDiaries.clear();
+                userDiariesStringsForCombobox.clear();
+                for (Diary diary : findedUserDiaries) {
+                    userDiaries.add(diary);
+                    userDiariesStringsForCombobox.add(diary.getId() + " - " + diary.getName() + " - " + manager.getLoggedInUser());
+                }
+                ObservableList<String> observableUserDiaries = FXCollections.observableArrayList(userDiariesStringsForCombobox);
+                cmb_chooseDiary.setItems(observableUserDiaries);
+            }
+        } catch (Exception ex) {
+            LOG.error(ex.getMessage());
+        }
     }
 }

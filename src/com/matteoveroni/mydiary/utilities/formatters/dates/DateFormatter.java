@@ -1,4 +1,4 @@
-package com.matteoveroni.mydiary.utilities.date.formatter;
+package com.matteoveroni.mydiary.utilities.formatters.dates;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
