@@ -8,7 +8,7 @@ import com.matteoveroni.mydiary.note.model.NoteModel;
 import com.matteoveroni.mydiary.application.messages.DataObjectMessage;
 import com.matteoveroni.mydiary.diary.control.DiaryScreenController;
 import com.matteoveroni.mydiary.exceptions.CriticalRuntimeException;
-import com.matteoveroni.mydiary.utilities.formatters.dates.DateFormatter;
+import com.matteoveroni.mydiary.utilities.formatters.DateFormatter;
 import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
 import java.net.URL;
 import java.util.Date;

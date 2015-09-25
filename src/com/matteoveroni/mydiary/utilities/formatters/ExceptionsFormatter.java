@@ -9,6 +9,6 @@ import com.matteoveroni.mydiary.utilities.converters.StackTraceToStringConverter
 public class ExceptionsFormatter {
 
     public static final String toString(Exception ex) {
-        return "ex_message: " + ex.getMessage() + " | ex_stack_trace: " + StackTraceToStringConverter.convertToString(ex);
+        return "EX_MESSAGE: " + ex.getMessage() + " | EX_STACK_TRACE: " + StackTraceToStringConverter.convertToString(ex);
     }
 }
