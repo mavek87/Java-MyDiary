@@ -2,6 +2,7 @@ package com.matteoveroni.mydiary.registration.model;
 
 import com.matteoveroni.mydiary.database.DAO;
 import com.matteoveroni.mydiary.user.model.bean.UserData;
+import com.matteoveroni.mydiary.utilities.formatters.ExceptionsFormatter;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +25,7 @@ public class RegistrationModel {
 				return true;
 			}
 		} catch (Exception ex) {
-			LOG.error(ex.getMessage());
+			LOG.error(" ---> " + ExceptionsFormatter.toString(ex));
 		}
 		return false;
 	}
@@ -33,16 +34,16 @@ public class RegistrationModel {
 		List<UserData> usersRetrieved;
 		try {
 			String QUERY = "select * from " + NAME_OF_THE_USER_TABLE + " where USERNAME=\'" + user.getUsername() + "\'";
-			LOG.debug("---> QUERY -> " + QUERY);
+			LOG.debug(" ---> QUERY -> " + QUERY);
 			usersRetrieved = databaseManager.querySQL(QUERY, UserData.class);
 			if (usersRetrieved.isEmpty()) {
-				LOG.debug("---> User with this username doesn\'t exist yet");
+				LOG.debug(" ---> User with this username doesn\'t exist yet");
 				return false;
 			}
 		} catch (Exception ex) {
-			LOG.error("---> " + ex.getMessage());
+			LOG.error(" ---> " + ExceptionsFormatter.toString(ex));
 		}
-		LOG.debug("---> User with this username exists yet");
+		LOG.debug(" ---> User with this username exists yet");
 		return true;
 	}
 }

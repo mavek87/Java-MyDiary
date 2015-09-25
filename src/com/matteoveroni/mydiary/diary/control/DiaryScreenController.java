@@ -4,7 +4,7 @@ import com.matteoveroni.mydiary.application.manager.Manageable;
 import com.matteoveroni.mydiary.application.manager.Manager;
 import com.matteoveroni.mydiary.utilities.patterns.Listener;
 import com.matteoveroni.mydiary.note.model.bean.Note;
-import com.matteoveroni.mydiary.application.manager.DataObjectMessage;
+import com.matteoveroni.mydiary.application.messages.DataObjectMessage;
 import com.matteoveroni.mydiary.diary.model.DiaryModel;
 import com.matteoveroni.mydiary.diary.model.bean.Diary;
 import com.matteoveroni.mydiary.exceptions.CriticalRuntimeException;

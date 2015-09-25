@@ -1,5 +1,6 @@
 package com.matteoveroni.mydiary.application.manager;
 
+import com.matteoveroni.mydiary.application.messages.DataObjectMessage;
 import com.matteoveroni.mydiary.MyDiary;
 import com.matteoveroni.mydiary.database.DAO;
 import com.matteoveroni.mydiary.screen.Screen;

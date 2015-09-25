@@ -1,6 +1,6 @@
 package com.matteoveroni.mydiary.login.control;
 
-import com.matteoveroni.mydiary.application.manager.DataObjectMessage;
+import com.matteoveroni.mydiary.application.messages.DataObjectMessage;
 import com.matteoveroni.mydiary.application.manager.Manageable;
 import com.matteoveroni.mydiary.application.manager.Manager;
 import com.matteoveroni.mydiary.utilities.patterns.Listener;

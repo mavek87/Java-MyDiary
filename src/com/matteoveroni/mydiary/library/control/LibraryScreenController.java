@@ -3,7 +3,7 @@ package com.matteoveroni.mydiary.library.control;
 import com.matteoveroni.mydiary.application.manager.Manageable;
 import com.matteoveroni.mydiary.application.manager.Manager;
 import com.matteoveroni.mydiary.utilities.patterns.Listener;
-import com.matteoveroni.mydiary.application.manager.DataObjectMessage;
+import com.matteoveroni.mydiary.application.messages.DataObjectMessage;
 import com.matteoveroni.mydiary.diary.model.bean.Diary;
 import com.matteoveroni.mydiary.library.model.LibraryModel;
 import com.matteoveroni.mydiary.screen.framework.ScreensFramework;

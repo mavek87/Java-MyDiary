@@ -2,6 +2,7 @@ package com.matteoveroni.mydiary.login.model;
 
 import com.matteoveroni.mydiary.database.DAO;
 import com.matteoveroni.mydiary.user.model.bean.UserData;
+import com.matteoveroni.mydiary.utilities.formatters.ExceptionsFormatter;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,7 @@ public class LoginModel {
 				throw new Exception("Database invalid - multiple users with same username!");
 			}
 		} catch (Exception ex) {
-			LOG.error("---> " + ex.getMessage());
+			LOG.error("---> " + ExceptionsFormatter.toString(ex));
 		}
 		return searchedUser;
 	}

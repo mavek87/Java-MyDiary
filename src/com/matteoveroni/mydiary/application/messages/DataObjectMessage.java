@@ -1,4 +1,4 @@
-package com.matteoveroni.mydiary.application.manager;
+package com.matteoveroni.mydiary.application.messages;
 
 /**
  *
