@@ -63,7 +63,9 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         cmb_chooseDiary.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 try {
@@ -71,7 +73,9 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
                     selectedDiary = userDiaries.get(selectedDiaryIndex);
                     btn_openDiary.setDisable(false);
                 } catch (Exception ex) {
-                    btn_openDiary.setDisable(true);
+                    if (!btn_openDiary.isDisable()) {
+                        btn_openDiary.setDisable(true);
+                    }
                     selectedDiary = null;
                 }
             }
@@ -103,9 +107,9 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
             diary.setName(txt_newDiaryName.getText());
             if (model.createNewDiary(diary, manager.getLoggedInUser())) {
                 update(null);
-                JOptionPane.showMessageDialog(null, "New Diary \'" + diary.getName() + "\' created!");
+                JOptionPane.showMessageDialog(null, "New Diary \'" + diary.getName() + "\' created");
             } else {
-                JOptionPane.showMessageDialog(null, "Error during \'" + diary.getName() + "\' creations!");
+                JOptionPane.showMessageDialog(null, "Error during \'" + diary.getName() + "\' creations");
             }
             txt_newDiaryName.setText("");
         }

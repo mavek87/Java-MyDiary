@@ -34,23 +34,23 @@ public class ApplicationManagerBuilder {
     }
 
     public ApplicationManager build() {
-        LOG.debug(" ---> Starting to build the application manager");
+        LOG.debug(" ---> Building the Application Manager ...");
         screenManagerSetup();
         loadScreensInScreenManager();
         useInitialScreen();
         applicationManager = new ApplicationManager(applicationName, applicationVersion, screenManager, databaseManager);
-        LOG.debug(" ---> Application manager builded");
+        LOG.debug(" ---> Application Manager Builded");
         return applicationManager;
     }
 
     private void screenManagerSetup() {
-        LOG.debug(" ---> Starting to setup the screen manager");
+        LOG.debug(" ---> Setting up the Screen Manager ...");
         screenManager.getApplicationStage().setTitle("\t" + applicationName + " - v. " + applicationVersion);
         screenManager.getApplicationStage().show();
     }
 
     private void loadScreensInScreenManager() {
-        LOG.debug(" ---> Starting to load all the screens in the screen manager");
+        LOG.debug(" ---> Loading Screens inside the Screen Manager");
         int indexOfTheCurrentScreenToBuild = 0;
         try {
             for (ScreensFramework screenTypeToBuild : ScreensFramework.values()) {
@@ -59,13 +59,13 @@ public class ApplicationManagerBuilder {
                 indexOfTheCurrentScreenToBuild++;
             }
         } catch (Exception ex) {
-            LOG.error(" ---> IMPOSSIBLE TO BUILD SCREEN -> \'" + ScreensFramework.values()[indexOfTheCurrentScreenToBuild] + "\'!\n\nException occurred: \n" + ex);
+            LOG.error(" ---> IMPOSSIBLE TO BUILD THE SCREEN -> \'" + ScreensFramework.values()[indexOfTheCurrentScreenToBuild] + "\'!\n\nException occurred: \n" + ex);
             throw new RuntimeException(ex);
         }
     }
 
     private void useInitialScreen() {
-        LOG.debug(" ---> Use the login screen");
+        LOG.debug(" ---> Using the Login Screen");
         screenManager.useScreen(ScreensFramework.LOGIN_SCREEN);
     }
 

@@ -7,7 +7,7 @@ import com.matteoveroni.mydiary.note.model.bean.Note;
 import com.matteoveroni.mydiary.application.messages.DataObjectMessage;
 import com.matteoveroni.mydiary.diary.model.DiaryModel;
 import com.matteoveroni.mydiary.diary.model.bean.Diary;
-import com.matteoveroni.mydiary.exceptions.CriticalRuntimeException;
+import com.matteoveroni.mydiary.utilities.exceptions.CriticalRuntimeException;
 import com.matteoveroni.mydiary.library.control.LibraryScreenController;
 import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
 import java.net.URL;
@@ -125,7 +125,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
                     currentSelectedNote = null;
 
                     List<Note> notesFromDatabase = model.getAllTheNotes();
-                    LOG.debug("---> notes size" + notesFromDatabase.size());
+                    LOG.debug(" ---> Notes Size" + notesFromDatabase.size());
 
                     if (notesFromDatabase.size() > 0) {
                         ObservableList<Note> annotationsForTable = FXCollections.observableArrayList(notesFromDatabase);
@@ -135,7 +135,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
                     btn_removeNote.setDisable(true);
                 }
             } catch (Exception ex) {
-                LOG.error("---> Critical Runtime Exception Occurred -> " + ex.getMessage());
+                LOG.error(" ---> Critical Runtime Exception Occurred -> " + ex.getMessage());
                 throw new CriticalRuntimeException(ex, manager);
             }
         }

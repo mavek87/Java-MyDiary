@@ -1,4 +1,4 @@
-package com.matteoveroni.mydiary.controlles.interfaces;
+package com.matteoveroni.mydiary.controllers.interfaces;
 
 import com.matteoveroni.mydiary.application.manager.Manager;
 

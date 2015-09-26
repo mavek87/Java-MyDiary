@@ -1,4 +1,4 @@
-package com.matteoveroni.mydiary.exceptions;
+package com.matteoveroni.mydiary.utilities.exceptions;
 
 import com.matteoveroni.mydiary.application.manager.Manager;
 
