@@ -12,9 +12,8 @@ import org.slf4j.LoggerFactory;
  * @author Matteo Veroni
  */
 public class LoginModel {
-
 	private final DAO databaseManager = DAO.getInstance();
-	private final String NAME_OF_THE_USER_TABLE = "USERS";
+	private final String USERS_TABLE = "USERS";
 
 	private static final Logger LOG = LoggerFactory.getLogger(LoginModel.class);
 
@@ -22,16 +21,14 @@ public class LoginModel {
 		List<UserData> usersRetrieved;
 		UserData searchedUser = null;
 		try {
-			String QUERY = "select * from " + NAME_OF_THE_USER_TABLE + " where USERNAME=\'" + searchedUsername + "\'";
-			LOG.debug("---> QUERY -> " + QUERY);
-			usersRetrieved = databaseManager.querySQL(QUERY, UserData.class);
+			String QUERY_THAT_SEARCH_USERNAME = "select * from " + USERS_TABLE + " where USERNAME=\'" + searchedUsername + "\'";
+			LOG.debug(" ---> QUERY that search username -> " + QUERY_THAT_SEARCH_USERNAME);
+			usersRetrieved = databaseManager.querySQL(QUERY_THAT_SEARCH_USERNAME, UserData.class);
 			if (usersRetrieved.size() == 1) {
 				searchedUser = usersRetrieved.get(0);
-			} else {
-				throw new Exception("Database invalid - multiple users with same username!");
 			}
 		} catch (Exception ex) {
-			LOG.error("---> " + ExceptionsFormatter.toString(ex));
+			LOG.error(" ---> " + ExceptionsFormatter.toString(ex));
 		}
 		return searchedUser;
 	}
