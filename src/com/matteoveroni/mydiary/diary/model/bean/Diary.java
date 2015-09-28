@@ -13,8 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 /**
  *
@@ -32,7 +30,6 @@ public class Diary implements Serializable {
 	private String name;
 
 	@OneToMany(fetch = FetchType.EAGER)
-	@Fetch(value = FetchMode.SUBSELECT)
 	@JoinTable(name = "DIARIES_NOTES",
 		joinColumns = {
 			@JoinColumn(name = "DIARY_ID", referencedColumnName = "ID")
