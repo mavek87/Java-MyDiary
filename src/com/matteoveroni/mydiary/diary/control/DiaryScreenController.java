@@ -116,16 +116,15 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	}
 
 	@Override
-	public void update(DataObjectMessage pushedData) {
+	public void update(DataObjectMessage data) {
 		if (manager.getLoggedInUser() != null) {
 			try {
-				if (pushedData != null && pushedData.getSenderClass().equals(LibraryScreenController.class)) {
-					currentDiary = (Diary) pushedData.getData();
+				if (data != null && data.getSenderClass().equals(LibraryScreenController.class)) {
+					currentDiary = (Diary) data.getData();
 					model.setDiary(currentDiary);
 					currentSelectedNote = null;
 
 					List<Note> notesFromDatabase = model.getAllTheNotes();
-					//LOG.debug(" ---> Notes Size" + notesFromDatabase.size());
 
 					if (notesFromDatabase != null && notesFromDatabase.size() > 0) {
 						ObservableList<Note> annotationsForTable = FXCollections.observableArrayList(notesFromDatabase);
@@ -140,7 +139,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 			}
 		}
 	}
-
+// DA ELIMINARE ????
 	@FXML
 	void goToNoteScreen(ActionEvent event) {
 		if (currentSelectedNote != null) {

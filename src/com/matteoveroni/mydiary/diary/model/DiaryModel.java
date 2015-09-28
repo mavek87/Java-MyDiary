@@ -1,5 +1,6 @@
 package com.matteoveroni.mydiary.diary.model;
 
+import com.matteoveroni.mydiary.database.DAO;
 import com.matteoveroni.mydiary.note.model.bean.Note;
 import com.matteoveroni.mydiary.diary.model.bean.Diary;
 import com.matteoveroni.mydiary.utilities.formatters.ExceptionsFormatter;
@@ -13,7 +14,7 @@ import org.slf4j.LoggerFactory;
  */
 public class DiaryModel {
 
-//	private final DAO databaseManager = DAO.getInstance();
+    private final DAO databaseManager = DAO.getInstance();
 	private Diary diary;
 	private static final Logger LOG = LoggerFactory.getLogger(DiaryModel.class);
 
@@ -29,7 +30,7 @@ public class DiaryModel {
 			LOG.error(" ---> " + ExceptionsFormatter.toString(ex));
 		}
 		return firstNote;
-//		return (Annotation) databaseManager.read(HibernateAnnotationBean.class, null, DAO.ElementsOnWhichOperate.FIRST);
+//		return (Note) databaseManager.read(Note.class, null, DAO.ElementsOnWhichOperate.FIRST);
 	}
 
 	public Note getLastNote() {
@@ -47,8 +48,6 @@ public class DiaryModel {
 	}
 
 	public List<Note> getAllTheNotes() {
-		//Session session = databaseManager.openSession();
-		//databaseManager.closeSession(session);
 		List<Note> diaryNotes = null;
 		try {
 			diaryNotes = diary.getNotes();
@@ -60,15 +59,20 @@ public class DiaryModel {
 
 	public void createNewNote(Note noteToSave) {
 		try {
-			diary.getNotes().add((Note) noteToSave);
+			diary.getNotes().add(noteToSave);
+			databaseManager.write(noteToSave);
 		} catch (Exception ex) {
+			LOG.error(" ---> " + ExceptionsFormatter.toString(ex));
 		}
 	}
 
 	public void removeNote(Note noteToRemove) {
 		try {
-			diary.getNotes().remove((Note) noteToRemove);
+			diary.getNotes().remove(noteToRemove);
+			databaseManager.update(noteToRemove);
 		} catch (Exception ex) {
+			LOG.error(" ---> " + ExceptionsFormatter.toString(ex));
 		}
 	}
 }
+
