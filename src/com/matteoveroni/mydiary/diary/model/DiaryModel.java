@@ -4,6 +4,7 @@ import com.matteoveroni.mydiary.database.DAO;
 import com.matteoveroni.mydiary.note.model.bean.Note;
 import com.matteoveroni.mydiary.diary.model.bean.Diary;
 import com.matteoveroni.mydiary.utilities.formatters.ExceptionsFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +15,7 @@ import org.slf4j.LoggerFactory;
  */
 public class DiaryModel {
 
-    private final DAO databaseManager = DAO.getInstance();
+	private final DAO databaseManager = DAO.getInstance();
 	private Diary diary;
 	private static final Logger LOG = LoggerFactory.getLogger(DiaryModel.class);
 
@@ -50,20 +51,35 @@ public class DiaryModel {
 	public List<Note> getAllTheNotes() {
 		List<Note> diaryNotes = null;
 		try {
-			diaryNotes = diary.getNotes();
+			if (diary.getNotes() != null) {
+				diaryNotes = diary.getNotes();
+			}
 		} catch (Exception ex) {
 			LOG.error(" ---> " + ExceptionsFormatter.toString(ex));
 		}
 		return diaryNotes;
 	}
 
-	public void createNewNote(Note noteToSave) {
+	public boolean createNewNote(Note newNoteToSave) {
 		try {
-			diary.getNotes().add(noteToSave);
-			databaseManager.write(noteToSave);
+			if (diary.getNotes() == null) {
+				LOG.debug(" ---> Diary " + diary.getName() + " has no notes.. creating the first one");
+				ArrayList<Note> updatedListOfNotes = new ArrayList<>();
+				updatedListOfNotes.add(newNoteToSave);
+				diary.setNotes(updatedListOfNotes);
+			} else {
+				LOG.debug(" ---> Diary " + diary.getName() + " has some diaries.. adding a new one");
+				diary.getNotes().add(newNoteToSave);
+			}
+			LOG.debug(" ---> Saving note in the DB...");
+			databaseManager.write(newNoteToSave);
+			LOG.debug(" ---> Updating diary " + diary.getName() + " in the DB...");
+			databaseManager.update(diary);
+			return true;
 		} catch (Exception ex) {
 			LOG.error(" ---> " + ExceptionsFormatter.toString(ex));
 		}
+		return false;
 	}
 
 	public void removeNote(Note noteToRemove) {
@@ -75,4 +91,3 @@ public class DiaryModel {
 		}
 	}
 }
-

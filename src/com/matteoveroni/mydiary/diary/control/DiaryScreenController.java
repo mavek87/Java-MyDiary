@@ -140,6 +140,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 		}
 	}
 // DA ELIMINARE ????
+
 	@FXML
 	void goToNoteScreen(ActionEvent event) {
 		if (currentSelectedNote != null) {
@@ -163,8 +164,9 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 //        newAnnotation.setAuthor(manager.getLoggedInUser().toString());
 		newNote.setCreationDate(new Date());
 		newNote.setLastModificationTimestamp(new Date());
-		model.createNewNote(newNote);
-		manager.changeScreen(ScreensFramework.NOTE_SCREEN);
+		if (model.createNewNote(newNote)) {
+			manager.changeScreen(ScreensFramework.NOTE_SCREEN);
+		}
 	}
 
 	@FXML
