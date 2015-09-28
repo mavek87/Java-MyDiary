@@ -7,7 +7,6 @@ import com.matteoveroni.mydiary.application.messages.DataObjectMessage;
 import com.matteoveroni.mydiary.diary.model.bean.Diary;
 import com.matteoveroni.mydiary.library.model.LibraryModel;
 import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
-import com.matteoveroni.mydiary.utilities.formatters.ExceptionsFormatter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;

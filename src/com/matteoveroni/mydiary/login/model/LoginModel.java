@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
  * @author Matteo Veroni
  */
 public class LoginModel {
+
 	private final DAO databaseManager = DAO.getInstance();
 	private final String USERS_TABLE = "USERS";
 

@@ -1,66 +1,68 @@
 package com.matteoveroni.mydiary.diary.model.bean;
 
 import com.matteoveroni.mydiary.note.model.bean.Note;
-import com.matteoveroni.mydiary.user.model.bean.UserData;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  *
  * @author Matteo Veroni
  */
 @Entity
-@Table(name="DIARIES")
+@Table(name = "DIARIES")
 public class Diary implements Serializable {
 
-    @Id
-    @GeneratedValue
-    private long id;
+	@Id
+	@GeneratedValue
+	private long id;
 
-    @Column
-    private String name;
+	@Column
+	private String name;
 
-    @OneToMany
-//    (fetch = FetchType.EAGER)
-//    @Fetch(value = FetchMode.SUBSELECT)
-//    @JoinTable(name = "DIARIES_NOTES",
-//        joinColumns = {
-//            @JoinColumn(name = "DIARY_ID", referencedColumnName = "ID")
-//        },
-//        inverseJoinColumns = {
-//            @JoinColumn(name = "NOTE_ID", referencedColumnName = "ID")
-//        })
-    private List<Note> notes = new ArrayList<>();
+	@OneToMany(fetch = FetchType.EAGER)
+	@Fetch(value = FetchMode.SUBSELECT)
+	@JoinTable(name = "DIARIES_NOTES",
+		joinColumns = {
+			@JoinColumn(name = "DIARY_ID", referencedColumnName = "ID")
+		},
+		inverseJoinColumns = {
+			@JoinColumn(name = "NOTE_ID", referencedColumnName = "ID")
+		})
+	private List<Note> notes = new ArrayList<>();
 
-    public long getId() {
-        return id;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
-    
-    public List<Note> getNotes() {
-        return notes;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setNotes(List<Note> notes) {
-        this.notes = notes;
-    }
+	public List<Note> getNotes() {
+		return notes;
+	}
+
+	public void setNotes(List<Note> notes) {
+		this.notes = notes;
+	}
 }
