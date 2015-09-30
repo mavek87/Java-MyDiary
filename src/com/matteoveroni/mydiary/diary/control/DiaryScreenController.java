@@ -149,7 +149,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	@FXML
 	void removeNote(ActionEvent event) {
 		if (currentSelectedNote != null) {
-			model.removeNote(currentSelectedNote);
+			model.removeNoteFromCurrentDiary(currentSelectedNote);
 			update(null);
 		}
 	}
@@ -161,7 +161,8 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 //        newAnnotation.setAuthor(manager.getLoggedInUser().toString());
 		newNote.setCreationDate(new Date());
 		newNote.setLastModificationTimestamp(new Date());
-		if (model.createNewNote(newNote)) {
+		if (model.saveNoteIntoCurrentDiary(newNote) == true) {
+			manager.storeObjectToPush(newNote, DiaryScreenController.class);
 			manager.changeScreen(ScreensFramework.NOTE_SCREEN);
 		}
 	}
@@ -189,8 +190,8 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	}
 
 	private void drawDiaryNotesInsideNotesTable() {
-		List<Note> notesFromDiary = model.getAllNotes(currentDiary);
-		for(Note note : notesFromDiary){
+		List<Note> notesFromDiary = model.getNotesFromCurrentDiary(currentDiary);
+		for (Note note : notesFromDiary) {
 			LOG.debug("ID: " + note.getId() + " Title: " + note.getTitle());
 		}
 		if (notesFromDiary != null && notesFromDiary.size() > 0) {

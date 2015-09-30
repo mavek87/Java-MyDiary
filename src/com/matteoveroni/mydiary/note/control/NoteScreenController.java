@@ -80,7 +80,7 @@ public class NoteScreenController implements Initializable, Manageable, Listener
 		if (manager != null && manager.getLoggedInUser() != null) {
 			try {
 				if (pushedData != null && pushedData.getSenderClass().equals(DiaryScreenController.class)) {
-					LOG.debug("---> pushed data " + pushedData.getSenderClass().toString());
+					LOG.debug(" ---> pushed data " + pushedData.getSenderClass().toString());
 					Note sendedNote = (Note) pushedData.getData();
 					currentNote = model.getNote(sendedNote.getId());
 					drawCurrentModelOnTheScene();
@@ -100,7 +100,6 @@ public class NoteScreenController implements Initializable, Manageable, Listener
 	void saveNoteButtonPressed(ActionEvent event) {
 		currentNote.setTitle(txt_title.getText());
 		currentNote.setMessage(htmlEditor_noteMessage.getHtmlText());
-//        currentAnnotation.setAuthor(manager.getLoggedInUser().toString());
 		currentNote.setLastModificationTimestamp(new Date());
 		model.updateNote(currentNote);
 		drawCurrentModelOnTheScene();
@@ -159,16 +158,4 @@ public class NoteScreenController implements Initializable, Manageable, Listener
 		txt_creationDate.setText("");
 		txt_lastModificationDate.setText("");
 	}
-
-//    private void createFirstDefaultAnnotation() {
-//        Annotation newAnnotation = AnnotationFactory.createAnnotation(AnnotationType.HIBERNATE);
-//        newAnnotation.setTitle("Title");
-//        newAnnotation.setAuthor(manager.getLoggedInUser().toString());
-//        newAnnotation.setMessage("");
-//        Date currentDate = new Date();
-//        newAnnotation.setCreationDate(currentDate);
-//        newAnnotation.setLastModificationTimestamp(currentDate);
-//        model.saveAnnotation(newAnnotation);
-//        currentAnnotation = newAnnotation;
-//    }
 }

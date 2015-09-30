@@ -63,7 +63,7 @@ public class DiaryModel {
 //		}
 //		return diaryNotes;
 //	}
-    public List<Note> getAllNotes(Diary diary) {
+    public List<Note> getNotesFromCurrentDiary(Diary currentDiary) {
         List<Note> notesRetrieved = null;
         try {
             final String QUERY_THAT_FIND_ALL_THE_NOTES_IN_A_DIARY = ""
@@ -72,7 +72,7 @@ public class DiaryModel {
                 + "WHERE dn.DIARY_ID = "
                 + "("
                 + "SELECT ID FROM " + DIARIES_TABLE + " "
-                + "WHERE ID = " + diary.getId()
+                + "WHERE ID = " + currentDiary.getId()
                 + ")";
             LOG.debug(" ---> QUERY_THAT_FIND_ALL_THE_NOTES_IN_A_DIARY -> " + QUERY_THAT_FIND_ALL_THE_NOTES_IN_A_DIARY);
             notesRetrieved = databaseManager.querySQL(QUERY_THAT_FIND_ALL_THE_NOTES_IN_A_DIARY, Note.class);
@@ -82,19 +82,19 @@ public class DiaryModel {
         return notesRetrieved;
     }
 
-    public boolean createNewNote(Note newNoteToSave) {
+    public boolean saveNoteIntoCurrentDiary(Note note) {
         try {
             if (diary.getNotes() == null) {
                 LOG.debug(" ---> Diary " + diary.getName() + " has no notes.. creating the first one");
                 ArrayList<Note> updatedListOfNotes = new ArrayList<>();
-                updatedListOfNotes.add(newNoteToSave);
+                updatedListOfNotes.add(note);
                 diary.setNotes(updatedListOfNotes);
             } else {
                 LOG.debug(" ---> Diary " + diary.getName() + " has some diaries.. adding a new one");
-                diary.getNotes().add(newNoteToSave);
+                diary.getNotes().add(note);
             }
             LOG.debug(" ---> Saving note in the DB...");
-            databaseManager.write(newNoteToSave);
+            databaseManager.write(note);
             LOG.debug(" ---> Updating diary " + diary.getName() + " in the DB...");
             databaseManager.update(diary);
             return true;
@@ -104,10 +104,10 @@ public class DiaryModel {
         return false;
     }
 
-    public void removeNote(Note noteToRemove) {
+    public void removeNoteFromCurrentDiary(Note note) {
         try {
-            diary.getNotes().remove(noteToRemove);
-            databaseManager.update(noteToRemove);
+            diary.getNotes().remove(note);
+            databaseManager.update(note);
         } catch (Exception ex) {
             LOG.error(" ---> " + ExceptionsFormatter.toString(ex));
         }
