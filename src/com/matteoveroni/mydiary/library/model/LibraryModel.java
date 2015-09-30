@@ -6,11 +6,11 @@ import com.matteoveroni.mydiary.user.model.bean.UserData;
 import com.matteoveroni.mydiary.utilities.formatters.ExceptionsFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
  * @author Matteo Veroni
  */
 public class LibraryModel {
@@ -55,7 +55,6 @@ public class LibraryModel {
                 + "SELECT ID FROM " + USERS_TABLE + " "
                 + "WHERE ID = " + user.getId()
                 + ")";
-
             LOG.debug(" ---> QUERY_THAT_FIND_CURRENT_USER_DIARIES -> " + QUERY_THAT_FIND_CURRENT_USER_DIARIES);
             diariesRetrieved = databaseManager.querySQL(QUERY_THAT_FIND_CURRENT_USER_DIARIES, Diary.class);
         } catch (Exception ex) {

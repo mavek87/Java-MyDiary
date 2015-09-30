@@ -28,6 +28,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javax.swing.JOptionPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -157,8 +158,8 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	@FXML
 	void createNewNote(ActionEvent event) {
 		Note newNote = new Note();
-		newNote.setTitle("New Title");
-//        newAnnotation.setAuthor(manager.getLoggedInUser().toString());
+		String noteTitle = JOptionPane.showInputDialog("Insert a title for the new note");
+		newNote.setTitle(noteTitle);
 		newNote.setCreationDate(new Date());
 		newNote.setLastModificationTimestamp(new Date());
 		if (model.saveNoteIntoCurrentDiary(newNote) == true) {
