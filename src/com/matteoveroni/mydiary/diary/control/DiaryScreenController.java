@@ -38,153 +38,165 @@ import org.slf4j.LoggerFactory;
  */
 public class DiaryScreenController implements Initializable, Manageable, Listener {
 
-    private Manager manager;
-    private final DiaryModel model = new DiaryModel();
-    private Diary currentDiary = new Diary();
-    private Note currentSelectedNote;
+	private Manager manager;
+	private final DiaryModel model = new DiaryModel();
+	private Diary currentDiary = new Diary();
+	private Note currentSelectedNote;
 
-    private static final Logger LOG = LoggerFactory.getLogger(DiaryScreenController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(DiaryScreenController.class);
 
-    @FXML
-    private TableView<Note> diaryTable;
-    @FXML
-    private TableColumn<Note, Long> tableColumn_Id;
-    @FXML
-    private TableColumn<Note, String> tableColumn_Title;
-    @FXML
-    private TableColumn<Note, Date> tableColumn_CreationDate;
-    @FXML
-    private TableColumn<Note, Date> tableColumn_LastModificationTimestamp;
-    @FXML
-    private TableColumn<Note, String> tableColumn_Author;
-    @FXML
-    private Button btn_filterNote;
-    @FXML
-    private Button btn_openNote;
-    @FXML
-    private Button btn_createNewNote;
-    @FXML
-    private CheckBox chk_enableFilter;
-    @FXML
-    private Button btn_removeNote;
+	@FXML
+	private TableView<Note> diaryTable;
+	@FXML
+	private TableColumn<Note, Long> tableColumn_Id;
+	@FXML
+	private TableColumn<Note, String> tableColumn_Title;
+	@FXML
+	private TableColumn<Note, Date> tableColumn_CreationDate;
+	@FXML
+	private TableColumn<Note, Date> tableColumn_LastModificationTimestamp;
+	@FXML
+	private TableColumn<Note, String> tableColumn_Author;
+	@FXML
+	private Button btn_filterNote;
+	@FXML
+	private Button btn_openNote;
+	@FXML
+	private Button btn_createNewNote;
+	@FXML
+	private CheckBox chk_enableFilter;
+	@FXML
+	private Button btn_removeNote;
 
-    /**
-     * Initializes the DiaryScreenController class.
-     *
-     * @param url
-     * @param rb
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        diaryTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+	/**
+	 * Initializes the DiaryScreenController class.
+	 *
+	 * @param url
+	 * @param rb
+	 */
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		diaryTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        tableColumn_Id.setCellValueFactory(new PropertyValueFactory<Note, Long>("id"));
-        tableColumn_Title.setCellValueFactory(new PropertyValueFactory<Note, String>("title"));
-        tableColumn_CreationDate.setCellValueFactory(new PropertyValueFactory<Note, Date>("creationDate"));
-        tableColumn_LastModificationTimestamp.setCellValueFactory(new PropertyValueFactory<Note, Date>("lastModificationTimestamp"));
-        tableColumn_Author.setCellValueFactory(new PropertyValueFactory<Note, String>("author"));
+		tableColumn_Id.setCellValueFactory(new PropertyValueFactory<Note, Long>("id"));
+		tableColumn_Title.setCellValueFactory(new PropertyValueFactory<Note, String>("title"));
+		tableColumn_CreationDate.setCellValueFactory(new PropertyValueFactory<Note, Date>("creationDate"));
+		tableColumn_LastModificationTimestamp.setCellValueFactory(new PropertyValueFactory<Note, Date>("lastModificationTimestamp"));
+		tableColumn_Author.setCellValueFactory(new PropertyValueFactory<Note, String>("author"));
 
-        diaryTable.focusedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                if (newPropertyValue) {
-                    // diaryTable's focus ON
-                    if (diaryTable.getSelectionModel().getSelectedItem() != null) {
-                        currentSelectedNote = diaryTable.getSelectionModel().getSelectedItem();
-                        btn_openNote.setDisable(false);
-                        btn_removeNote.setDisable(false);
-                    }
-                }
-            }
-        });
+		diaryTable.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+				if (newPropertyValue) {
+					// diaryTable's focus ON
+					if (diaryTable.getSelectionModel().getSelectedItem() != null) {
+						currentSelectedNote = diaryTable.getSelectionModel().getSelectedItem();
+						btn_openNote.setDisable(false);
+						btn_removeNote.setDisable(false);
+					}
+				}
+			}
+		});
 
-        diaryTable.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                    currentSelectedNote = diaryTable.getSelectionModel().getSelectedItem();
-                    openSelectedNote();
-                }
-            }
-        });
-    }
+		diaryTable.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+					currentSelectedNote = diaryTable.getSelectionModel().getSelectedItem();
+					openSelectedNote();
+				}
+			}
+		});
+	}
 
-    @Override
-    public void setManager(Manager manager) {
-        this.manager = manager;
-        manager.registerListener(this);
-    }
+	@Override
+	public void setManager(Manager manager) {
+		this.manager = manager;
+		manager.registerListener(this);
+	}
 
-    @Override
-    public void update(DataObjectMessage sendedData) {
-        if (manager != null && manager.getLoggedInUser() != null) {
-            try {
-                if (sendedData != null && sendedData.getSenderClass() != null) {
-                    if (sendedData.getSenderClass().equals(LibraryScreenController.class)) {
-                        currentDiary = (Diary) sendedData.getData();
-                        model.setDiary(currentDiary);
-                        currentSelectedNote = null;
-                    }
-                    List<Note> notesFromDiary = model.getAllNotes(currentDiary);
-                    if (notesFromDiary != null && notesFromDiary.size() > 0) {
-                        LOG.debug("There are notes in this diary. I\'ll populate the table of notes");
-                        ObservableList<Note> notesForTheTable = FXCollections.observableArrayList(notesFromDiary);
-                        diaryTable.setItems(notesForTheTable);
-                    }
-                    btn_openNote.setDisable(true);
-                    btn_removeNote.setDisable(true);
-                }
-            } catch (Exception ex) {
-                LOG.error(" ---> Critical Runtime Exception Occurred -> " + ex.getMessage());
-                throw new CriticalRuntimeException(ex, manager);
-            }
-        }
-    }
+	@Override
+	public void update(DataObjectMessage sendedData) {
+		if (manager != null && manager.getLoggedInUser() != null) {
+			if (sendedData != null && sendedData.getSenderClass() != null) {
+				try {
+					if (sendedData.getSenderClass().equals(LibraryScreenController.class)) {
+						setCurrentDiary((Diary) sendedData.getData());
+					}
+					if (currentDiary != null) {
+						drawDiaryNotesInsideNotesTable();
+					}
+					btn_openNote.setDisable(true);
+					btn_removeNote.setDisable(true);
+				} catch (Exception ex) {
+					LOG.error(" ---> Critical Runtime Exception Occurred -> " + ex.getMessage());
+					throw new CriticalRuntimeException(ex, manager);
+				}
+			}
+		}
+	}
 
 // DA ELIMINARE ????
-    @FXML
-    void goToNoteScreen(ActionEvent event) {
-        if (currentSelectedNote != null) {
-            manager.storeObjectToPush(currentSelectedNote, DiaryScreenController.class
-            );
-            manager.changeScreen(ScreensFramework.NOTE_SCREEN);
-        }
-    }
+	@FXML
+	void goToNoteScreen(ActionEvent event) {
+		if (currentSelectedNote != null) {
+			manager.storeObjectToPush(currentSelectedNote, DiaryScreenController.class
+			);
+			manager.changeScreen(ScreensFramework.NOTE_SCREEN);
+		}
+	}
 
-    @FXML
-    void removeNote(ActionEvent event) {
-        if (currentSelectedNote != null) {
-            model.removeNote(currentSelectedNote);
-            update(null);
-        }
-    }
+	@FXML
+	void removeNote(ActionEvent event) {
+		if (currentSelectedNote != null) {
+			model.removeNote(currentSelectedNote);
+			update(null);
+		}
+	}
 
-    @FXML
-    void createNewNote(ActionEvent event) {
-        Note newNote = new Note();
-        newNote.setTitle("New Title");
+	@FXML
+	void createNewNote(ActionEvent event) {
+		Note newNote = new Note();
+		newNote.setTitle("New Title");
 //        newAnnotation.setAuthor(manager.getLoggedInUser().toString());
-        newNote.setCreationDate(new Date());
-        newNote.setLastModificationTimestamp(new Date());
-        if (model.createNewNote(newNote)) {
-            manager.changeScreen(ScreensFramework.NOTE_SCREEN);
-        }
-    }
+		newNote.setCreationDate(new Date());
+		newNote.setLastModificationTimestamp(new Date());
+		if (model.createNewNote(newNote)) {
+			manager.changeScreen(ScreensFramework.NOTE_SCREEN);
+		}
+	}
 
-    @FXML
-    void goToFilterScreen(ActionEvent event) {
-    }
+	@FXML
+	void goToFilterScreen(ActionEvent event) {
+	}
 
-    @FXML
+	@FXML
 
-    void enableFilter(ActionEvent event) {
-    }
+	void enableFilter(ActionEvent event) {
+	}
 
-    private void openSelectedNote() {
-        if (currentSelectedNote != null) {
-            manager.storeObjectToPush(currentSelectedNote, DiaryScreenController.class
-            );
-            manager.changeScreen(ScreensFramework.NOTE_SCREEN);
-        }
-    }
+	private void openSelectedNote() {
+		if (currentSelectedNote != null) {
+			manager.storeObjectToPush(currentSelectedNote, DiaryScreenController.class);
+			manager.changeScreen(ScreensFramework.NOTE_SCREEN);
+		}
+	}
+
+	private void setCurrentDiary(Diary diary) {
+		currentDiary = diary;
+		model.setDiary(currentDiary);
+		currentSelectedNote = null;
+	}
+
+	private void drawDiaryNotesInsideNotesTable() {
+		List<Note> notesFromDiary = model.getAllNotes(currentDiary);
+		for(Note note : notesFromDiary){
+			LOG.debug("ID: " + note.getId() + " Title: " + note.getTitle());
+		}
+		if (notesFromDiary != null && notesFromDiary.size() > 0) {
+			LOG.debug(" ---> There are notes in this diary. Populating the notes_table with retrieved notes");
+			ObservableList<Note> notesForTheTable = FXCollections.observableArrayList(notesFromDiary);
+			diaryTable.setItems(notesForTheTable);
+		}
+	}
 }
