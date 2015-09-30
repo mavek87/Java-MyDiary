@@ -27,7 +27,7 @@ public class DiaryModel {
 		this.diary = diary;
 	}
 
-	public List<Note> getNotesFromCurrentDiary(Diary currentDiary) {
+	public List<Note> getNotesFromCurrentDiary() {
 		List<Note> notesRetrieved = null;
 		try {
 			final String QUERY_THAT_FIND_ALL_THE_NOTES_IN_A_DIARY = ""
@@ -36,7 +36,7 @@ public class DiaryModel {
 				+ "WHERE dn.DIARY_ID = "
 				+ "("
 				+ "SELECT ID FROM " + DIARIES_TABLE + " "
-				+ "WHERE ID = " + currentDiary.getId()
+				+ "WHERE ID = " + diary.getId()
 				+ ")";
 			LOG.debug(" ---> QUERY_THAT_FIND_ALL_THE_NOTES_IN_A_DIARY -> " + QUERY_THAT_FIND_ALL_THE_NOTES_IN_A_DIARY);
 			notesRetrieved = databaseManager.querySQL(QUERY_THAT_FIND_ALL_THE_NOTES_IN_A_DIARY, Note.class);
@@ -68,10 +68,21 @@ public class DiaryModel {
 		return false;
 	}
 
-	public void removeNoteFromCurrentDiary(Note note) {
+	public void removeNoteFromCurrentDiary(Note note){
+//		List<Note> notesRetrieved = null;
 		try {
-			diary.getNotes().remove(note);
-			databaseManager.update(note);
+			databaseManager.delete(note);
+			databaseManager.update(diary);
+//			final String QUERY_THAT_FIND_ALL_THE_NOTES_IN_A_DIARY = ""
+//				+ "DELETE * FROM " + NOTES_TABLE + " n "
+//				+ "INNER JOIN " + DIARIES_NOTES_TABLE + " dn ON dn.NOTE_ID = n.ID "
+//				+ "WHERE dn.DIARY_ID = "
+//				+ "("
+//				+ "SELECT ID FROM " + DIARIES_TABLE + " "
+//				+ "WHERE ID = " + currentDiary.getId()
+//				+ ")";
+//			LOG.debug(" ---> QUERY_THAT_FIND_ALL_THE_NOTES_IN_A_DIARY -> " + QUERY_THAT_FIND_ALL_THE_NOTES_IN_A_DIARY);
+//			notesRetrieved = databaseManager.querySQL(QUERY_THAT_FIND_ALL_THE_NOTES_IN_A_DIARY, Note.class);
 		} catch (Exception ex) {
 			LOG.error(" ---> " + ExceptionsFormatter.toString(ex));
 		}

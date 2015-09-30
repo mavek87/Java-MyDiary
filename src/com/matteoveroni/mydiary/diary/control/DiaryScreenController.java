@@ -124,9 +124,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 					if (sendedData.getSenderClass().equals(LibraryScreenController.class)) {
 						setCurrentDiary((Diary) sendedData.getData());
 					}
-					if (currentDiary != null) {
-						drawDiaryNotesInsideNotesTable();
-					}
+					drawUpdatedDiaryNotesInsideNotesTable();
 					btn_openNote.setDisable(true);
 					btn_removeNote.setDisable(true);
 				} catch (Exception ex) {
@@ -141,8 +139,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	@FXML
 	void goToNoteScreen(ActionEvent event) {
 		if (currentSelectedNote != null) {
-			manager.storeObjectToPush(currentSelectedNote, DiaryScreenController.class
-			);
+			manager.storeObjectToPush(currentSelectedNote, DiaryScreenController.class);
 			manager.changeScreen(ScreensFramework.NOTE_SCREEN);
 		}
 	}
@@ -151,7 +148,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	void removeNote(ActionEvent event) {
 		if (currentSelectedNote != null) {
 			model.removeNoteFromCurrentDiary(currentSelectedNote);
-			update(null);
+			drawUpdatedDiaryNotesInsideNotesTable();
 		}
 	}
 
@@ -159,9 +156,9 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	void createNewNote(ActionEvent event) {
 		String noteTitle = JOptionPane.showInputDialog(
 			null,
-			"Insert a title for the new note",
+			"Insert a title for the new note and confirm, or press cancel to abort the operation",
 			"Set Note\'s Title",
-			JOptionPane.WARNING_MESSAGE
+			JOptionPane.QUESTION_MESSAGE
 		);
 		if (noteTitle != null) {
 			Note newNote = new Note();
@@ -180,7 +177,6 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	}
 
 	@FXML
-
 	void enableFilter(ActionEvent event) {
 	}
 
@@ -197,15 +193,17 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 		currentSelectedNote = null;
 	}
 
-	private void drawDiaryNotesInsideNotesTable() {
-		List<Note> notesFromDiary = model.getNotesFromCurrentDiary(currentDiary);
-		for (Note note : notesFromDiary) {
-			LOG.debug("ID: " + note.getId() + " Title: " + note.getTitle());
-		}
-		if (notesFromDiary != null && notesFromDiary.size() > 0) {
-			LOG.debug(" ---> There are notes in this diary. Populating the notes_table with retrieved notes");
-			ObservableList<Note> notesForTheTable = FXCollections.observableArrayList(notesFromDiary);
-			diaryTable.setItems(notesForTheTable);
+	private void drawUpdatedDiaryNotesInsideNotesTable() {
+		if (currentDiary != null) {
+			List<Note> notesFromDiary = model.getNotesFromCurrentDiary();
+			for (Note note : notesFromDiary) {
+				LOG.debug("ID: " + note.getId() + " Title: " + note.getTitle());
+			}
+			if (notesFromDiary != null && notesFromDiary.size() > 0) {
+				LOG.debug(" ---> There are notes in this diary. Populating the notes_table with retrieved notes");
+				ObservableList<Note> notesForTheTable = FXCollections.observableArrayList(notesFromDiary);
+				diaryTable.setItems(notesForTheTable);
+			}
 		}
 	}
 }

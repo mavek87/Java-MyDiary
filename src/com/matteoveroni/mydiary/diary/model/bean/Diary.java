@@ -4,6 +4,7 @@ import com.matteoveroni.mydiary.note.model.bean.Note;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,7 +30,7 @@ public class Diary implements Serializable {
 	@Column
 	private String name;
 
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinTable(name = "DIARIES_NOTES",
 		joinColumns = {
 			@JoinColumn(name = "DIARY_ID", referencedColumnName = "ID")
