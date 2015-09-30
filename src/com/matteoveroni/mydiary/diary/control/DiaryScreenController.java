@@ -157,14 +157,21 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 
 	@FXML
 	void createNewNote(ActionEvent event) {
-		Note newNote = new Note();
-		String noteTitle = JOptionPane.showInputDialog("Insert a title for the new note");
-		newNote.setTitle(noteTitle);
-		newNote.setCreationDate(new Date());
-		newNote.setLastModificationTimestamp(new Date());
-		if (model.saveNoteIntoCurrentDiary(newNote) == true) {
-			manager.storeObjectToPush(newNote, DiaryScreenController.class);
-			manager.changeScreen(ScreensFramework.NOTE_SCREEN);
+		String noteTitle = JOptionPane.showInputDialog(
+			null,
+			"Insert a title for the new note",
+			"Set Note\'s Title",
+			JOptionPane.WARNING_MESSAGE
+		);
+		if (noteTitle != null) {
+			Note newNote = new Note();
+			newNote.setTitle(noteTitle);
+			newNote.setCreationDate(new Date());
+			newNote.setLastModificationTimestamp(new Date());
+			if (model.saveNoteIntoCurrentDiary(newNote) == true) {
+				manager.storeObjectToPush(newNote, DiaryScreenController.class);
+				manager.changeScreen(ScreensFramework.NOTE_SCREEN);
+			}
 		}
 	}
 
