@@ -68,7 +68,7 @@ public class DiaryModel {
         try {
             final String QUERY_THAT_FIND_ALL_THE_NOTES_IN_A_DIARY = ""
                 + "SELECT * FROM " + NOTES_TABLE + " n "
-                + "INNER JOIN " + DIARIES_NOTES_TABLE + " dn ON dn.DIARY_ID = n.ID "
+                + "INNER JOIN " + DIARIES_NOTES_TABLE + " dn ON dn.NOTE_ID = n.ID "
                 + "WHERE dn.DIARY_ID = "
                 + "("
                 + "SELECT ID FROM " + DIARIES_TABLE + " "
