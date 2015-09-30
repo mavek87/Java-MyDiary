@@ -71,7 +71,9 @@ public class RegistrationScreenController implements Manageable, Initializable, 
 
 	@Override
 	public void update(DataObjectMessage pushedData) {
-		clearAllTheFieldsOnTheForm();
+		if (manager != null && manager.getLoggedInUser() != null) {
+			clearAllTheFieldsOnTheForm();
+		}
 	}
 
 	@Override

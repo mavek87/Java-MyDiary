@@ -74,7 +74,6 @@ public class DiaryModel {
                 + "SELECT ID FROM " + DIARIES_TABLE + " "
                 + "WHERE ID = " + diary.getId()
                 + ")";
-
             LOG.debug(" ---> QUERY_THAT_FIND_ALL_THE_NOTES_IN_A_DIARY -> " + QUERY_THAT_FIND_ALL_THE_NOTES_IN_A_DIARY);
             notesRetrieved = databaseManager.querySQL(QUERY_THAT_FIND_ALL_THE_NOTES_IN_A_DIARY, Note.class);
         } catch (Exception ex) {

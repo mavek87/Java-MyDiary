@@ -8,7 +8,6 @@ import com.matteoveroni.mydiary.application.messages.DataObjectMessage;
 import com.matteoveroni.mydiary.diary.model.DiaryModel;
 import com.matteoveroni.mydiary.diary.model.bean.Diary;
 import com.matteoveroni.mydiary.library.control.LibraryScreenController;
-import com.matteoveroni.mydiary.note.control.NoteScreenController;
 import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
 import com.matteoveroni.mydiary.utilities.exceptions.CriticalRuntimeException;
 import java.net.URL;

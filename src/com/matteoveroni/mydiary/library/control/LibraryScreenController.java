@@ -90,6 +90,15 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
 
 	@Override
 	public void update(DataObjectMessage pushedData) {
+		if (manager != null && manager.getLoggedInUser() != null) {
+			updateDiaryComboBox();
+			if (cmb_chooseDiary.getItems().size() == 0) {
+				cmb_chooseDiary.setPromptText("Empty");
+				btn_openDiary.setDisable(true);
+			} else {
+				cmb_chooseDiary.setPromptText("Select a diary");
+			}
+		}
 	}
 
 	@FXML
@@ -117,40 +126,34 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
 
 	@FXML
 	void tabSelectDiaryActive() {
-		updateDiaryComboBox();
-		if (cmb_chooseDiary.getItems().size() == 0) {
-			cmb_chooseDiary.setPromptText("Empty");
-			btn_openDiary.setDisable(true);
-		} else {
-			cmb_chooseDiary.setPromptText("Select a diary");
-		}
-
+		LOG.debug(" ---> TAB \'select diary\' selected");
+		update(null);
 	}
 
 	@FXML
 	void tabCreateNewDiaryActive() {
+		LOG.debug(" ---> TAB \'create new diary\' selected");
 		txt_newDiaryName.setText("");
 	}
 
 	@FXML
 	void tabManageDiaryActive() {
+		LOG.debug(" ---> TAB \'manage diary\' selected");
 //        resetSelectDiaryTab();
 //        resetCreateNewDiaryTab();
 	}
 
 	private void updateDiaryComboBox() {
-		if (manager != null && manager.getLoggedInUser() != null) {
-			List<Diary> findedUserDiaries = model.getUserDiaries(manager.getLoggedInUser());
-			if (findedUserDiaries != null && findedUserDiaries.size() > 0) {
-				userDiaries.clear();
-				userDiariesStringsForCombobox.clear();
-				for (Diary diary : findedUserDiaries) {
-					userDiaries.add(diary);
-					userDiariesStringsForCombobox.add(diary.getId() + " - " + diary.getName() + " - " + manager.getLoggedInUser());
-				}
-				ObservableList<String> observableUserDiaries = FXCollections.observableArrayList(userDiariesStringsForCombobox);
-				cmb_chooseDiary.setItems(observableUserDiaries);
+		List<Diary> findedUserDiaries = model.getUserDiaries(manager.getLoggedInUser());
+		if (findedUserDiaries != null && findedUserDiaries.size() > 0) {
+			userDiaries.clear();
+			userDiariesStringsForCombobox.clear();
+			for (Diary diary : findedUserDiaries) {
+				userDiaries.add(diary);
+				userDiariesStringsForCombobox.add(diary.getId() + " - " + diary.getName() + " - " + manager.getLoggedInUser());
 			}
+			ObservableList<String> observableUserDiaries = FXCollections.observableArrayList(userDiariesStringsForCombobox);
+			cmb_chooseDiary.setItems(observableUserDiaries);
 		}
 	}
 }

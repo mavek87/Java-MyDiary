@@ -77,7 +77,7 @@ public class NoteScreenController implements Initializable, Manageable, Listener
 
 	@Override
 	public void update(DataObjectMessage pushedData) {
-		if (manager.getLoggedInUser() != null) {
+		if (manager != null && manager.getLoggedInUser() != null) {
 			try {
 				if (pushedData != null && pushedData.getSenderClass().equals(DiaryScreenController.class)) {
 					LOG.debug("---> pushed data " + pushedData.getSenderClass().toString());

@@ -26,99 +26,101 @@ import javafx.scene.control.TextField;
  */
 public class LoginScreenController implements Manageable, Initializable, Listener {
 
-    private Manager manager;
-    private UserData user;
-    private final LoginModel model = new LoginModel();
+	private Manager manager;
+	private UserData user;
+	private final LoginModel model = new LoginModel();
 
-    @FXML
-    private PasswordField psw_password;
-    @FXML
-    private Button btn_register;
-    @FXML
-    private Label lbl_loginFailedMessage;
-    @FXML
-    private Button btn_login;
-    @FXML
-    private TextField txt_username;
+	@FXML
+	private PasswordField psw_password;
+	@FXML
+	private Button btn_register;
+	@FXML
+	private Label lbl_loginFailedMessage;
+	@FXML
+	private Button btn_login;
+	@FXML
+	private TextField txt_username;
 
-    /**
-     * Initializes the controller class.
-     *
-     * @param url
-     * @param rb
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        addListenerToAllThePagesElementsThatRemoveLoginErrorMessageOnFocus();
-    }
+	/**
+	 * Initializes the controller class.
+	 *
+	 * @param url
+	 * @param rb
+	 */
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		addListenerToAllThePagesElementsThatRemoveLoginErrorMessageOnFocus();
+	}
 
-    @Override
-    public void update(DataObjectMessage pushedData) {
-        resetAllTheFormElements();
-    }
+	@Override
+	public void update(DataObjectMessage pushedData) {
+		if (manager != null && manager.getLoggedInUser() != null) {
+			resetAllTheFormElements();
+		}
+	}
 
-    @Override
-    public void setManager(Manager manager) {
-        this.manager = manager;
-        manager.registerListener(this);
-    }
+	@Override
+	public void setManager(Manager manager) {
+		this.manager = manager;
+		manager.registerListener(this);
+	}
 
-    @FXML 
-    void login(ActionEvent event) {
-        String insertedUsername = txt_username.getText();
-        user = model.searchUser(insertedUsername);
-        if (user != null && user.getPassword().equals(psw_password.getText())) {
-            loginSuccessfullSoAccessApplication();
-        } else {
-            loginFailedPrintError();
-        }
-    }
+	@FXML
+	void login(ActionEvent event) {
+		String insertedUsername = txt_username.getText();
+		user = model.searchUser(insertedUsername);
+		if (user != null && user.getPassword().equals(psw_password.getText())) {
+			loginSuccessfullSoAccessApplication();
+		} else {
+			loginFailedPrintError();
+		}
+	}
 
-    @FXML
-    void register(ActionEvent event) {
-        manager.changeScreen(ScreensFramework.REGISTRATION_SCREEN);
-    }
+	@FXML
+	void register(ActionEvent event) {
+		manager.changeScreen(ScreensFramework.REGISTRATION_SCREEN);
+	}
 
-    @FXML
-    void actionOnUsernameTextField(ActionEvent event) {
-        lbl_loginFailedMessage.setVisible(false);
-    }
+	@FXML
+	void actionOnUsernameTextField(ActionEvent event) {
+		lbl_loginFailedMessage.setVisible(false);
+	}
 
-    @FXML
-    void actionOnPasswordTextField(ActionEvent event) {
-        lbl_loginFailedMessage.setVisible(false);
-    }
+	@FXML
+	void actionOnPasswordTextField(ActionEvent event) {
+		lbl_loginFailedMessage.setVisible(false);
+	}
 
-    private void loginSuccessfullSoAccessApplication() {
-        manager.setLoggedInUser(user);
-        manager.changeScreen(ScreensFramework.LIBRARY_SCREEN);
-    }
+	private void loginSuccessfullSoAccessApplication() {
+		manager.setLoggedInUser(user);
+		manager.changeScreen(ScreensFramework.LIBRARY_SCREEN);
+	}
 
-    private void loginFailedPrintError() {
-        txt_username.setText("");
-        psw_password.setText("");
-        lbl_loginFailedMessage.setVisible(true);
-    }
+	private void loginFailedPrintError() {
+		txt_username.setText("");
+		psw_password.setText("");
+		lbl_loginFailedMessage.setVisible(true);
+	}
 
-    private void addListenerToAllThePagesElementsThatRemoveLoginErrorMessageOnFocus() {
-        txt_username.focusedProperty().addListener(listenerThatRemoveLoginErrorMessageWhenAnElementGainFocus());
-        psw_password.focusedProperty().addListener(listenerThatRemoveLoginErrorMessageWhenAnElementGainFocus());
-        btn_register.focusedProperty().addListener(listenerThatRemoveLoginErrorMessageWhenAnElementGainFocus());
-    }
+	private void addListenerToAllThePagesElementsThatRemoveLoginErrorMessageOnFocus() {
+		txt_username.focusedProperty().addListener(listenerThatRemoveLoginErrorMessageWhenAnElementGainFocus());
+		psw_password.focusedProperty().addListener(listenerThatRemoveLoginErrorMessageWhenAnElementGainFocus());
+		btn_register.focusedProperty().addListener(listenerThatRemoveLoginErrorMessageWhenAnElementGainFocus());
+	}
 
-    private ChangeListener<Boolean> listenerThatRemoveLoginErrorMessageWhenAnElementGainFocus() {
-        ChangeListener changeListener = new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                lbl_loginFailedMessage.setVisible(false);
-            }
-        };
-        return changeListener;
-    }
+	private ChangeListener<Boolean> listenerThatRemoveLoginErrorMessageWhenAnElementGainFocus() {
+		ChangeListener changeListener = new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+				lbl_loginFailedMessage.setVisible(false);
+			}
+		};
+		return changeListener;
+	}
 
-    private void resetAllTheFormElements() {
-        txt_username.setText("");
-        psw_password.setText("");
-        lbl_loginFailedMessage.setVisible(false);
-    }
+	private void resetAllTheFormElements() {
+		txt_username.setText("");
+		psw_password.setText("");
+		lbl_loginFailedMessage.setVisible(false);
+	}
 }
