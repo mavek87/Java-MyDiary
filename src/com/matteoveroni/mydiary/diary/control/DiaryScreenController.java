@@ -137,9 +137,9 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 		}
 	}
 
-// DA ELIMINARE ????
 	@FXML
 	void goToNoteScreen(ActionEvent event) {
+		LOG.debug(" ---> goToNoteScreen FXML call");
 		if (currentSelectedNote != null) {
 			manager.storeObjectToPush(currentSelectedNote, DiaryScreenController.class);
 			manager.changeScreen(ScreensFramework.NOTE_SCREEN);
@@ -148,6 +148,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 
 	@FXML
 	void removeNote(ActionEvent event) {
+		LOG.debug(" ---> removeNote FXML call");
 		if (currentSelectedNote != null) {
 			model.removeNoteFromCurrentDiary(currentSelectedNote);
 			drawUpdatedDiaryNotesInsideNotesTable();
@@ -156,10 +157,11 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 
 	@FXML
 	void createNewNote(ActionEvent event) {
+		LOG.debug(" ---> createNewNote FXML call");
 		String noteTitle = JOptionPane.showInputDialog(
 			null,
 			"Insert a title for the new note and confirm, or press cancel to abort the operation",
-			"Set Note\'s Title",
+			"Insert the Note\'s Title",
 			JOptionPane.QUESTION_MESSAGE
 		);
 		if (noteTitle != null) {
@@ -184,6 +186,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	}
 
 	private void openSelectedNote() {
+		LOG.debug(" ---> openSelectedNote call");
 		if (currentSelectedNote != null) {
 			manager.storeObjectToPush(currentSelectedNote, DiaryScreenController.class);
 			manager.changeScreen(ScreensFramework.NOTE_SCREEN);
@@ -197,18 +200,16 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	}
 
 	private void drawUpdatedDiaryNotesInsideNotesTable() {
+		LOG.debug(" ---> drawUpdatedDiaryNotesInsideNotesTable call");
 		if (currentDiary != null) {
 			List<Note> notesFromDiary = model.getNotesFromCurrentDiary();
-//			for (Note note : notesFromDiary) {
-//				LOG.debug("ID: " + note.getId() + " Title: " + note.getTitle());
-//			}
 			if (notesFromDiary != null && notesFromDiary.size() > 0) {
 				LOG.debug(" ---> There are notes in this diary. Populating the notes_table with retrieved notes");
 				ObservableList<Note> notesForTheTable = FXCollections.observableArrayList(notesFromDiary);
 				diaryTable.setItems(notesForTheTable);
 			} else {
 				LOG.debug(" ---> There are\'t any notes in this diary. Clearing the notes_table");
-				diaryTable.setItems(null);
+				diaryTable.getItems().clear();
 			}
 		}
 	}

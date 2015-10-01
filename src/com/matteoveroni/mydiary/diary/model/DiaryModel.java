@@ -19,32 +19,11 @@ public class DiaryModel {
 	private Diary diary;
 	private static final Logger LOG = LoggerFactory.getLogger(DiaryModel.class);
 
-//	private final String DIARIES_TABLE = "DIARIES";
 	private final String NOTES_TABLE = "NOTES";
-//	private final String DIARIES_NOTES_TABLE = "DIARIES_NOTES";
 
 	public void setDiary(Diary diary) {
 		this.diary = diary;
 	}
-
-//	public List<Note> getNotesFromCurrentDiary() {
-//		List<Note> notesRetrieved = null;
-//		try {
-//			final String QUERY_THAT_FIND_ALL_THE_NOTES_IN_A_DIARY = ""
-//				+ "SELECT * FROM " + NOTES_TABLE + " n "
-//				+ "INNER JOIN " + DIARIES_NOTES_TABLE + " dn ON dn.NOTE_ID = n.ID "
-//				+ "WHERE dn.DIARY_ID = "
-//				+ "("
-//				+ "SELECT ID FROM " + DIARIES_TABLE + " "
-//				+ "WHERE ID = " + diary.getId()
-//				+ ")";
-//			LOG.debug(" ---> QUERY_THAT_FIND_ALL_THE_NOTES_IN_A_DIARY -> " + QUERY_THAT_FIND_ALL_THE_NOTES_IN_A_DIARY);
-//			notesRetrieved = databaseManager.querySQL(QUERY_THAT_FIND_ALL_THE_NOTES_IN_A_DIARY, Note.class);
-//		} catch (Exception ex) {
-//			LOG.error(" ---> " + ExceptionsFormatter.toString(ex));
-//		}
-//		return notesRetrieved;
-//	}
 
 	public List<Note> getNotesFromCurrentDiary() {
 		List<Note> notesRetrieved = null;
@@ -83,20 +62,9 @@ public class DiaryModel {
 	}
 
 	public void removeNoteFromCurrentDiary(Note note) {
-//		List<Note> notesRetrieved = null;
 		try {
 			databaseManager.delete(note);
 			databaseManager.update(diary);
-//			final String QUERY_THAT_FIND_ALL_THE_NOTES_IN_A_DIARY = ""
-//				+ "DELETE * FROM " + NOTES_TABLE + " n "
-//				+ "INNER JOIN " + DIARIES_NOTES_TABLE + " dn ON dn.NOTE_ID = n.ID "
-//				+ "WHERE dn.DIARY_ID = "
-//				+ "("
-//				+ "SELECT ID FROM " + DIARIES_TABLE + " "
-//				+ "WHERE ID = " + currentDiary.getId()
-//				+ ")";
-//			LOG.debug(" ---> QUERY_THAT_FIND_ALL_THE_NOTES_IN_A_DIARY -> " + QUERY_THAT_FIND_ALL_THE_NOTES_IN_A_DIARY);
-//			notesRetrieved = databaseManager.querySQL(QUERY_THAT_FIND_ALL_THE_NOTES_IN_A_DIARY, Note.class);
 		} catch (Exception ex) {
 			LOG.error(" ---> " + ExceptionsFormatter.toString(ex));
 		}
