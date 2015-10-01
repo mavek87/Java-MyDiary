@@ -20,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.web.HTMLEditor;
+import javax.swing.JOptionPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,6 +34,8 @@ public class NoteScreenController implements Initializable, Manageable, Listener
 	private Manager manager;
 	private final NoteModel model = new NoteModel();
 	private Note currentNote = new Note();
+
+	private String lastSavedTextNote;
 
 	private static final Logger LOG = LoggerFactory.getLogger(NoteScreenController.class);
 
@@ -94,6 +97,7 @@ public class NoteScreenController implements Initializable, Manageable, Listener
 
 	@FXML
 	void noteMessageChanged(ActionEvent event) {
+		LOG.debug("NOTE CHANGED!");
 	}
 
 	@FXML
@@ -103,6 +107,13 @@ public class NoteScreenController implements Initializable, Manageable, Listener
 		currentNote.setLastModificationTimestamp(new Date());
 		model.updateNote(currentNote);
 		drawCurrentModelOnTheScene();
+		lastSavedTextNote = htmlEditor_noteMessage.getHtmlText();
+		JOptionPane.showMessageDialog(
+			null,
+			"This note is being saved succesfully!",
+			"Note saved",
+			JOptionPane.INFORMATION_MESSAGE
+		);
 	}
 
 	@FXML
@@ -131,7 +142,20 @@ public class NoteScreenController implements Initializable, Manageable, Listener
 
 	@FXML
 	void backButtonPressed(ActionEvent event) {
-		manager.changeScreen(ScreensFramework.DIARY_SCREEN);
+		String currentTextNote = htmlEditor_noteMessage.getHtmlText();
+		if (!currentTextNote.equals(lastSavedTextNote)) {
+			int dialogResult = JOptionPane.showConfirmDialog(
+				null,
+				"You haven\'t saved your last changes to this note. Are you sure to leave without saving?",
+				"Note\'s changes unsaved",
+				JOptionPane.YES_NO_OPTION,
+				JOptionPane.WARNING_MESSAGE);
+			if (dialogResult == JOptionPane.YES_OPTION) {
+				manager.changeScreen(ScreensFramework.DIARY_SCREEN);
+			}
+		} else {
+			manager.changeScreen(ScreensFramework.DIARY_SCREEN);
+		}
 	}
 
 	private void drawCurrentModelOnTheScene() {
