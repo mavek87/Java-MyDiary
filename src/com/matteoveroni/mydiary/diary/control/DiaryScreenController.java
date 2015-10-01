@@ -103,8 +103,10 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 			@Override
 			public void handle(MouseEvent event) {
 				if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-					currentSelectedNote = diaryTable.getSelectionModel().getSelectedItem();
-					openSelectedNote();
+					if (diaryTable.getSelectionModel().getSelectedItem() != null) {
+						currentSelectedNote = diaryTable.getSelectionModel().getSelectedItem();
+						openSelectedNote();
+					}
 				}
 			}
 		});
@@ -204,6 +206,9 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 				LOG.debug(" ---> There are notes in this diary. Populating the notes_table with retrieved notes");
 				ObservableList<Note> notesForTheTable = FXCollections.observableArrayList(notesFromDiary);
 				diaryTable.setItems(notesForTheTable);
+			} else {
+				LOG.debug(" ---> There are\'t any notes in this diary. Clearing the notes_table");
+				diaryTable.setItems(null);
 			}
 		}
 	}
