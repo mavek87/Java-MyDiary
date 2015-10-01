@@ -30,14 +30,14 @@ public class Diary implements Serializable {
 	@Column
 	private String name;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-	@JoinTable(name = "DIARIES_NOTES",
-		joinColumns = {
-			@JoinColumn(name = "DIARY_ID", referencedColumnName = "ID")
-		},
-		inverseJoinColumns = {
-			@JoinColumn(name = "NOTE_ID", referencedColumnName = "ID")
-		})
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="diary", cascade=CascadeType.ALL)
+//	@JoinTable(name = "DIARIES_NOTES", 
+//		joinColumns = {
+//			@JoinColumn(name = "DIARY_ID", referencedColumnName = "ID")
+//		},
+//		inverseJoinColumns = {
+//			@JoinColumn(name = "NOTE_ID", referencedColumnName = "ID")
+//		})
 	private List<Note> notes = new ArrayList<>();
 
 	public long getId() {

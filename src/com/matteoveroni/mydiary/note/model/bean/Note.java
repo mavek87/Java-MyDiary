@@ -1,12 +1,15 @@
 package com.matteoveroni.mydiary.note.model.bean;
 
+import com.matteoveroni.mydiary.diary.model.bean.Diary;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -38,6 +41,10 @@ public class Note implements Serializable {
 	@Column(name = "LAST_MODIFICATION_TIMESTAMP")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastModificationTimestamp;
+	
+	@ManyToOne
+	@JoinColumn(name="DIARY_ID")
+	private Diary diary;
 
 	public long getId() {
 		return id;
@@ -79,4 +86,13 @@ public class Note implements Serializable {
 	public void setLastModificationTimestamp(Date lastModificationTimestamp) {
 		this.lastModificationTimestamp = lastModificationTimestamp;
 	}
+
+	public Diary getDiary() {
+		return diary;
+	}
+
+	public void setDiary(Diary diary) {
+		this.diary = diary;
+	}
+	
 }

@@ -165,6 +165,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 			newNote.setTitle(noteTitle);
 			newNote.setCreationDate(new Date());
 			newNote.setLastModificationTimestamp(new Date());
+			newNote.setDiary(currentDiary);
 			if (model.saveNoteIntoCurrentDiary(newNote) == true) {
 				manager.storeObjectToPush(newNote, DiaryScreenController.class);
 				manager.changeScreen(ScreensFramework.NOTE_SCREEN);
@@ -196,9 +197,9 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	private void drawUpdatedDiaryNotesInsideNotesTable() {
 		if (currentDiary != null) {
 			List<Note> notesFromDiary = model.getNotesFromCurrentDiary();
-			for (Note note : notesFromDiary) {
-				LOG.debug("ID: " + note.getId() + " Title: " + note.getTitle());
-			}
+//			for (Note note : notesFromDiary) {
+//				LOG.debug("ID: " + note.getId() + " Title: " + note.getTitle());
+//			}
 			if (notesFromDiary != null && notesFromDiary.size() > 0) {
 				LOG.debug(" ---> There are notes in this diary. Populating the notes_table with retrieved notes");
 				ObservableList<Note> notesForTheTable = FXCollections.observableArrayList(notesFromDiary);
