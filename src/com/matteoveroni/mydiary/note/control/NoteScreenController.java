@@ -153,15 +153,33 @@ public class NoteScreenController implements Initializable, Manageable, Listener
     }
 
     private boolean isCurrentNoteSaved() {
-        String currentNoteMessage = null;
-        if (htmlEditor_noteMessage.getHtmlText() != null) {
-            currentNoteMessage = htmlEditor_noteMessage.getHtmlText();
+        boolean isNoteSaved;
+        try {
+            isNoteSaved = currentNote.getMessage().equals(ExtractHTMLNoteMessage()) && currentNote.getTitle().equals(ExtractCurrentNoteTitle());
+        } catch (Exception ex) {
+            isNoteSaved = false;
         }
-        String currentNoteTitle = null;
-        if (txt_title.getText() != null) {
+        return isNoteSaved;
+    }
+
+    private String ExtractHTMLNoteMessage() {
+        String currentHtmlNoteMessage;
+        try {
+            currentHtmlNoteMessage = htmlEditor_noteMessage.getHtmlText();
+        } catch (Exception ex) {
+            currentHtmlNoteMessage = "";
+        }
+        return currentHtmlNoteMessage;
+    }    
+    
+    private String ExtractCurrentNoteTitle() {
+        String currentNoteTitle;
+        try {
             currentNoteTitle = txt_title.getText();
+        } catch (Exception ex) {
+            currentNoteTitle = "";
         }
-        return (currentNote.getMessage().equals(currentNoteMessage) && currentNote.getTitle().equals(currentNoteTitle));
+        return currentNoteTitle;
     }
 
     private void drawCurrentModelOnTheScene() {
