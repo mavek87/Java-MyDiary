@@ -126,21 +126,16 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
 
 	@FXML
 	void tabSelectDiaryActive() {
-		LOG.debug(" ---> TAB \'select diary\' selected");
 		update(null);
 	}
 
 	@FXML
 	void tabCreateNewDiaryActive() {
-		LOG.debug(" ---> TAB \'create new diary\' selected");
 		txt_newDiaryName.setText("");
 	}
 
 	@FXML
 	void tabManageDiaryActive() {
-		LOG.debug(" ---> TAB \'manage diary\' selected");
-//        resetSelectDiaryTab();
-//        resetCreateNewDiaryTab();
 	}
 
 	private void updateDiaryComboBox() {
