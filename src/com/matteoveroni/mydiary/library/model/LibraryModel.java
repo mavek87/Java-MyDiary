@@ -6,7 +6,6 @@ import com.matteoveroni.mydiary.user.model.bean.UserData;
 import com.matteoveroni.mydiary.utilities.formatters.ExceptionsFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

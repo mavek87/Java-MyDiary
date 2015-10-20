@@ -20,6 +20,7 @@ public class DiaryModel {
 	private static final Logger LOG = LoggerFactory.getLogger(DiaryModel.class);
 
 	private final String NOTES_TABLE = "NOTES";
+	private final String NOTES_OF_THIS_DIARY_VIEW = "notes_of_this_diary_view";
 
 	public void setDiary(Diary diary) {
 		this.diary = diary;

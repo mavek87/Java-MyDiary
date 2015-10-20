@@ -31,179 +31,182 @@ import org.slf4j.LoggerFactory;
  */
 public class NoteScreenController implements Initializable, Manageable, Listener {
 
-    private Manager manager;
-    private final NoteModel model = new NoteModel();
-    private Note currentNote = new Note();
-    private static final Logger LOG = LoggerFactory.getLogger(NoteScreenController.class);
+	private Manager manager;
+	private NoteModel model;
+	private Note currentNote = new Note();
+	private static final Logger LOG = LoggerFactory.getLogger(NoteScreenController.class);
 
-    @FXML
-    private ResourceBundle resources;
-    @FXML
-    private URL location;
-    @FXML
-    private TextField txt_title;
-    @FXML
-    private TextField txt_creationDate;
-    @FXML
-    private TextField txt_lastModificationDate;
-    @FXML
-    private HTMLEditor htmlEditor_noteMessage;
-    @FXML
-    private Button btn_previousNote;
-    @FXML
-    private Button btn_nextNote;
-    @FXML
-    private Button btn_back;
-    @FXML
-    private Button btn_saveNote;
-    @FXML
-    private TextField txt_noteNumber;
+	@FXML
+	private ResourceBundle resources;
+	@FXML
+	private URL location;
+	@FXML
+	private TextField txt_title;
+	@FXML
+	private TextField txt_creationDate;
+	@FXML
+	private TextField txt_lastModificationDate;
+	@FXML
+	private HTMLEditor htmlEditor_noteMessage;
+	@FXML
+	private Button btn_previousNote;
+	@FXML
+	private Button btn_nextNote;
+	@FXML
+	private Button btn_back;
+	@FXML
+	private Button btn_saveNote;
+	@FXML
+	private TextField txt_noteNumber;
 
-    /**
-     * Initializes the controller class.
-     *
-     * @param url
-     * @param rb
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-    }
+	/**
+	 * Initializes the controller class.
+	 *
+	 * @param url
+	 * @param rb
+	 */
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+	}
 
-    @Override
-    public void setManager(Manager manager) {
-        this.manager = manager;
-        manager.registerListener(this);
-    }
+	@Override
+	public void setManager(Manager manager) {
+		this.manager = manager;
+		manager.registerListener(this);
+	}
 
-    @Override
-    public void update(DataObjectMessage pushedData) {
-        if (manager != null && manager.getLoggedInUser() != null) {
-            try {
-                if (pushedData != null && pushedData.getSenderClass().equals(DiaryScreenController.class)) {
-                    LOG.debug(" ---> pushed data " + pushedData.getSenderClass().toString());
-                    Note sendedNote = (Note) pushedData.getData();
-                    currentNote = model.getNote(sendedNote.getId());
-                    drawCurrentModelOnTheScene();
-                }
-            } catch (Exception ex) {
-                LOG.error("Critical Runtime Exception Occurred -> " + ex.getMessage());
-                throw new CriticalRuntimeException(ex, manager);
-            }
-        }
-    }
+	@Override
+	public void update(DataObjectMessage pushedData) {
+		if (manager != null && manager.getLoggedInUser() != null) {
+			try {
+				if (pushedData != null && pushedData.getSenderClass().equals(DiaryScreenController.class)) {
+					LOG.debug(" ---> pushed data " + pushedData.getSenderClass().toString());
+					Note sendedNote = (Note) pushedData.getData();
+					model = new NoteModel(manager.getLoggedInUser().getId());
+					if (model.getNote(sendedNote.getId()) != null) {
+						currentNote = model.getNote(sendedNote.getId());
+						drawCurrentModelOnTheScene();
+					}
+				}
+			} catch (Exception ex) {
+				LOG.error("Critical Runtime Exception Occurred -> " + ex.getMessage());
+				throw new CriticalRuntimeException(ex, manager);
+			}
+		}
+	}
 
-    @FXML
-    void noteMessageChanged(ActionEvent event) {
-        LOG.debug("NOTE CHANGED!");
-    }
+	@FXML
+	void noteMessageChanged(ActionEvent event) {
+		LOG.debug("NOTE CHANGED!");
+	}
 
-    @FXML
-    void saveNoteButtonPressed(ActionEvent event) {
-        currentNote.setTitle(txt_title.getText());
-        currentNote.setMessage(htmlEditor_noteMessage.getHtmlText());
-        currentNote.setLastModificationTimestamp(new Date());
-        model.updateNote(currentNote);
-        drawCurrentModelOnTheScene();
-        JOptionPane.showMessageDialog(
-            null,
-            "This note is being saved succesfully!",
-            "Note saved",
-            JOptionPane.INFORMATION_MESSAGE
-        );
-    }
+	@FXML
+	void saveNoteButtonPressed(ActionEvent event) {
+		currentNote.setTitle(txt_title.getText());
+		currentNote.setMessage(htmlEditor_noteMessage.getHtmlText());
+		currentNote.setLastModificationTimestamp(new Date());
+		model.updateNote(currentNote);
+		drawCurrentModelOnTheScene();
+		JOptionPane.showMessageDialog(
+			null,
+			"This note is being saved succesfully!",
+			"Note saved",
+			JOptionPane.INFORMATION_MESSAGE
+		);
+	}
 
-    @FXML
-    void previousNoteButtonPressed(ActionEvent event) {
-        Note newNoteReaded = model.getPreviousNote(currentNote);
-        if (newNoteReaded != null) {
-            currentNote = newNoteReaded;
-            drawCurrentModelOnTheScene();
-        } else if (model.getLastNote() != null) {
-            currentNote = model.getLastNote();
-            drawCurrentModelOnTheScene();
-        }
-    }
+	@FXML
+	void previousNoteButtonPressed(ActionEvent event) {
+		Note newNoteReaded = model.getPreviousNote(currentNote);
+		if (newNoteReaded != null) {
+			currentNote = newNoteReaded;
+			drawCurrentModelOnTheScene();
+		} else if (model.getLastNote() != null) {
+			currentNote = model.getLastNote();
+			drawCurrentModelOnTheScene();
+		}
+	}
 
-    @FXML
-    void nextNoteButtonPressed(ActionEvent event) {
-        Note newNoteReaded = model.getNextNote(currentNote);
-        if (newNoteReaded != null) {
-            currentNote = newNoteReaded;
-            drawCurrentModelOnTheScene();
-        } else if (model.getFirstNote() != null) {
-            currentNote = model.getFirstNote();
-            drawCurrentModelOnTheScene();
-        }
-    }
+	@FXML
+	void nextNoteButtonPressed(ActionEvent event) {
+		Note newNoteReaded = model.getNextNote(currentNote);
+		if (newNoteReaded != null) {
+			currentNote = newNoteReaded;
+			drawCurrentModelOnTheScene();
+		} else if (model.getFirstNote() != null) {
+			currentNote = model.getFirstNote();
+			drawCurrentModelOnTheScene();
+		}
+	}
 
-    @FXML
-    void backButtonPressed(ActionEvent event) {
-        if (!isCurrentNoteSaved()) {
-            int exitWithoutSavingDialogResult = JOptionPane.showConfirmDialog(null,
-                "You haven\'t saved your last changes. Are you sure to leave without saving this note?",
-                "Note\'s changes unsaved",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE);
-            if (exitWithoutSavingDialogResult == JOptionPane.YES_OPTION) {
-                manager.changeScreen(ScreensFramework.DIARY_SCREEN);
-            }
-        } else {
-            manager.changeScreen(ScreensFramework.DIARY_SCREEN);
-        }
-    }
+	@FXML
+	void backButtonPressed(ActionEvent event) {
+		if (!isCurrentNoteSaved()) {
+			int exitWithoutSavingDialogResult = JOptionPane.showConfirmDialog(null,
+				"You haven\'t saved your last changes. Are you sure to leave without saving this note?",
+				"Note\'s changes unsaved",
+				JOptionPane.YES_NO_OPTION,
+				JOptionPane.WARNING_MESSAGE);
+			if (exitWithoutSavingDialogResult == JOptionPane.YES_OPTION) {
+				manager.changeScreen(ScreensFramework.DIARY_SCREEN);
+			}
+		} else {
+			manager.changeScreen(ScreensFramework.DIARY_SCREEN);
+		}
+	}
 
-    private boolean isCurrentNoteSaved() {
-        boolean isNoteSaved;
-        try {
-            isNoteSaved = currentNote.getMessage().equals(ExtractHTMLNoteMessage()) && currentNote.getTitle().equals(ExtractCurrentNoteTitle());
-        } catch (Exception ex) {
-            isNoteSaved = false;
-        }
-        return isNoteSaved;
-    }
+	private boolean isCurrentNoteSaved() {
+		boolean isNoteSaved;
+		try {
+			isNoteSaved = currentNote.getMessage().equals(ExtractHTMLNoteMessage()) && currentNote.getTitle().equals(ExtractCurrentNoteTitle());
+		} catch (Exception ex) {
+			isNoteSaved = false;
+		}
+		return isNoteSaved;
+	}
 
-    private String ExtractHTMLNoteMessage() {
-        String currentHtmlNoteMessage;
-        try {
-            currentHtmlNoteMessage = htmlEditor_noteMessage.getHtmlText();
-        } catch (Exception ex) {
-            currentHtmlNoteMessage = "";
-        }
-        return currentHtmlNoteMessage;
-    }    
-    
-    private String ExtractCurrentNoteTitle() {
-        String currentNoteTitle;
-        try {
-            currentNoteTitle = txt_title.getText();
-        } catch (Exception ex) {
-            currentNoteTitle = "";
-        }
-        return currentNoteTitle;
-    }
+	private String ExtractHTMLNoteMessage() {
+		String currentHtmlNoteMessage;
+		try {
+			currentHtmlNoteMessage = htmlEditor_noteMessage.getHtmlText();
+		} catch (Exception ex) {
+			currentHtmlNoteMessage = "";
+		}
+		return currentHtmlNoteMessage;
+	}
 
-    private void drawCurrentModelOnTheScene() {
-        resetCurrentSceneElements();
-        txt_noteNumber.setText(Objects.toString(currentNote.getId(), null));
-        if (currentNote.getTitle() != null) {
-            txt_title.setText(currentNote.getTitle());
-        }
-        if (currentNote.getMessage() != null) {
-            htmlEditor_noteMessage.setHtmlText(currentNote.getMessage());
-        }
-        if (currentNote.getCreationDate() != null) {
-            txt_creationDate.setText(DateFormatter.dateFormat(currentNote.getCreationDate()));
-        }
-        if (currentNote.getLastModificationTimestamp() != null) {
-            txt_lastModificationDate.setText(DateFormatter.timestampFormat(currentNote.getLastModificationTimestamp()));
-        }
-    }
+	private String ExtractCurrentNoteTitle() {
+		String currentNoteTitle;
+		try {
+			currentNoteTitle = txt_title.getText();
+		} catch (Exception ex) {
+			currentNoteTitle = "";
+		}
+		return currentNoteTitle;
+	}
 
-    private void resetCurrentSceneElements() {
-        txt_noteNumber.setText("");
-        txt_title.setText("");
-        htmlEditor_noteMessage.setHtmlText("");
-        txt_creationDate.setText("");
-        txt_lastModificationDate.setText("");
-    }
+	private void drawCurrentModelOnTheScene() {
+		resetCurrentSceneElements();
+		txt_noteNumber.setText(Objects.toString(currentNote.getId(), null));
+		if (currentNote.getTitle() != null) {
+			txt_title.setText(currentNote.getTitle());
+		}
+		if (currentNote.getMessage() != null) {
+			htmlEditor_noteMessage.setHtmlText(currentNote.getMessage());
+		}
+		if (currentNote.getCreationDate() != null) {
+			txt_creationDate.setText(DateFormatter.dateFormat(currentNote.getCreationDate()));
+		}
+		if (currentNote.getLastModificationTimestamp() != null) {
+			txt_lastModificationDate.setText(DateFormatter.timestampFormat(currentNote.getLastModificationTimestamp()));
+		}
+	}
+
+	private void resetCurrentSceneElements() {
+		txt_noteNumber.setText("");
+		txt_title.setText("");
+		htmlEditor_noteMessage.setHtmlText("");
+		txt_creationDate.setText("");
+		txt_lastModificationDate.setText("");
+	}
 }
