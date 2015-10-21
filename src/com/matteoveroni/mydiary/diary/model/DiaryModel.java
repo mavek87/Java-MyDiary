@@ -20,7 +20,6 @@ public class DiaryModel {
 	private static final Logger LOG = LoggerFactory.getLogger(DiaryModel.class);
 
 	private final String NOTES_TABLE = "NOTES";
-	private final String NOTES_OF_THIS_DIARY_VIEW = "notes_of_this_diary_view";
 
 	public void setDiary(Diary diary) {
 		this.diary = diary;
@@ -30,8 +29,8 @@ public class DiaryModel {
 		List<Note> notesRetrieved = null;
 		try {
 			final String QUERY_THAT_FIND_ALL_THE_NOTES_OF_A_DIARY = ""
-				+ "SELECT * FROM " + NOTES_TABLE + " n "
-				+ "WHERE n.DIARY_ID = " + diary.getId();
+				+ "SELECT * FROM " + NOTES_TABLE + " "
+				+ "WHERE DIARY_ID = " + diary.getId();
 			LOG.debug(" ---> QUERY_THAT_FIND_ALL_THE_NOTES_IN_A_DIARY -> " + QUERY_THAT_FIND_ALL_THE_NOTES_OF_A_DIARY);
 			notesRetrieved = databaseManager.querySQL(QUERY_THAT_FIND_ALL_THE_NOTES_OF_A_DIARY, Note.class);
 		} catch (Exception ex) {
