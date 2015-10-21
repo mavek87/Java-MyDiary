@@ -15,44 +15,43 @@ import org.slf4j.LoggerFactory;
 public class NoteModel {
 
 	private final DAO databaseManager = DAO.getInstance();
-	private static final Logger LOG = LoggerFactory.getLogger(LibraryModel.class);
-
 	private final String NOTES_TABLE = "NOTES";
+	private static final Logger LOG = LoggerFactory.getLogger(LibraryModel.class);
 
 	public Note getFirstNote(Diary diary) {
 		Note firstNote = null;
+		final String QUERY_THAT_FIND_FIRST_NOTE_IN_CURRENT_DIARY = ""
+			+ "SELECT * FROM " + NOTES_TABLE + " "
+			+ "WHERE ID ="
+			+ "(SELECT MIN(ID) FROM " + NOTES_TABLE + " WHERE DIARY_ID=" + diary.getId() + ")";
 		try {
-			final String QUERY_THAT_FIND_FIRST_NOTE_IN_CURRENT_DIARY = ""
-				+ "SELECT * FROM " + NOTES_TABLE + " "
-				+ "WHERE ID ="
-				+ "(SELECT MIN(ID) FROM " + NOTES_TABLE + " WHERE DIARY_ID=" + diary.getId() + ")";
-			LOG.debug(" ---> QUERY_THAT_FIND_FIRST_NOTE_IN_CURRENT_DIARY -> " + QUERY_THAT_FIND_FIRST_NOTE_IN_CURRENT_DIARY);
-			firstNote = (Note) databaseManager.querySQL(QUERY_THAT_FIND_FIRST_NOTE_IN_CURRENT_DIARY, null);
+			firstNote = (Note) databaseManager.querySQL(QUERY_THAT_FIND_FIRST_NOTE_IN_CURRENT_DIARY, Note.class);
 		} catch (Exception ex) {
 			LOG.error(" ---> " + ExceptionsFormatter.toString(ex));
 		}
+		LOG.debug(" ---> QUERY_THAT_FIND_FIRST_NOTE_IN_CURRENT_DIARY -> " + QUERY_THAT_FIND_FIRST_NOTE_IN_CURRENT_DIARY);
 		return firstNote;
 	}
 
 	public Note getLastNote(Diary diary) {
 		Note lastNote = null;
+		final String QUERY_THAT_FIND_LAST_NOTE_IN_CURRENT_DIARY = ""
+			+ "SELECT * FROM " + NOTES_TABLE + " "
+			+ "WHERE ID ="
+			+ "(SELECT MIN(ID) FROM " + NOTES_TABLE + " WHERE DIARY_ID=" + diary.getId() + ")";
 		try {
-			final String QUERY_THAT_FIND_LAST_NOTE_IN_CURRENT_DIARY = ""
-				+ "SELECT * FROM " + NOTES_TABLE + " "
-				+ "WHERE ID ="
-				+ "(SELECT MIN(ID) FROM " + NOTES_TABLE + " WHERE DIARY_ID=" + diary.getId() + ")";
-			LOG.debug(" ---> QUERY_THAT_FIND_LAST_NOTE_IN_CURRENT_DIARY -> " + QUERY_THAT_FIND_LAST_NOTE_IN_CURRENT_DIARY);
-			lastNote = (Note) databaseManager.querySQL(QUERY_THAT_FIND_LAST_NOTE_IN_CURRENT_DIARY, null);
+			lastNote = (Note) databaseManager.querySQL(QUERY_THAT_FIND_LAST_NOTE_IN_CURRENT_DIARY, Note.class);
 		} catch (Exception ex) {
 			LOG.error(" ---> " + ExceptionsFormatter.toString(ex));
 		}
+		LOG.debug(" ---> QUERY_THAT_FIND_LAST_NOTE_IN_CURRENT_DIARY -> " + QUERY_THAT_FIND_LAST_NOTE_IN_CURRENT_DIARY);
 		return lastNote;
 	}
 
 	public Note getNote(long noteId) {
 		Note requestedNote = null;
 		try {
-			requestedNote = (Note) databaseManager.read(Note.class, noteId, DAO.ElementsOnWhichOperate.PREVIOUS);
+			requestedNote = (Note) databaseManager.read(Note.class, noteId, DAO.ElementsOnWhichOperate.REQUESTED);
 		} catch (Exception ex) {
 			LOG.error(" ---> " + ExceptionsFormatter.toString(ex));
 		}
@@ -61,31 +60,31 @@ public class NoteModel {
 
 	public Note getPreviousNote(Note currentNote) {
 		Note previousNote = null;
+		final String QUERY_FOR_GETTING_THE_PREVIOUS_NOTE = ""
+			+ "SELECT * FROM " + NOTES_TABLE + " "
+			+ "WHERE DIARY_ID=" + currentNote.getDiary().getId() + " AND ID<" + currentNote.getId() + " "
+			+ "FETCH NEXT ROW ONLY";
 		try {
-			final String QUERY_FOR_GETTING_THE_PREVIOUS_NOTE = ""
-				+ "SELECT * FROM " + NOTES_TABLE + " "
-				+ "WHERE DIARY_ID=" + currentNote.getDiary().getId() + " AND ID<" + currentNote.getId() + " "
-				+ "FETCH NEXT ROW ONLY";
-			LOG.debug(" ---> QUERY_FOR_GETTING_THE_PREVIOUS_NOTE -> " + QUERY_FOR_GETTING_THE_PREVIOUS_NOTE);
-			previousNote = (Note) databaseManager.querySQL(QUERY_FOR_GETTING_THE_PREVIOUS_NOTE, null);
+			previousNote = (Note) databaseManager.querySQL(QUERY_FOR_GETTING_THE_PREVIOUS_NOTE, Note.class);
 		} catch (Exception ex) {
 			LOG.error(" ---> " + ExceptionsFormatter.toString(ex));
 		}
+		LOG.debug(" ---> QUERY_FOR_GETTING_THE_PREVIOUS_NOTE -> " + QUERY_FOR_GETTING_THE_PREVIOUS_NOTE);
 		return previousNote;
 	}
 
 	public Note getNextNote(Note currentNote) {
 		Note nextNote = null;
+		final String QUERY_FOR_GETTING_THE_NEXT_NOTE = ""
+			+ "SELECT * FROM " + NOTES_TABLE + " "
+			+ "WHERE DIARY_ID=" + currentNote.getDiary().getId() + " AND ID>" + currentNote.getId() + " "
+			+ "FETCH NEXT ROW ONLY";
 		try {
-			final String QUERY_FOR_GETTING_THE_NEXT_NOTE = ""
-				+ "SELECT * FROM " + NOTES_TABLE + " "
-				+ "WHERE DIARY_ID=" + currentNote.getDiary().getId() + " AND ID>" + currentNote.getId() + " "
-				+ "FETCH NEXT ROW ONLY";
-			LOG.debug(" ---> QUERY_FOR_GETTING_THE_NEXT_NOTE -> " + QUERY_FOR_GETTING_THE_NEXT_NOTE);
-			nextNote = (Note) databaseManager.querySQL(QUERY_FOR_GETTING_THE_NEXT_NOTE, null);
+			nextNote = (Note) databaseManager.querySQL(QUERY_FOR_GETTING_THE_NEXT_NOTE, Note.class);
 		} catch (Exception ex) {
 			LOG.error(" ---> " + ExceptionsFormatter.toString(ex));
 		}
+		LOG.debug(" ---> QUERY_FOR_GETTING_THE_NEXT_NOTE -> " + QUERY_FOR_GETTING_THE_NEXT_NOTE);
 		return nextNote;
 	}
 

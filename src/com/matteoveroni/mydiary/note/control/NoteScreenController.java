@@ -82,6 +82,11 @@ public class NoteScreenController implements Initializable, Manageable, Listener
 				if (pushedData != null && pushedData.getSenderClass().equals(DiaryScreenController.class)) {
 					LOG.debug(" ---> data pushed to " + this.getClass().toString() + " from " + pushedData.getSenderClass().toString());
 					Note sendedNote = (Note) pushedData.getData();
+					LOG.debug("sendedNote note ID " + sendedNote.getId());
+					LOG.debug("sendedNote note Title " + sendedNote.getTitle());
+					LOG.debug("sendedNote note Message " + sendedNote.getMessage());
+					LOG.debug("sendedNote note Creation Date " + sendedNote.getCreationDate());
+					LOG.debug("sendedNote note get diary id " + sendedNote.getDiary().getId());
 					LOG.debug(" ---> a");
 					model = new NoteModel();
 					LOG.debug(" ---> b");
@@ -128,7 +133,7 @@ public class NoteScreenController implements Initializable, Manageable, Listener
 		if (newNoteReaded != null) {
 			currentNote = newNoteReaded;
 			drawCurrentModelOnTheScene();
-		} 
+		}
 //		else if (model.getLastNote() != null) {
 //			currentNote = model.getLastNote();
 //			drawCurrentModelOnTheScene();
