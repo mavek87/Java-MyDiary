@@ -83,7 +83,7 @@ public class NoteScreenController implements Initializable, Manageable, Listener
 					LOG.debug(" ---> data pushed to " + this.getClass().toString() + " from " + pushedData.getSenderClass().toString());
 					Note sendedNote = (Note) pushedData.getData();
 					LOG.debug(" ---> a");
-					model = new NoteModel(manager.getLoggedInUser().getId());
+					model = new NoteModel();
 					LOG.debug(" ---> b");
 					if (model.getNote(sendedNote.getId()) != null) {
 						currentNote = model.getNote(sendedNote.getId());
@@ -128,10 +128,11 @@ public class NoteScreenController implements Initializable, Manageable, Listener
 		if (newNoteReaded != null) {
 			currentNote = newNoteReaded;
 			drawCurrentModelOnTheScene();
-		} else if (model.getLastNote() != null) {
-			currentNote = model.getLastNote();
-			drawCurrentModelOnTheScene();
-		}
+		} 
+//		else if (model.getLastNote() != null) {
+//			currentNote = model.getLastNote();
+//			drawCurrentModelOnTheScene();
+//		}
 	}
 
 	@FXML
@@ -140,10 +141,11 @@ public class NoteScreenController implements Initializable, Manageable, Listener
 		if (newNoteReaded != null) {
 			currentNote = newNoteReaded;
 			drawCurrentModelOnTheScene();
-		} else if (model.getFirstNote() != null) {
-			currentNote = model.getFirstNote();
-			drawCurrentModelOnTheScene();
 		}
+//		else if (model.getFirstNote() != null) {
+//			currentNote = model.getFirstNote();
+//			drawCurrentModelOnTheScene();
+//		}
 	}
 
 	@FXML
