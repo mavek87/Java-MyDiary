@@ -25,9 +25,9 @@ public class NoteModel {
 			+ "WHERE ID ="
 			+ "(SELECT MIN(ID) FROM " + NOTES_TABLE + " WHERE DIARY_ID=" + diary.getId() + ")";
 		try {
-			firstNote = (Note) databaseManager.querySQL(QUERY_THAT_FIND_FIRST_NOTE_IN_CURRENT_DIARY, Note.class);
+			firstNote = (Note) databaseManager.querySQL(QUERY_THAT_FIND_FIRST_NOTE_IN_CURRENT_DIARY, Note.class).get(0);
 		} catch (Exception ex) {
-			LOG.error(" ---> " + ExceptionsFormatter.toString(ex));
+			LOG.trace(" ---> " + ExceptionsFormatter.toString(ex));
 		}
 		LOG.debug(" ---> QUERY_THAT_FIND_FIRST_NOTE_IN_CURRENT_DIARY -> " + QUERY_THAT_FIND_FIRST_NOTE_IN_CURRENT_DIARY);
 		return firstNote;
@@ -40,9 +40,9 @@ public class NoteModel {
 			+ "WHERE ID ="
 			+ "(SELECT MIN(ID) FROM " + NOTES_TABLE + " WHERE DIARY_ID=" + diary.getId() + ")";
 		try {
-			lastNote = (Note) databaseManager.querySQL(QUERY_THAT_FIND_LAST_NOTE_IN_CURRENT_DIARY, Note.class);
+			lastNote = (Note) databaseManager.querySQL(QUERY_THAT_FIND_LAST_NOTE_IN_CURRENT_DIARY, Note.class).get(0);
 		} catch (Exception ex) {
-			LOG.error(" ---> " + ExceptionsFormatter.toString(ex));
+			LOG.trace(" ---> " + ExceptionsFormatter.toString(ex));
 		}
 		LOG.debug(" ---> QUERY_THAT_FIND_LAST_NOTE_IN_CURRENT_DIARY -> " + QUERY_THAT_FIND_LAST_NOTE_IN_CURRENT_DIARY);
 		return lastNote;
@@ -53,7 +53,7 @@ public class NoteModel {
 		try {
 			requestedNote = (Note) databaseManager.read(Note.class, noteId, DAO.ElementsOnWhichOperate.REQUESTED);
 		} catch (Exception ex) {
-			LOG.error(" ---> " + ExceptionsFormatter.toString(ex));
+			LOG.trace(" ---> " + ExceptionsFormatter.toString(ex));
 		}
 		return requestedNote;
 	}
@@ -63,11 +63,12 @@ public class NoteModel {
 		final String QUERY_FOR_GETTING_THE_PREVIOUS_NOTE = ""
 			+ "SELECT * FROM " + NOTES_TABLE + " "
 			+ "WHERE DIARY_ID=" + currentNote.getDiary().getId() + " AND ID<" + currentNote.getId() + " "
+			+ "ORDER BY ID DESC "
 			+ "FETCH NEXT ROW ONLY";
 		try {
-			previousNote = (Note) databaseManager.querySQL(QUERY_FOR_GETTING_THE_PREVIOUS_NOTE, Note.class);
+			previousNote = (Note) databaseManager.querySQL(QUERY_FOR_GETTING_THE_PREVIOUS_NOTE, Note.class).get(0);
 		} catch (Exception ex) {
-			LOG.error(" ---> " + ExceptionsFormatter.toString(ex));
+			LOG.trace(" ---> " + ExceptionsFormatter.toString(ex));
 		}
 		LOG.debug(" ---> QUERY_FOR_GETTING_THE_PREVIOUS_NOTE -> " + QUERY_FOR_GETTING_THE_PREVIOUS_NOTE);
 		return previousNote;
@@ -80,9 +81,9 @@ public class NoteModel {
 			+ "WHERE DIARY_ID=" + currentNote.getDiary().getId() + " AND ID>" + currentNote.getId() + " "
 			+ "FETCH NEXT ROW ONLY";
 		try {
-			nextNote = (Note) databaseManager.querySQL(QUERY_FOR_GETTING_THE_NEXT_NOTE, Note.class);
+			nextNote = (Note) databaseManager.querySQL(QUERY_FOR_GETTING_THE_NEXT_NOTE, Note.class).get(0);
 		} catch (Exception ex) {
-			LOG.error(" ---> " + ExceptionsFormatter.toString(ex));
+			LOG.trace(" ---> " + ExceptionsFormatter.toString(ex));
 		}
 		LOG.debug(" ---> QUERY_FOR_GETTING_THE_NEXT_NOTE -> " + QUERY_FOR_GETTING_THE_NEXT_NOTE);
 		return nextNote;
