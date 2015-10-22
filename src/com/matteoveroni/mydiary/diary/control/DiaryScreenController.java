@@ -122,17 +122,12 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	public void update(DataObjectMessage sendedData) {
 		if (manager != null && manager.getLoggedInUser() != null) {
 			if (sendedData != null && sendedData.getSenderClass() != null) {
-				try {
-					if (sendedData.getSenderClass().equals(LibraryScreenController.class)) {
-						setCurrentDiary((Diary) sendedData.getData());
-					}
-					drawUpdatedDiaryNotesInsideNotesTable();
-					btn_openNote.setDisable(true);
-					btn_removeNote.setDisable(true);
-				} catch (Exception ex) {
-					LOG.error(" ---> Critical Runtime Exception Occurred -> " + ex.getMessage());
-					throw new CriticalRuntimeException(ex, manager);
+				if (sendedData.getSenderClass().equals(LibraryScreenController.class)) {
+					setCurrentDiary((Diary) sendedData.getData());
 				}
+				drawUpdatedDiaryNotesInsideNotesTable();
+				btn_openNote.setDisable(true);
+				btn_removeNote.setDisable(true);
 			}
 		}
 	}

@@ -32,7 +32,7 @@ import org.slf4j.LoggerFactory;
 public class NoteScreenController implements Initializable, Manageable, Listener {
 
 	private Manager manager;
-	private NoteModel model;
+	private NoteModel model = new NoteModel();
 	private Note currentNote = new Note();
 	private static final Logger LOG = LoggerFactory.getLogger(NoteScreenController.class);
 
@@ -78,31 +78,13 @@ public class NoteScreenController implements Initializable, Manageable, Listener
 	@Override
 	public void update(DataObjectMessage pushedData) {
 		if (manager != null && manager.getLoggedInUser() != null) {
-			try {
-				if (pushedData != null && pushedData.getSenderClass().equals(DiaryScreenController.class)) {
-					LOG.debug(" ---> data pushed to " + this.getClass().toString() + " from " + pushedData.getSenderClass().toString());
-					Note sendedNote = (Note) pushedData.getData();
-					LOG.debug("sendedNote note ID " + sendedNote.getId());
-					LOG.debug("sendedNote note Title " + sendedNote.getTitle());
-					LOG.debug("sendedNote note Message " + sendedNote.getMessage());
-					LOG.debug("sendedNote note Creation Date " + sendedNote.getCreationDate());
-					LOG.debug("sendedNote note get diary id " + sendedNote.getDiary().getId());
-					LOG.debug(" ---> a");
-					model = new NoteModel();
-					LOG.debug(" ---> b");
-					if (model.getNote(sendedNote.getId()) != null) {
-						currentNote = model.getNote(sendedNote.getId());
-						LOG.debug("current note ID " + currentNote.getId());
-						LOG.debug("current note Title " + currentNote.getTitle());
-						LOG.debug("current note Message " + currentNote.getMessage());
-						LOG.debug("current note Creation Date " + currentNote.getCreationDate());
-						LOG.debug("current note get diary id " + currentNote.getDiary().getId());
-						drawCurrentModelOnTheScene();
-					}
+			if (pushedData != null && pushedData.getSenderClass().equals(DiaryScreenController.class)) {
+				LOG.debug(" ---> data pushed to " + this.getClass().toString() + " from " + pushedData.getSenderClass().toString());
+				Note sendedNote = (Note) pushedData.getData();
+				if (model.getNote(sendedNote.getId()) != null) {
+					currentNote = model.getNote(sendedNote.getId());
+					drawCurrentModelOnTheScene();
 				}
-			} catch (Exception ex) {
-				LOG.error("Critical Runtime Exception Occurred -> " + ex.getMessage());
-				throw new CriticalRuntimeException(ex, manager);
 			}
 		}
 	}
