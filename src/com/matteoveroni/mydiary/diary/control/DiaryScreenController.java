@@ -67,7 +67,11 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	@FXML
 	private Button btn_removeNote;
 	@FXML
-	private Label lbl_diaryOwnerName;
+	private Label lbl_diaryOwnerTitle;
+	@FXML
+	private Label lbl_diaryOwnerValue;
+	@FXML
+	private Label lbl_numberOfNotesTitle;	
 	@FXML
 	private Label lbl_numberOfNotes;
 
@@ -198,7 +202,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	private void drawUpdatedDiaryNotesInsideNotesTable() {
 		LOG.debug(" ---> drawUpdatedDiaryNotesInsideNotesTable call");
 		if (currentDiary != null) {
-			lbl_diaryOwnerName.setText(model.getDiaryOwnerUsername(currentDiary));
+			lbl_diaryOwnerValue.setText(model.getDiaryOwnerUsername(currentDiary));
 			lbl_numberOfNotes.setText(String.valueOf(model.getNumberOfNotesOfADiary(currentDiary)));
 			List<Note> notesFromDiary = model.getNotesFromCurrentDiary();
 			if (notesFromDiary != null && notesFromDiary.size() > 0) {

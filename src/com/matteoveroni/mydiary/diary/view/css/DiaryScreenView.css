@@ -5,3 +5,7 @@
 #diary-table .table-cell {
     -fx-alignment: CENTER;
 }
+
+#lbl_diaryOwnerTitle, #lbl_numberOfNotesTitle{
+    -fx-font-weight: bold;
+}
