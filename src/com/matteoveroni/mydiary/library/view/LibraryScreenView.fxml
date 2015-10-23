@@ -16,7 +16,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.matteoveroni.mydiary.library.control.LibraryScreenController">
     <stylesheets>
-        <URL value="@css/DiaryScreenView.css" />
+        <URL value="@css/LibraryScreenView.css" />
     </stylesheets>
    <children>
       <Label alignment="CENTER" layoutX="42.0" layoutY="44.0" prefHeight="35.0" prefWidth="721.0" text="Choose a diary to access or create a new one">
