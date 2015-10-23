@@ -9,7 +9,6 @@ import com.matteoveroni.mydiary.diary.model.DiaryModel;
 import com.matteoveroni.mydiary.diary.model.bean.Diary;
 import com.matteoveroni.mydiary.library.control.LibraryScreenController;
 import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
-import com.matteoveroni.mydiary.utilities.exceptions.CriticalRuntimeException;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;

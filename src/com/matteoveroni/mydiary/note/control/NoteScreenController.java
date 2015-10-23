@@ -32,7 +32,7 @@ import org.slf4j.LoggerFactory;
 public class NoteScreenController implements Initializable, Manageable, Listener {
 
 	private Manager manager;
-	private NoteModel model = new NoteModel();
+	private final NoteModel model = new NoteModel();
 	private Note currentNote = new Note();
 	private static final Logger LOG = LoggerFactory.getLogger(NoteScreenController.class);
 
