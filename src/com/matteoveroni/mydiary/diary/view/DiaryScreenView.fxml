@@ -19,11 +19,10 @@
     <children>
         <TableView id="diary-table" fx:id="diaryTable" editable="true" layoutX="10.0" layoutY="66.0" prefHeight="442.0" prefWidth="780.0">
             <columns>
-                <TableColumn fx:id="tableColumn_Id" prefWidth="51.0" text="Id" />
-                <TableColumn fx:id="tableColumn_Title" prefWidth="258.0" text="Title" />
-                <TableColumn fx:id="tableColumn_CreationDate" prefWidth="118.0" text="Creation Date" />
-                <TableColumn fx:id="tableColumn_LastModificationTimestamp" prefWidth="180.0" text="Last Update" />
-                <TableColumn fx:id="tableColumn_Author" prefWidth="171.0" text="Author" />
+                <TableColumn fx:id="tableColumn_Id" prefWidth="42.0" text="Id" />
+                <TableColumn fx:id="tableColumn_Title" prefWidth="394.0" text="Title" />
+                <TableColumn fx:id="tableColumn_CreationDate" minWidth="0.0" prefWidth="155.0" text="Creation Date" />
+                <TableColumn fx:id="tableColumn_LastModificationTimestamp" prefWidth="187.0" text="Last Update" />
             </columns>
         </TableView>
         <Button fx:id="btn_openNote" layoutX="658.0" layoutY="537.0" mnemonicParsing="false" onAction="#goToNoteScreen" prefHeight="41.0" prefWidth="128.0" text="Open" />
@@ -31,7 +30,9 @@
         <Button fx:id="btn_createNewNote" layoutX="478.0" layoutY="538.0" mnemonicParsing="false" onAction="#createNewNote" prefHeight="41.0" prefWidth="128.0" text="Create new" />
         <CheckBox fx:id="chk_enableFilter" layoutX="201.0" layoutY="549.0" mnemonicParsing="false" onAction="#enableFilter" text="Enable Filter" />
         <Button fx:id="btn_filterNote" layoutX="338.0" layoutY="537.0" mnemonicParsing="false" onAction="#goToFilterScreen" prefHeight="41.0" prefWidth="62.0" text="Filter" />
-      <Label layoutX="14.0" layoutY="14.0" prefHeight="41.0" prefWidth="307.0" text="Diary Owner" />
-      <Label layoutX="478.0" layoutY="14.0" prefHeight="41.0" prefWidth="307.0" text="Number of annotations" />
+      <Label layoutX="14.0" layoutY="14.0" prefHeight="41.0" prefWidth="73.0" text="Diary Owner:" />
+      <Label layoutX="478.0" layoutY="14.0" prefHeight="41.0" prefWidth="97.0" text="Number of notes:" />
+      <Label fx:id="lbl_diaryOwnerName" layoutX="87.0" layoutY="14.0" prefHeight="41.0" prefWidth="360.0" />
+      <Label fx:id="lbl_numberOfNotes" layoutX="575.0" layoutY="14.0" prefHeight="41.0" prefWidth="142.0" />
     </children>
 </AnchorPane>

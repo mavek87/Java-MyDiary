@@ -3,6 +3,7 @@ package com.matteoveroni.mydiary.diary.model;
 import com.matteoveroni.mydiary.database.DAO;
 import com.matteoveroni.mydiary.note.model.bean.Note;
 import com.matteoveroni.mydiary.diary.model.bean.Diary;
+import com.matteoveroni.mydiary.user.model.bean.UserData;
 import com.matteoveroni.mydiary.utilities.formatters.ExceptionsFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,9 @@ public class DiaryModel {
 	private Diary diary;
 	private static final Logger LOG = LoggerFactory.getLogger(DiaryModel.class);
 
-	private final String NOTES_TABLE = "NOTES";
+	private final String NOTES_TABLE = "notes";
+	private final String USERS_TABLE = "users";
+	private final String USERS_DIARIES_TABLE = "users_diaries";
 
 	public void setDiary(Diary diary) {
 		this.diary = diary;
@@ -37,6 +40,26 @@ public class DiaryModel {
 			LOG.error(" ---> " + ExceptionsFormatter.toString(ex));
 		}
 		return notesRetrieved;
+	}
+
+	public String getDiaryOwnerUsername(Diary diary) {
+		String diarysOwner = null;
+		try {
+			final String QUERY_THAT_FIND_THE_OWNER_OF_A_DIARY = ""
+				+ "SELECT " + USERS_TABLE + ".username" + " FROM " + USERS_TABLE + " "
+				+ "INNER JOIN " + USERS_DIARIES_TABLE + " ON " + USERS_TABLE + ".id = " + USERS_DIARIES_TABLE + ".user_id "
+				+ "WHERE " + USERS_DIARIES_TABLE + ".diary_id = " + diary.getId();
+//				+ "SELECT users.username FROM users INNER JOIN users_diaries ON users.id = users_diaries.user_id WHERE users_diaries.diary_id = 1";	LOG.debug(" ---> QUERY_THAT_FIND_THE_OWNER_OF_A_DIARY -> " + QUERY_THAT_FIND_THE_OWNER_OF_A_DIARY);
+			diarysOwner = (String)databaseManager.querySQL(QUERY_THAT_FIND_THE_OWNER_OF_A_DIARY, null).get(0);
+			LOG.debug(diarysOwner);
+		} catch (Exception ex) {
+			LOG.error(" ---> " + ExceptionsFormatter.toString(ex));
+		}
+		if (diarysOwner != null) {
+			return diarysOwner;
+		} else {
+			return "Diary without a owner";
+		}
 	}
 
 	public boolean saveNoteIntoCurrentDiary(Note note) {

@@ -23,6 +23,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -56,8 +57,6 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	@FXML
 	private TableColumn<Note, Date> tableColumn_LastModificationTimestamp;
 	@FXML
-	private TableColumn<Note, String> tableColumn_Author;
-	@FXML
 	private Button btn_filterNote;
 	@FXML
 	private Button btn_openNote;
@@ -67,6 +66,10 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	private CheckBox chk_enableFilter;
 	@FXML
 	private Button btn_removeNote;
+	@FXML
+	private Label lbl_diaryOwnerName;
+	@FXML
+	private Label lbl_numberOfNotes;
 
 	/**
 	 * Initializes the DiaryScreenController class.
@@ -82,7 +85,6 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 		tableColumn_Title.setCellValueFactory(new PropertyValueFactory<Note, String>("title"));
 		tableColumn_CreationDate.setCellValueFactory(new PropertyValueFactory<Note, Date>("creationDate"));
 		tableColumn_LastModificationTimestamp.setCellValueFactory(new PropertyValueFactory<Note, Date>("lastModificationTimestamp"));
-		tableColumn_Author.setCellValueFactory(new PropertyValueFactory<Note, String>("author"));
 
 		diaryTable.focusedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
@@ -196,6 +198,8 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	private void drawUpdatedDiaryNotesInsideNotesTable() {
 		LOG.debug(" ---> drawUpdatedDiaryNotesInsideNotesTable call");
 		if (currentDiary != null) {
+			lbl_diaryOwnerName.setText(model.getDiaryOwnerUsername(currentDiary));
+			lbl_numberOfNotes.setText("2");
 			List<Note> notesFromDiary = model.getNotesFromCurrentDiary();
 			if (notesFromDiary != null && notesFromDiary.size() > 0) {
 				LOG.debug(" ---> There are notes in this diary. Populating the notes_table with retrieved notes");
