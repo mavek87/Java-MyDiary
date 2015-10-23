@@ -199,7 +199,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 		LOG.debug(" ---> drawUpdatedDiaryNotesInsideNotesTable call");
 		if (currentDiary != null) {
 			lbl_diaryOwnerName.setText(model.getDiaryOwnerUsername(currentDiary));
-			lbl_numberOfNotes.setText("2");
+			lbl_numberOfNotes.setText(String.valueOf(model.getNumberOfNotesOfADiary(currentDiary)));
 			List<Note> notesFromDiary = model.getNotesFromCurrentDiary();
 			if (notesFromDiary != null && notesFromDiary.size() > 0) {
 				LOG.debug(" ---> There are notes in this diary. Populating the notes_table with retrieved notes");

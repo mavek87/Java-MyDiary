@@ -3,7 +3,6 @@ package com.matteoveroni.mydiary.diary.model;
 import com.matteoveroni.mydiary.database.DAO;
 import com.matteoveroni.mydiary.note.model.bean.Note;
 import com.matteoveroni.mydiary.diary.model.bean.Diary;
-import com.matteoveroni.mydiary.user.model.bean.UserData;
 import com.matteoveroni.mydiary.utilities.formatters.ExceptionsFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,9 +48,7 @@ public class DiaryModel {
 				+ "SELECT " + USERS_TABLE + ".username" + " FROM " + USERS_TABLE + " "
 				+ "INNER JOIN " + USERS_DIARIES_TABLE + " ON " + USERS_TABLE + ".id = " + USERS_DIARIES_TABLE + ".user_id "
 				+ "WHERE " + USERS_DIARIES_TABLE + ".diary_id = " + diary.getId();
-//				+ "SELECT users.username FROM users INNER JOIN users_diaries ON users.id = users_diaries.user_id WHERE users_diaries.diary_id = 1";	LOG.debug(" ---> QUERY_THAT_FIND_THE_OWNER_OF_A_DIARY -> " + QUERY_THAT_FIND_THE_OWNER_OF_A_DIARY);
-			diarysOwner = (String)databaseManager.querySQL(QUERY_THAT_FIND_THE_OWNER_OF_A_DIARY, null).get(0);
-			LOG.debug(diarysOwner);
+			diarysOwner = (String) databaseManager.querySQL(QUERY_THAT_FIND_THE_OWNER_OF_A_DIARY, null).get(0);
 		} catch (Exception ex) {
 			LOG.error(" ---> " + ExceptionsFormatter.toString(ex));
 		}
@@ -60,6 +57,20 @@ public class DiaryModel {
 		} else {
 			return "Diary without a owner";
 		}
+	}
+
+	public int getNumberOfNotesOfADiary(Diary diary) {
+		int numberOfNotesInTheDiary;
+		try {
+			final String QUERY_THAT_FIND_THE_OWNER_OF_A_DIARY = ""
+				+ "SELECT COUNT(ID) FROM " + NOTES_TABLE + " "
+				+ "WHERE " + NOTES_TABLE + ".diary_id = " + diary.getId();
+			numberOfNotesInTheDiary = (Integer) databaseManager.querySQL(QUERY_THAT_FIND_THE_OWNER_OF_A_DIARY, null).get(0);
+		} catch (Exception ex) {
+			LOG.error(" ---> " + ExceptionsFormatter.toString(ex));
+			numberOfNotesInTheDiary = 0;
+		}
+		return numberOfNotesInTheDiary;
 	}
 
 	public boolean saveNoteIntoCurrentDiary(Note note) {

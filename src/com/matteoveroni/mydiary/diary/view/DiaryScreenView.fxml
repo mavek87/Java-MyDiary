@@ -33,6 +33,6 @@
       <Label layoutX="14.0" layoutY="14.0" prefHeight="41.0" prefWidth="73.0" text="Diary Owner:" />
       <Label layoutX="478.0" layoutY="14.0" prefHeight="41.0" prefWidth="97.0" text="Number of notes:" />
       <Label fx:id="lbl_diaryOwnerName" layoutX="87.0" layoutY="14.0" prefHeight="41.0" prefWidth="360.0" />
-      <Label fx:id="lbl_numberOfNotes" layoutX="575.0" layoutY="14.0" prefHeight="41.0" prefWidth="142.0" />
+      <Label fx:id="lbl_numberOfNotes" layoutX="575.0" layoutY="14.0" prefHeight="41.0" prefWidth="215.0" />
     </children>
 </AnchorPane>
