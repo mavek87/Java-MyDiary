@@ -7,7 +7,6 @@ import com.matteoveroni.mydiary.note.model.bean.Note;
 import com.matteoveroni.mydiary.note.model.NoteModel;
 import com.matteoveroni.mydiary.application.messages.DataObjectMessage;
 import com.matteoveroni.mydiary.diary.control.DiaryScreenController;
-import com.matteoveroni.mydiary.utilities.exceptions.CriticalRuntimeException;
 import com.matteoveroni.mydiary.utilities.formatters.DateFormatter;
 import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
 import java.net.URL;
@@ -144,9 +143,11 @@ public class NoteScreenController implements Initializable, Manageable, Listener
 				JOptionPane.YES_NO_OPTION,
 				JOptionPane.WARNING_MESSAGE);
 			if (exitWithoutSavingDialogResult == JOptionPane.YES_OPTION) {
+				manager.storeObjectToPush(currentNote, NoteScreenController.class);
 				manager.changeScreen(ScreensFramework.DIARY_SCREEN);
 			}
 		} else {
+			manager.storeObjectToPush(currentNote, NoteScreenController.class);
 			manager.changeScreen(ScreensFramework.DIARY_SCREEN);
 		}
 	}
