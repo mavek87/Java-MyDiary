@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 /**
  *
  * @author Matteo Veroni
- * @version 0.4.00
+ * @version 0.4.01
  *
  * <b> Author Web Sites: </b>
  * <br/>	<a href="http://www.matteoveroni.com">www.matteoveroni.com</a>
@@ -19,29 +19,29 @@ import org.slf4j.LoggerFactory;
  */
 public class MyDiary extends Application {
 
-    private static final String APPLICATION_NAME = "MyDiary";
-    private static final String APPLICATION_VERSION = "0.4.00";
-    private static final Logger LOG = LoggerFactory.getLogger(MyDiary.class);
+	private static final String APPLICATION_NAME = "MyDiary";
+	private static final String APPLICATION_VERSION = "0.4.01";
+	private static final Logger LOG = LoggerFactory.getLogger(MyDiary.class);
 
-    private ApplicationManagerBuilder applicationManagerBuilder;
-    private ApplicationManager applicationManager;
+	private ApplicationManagerBuilder applicationManagerBuilder;
+	private ApplicationManager applicationManager;
 
-    @Override
-    public void start(Stage applicationStage) {
-        LOG.debug(" ---> Application started");
-        applicationManagerBuilder = new ApplicationManagerBuilder(APPLICATION_NAME, APPLICATION_VERSION, applicationStage);
-        LOG.debug(" ---> ApplicationBuilder initialized");
-        applicationManager = applicationManagerBuilder.build();
-        LOG.debug(" ---> ApplicationManager builded");
-    }
+	@Override
+	public void start(Stage applicationStage) {
+		LOG.debug(" ---> Application started");
+		applicationManagerBuilder = new ApplicationManagerBuilder(APPLICATION_NAME, APPLICATION_VERSION, applicationStage);
+		LOG.debug(" ---> ApplicationBuilder initialized");
+		applicationManager = applicationManagerBuilder.build();
+		LOG.debug(" ---> ApplicationManager builded");
+	}
 
-    @Override
-    public void stop() {
-        LOG.debug(" ---> Application is going to stop");
-        applicationManager.dispose();
-    }
+	@Override
+	public void stop() {
+		LOG.debug(" ---> Application is going to stop");
+		applicationManager.dispose();
+	}
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+	public static void main(String[] args) {
+		launch(args);
+	}
 }

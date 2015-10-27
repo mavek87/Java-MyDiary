@@ -68,8 +68,9 @@ public class LoginScreenController implements Manageable, Initializable, Listene
 	@FXML
 	void login(ActionEvent event) {
 		String insertedUsername = txt_username.getText();
-		user = model.searchUser(insertedUsername);
-		if (user != null && user.getPassword().equals(psw_password.getText())) {
+		String insertedPassword = psw_password.getText();
+		user = model.searchUserWithUsernameAndPassword(insertedUsername, insertedPassword);
+		if (user != null) {
 			loginSuccessfullSoAccessApplication();
 		} else {
 			loginFailedPrintError();

@@ -2,6 +2,7 @@ package com.matteoveroni.mydiary.registration.model;
 
 import com.matteoveroni.mydiary.database.DAO;
 import com.matteoveroni.mydiary.user.model.bean.UserData;
+import com.matteoveroni.mydiary.utilities.cryptography.Cryptographer;
 import com.matteoveroni.mydiary.utilities.formatters.ExceptionsFormatter;
 import java.util.List;
 import org.slf4j.Logger;
@@ -14,14 +15,23 @@ import org.slf4j.LoggerFactory;
 public class RegistrationModel {
 
 	private final DAO databaseManager = DAO.getInstance();
+	private final Cryptographer cryptograher = new Cryptographer();
+	private static final Logger LOG = LoggerFactory.getLogger(RegistrationModel.class);
 
 	private final String NAME_OF_THE_USER_TABLE = "USERS";
-	private static final Logger LOG = LoggerFactory.getLogger(RegistrationModel.class);
 
 	public boolean createNewUser(UserData user) {
 		try {
 			if (!isUserExistent(user)) {
+				String passwordHash = cryptograher.sha2_256(user.getPassword());
+				user.setPassword(passwordHash);
 				databaseManager.write(user);
+				LOG.info("USER CREATED!");
+				LOG.info("username = " + user.getUsername());
+				LOG.info("password = " + user.getPassword());
+				LOG.info("firstname = " + user.getFirstName());
+				LOG.info("lastname = " + user.getLastName());
+				LOG.info("age = " + user.getAge());
 				return true;
 			}
 		} catch (Exception ex) {

@@ -18,10 +18,10 @@ import org.slf4j.LoggerFactory;
 public class ApplicationManagerBuilder {
 
     private ApplicationManager applicationManager;
-    private final DAO databaseManager = DAO.getInstance();
     private final ScreenManager screenManager;
-    private static final Logger LOG = LoggerFactory.getLogger(ApplicationManagerBuilder.class);
 
+	private static final Logger LOG = LoggerFactory.getLogger(ApplicationManagerBuilder.class);
+	
     private final String applicationName;
     private final String applicationVersion;
 
@@ -38,7 +38,7 @@ public class ApplicationManagerBuilder {
         screenManagerSetup();
         loadScreensInScreenManager();
         useInitialScreen();
-        applicationManager = new ApplicationManager(applicationName, applicationVersion, screenManager, databaseManager);
+        applicationManager = new ApplicationManager(applicationName, applicationVersion, screenManager, DAO.getInstance());
         LOG.debug(" ---> Application Manager Builded");
         return applicationManager;
     }
