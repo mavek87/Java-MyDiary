@@ -57,8 +57,6 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	@FXML
 	private TableColumn<Note, Date> tableColumn_LastModificationTimestamp;
 	@FXML
-	private Button btn_filterNote;
-	@FXML
 	private Button btn_openNote;
 	@FXML
 	private Button btn_createNewNote;
@@ -71,7 +69,7 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	@FXML
 	private Label lbl_diaryOwnerValue;
 	@FXML
-	private Label lbl_numberOfNotesTitle;	
+	private Label lbl_numberOfNotesTitle;
 	@FXML
 	private Label lbl_numberOfNotes;
 
@@ -171,18 +169,15 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 			newNote.setLastModificationTimestamp(new Date());
 			newNote.setDiary(currentDiary);
 			if (model.saveNoteIntoCurrentDiary(newNote) == true) {
+				LOG.info("NEW NOTE CREATED!");
+				LOG.info("Note id: " + newNote.getId());
+				LOG.info("Note title: " + newNote.getTitle());
+				LOG.info("Note message: " + newNote.getMessage());
+				LOG.info("Note creation date: " + newNote.getCreationDate());
 				manager.storeObjectToPush(newNote, DiaryScreenController.class);
 				manager.changeScreen(ScreensFramework.NOTE_SCREEN);
 			}
 		}
-	}
-
-	@FXML
-	void goToFilterScreen(ActionEvent event) {
-	}
-
-	@FXML
-	void enableFilter(ActionEvent event) {
 	}
 
 	private void openSelectedNote() {
