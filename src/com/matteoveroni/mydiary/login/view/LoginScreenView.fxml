@@ -67,5 +67,20 @@
                 </AnchorPane>
             </children>
         </VBox>
+      <MenuBar fx:id="menu" prefHeight="26.0" prefWidth="800.0">
+        <menus>
+          <Menu fx:id="menu_file" mnemonicParsing="false" text="File">
+            <items>
+                  <MenuItem fx:id="menu_settings" mnemonicParsing="false" text="Settings" />
+              <MenuItem fx:id="menu_close" mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu fx:id="menu_help" mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
     </children>
 </AnchorPane>

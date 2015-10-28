@@ -20,6 +20,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javax.swing.JOptionPane;
@@ -54,6 +57,16 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
 	private ComboBox<String> cmb_chooseDiary;
 	@FXML
 	private TextField txt_newDiaryName;
+	@FXML
+	private Menu menu_file;
+	@FXML
+	private Menu menu_help;
+	@FXML
+	private MenuItem menu_close;
+	@FXML
+	private MenuBar menu;
+	@FXML
+	private MenuItem menu_settings;
 
 	/**
 	 * Initializes the DiaryScreenController class.

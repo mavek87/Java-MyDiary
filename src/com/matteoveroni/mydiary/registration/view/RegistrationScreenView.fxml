@@ -22,6 +22,21 @@
             <center>
                 <VBox prefHeight="444.0" prefWidth="800.0" BorderPane.alignment="CENTER">
                     <children>
+                  <MenuBar fx:id="menu" prefHeight="26.0" prefWidth="800.0">
+                     <menus>
+                        <Menu fx:id="menu_file" mnemonicParsing="false" text="File">
+                           <items>
+                              <MenuItem fx:id="menu_settings" mnemonicParsing="false" text="Settings" />
+                              <MenuItem fx:id="menu_close" mnemonicParsing="false" text="Close" />
+                           </items>
+                        </Menu>
+                        <Menu fx:id="menu_help" mnemonicParsing="false" text="Help">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="About" />
+                           </items>
+                        </Menu>
+                     </menus>
+                  </MenuBar>
                         <Label fx:id="lbl_Username" alignment="BOTTOM_CENTER" prefHeight="50.0" prefWidth="129.0" text="Username *">
                      <font>
                         <Font size="21.0" />
@@ -50,22 +65,15 @@
                     </children>
                 </VBox>
             </center>
-            <top>
-                <Label fx:id="lbl_Title" alignment="CENTER" prefHeight="39.0" prefWidth="301.0" text="User Registration" BorderPane.alignment="CENTER">
-                    <font>
-                        <Font size="30.0" />
-                    </font>
-                </Label>
-            </top>
          <bottom>
             <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btn_Register" mnemonicParsing="false" onAction="#registerUser" prefHeight="100.0" prefWidth="400.0" text="Register">
+                  <Button fx:id="btn_Register" mnemonicParsing="false" onAction="#registerUser" prefHeight="79.0" prefWidth="400.0" text="Register">
                      <font>
                         <Font size="26.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btn_Cancel" mnemonicParsing="false" onAction="#cancelRegistration" prefHeight="100.0" prefWidth="400.0" text="Cancel">
+                  <Button fx:id="btn_Cancel" mnemonicParsing="false" onAction="#cancelRegistration" prefHeight="79.0" prefWidth="400.0" text="Cancel">
                      <font>
                         <Font size="26.0" />
                      </font>

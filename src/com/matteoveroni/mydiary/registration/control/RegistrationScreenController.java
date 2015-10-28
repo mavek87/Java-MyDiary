@@ -14,6 +14,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javax.swing.JOptionPane;
@@ -58,6 +61,16 @@ public class RegistrationScreenController implements Manageable, Initializable, 
 	private Button btn_Cancel;
 	@FXML
 	private Button btn_Register;
+	@FXML
+	private Menu menu_file;
+	@FXML
+	private Menu menu_help;
+	@FXML
+	private MenuItem menu_close;
+	@FXML
+	private MenuBar menu;
+	@FXML
+	private MenuItem menu_settings;
 
 	/**
 	 * Initializes the controller class.

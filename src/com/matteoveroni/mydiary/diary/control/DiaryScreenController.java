@@ -24,6 +24,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -72,6 +75,16 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	private Label lbl_numberOfNotesTitle;
 	@FXML
 	private Label lbl_numberOfNotes;
+	@FXML
+	private Menu menu_file;
+	@FXML
+	private Menu menu_help;
+	@FXML
+	private MenuItem menu_close;
+	@FXML
+	private MenuBar menu;
+	@FXML
+	private MenuItem menu_settings;
 
 	/**
 	 * Initializes the DiaryScreenController class.
