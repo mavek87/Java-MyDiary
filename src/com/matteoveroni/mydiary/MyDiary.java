@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 /**
  *
  * @author Matteo Veroni
- * @version 0.4.8
+ * @version 0.4.9
  *
  * <b> Author Web Sites: </b>
  * <br/>	<a href="http://www.matteoveroni.com">www.matteoveroni.com</a>
@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 public class MyDiary extends Application {
 
 	private static final String APPLICATION_NAME = "MyDiary";
-	private static final String APPLICATION_VERSION = "0.4.8";
+	private static final String APPLICATION_VERSION = "0.4.9";
 	private static final Logger LOG = LoggerFactory.getLogger(MyDiary.class);
 
 	private ApplicationManagerBuilder applicationManagerBuilder;

@@ -39,158 +39,154 @@ import org.slf4j.LoggerFactory;
  */
 public class LibraryScreenController implements Initializable, Manageable, Listener {
 
-	private Manager manager;
-	private Diary selectedDiary = new Diary();
-	private final LibraryModel model = new LibraryModel();
-	List<Diary> userDiaries = new ArrayList<>();
-	List<String> userDiariesStringsForCombobox = new ArrayList<>();
-	private static final Logger LOG = LoggerFactory.getLogger(LibraryScreenController.class);
+    private Manager manager;
+    private Diary selectedDiary = new Diary();
+    private final LibraryModel model = new LibraryModel();
+    List<Diary> userDiaries = new ArrayList<>();
+    List<String> userDiariesStringsForCombobox = new ArrayList<>();
+    private static final Logger LOG = LoggerFactory.getLogger(LibraryScreenController.class);
 
-	@FXML
-	private Tab tab_manageDiary;
-	@FXML
-	private Tab tab_selectDiary;
-	@FXML
-	private Tab tab_createNewDiary;
-	@FXML
-	private Button btn_createDiary;
-	@FXML
-	private Button btn_openDiary;
-	@FXML
-	private ComboBox<String> cmb_chooseDiary;
-	@FXML
-	private TextField txt_newDiaryName;
-	@FXML
-	private MenuBar menu;
-	@FXML
-	private Menu menu_file;
-	@FXML
-	private MenuItem menu_settings;
-	@FXML
-	private MenuItem menu_close;
-	@FXML
-	private Menu menu_help;
-	@FXML
-	private MenuItem menu_about;
+    @FXML
+    private Tab tab_manageDiary;
+    @FXML
+    private Tab tab_selectDiary;
+    @FXML
+    private Tab tab_createNewDiary;
+    @FXML
+    private Button btn_createDiary;
+    @FXML
+    private Button btn_openDiary;
+    @FXML
+    private ComboBox<String> cmb_chooseDiary;
+    @FXML
+    private TextField txt_newDiaryName;
+    @FXML
+    private MenuBar menu;
+    @FXML
+    private Menu menu_file;
+    @FXML
+    private MenuItem menu_settings;
+    @FXML
+    private MenuItem menu_close;
+    @FXML
+    private Menu menu_help;
+    @FXML
+    private MenuItem menu_about;
 
-	/**
-	 * Initializes the DiaryScreenController class.
-	 *
-	 * @param url
-	 * @param rb
-	 */
-	@Override
-	public void initialize(URL url, ResourceBundle rb) {
+    /**
+     * Initializes the DiaryScreenController class.
+     *
+     * @param url
+     * @param rb
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
 
-		cmb_chooseDiary.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+        cmb_chooseDiary.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				try {
-					int selectedDiaryIndex = cmb_chooseDiary.getSelectionModel().getSelectedIndex();
-					selectedDiary = userDiaries.get(selectedDiaryIndex);
-					btn_openDiary.setDisable(false);
-				} catch (Exception ex) {
-					if (!btn_openDiary.isDisable()) {
-						btn_openDiary.setDisable(true);
-					}
-					selectedDiary = null;
-				}
-			}
-		});
-	}
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                try {
+                    int selectedDiaryIndex = cmb_chooseDiary.getSelectionModel().getSelectedIndex();
+                    selectedDiary = userDiaries.get(selectedDiaryIndex);
+                    btn_openDiary.setDisable(false);
+                } catch (Exception ex) {
+                    if (!btn_openDiary.isDisable()) {
+                        btn_openDiary.setDisable(true);
+                    }
+                    selectedDiary = null;
+                }
+            }
+        });
+    }
 
-	@Override
-	public void setManager(Manager manager) {
-		this.manager = manager;
-		manager.registerListener(this);
-	}
+    @Override
+    public void setManager(Manager manager) {
+        this.manager = manager;
+        manager.registerListener(this);
+    }
 
-	@Override
-	public void update(DataObjectMessage pushedData) {
-		if (manager != null && manager.getLoggedInUser() != null) {
-			updateDiaryComboBox();
-			if (cmb_chooseDiary.getItems().size() == 0) {
-				cmb_chooseDiary.setPromptText("Empty");
-				btn_openDiary.setDisable(true);
-			} else {
-				if (cmb_chooseDiary.getSelectionModel().getSelectedIndex()>0) {
-					cmb_chooseDiary.setPromptText("Select a diary");
-				}
-			}
-		}
-	}
+    @Override
+    public void update(DataObjectMessage pushedData) {
+        if (manager != null && manager.getLoggedInUser() != null) {
+            updateDiaryComboBox();
+            btn_openDiary.setDisable(true);
+            if (cmb_chooseDiary.getItems().size() == 0) {
+                cmb_chooseDiary.setPromptText("Empty");
+            } else {
+                cmb_chooseDiary.setPromptText("Select a diary");
+                if (cmb_chooseDiary.getSelectionModel().getSelectedIndex() > 0) {
+                    btn_openDiary.setDisable(false);
+                }
+            }
+        }
+    }
 
-	@FXML
-	void openSelectedDiary(ActionEvent event
-	) {
-		if (selectedDiary != null) {
-			manager.storeObjectToPush(selectedDiary, LibraryScreenController.class);
-			manager.changeScreen(ScreensFramework.DIARY_SCREEN);
-		}
-	}
+    @FXML
+    void openSelectedDiary(ActionEvent event) {
+        if (selectedDiary != null) {
+            manager.storeObjectToPush(selectedDiary, LibraryScreenController.class);
+            manager.changeScreen(ScreensFramework.DIARY_SCREEN);
+        }
+    }
 
-	@FXML
-	void createNewDiary(ActionEvent event
-	) {
-		if (txt_newDiaryName.getText() != null && !txt_newDiaryName.getText().trim().equals("")) {
-			Diary diary = new Diary();
-			diary.setName(txt_newDiaryName.getText());
-			if (model.createNewDiary(diary, manager.getLoggedInUser())) {
-				update(null);
-				JOptionPane.showMessageDialog(null, "New Diary \'" + diary.getName() + "\' created");
-			} else {
-				JOptionPane.showMessageDialog(null, "Error during \'" + diary.getName() + "\' creations");
-			}
-			txt_newDiaryName.setText("");
-		}
-	}
+    @FXML
+    void createNewDiary(ActionEvent event) {
+        if (txt_newDiaryName.getText() != null && !txt_newDiaryName.getText().trim().equals("")) {
+            Diary diary = new Diary();
+            diary.setName(txt_newDiaryName.getText());
+            if (model.createNewDiary(diary, manager.getLoggedInUser())) {
+                update(null);
+                JOptionPane.showMessageDialog(null, "New Diary \'" + diary.getName() + "\' created");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error during \'" + diary.getName() + "\' creations");
+            }
+            txt_newDiaryName.setText("");
+        }
+    }
 
-	@FXML
-	void tabSelectDiaryActive() {
-		update(null);
-	}
+    @FXML
+    void tabSelectDiaryActive() {
+        update(null);
+    }
 
-	@FXML
-	void tabCreateNewDiaryActive() {
-		txt_newDiaryName.setText("");
-	}
+    @FXML
+    void tabCreateNewDiaryActive() {
+        txt_newDiaryName.setText("");
+    }
 
-	@FXML
-	void tabManageDiaryActive() {
-	}
+    @FXML
+    void tabManageDiaryActive() {
+    }
 
-	@FXML
-	void menuSettingsClicked(ActionEvent event
-	) {
-		manager.changeScreen(ScreensFramework.SETTINGS_SCREEN);
-	}
+    @FXML
+    void menuSettingsClicked(ActionEvent event) {
+        manager.changeScreen(ScreensFramework.SETTINGS_SCREEN);
+    }
 
-	@FXML
-	void menuCloseClicked(ActionEvent event
-	) {
-		Command closeCommand = new MenuCloseCommand(manager);
-		closeCommand.execute();
-	}
+    @FXML
+    void menuCloseClicked(ActionEvent event) {
+        Command closeCommand = new MenuCloseCommand(manager);
+        closeCommand.execute();
+    }
 
-	@FXML
-	void menuAboutClicked(ActionEvent event
-	) {
-		Command aboutCommand = new MenuAboutCommand(manager);
-		aboutCommand.execute();
-	}
+    @FXML
+    void menuAboutClicked(ActionEvent event) {
+        Command aboutCommand = new MenuAboutCommand(manager);
+        aboutCommand.execute();
+    }
 
-	private void updateDiaryComboBox() {
-		List<Diary> findedUserDiaries = model.getUserDiaries(manager.getLoggedInUser());
-		if (findedUserDiaries != null && findedUserDiaries.size() > 0) {
-			userDiaries.clear();
-			userDiariesStringsForCombobox.clear();
-			for (Diary diary : findedUserDiaries) {
-				userDiaries.add(diary);
-				userDiariesStringsForCombobox.add(diary.getId() + " - " + diary.getName() + " - " + manager.getLoggedInUser());
-			}
-			ObservableList<String> observableUserDiaries = FXCollections.observableArrayList(userDiariesStringsForCombobox);
-			cmb_chooseDiary.setItems(observableUserDiaries);
-		}
-	}
+    private void updateDiaryComboBox() {
+        List<Diary> findedUserDiaries = model.getUserDiaries(manager.getLoggedInUser());
+        if (findedUserDiaries != null && findedUserDiaries.size() > 0) {
+            userDiaries.clear();
+            userDiariesStringsForCombobox.clear();
+            for (Diary diary : findedUserDiaries) {
+                userDiaries.add(diary);
+                userDiariesStringsForCombobox.add(diary.getId() + " - " + diary.getName() + " - " + manager.getLoggedInUser());
+            }
+            ObservableList<String> observableUserDiaries = FXCollections.observableArrayList(userDiariesStringsForCombobox);
+            cmb_chooseDiary.setItems(observableUserDiaries);
+        }
+    }
 }
