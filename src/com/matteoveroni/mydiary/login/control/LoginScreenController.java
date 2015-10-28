@@ -5,8 +5,11 @@ import com.matteoveroni.mydiary.application.manager.Manageable;
 import com.matteoveroni.mydiary.application.manager.Manager;
 import com.matteoveroni.mydiary.utilities.patterns.Listener;
 import com.matteoveroni.mydiary.login.model.LoginModel;
+import com.matteoveroni.mydiary.menu.model.commands.AboutCommand;
+import com.matteoveroni.mydiary.menu.model.MenuModel;
 import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
 import com.matteoveroni.mydiary.user.model.bean.UserData;
+import com.matteoveroni.mydiary.utilities.patterns.Command;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -30,6 +33,7 @@ import javafx.scene.control.TextField;
 public class LoginScreenController implements Manageable, Initializable, Listener {
 
 	private Manager manager;
+//	private MenuModel menuModel;
 	private UserData user;
 	private final LoginModel model = new LoginModel();
 
@@ -43,16 +47,18 @@ public class LoginScreenController implements Manageable, Initializable, Listene
 	private Button btn_login;
 	@FXML
 	private TextField txt_username;
-    @FXML
-    private Menu menu_file;
-    @FXML
-    private Menu menu_help;
-    @FXML
-    private MenuItem menu_close;
-    @FXML
-    private MenuBar menu;
-    @FXML
-    private MenuItem menu_settings;
+	@FXML
+	private MenuBar menu;
+	@FXML
+	private Menu menu_file;
+	@FXML
+	private MenuItem menu_settings;
+	@FXML
+	private MenuItem menu_close;
+	@FXML
+	private Menu menu_help;
+	@FXML
+	private MenuItem menu_about;
 
 	/**
 	 * Initializes the controller class.
@@ -76,6 +82,7 @@ public class LoginScreenController implements Manageable, Initializable, Listene
 	public void setManager(Manager manager) {
 		this.manager = manager;
 		manager.registerListener(this);
+//		menuModel = new MenuModel(manager);
 	}
 
 	@FXML
@@ -103,6 +110,12 @@ public class LoginScreenController implements Manageable, Initializable, Listene
 	@FXML
 	void actionOnPasswordTextField(ActionEvent event) {
 		lbl_loginFailedMessage.setVisible(false);
+	}
+
+	@FXML
+	void menuAboutClicked(ActionEvent event) {
+		Command aboutCommand = new AboutCommand(manager);
+		aboutCommand.execute();
 	}
 
 	private void loginSuccessfullSoAccessApplication() {

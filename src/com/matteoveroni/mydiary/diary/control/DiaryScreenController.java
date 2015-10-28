@@ -8,7 +8,9 @@ import com.matteoveroni.mydiary.application.messages.DataObjectMessage;
 import com.matteoveroni.mydiary.diary.model.DiaryModel;
 import com.matteoveroni.mydiary.diary.model.bean.Diary;
 import com.matteoveroni.mydiary.library.control.LibraryScreenController;
+import com.matteoveroni.mydiary.menu.model.commands.AboutCommand;
 import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
+import com.matteoveroni.mydiary.utilities.patterns.Command;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
@@ -76,15 +78,17 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	@FXML
 	private Label lbl_numberOfNotes;
 	@FXML
+	private MenuBar menu;
+	@FXML
 	private Menu menu_file;
 	@FXML
-	private Menu menu_help;
+	private MenuItem menu_settings;
 	@FXML
 	private MenuItem menu_close;
 	@FXML
-	private MenuBar menu;
+	private Menu menu_help;
 	@FXML
-	private MenuItem menu_settings;
+	private MenuItem menu_about;
 
 	/**
 	 * Initializes the DiaryScreenController class.
@@ -191,6 +195,12 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 				manager.changeScreen(ScreensFramework.NOTE_SCREEN);
 			}
 		}
+	}
+	
+	@FXML
+	void menuAboutClicked(ActionEvent event) {
+		Command aboutCommand = new AboutCommand(manager);
+		aboutCommand.execute();
 	}
 
 	private void openSelectedNote() {

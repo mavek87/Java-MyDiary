@@ -6,7 +6,9 @@ import com.matteoveroni.mydiary.utilities.patterns.Listener;
 import com.matteoveroni.mydiary.application.messages.DataObjectMessage;
 import com.matteoveroni.mydiary.diary.model.bean.Diary;
 import com.matteoveroni.mydiary.library.model.LibraryModel;
+import com.matteoveroni.mydiary.menu.model.commands.AboutCommand;
 import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
+import com.matteoveroni.mydiary.utilities.patterns.Command;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,15 +60,17 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
 	@FXML
 	private TextField txt_newDiaryName;
 	@FXML
+	private MenuBar menu;
+	@FXML
 	private Menu menu_file;
 	@FXML
-	private Menu menu_help;
+	private MenuItem menu_settings;
 	@FXML
 	private MenuItem menu_close;
 	@FXML
-	private MenuBar menu;
+	private Menu menu_help;
 	@FXML
-	private MenuItem menu_settings;
+	private MenuItem menu_about;
 
 	/**
 	 * Initializes the DiaryScreenController class.
@@ -149,6 +153,12 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
 
 	@FXML
 	void tabManageDiaryActive() {
+	}
+	
+	@FXML
+	void menuAboutClicked(ActionEvent event) {
+		Command aboutCommand = new AboutCommand(manager);
+		aboutCommand.execute();
 	}
 
 	private void updateDiaryComboBox() {

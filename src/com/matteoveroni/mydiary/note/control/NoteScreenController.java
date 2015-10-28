@@ -7,8 +7,10 @@ import com.matteoveroni.mydiary.note.model.bean.Note;
 import com.matteoveroni.mydiary.note.model.NoteModel;
 import com.matteoveroni.mydiary.application.messages.DataObjectMessage;
 import com.matteoveroni.mydiary.diary.control.DiaryScreenController;
+import com.matteoveroni.mydiary.menu.model.commands.AboutCommand;
 import com.matteoveroni.mydiary.utilities.formatters.DateFormatter;
 import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
+import com.matteoveroni.mydiary.utilities.patterns.Command;
 import java.net.URL;
 import java.util.Date;
 import java.util.Objects;
@@ -61,15 +63,17 @@ public class NoteScreenController implements Initializable, Manageable, Listener
 	@FXML
 	private TextField txt_noteNumber;
 	@FXML
+	private MenuBar menu;
+	@FXML
 	private Menu menu_file;
 	@FXML
-	private Menu menu_help;
+	private MenuItem menu_settings;
 	@FXML
 	private MenuItem menu_close;
 	@FXML
-	private MenuBar menu;
+	private Menu menu_help;
 	@FXML
-	private MenuItem menu_settings;
+	private MenuItem menu_about;
 
 	/**
 	 * Initializes the controller class.
@@ -119,6 +123,12 @@ public class NoteScreenController implements Initializable, Manageable, Listener
 			"Note saved",
 			JOptionPane.INFORMATION_MESSAGE
 		);
+	}
+	
+	@FXML
+	void menuAboutClicked(ActionEvent event) {
+		Command aboutCommand = new AboutCommand(manager);
+		aboutCommand.execute();
 	}
 
 	@FXML

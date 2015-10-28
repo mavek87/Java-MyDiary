@@ -3,10 +3,12 @@ package com.matteoveroni.mydiary.registration.control;
 import com.matteoveroni.mydiary.application.messages.DataObjectMessage;
 import com.matteoveroni.mydiary.application.manager.Manageable;
 import com.matteoveroni.mydiary.application.manager.Manager;
+import com.matteoveroni.mydiary.menu.model.commands.AboutCommand;
 import com.matteoveroni.mydiary.utilities.patterns.Listener;
 import com.matteoveroni.mydiary.registration.model.RegistrationModel;
 import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
 import com.matteoveroni.mydiary.user.model.bean.UserData;
+import com.matteoveroni.mydiary.utilities.patterns.Command;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -62,15 +64,17 @@ public class RegistrationScreenController implements Manageable, Initializable, 
 	@FXML
 	private Button btn_Register;
 	@FXML
+	private MenuBar menu;
+	@FXML
 	private Menu menu_file;
 	@FXML
-	private Menu menu_help;
+	private MenuItem menu_settings;
 	@FXML
 	private MenuItem menu_close;
 	@FXML
-	private MenuBar menu;
+	private Menu menu_help;
 	@FXML
-	private MenuItem menu_settings;
+	private MenuItem menu_about;
 
 	/**
 	 * Initializes the controller class.
@@ -121,6 +125,12 @@ public class RegistrationScreenController implements Manageable, Initializable, 
 		}
 	}
 
+	@FXML
+	void menuAboutClicked(ActionEvent event) {
+		Command aboutCommand = new AboutCommand(manager);
+		aboutCommand.execute();
+	}
+	
 	private boolean isUsernameAndPasswordInserted() {
 		String insertedUsername = txt_Username.getText();
 		String insertedPassword = psw_Password.getText();

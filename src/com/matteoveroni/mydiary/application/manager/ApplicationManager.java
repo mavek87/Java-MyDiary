@@ -125,7 +125,7 @@ public class ApplicationManager implements Manager, Disposable, Listenable {
 
     @Override
     public String getApplicationTitle() {
-        return this.getApplicationName() + " - v. " + this.getApplicationVersion() + " | ";
+        return this.getApplicationName() + " - v. " + this.getApplicationVersion() + " ";
     }
 
 }
