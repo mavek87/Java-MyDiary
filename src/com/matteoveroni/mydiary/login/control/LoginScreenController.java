@@ -5,8 +5,9 @@ import com.matteoveroni.mydiary.application.manager.Manageable;
 import com.matteoveroni.mydiary.application.manager.Manager;
 import com.matteoveroni.mydiary.utilities.patterns.Listener;
 import com.matteoveroni.mydiary.login.model.LoginModel;
-import com.matteoveroni.mydiary.menu.model.commands.AboutCommand;
+import com.matteoveroni.mydiary.menu.model.commands.MenuAboutCommand;
 import com.matteoveroni.mydiary.menu.model.MenuModel;
+import com.matteoveroni.mydiary.menu.model.commands.MenuCloseCommand;
 import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
 import com.matteoveroni.mydiary.user.model.bean.UserData;
 import com.matteoveroni.mydiary.utilities.patterns.Command;
@@ -113,8 +114,14 @@ public class LoginScreenController implements Manageable, Initializable, Listene
 	}
 
 	@FXML
+	void menuCloseClicked(ActionEvent event) {
+		Command closeCommand = new MenuCloseCommand(manager);
+		closeCommand.execute();
+	}
+
+	@FXML
 	void menuAboutClicked(ActionEvent event) {
-		Command aboutCommand = new AboutCommand(manager);
+		Command aboutCommand = new MenuAboutCommand(manager);
 		aboutCommand.execute();
 	}
 

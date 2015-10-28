@@ -8,7 +8,8 @@ import com.matteoveroni.mydiary.application.messages.DataObjectMessage;
 import com.matteoveroni.mydiary.diary.model.DiaryModel;
 import com.matteoveroni.mydiary.diary.model.bean.Diary;
 import com.matteoveroni.mydiary.library.control.LibraryScreenController;
-import com.matteoveroni.mydiary.menu.model.commands.AboutCommand;
+import com.matteoveroni.mydiary.menu.model.commands.MenuAboutCommand;
+import com.matteoveroni.mydiary.menu.model.commands.MenuCloseCommand;
 import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
 import com.matteoveroni.mydiary.utilities.patterns.Command;
 import java.net.URL;
@@ -196,10 +197,16 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 			}
 		}
 	}
-	
+
+	@FXML
+	void menuCloseClicked(ActionEvent event) {
+		Command closeCommand = new MenuCloseCommand(manager);
+		closeCommand.execute();
+	}
+
 	@FXML
 	void menuAboutClicked(ActionEvent event) {
-		Command aboutCommand = new AboutCommand(manager);
+		Command aboutCommand = new MenuAboutCommand(manager);
 		aboutCommand.execute();
 	}
 

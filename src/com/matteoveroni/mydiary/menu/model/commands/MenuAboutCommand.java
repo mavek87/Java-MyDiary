@@ -8,11 +8,11 @@ import com.matteoveroni.mydiary.utilities.patterns.Command;
  *
  * @author Matteo Veroni
  */
-public class AboutCommand implements Command {
+public class MenuAboutCommand implements Command {
 
 	private final MenuModel menuModel;
 
-	public AboutCommand(Manager manager) {
+	public MenuAboutCommand(Manager manager) {
 		menuModel = new MenuModel(manager);
 	}
 

@@ -3,7 +3,8 @@ package com.matteoveroni.mydiary.registration.control;
 import com.matteoveroni.mydiary.application.messages.DataObjectMessage;
 import com.matteoveroni.mydiary.application.manager.Manageable;
 import com.matteoveroni.mydiary.application.manager.Manager;
-import com.matteoveroni.mydiary.menu.model.commands.AboutCommand;
+import com.matteoveroni.mydiary.menu.model.commands.MenuAboutCommand;
+import com.matteoveroni.mydiary.menu.model.commands.MenuCloseCommand;
 import com.matteoveroni.mydiary.utilities.patterns.Listener;
 import com.matteoveroni.mydiary.registration.model.RegistrationModel;
 import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
@@ -126,11 +127,17 @@ public class RegistrationScreenController implements Manageable, Initializable, 
 	}
 
 	@FXML
+	void menuCloseClicked(ActionEvent event) {
+		Command closeCommand = new MenuCloseCommand(manager);
+		closeCommand.execute();
+	}
+
+	@FXML
 	void menuAboutClicked(ActionEvent event) {
-		Command aboutCommand = new AboutCommand(manager);
+		Command aboutCommand = new MenuAboutCommand(manager);
 		aboutCommand.execute();
 	}
-	
+
 	private boolean isUsernameAndPasswordInserted() {
 		String insertedUsername = txt_Username.getText();
 		String insertedPassword = psw_Password.getText();
