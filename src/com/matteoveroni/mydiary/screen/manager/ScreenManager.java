@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -20,7 +21,7 @@ public class ScreenManager implements Disposable {
 	private final Map<ScreensFramework, Screen> applicationScreens = new HashMap<>();
 	private final List<Manageable> screenControllers = new ArrayList<>();
 	private Screen currentScreen;
-	private Screen previousScreen;
+	private final Stack<Screen> previouslyUsedScreens = new Stack<>();
 	private Stage mainStage;
 
 	public ScreenManager(Stage applicationStage) {
@@ -47,7 +48,7 @@ public class ScreenManager implements Disposable {
 	public void useScreen(ScreensFramework screenTypeToUse) {
 		if (applicationScreens.containsKey(screenTypeToUse) && this.getApplicationStage() != null) {
 			Screen screenToUse = applicationScreens.get(screenTypeToUse);
-			previousScreen = currentScreen;
+			previouslyUsedScreens.push(currentScreen);
 			currentScreen = screenToUse;
 			mainStage.setScene(screenToUse.getScene());
 			mainStage.show();
@@ -57,8 +58,10 @@ public class ScreenManager implements Disposable {
 	}
 
 	public void usePreviousScreen() {
-		if (previousScreen != null) {
-			mainStage.setScene(previousScreen.getScene());
+		if (!previouslyUsedScreens.empty()) {
+			Screen previousScreenToUse = previouslyUsedScreens.pop();
+			currentScreen = previousScreenToUse;
+			mainStage.setScene(previousScreenToUse.getScene());
 			mainStage.show();
 		}
 	}
@@ -76,7 +79,7 @@ public class ScreenManager implements Disposable {
 	}
 
 	public Screen getPreviousScreen() {
-		return previousScreen;
+		return previouslyUsedScreens.peek();
 	}
 
 	@Override

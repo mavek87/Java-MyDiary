@@ -20,7 +20,7 @@ public class MenuModel {
 	}
 
 	public void aboutAction() {
-		JOptionPane.showMessageDialog(null, "" + manager.getApplicationTitle() + "\nAuthor: Matteo Veroni\nWebsite: www.matteoveroni.com\nBlog: www.infoeinternet.com", "About - " + manager.getApplicationTitle(), JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "" + "Author: Matteo Veroni\nWebsite: www.matteoveroni.com\nBlog: www.infoeinternet.com", "About - " + manager.getApplicationTitle(), JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	public void closeAction() {
