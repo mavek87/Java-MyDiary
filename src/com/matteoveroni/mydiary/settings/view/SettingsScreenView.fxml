@@ -13,9 +13,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.matteoveroni.mydiary.registration.control.RegistrationScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.matteoveroni.mydiary.settings.control.SettingsScreenController">
     <stylesheets>
-        <URL value="@css/RegistrationScreenView.css" />
+        <URL value="@css/SettingsScreenView.css" />
     </stylesheets>
     <children>
         <BorderPane layoutX="260.0" layoutY="140.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -37,43 +37,23 @@
                         </Menu>
                      </menus>
                   </MenuBar>
-                        <Label fx:id="lbl_Username" alignment="BOTTOM_CENTER" prefHeight="50.0" prefWidth="129.0" text="Username *">
+                        <Label alignment="BOTTOM_CENTER" prefHeight="50.0" prefWidth="178.0" text="Choose Language">
                      <font>
                         <Font size="21.0" />
                      </font></Label>
-                        <TextField fx:id="txt_Username" prefHeight="35.0" prefWidth="800.0" />
-                        <Label fx:id="lbl_Password" alignment="BOTTOM_LEFT" prefHeight="50.0" prefWidth="147.0" text="Password *">
-                     <font>
-                        <Font size="21.0" />
-                     </font></Label>
-                        <PasswordField fx:id="psw_Password" prefHeight="35.0" prefWidth="800.0" />
-                        <Label fx:id="lbl_Name" alignment="BOTTOM_CENTER" prefHeight="50.0" prefWidth="114.0" text="FirstName">
-                     <font>
-                        <Font size="21.0" />
-                     </font></Label>
-                        <TextField fx:id="txt_Name" prefHeight="35.0" prefWidth="800.0" />
-                        <Label fx:id="lbl_Surname" alignment="BOTTOM_CENTER" prefHeight="50.0" prefWidth="113.0" text="LastName">
-                     <font>
-                        <Font size="21.0" />
-                     </font></Label>
-                        <TextField fx:id="txt_Surname" prefHeight="35.0" prefWidth="800.0" />
-                        <Label fx:id="lbl_Age" alignment="BOTTOM_CENTER" prefHeight="50.0" prefWidth="50.0" text="Age">
-                     <font>
-                        <Font size="21.0" />
-                     </font></Label>
-                        <TextField fx:id="txt_Age" prefHeight="35.0" prefWidth="800.0" />
+                  <ComboBox prefHeight="25.0" prefWidth="172.0" />
                     </children>
                 </VBox>
             </center>
          <bottom>
             <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btn_Register" mnemonicParsing="false" onAction="#registerUser" prefHeight="79.0" prefWidth="400.0" text="Register">
+                  <Button fx:id="btn_Save" mnemonicParsing="false" onAction="#saveSettings" prefHeight="79.0" prefWidth="400.0" text="Save">
                      <font>
                         <Font size="26.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btn_Cancel" mnemonicParsing="false" onAction="#cancelRegistration" prefHeight="79.0" prefWidth="400.0" text="Cancel">
+                  <Button fx:id="btn_Cancel" mnemonicParsing="false" onAction="#cancelSettings" prefHeight="79.0" prefWidth="400.0" text="Cancel">
                      <font>
                         <Font size="26.0" />
                      </font>

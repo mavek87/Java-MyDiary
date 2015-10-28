@@ -199,6 +199,11 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	}
 
 	@FXML
+	void menuSettingsClicked(ActionEvent event) {
+		manager.changeScreen(ScreensFramework.SETTINGS_SCREEN);
+	}
+
+	@FXML
 	void menuCloseClicked(ActionEvent event) {
 		Command closeCommand = new MenuCloseCommand(manager);
 		closeCommand.execute();

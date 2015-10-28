@@ -20,6 +20,7 @@ public class ScreenManager implements Disposable {
 	private final Map<ScreensFramework, Screen> applicationScreens = new HashMap<>();
 	private final List<Manageable> screenControllers = new ArrayList<>();
 	private Screen currentScreen;
+	private Screen previousScreen;
 	private Stage mainStage;
 
 	public ScreenManager(Stage applicationStage) {
@@ -46,11 +47,19 @@ public class ScreenManager implements Disposable {
 	public void useScreen(ScreensFramework screenTypeToUse) {
 		if (applicationScreens.containsKey(screenTypeToUse) && this.getApplicationStage() != null) {
 			Screen screenToUse = applicationScreens.get(screenTypeToUse);
+			previousScreen = currentScreen;
 			currentScreen = screenToUse;
 			mainStage.setScene(screenToUse.getScene());
 			mainStage.show();
 		} else {
 			throw new RuntimeException(" ---> Screen Manager wasn\'t initialized with a main stage");
+		}
+	}
+
+	public void usePreviousScreen() {
+		if (previousScreen != null) {
+			mainStage.setScene(previousScreen.getScene());
+			mainStage.show();
 		}
 	}
 
@@ -64,6 +73,10 @@ public class ScreenManager implements Disposable {
 
 	public Screen getCurrentScreen() {
 		return currentScreen;
+	}
+
+	public Screen getPreviousScreen() {
+		return previousScreen;
 	}
 
 	@Override

@@ -19,6 +19,8 @@ public interface Manager {
     public void notifyListeners(DataObjectMessage dataToPush);
 
     public void changeScreen(ScreensFramework screenType);
+	
+	public boolean usePreviousScreen();
 
     public Screen getCurrentScreen();
 
