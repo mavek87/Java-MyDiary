@@ -114,13 +114,16 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
 				cmb_chooseDiary.setPromptText("Empty");
 				btn_openDiary.setDisable(true);
 			} else {
-				cmb_chooseDiary.setPromptText("Select a diary");
+				if (cmb_chooseDiary.getSelectionModel().getSelectedIndex()>0) {
+					cmb_chooseDiary.setPromptText("Select a diary");
+				}
 			}
 		}
 	}
 
 	@FXML
-	void openSelectedDiary(ActionEvent event) {
+	void openSelectedDiary(ActionEvent event
+	) {
 		if (selectedDiary != null) {
 			manager.storeObjectToPush(selectedDiary, LibraryScreenController.class);
 			manager.changeScreen(ScreensFramework.DIARY_SCREEN);
@@ -128,7 +131,8 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
 	}
 
 	@FXML
-	void createNewDiary(ActionEvent event) {
+	void createNewDiary(ActionEvent event
+	) {
 		if (txt_newDiaryName.getText() != null && !txt_newDiaryName.getText().trim().equals("")) {
 			Diary diary = new Diary();
 			diary.setName(txt_newDiaryName.getText());
@@ -157,18 +161,21 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
 	}
 
 	@FXML
-	void menuSettingsClicked(ActionEvent event) {
+	void menuSettingsClicked(ActionEvent event
+	) {
 		manager.changeScreen(ScreensFramework.SETTINGS_SCREEN);
 	}
 
 	@FXML
-	void menuCloseClicked(ActionEvent event) {
+	void menuCloseClicked(ActionEvent event
+	) {
 		Command closeCommand = new MenuCloseCommand(manager);
 		closeCommand.execute();
 	}
 
 	@FXML
-	void menuAboutClicked(ActionEvent event) {
+	void menuAboutClicked(ActionEvent event
+	) {
 		Command aboutCommand = new MenuAboutCommand(manager);
 		aboutCommand.execute();
 	}
