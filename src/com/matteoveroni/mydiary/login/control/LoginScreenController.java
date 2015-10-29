@@ -6,12 +6,12 @@ import com.matteoveroni.mydiary.application.manager.Manager;
 import com.matteoveroni.mydiary.utilities.patterns.Listener;
 import com.matteoveroni.mydiary.login.model.LoginModel;
 import com.matteoveroni.mydiary.menu.model.commands.MenuAboutCommand;
-import com.matteoveroni.mydiary.menu.model.MenuModel;
 import com.matteoveroni.mydiary.menu.model.commands.MenuCloseCommand;
 import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
 import com.matteoveroni.mydiary.user.model.bean.UserData;
 import com.matteoveroni.mydiary.utilities.patterns.Command;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -25,6 +25,8 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Login Screen Controller class
@@ -34,9 +36,9 @@ import javafx.scene.control.TextField;
 public class LoginScreenController implements Manageable, Initializable, Listener {
 
 	private Manager manager;
-//	private MenuModel menuModel;
 	private UserData user;
 	private final LoginModel model = new LoginModel();
+	private static final Logger LOG = LoggerFactory.getLogger(LoginScreenController.class);
 
 	@FXML
 	private PasswordField psw_password;
@@ -65,11 +67,13 @@ public class LoginScreenController implements Manageable, Initializable, Listene
 	 * Initializes the controller class.
 	 *
 	 * @param url
-	 * @param rb
+	 * @param resourceBundle
 	 */
 	@Override
-	public void initialize(URL url, ResourceBundle rb) {
+	public void initialize(URL url, ResourceBundle resourceBundle) {
 		addListenerToAllThePagesElementsThatRemoveLoginErrorMessageOnFocus();
+//		manager.setResourceBundle(new Locale("en","EN"));
+//		LOG.info("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa " + resourceBundle.getString("close"));
 	}
 
 	@Override

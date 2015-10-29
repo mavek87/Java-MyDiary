@@ -11,6 +11,7 @@ import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
 import com.matteoveroni.mydiary.user.model.bean.UserData;
 import com.sun.media.jfxmediaimpl.MediaDisposer.Disposable;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -135,5 +136,10 @@ public class ApplicationManager implements Manager, Disposable, Listenable {
 	@Override
 	public String getApplicationTitle() {
 		return this.getApplicationName() + " - v. " + this.getApplicationVersion() + " ";
+	}
+
+	@Override
+	public void setResourceBundle(Locale locale) {
+		screenManager.setResourceBundleForEachScreen(locale);
 	}
 }

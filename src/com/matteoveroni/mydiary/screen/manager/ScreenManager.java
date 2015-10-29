@@ -7,7 +7,9 @@ import com.sun.media.jfxmediaimpl.MediaDisposer.Disposable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.Stack;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -23,7 +25,9 @@ public class ScreenManager implements Disposable {
 	private Screen currentScreen;
 	private final Stack<Screen> previouslyUsedScreens = new Stack<>();
 	private Stage mainStage;
-
+	
+	private final String RESOURCE_BUNDLE_PATH = "com.matteoveroni.mydiary.bundles.MyBundle";
+	
 	public ScreenManager(Stage applicationStage) {
 		this.mainStage = applicationStage;
 	}
@@ -66,6 +70,12 @@ public class ScreenManager implements Disposable {
 		}
 	}
 
+	public void setResourceBundleForEachScreen(Locale locale){
+		for(Screen screen : applicationScreens.values()){
+			screen.getFXML().setResources(ResourceBundle.getBundle(RESOURCE_BUNDLE_PATH, locale));
+		}
+	}
+	
 	public List<Manageable> getScreenControllers() {
 		return screenControllers;
 	}

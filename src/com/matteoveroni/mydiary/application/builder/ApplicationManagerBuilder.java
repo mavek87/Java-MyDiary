@@ -79,7 +79,6 @@ public class ApplicationManagerBuilder {
 
     private void centerWindow(Stage primaryStage) {
         Rectangle2D primScreenBounds = javafx.stage.Screen.getPrimary().getVisualBounds();
-
         primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
         primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);
     }

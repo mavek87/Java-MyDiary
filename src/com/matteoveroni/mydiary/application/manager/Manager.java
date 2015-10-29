@@ -5,6 +5,7 @@ import com.matteoveroni.mydiary.screen.Screen;
 import com.matteoveroni.mydiary.utilities.patterns.Listener;
 import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
 import com.matteoveroni.mydiary.user.model.bean.UserData;
+import java.util.Locale;
 
 /**
  *
@@ -35,6 +36,8 @@ public interface Manager {
     public void setLoggedInUser(UserData loggedInUser);
 
     public void storeObjectToPush(Object dataToPush, Class senderClass);
+	
+	public void setResourceBundle(Locale locale);
 
     public void dispose();
 }
