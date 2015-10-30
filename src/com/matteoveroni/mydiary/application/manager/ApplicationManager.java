@@ -140,6 +140,6 @@ public class ApplicationManager implements Manager, Disposable, Listenable {
 
 	@Override
 	public void setResourceBundle(Locale locale) {
-		screenManager.setResourceBundleForEachScreen(locale);
+		screenManager.changeResourceBundleForEachScreen(locale);
 	}
 }

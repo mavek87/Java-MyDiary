@@ -1,7 +1,9 @@
 package com.matteoveroni.mydiary.screen;
 
+import com.matteoveroni.mydiary.bundles.ResourceBundleFramework;
 import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
 import java.io.IOException;
+import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,13 +20,19 @@ public class Screen {
 	private String name;
 	private String resourcePath;
 	private Scene scene;
-    
+
 	public Screen(ScreensFramework selectedScreenType) throws IOException {
 		screenType = selectedScreenType;
 		fxml = new FXMLLoader(getClass().getResource(screenType.getScreenResourcePath()));
 		name = screenType.name();
 		resourcePath = screenType.getScreenResourcePath();
+		initializeScreenWithDefaultResourceBundle(fxml);
 		scene = new Scene((Parent) fxml.load());
+	}
+
+	private void initializeScreenWithDefaultResourceBundle(FXMLLoader fxml) {
+		ResourceBundle resourceBundle = ResourceBundle.getBundle(ResourceBundleFramework.RESOURCE_BUNDLE_PATH, ResourceBundleFramework.SUPPORTED_DEFAULT_LOCALE);
+		fxml.setResources(resourceBundle);
 	}
 
 	public ScreensFramework getScreenType() {

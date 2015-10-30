@@ -3,6 +3,7 @@ package com.matteoveroni.mydiary.login.control;
 import com.matteoveroni.mydiary.application.messages.DataObjectMessage;
 import com.matteoveroni.mydiary.application.manager.Manageable;
 import com.matteoveroni.mydiary.application.manager.Manager;
+import com.matteoveroni.mydiary.bundles.ResourceBundleFramework;
 import com.matteoveroni.mydiary.utilities.patterns.Listener;
 import com.matteoveroni.mydiary.login.model.LoginModel;
 import com.matteoveroni.mydiary.menu.model.commands.MenuAboutCommand;
@@ -11,7 +12,6 @@ import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
 import com.matteoveroni.mydiary.user.model.bean.UserData;
 import com.matteoveroni.mydiary.utilities.patterns.Command;
 import java.net.URL;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -72,8 +72,6 @@ public class LoginScreenController implements Manageable, Initializable, Listene
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		addListenerToAllThePagesElementsThatRemoveLoginErrorMessageOnFocus();
-//		manager.setResourceBundle(new Locale("en","EN"));
-//		LOG.info("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa " + resourceBundle.getString("close"));
 	}
 
 	@Override
@@ -87,7 +85,7 @@ public class LoginScreenController implements Manageable, Initializable, Listene
 	public void setManager(Manager manager) {
 		this.manager = manager;
 		manager.registerListener(this);
-//		menuModel = new MenuModel(manager);
+		manager.setResourceBundle(ResourceBundleFramework.SUPPORTED_ITALIAN_LOCALE);
 	}
 
 	@FXML

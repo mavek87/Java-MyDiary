@@ -1,6 +1,7 @@
 package com.matteoveroni.mydiary.screen.manager;
 
 import com.matteoveroni.mydiary.application.manager.Manageable;
+import com.matteoveroni.mydiary.bundles.ResourceBundleFramework;
 import com.matteoveroni.mydiary.screen.Screen;
 import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
 import com.sun.media.jfxmediaimpl.MediaDisposer.Disposable;
@@ -25,9 +26,7 @@ public class ScreenManager implements Disposable {
 	private Screen currentScreen;
 	private final Stack<Screen> previouslyUsedScreens = new Stack<>();
 	private Stage mainStage;
-	
-	private final String RESOURCE_BUNDLE_PATH = "com.matteoveroni.mydiary.bundles.MyBundle";
-	
+		
 	public ScreenManager(Stage applicationStage) {
 		this.mainStage = applicationStage;
 	}
@@ -70,9 +69,9 @@ public class ScreenManager implements Disposable {
 		}
 	}
 
-	public void setResourceBundleForEachScreen(Locale locale){
+	public void changeResourceBundleForEachScreen(Locale locale){
 		for(Screen screen : applicationScreens.values()){
-			screen.getFXML().setResources(ResourceBundle.getBundle(RESOURCE_BUNDLE_PATH, locale));
+			screen.getFXML().setResources(ResourceBundle.getBundle(ResourceBundleFramework.RESOURCE_BUNDLE_PATH, locale));
 		}
 	}
 	

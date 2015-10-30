@@ -69,13 +69,13 @@
         </VBox>
       <MenuBar fx:id="menu" prefHeight="26.0" prefWidth="800.0">
         <menus>
-          <Menu fx:id="menu_file" mnemonicParsing="false" text="File">
+          <Menu fx:id="menu_file" mnemonicParsing="false" text="%file">
             <items>
                   <MenuItem fx:id="menu_settings" mnemonicParsing="false" onAction="#menuSettingsClicked" text="Settings" />
               <MenuItem fx:id="menu_close" mnemonicParsing="false" onAction="#menuCloseClicked" text="Exit" />
             </items>
           </Menu>
-          <Menu fx:id="menu_help" mnemonicParsing="false" text="Help">
+          <Menu fx:id="menu_help" mnemonicParsing="false" text="%help">
             <items>
               <MenuItem fx:id="menu_about" mnemonicParsing="false" onAction="#menuAboutClicked" text="About" />
             </items>
