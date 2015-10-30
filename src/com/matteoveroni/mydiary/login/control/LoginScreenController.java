@@ -85,7 +85,7 @@ public class LoginScreenController implements Manageable, Initializable, Listene
 	public void setManager(Manager manager) {
 		this.manager = manager;
 		manager.registerListener(this);
-		manager.setResourceBundle(ResourceBundleFramework.SUPPORTED_ITALIAN_LOCALE);
+//		manager.setResourceBundle(ResourceBundleFramework.SUPPORTED_ITALIAN_LOCALE);
 	}
 
 	@FXML

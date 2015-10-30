@@ -1,8 +1,10 @@
 package com.matteoveroni.mydiary.application.builder;
 
 import com.matteoveroni.mydiary.application.manager.ApplicationManager;
+import com.matteoveroni.mydiary.bundles.ResourceBundleFramework;
 import com.matteoveroni.mydiary.database.DAO;
 import com.matteoveroni.mydiary.screen.Screen;
+import com.matteoveroni.mydiary.screen.builder.ScreensLoader;
 import com.matteoveroni.mydiary.screen.manager.ScreenManager;
 import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
 import com.matteoveroni.mydiary.screen.factory.ScreenFactory;
@@ -54,7 +56,7 @@ public class ApplicationManagerBuilder {
         int indexOfTheCurrentScreenToBuild = 0;
         try {
             for (ScreensFramework screenTypeToBuild : ScreensFramework.values()) {
-                Screen newScreen = ScreenFactory.createScreen(screenTypeToBuild);
+                Screen newScreen = ScreenFactory.createScreen(screenTypeToBuild, ResourceBundleFramework.SUPPORTED_DEFAULT_LOCALE);
                 screenManager.loadScreen(newScreen);
                 indexOfTheCurrentScreenToBuild++;
             }

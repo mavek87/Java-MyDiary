@@ -1,7 +1,6 @@
 package com.matteoveroni.mydiary.application.manager;
 
 import com.matteoveroni.mydiary.application.messages.DataObjectMessage;
-import com.matteoveroni.mydiary.MyDiary;
 import com.matteoveroni.mydiary.database.DAO;
 import com.matteoveroni.mydiary.screen.Screen;
 import com.matteoveroni.mydiary.utilities.patterns.Listenable;
@@ -34,7 +33,7 @@ public class ApplicationManager implements Manager, Disposable, Listenable {
 
 	private final Set<Disposable> resourcesToDisposeWhenApplicationClose = new HashSet<>();
 
-	private static final Logger LOG = LoggerFactory.getLogger(MyDiary.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ApplicationManager.class);
 
 	public ApplicationManager(String applicationName, String applicationVersion, ScreenManager screenManager, DAO databaseAccessObject) {
 		this.applicationName = applicationName;
