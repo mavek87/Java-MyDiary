@@ -69,7 +69,7 @@ public class ApplicationManagerBuilder {
 
     private Locale readDefaultLocaleFromResourceBundleFile() {
         ResourceBundleFileHandler resourceBundleFileHandler = new ResourceBundleFileHandler();
-        return resourceBundleFileHandler.getDefaultLocale();
+        return resourceBundleFileHandler.getLocale();
     }
 
     private void useInitialScreen() {

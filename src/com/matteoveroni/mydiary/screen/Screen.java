@@ -31,27 +31,14 @@ public class Screen {
 		FXMLScreen = new FXMLLoader(getClass().getResource(screenType.getScreenResourcePath()));
 		name = screenType.name();
 		resourcePath = screenType.getScreenResourcePath();
-		initializeScreenWithDefaultResourceBundle(FXMLScreen, locale);
+		initializeScreenWithRequestedLocale(FXMLScreen, locale);
 		scene = new Scene((Parent) FXMLScreen.load());
 	}
 
-	private void initializeScreenWithDefaultResourceBundle(FXMLLoader fxml, Locale locale) {
-		ResourceBundle resourceBundle = ResourceBundle.getBundle(ResourceBundleFramework.RESOURCE_BUNDLE_PATH, locale);
+	private void initializeScreenWithRequestedLocale(FXMLLoader fxml, Locale locale) {
+		ResourceBundle resourceBundle = ResourceBundle.getBundle(ResourceBundleFramework.RESOURCE_BUNDLE_FILE_PATH, locale);
 		fxml.setResources(resourceBundle);
 	}
-
-//	public void changeResourceBundler(Locale locale) {
-//		try {
-//			fxml = new FXMLLoader(getClass().getResource(screenType.getScreenResourcePath()));
-//			resourcePath = screenType.getScreenResourcePath();
-//			ResourceBundle resourceBundle = ResourceBundle.getBundle(ResourceBundleFramework.RESOURCE_BUNDLE_PATH, locale);
-//			fxml.setResources(resourceBundle);
-//			scene = new Scene((Parent) fxml.load());
-//			LOG.debug("Screen " + name + " resource bundle translated in -> " + locale.getLanguage());
-//		} catch (Exception ex) {
-//			throw new RuntimeException();
-//		}
-//	}
 
 	public ScreensFramework getScreenType() {
 		return screenType;

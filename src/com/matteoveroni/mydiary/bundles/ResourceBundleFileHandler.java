@@ -40,22 +40,22 @@ public class ResourceBundleFileHandler {
         }
     }
 
-    public Locale getDefaultLocale() {
+    public Locale getLocale() {
         Locale localeSetted;
         String defaultLocaleContent = readDefaultLocaleFileContent();
         switch (defaultLocaleContent) {
             case "en_EN":
-                localeSetted = ResourceBundleFramework.SUPPORTED_ENGLISH_LOCALE;
+                localeSetted = ResourceBundleFramework.SUPPORTED_ENGLISH_LOCALE.getLocale();
                 LOG.info("Locale setted to English");
                 break;
             case "it_IT":
-                localeSetted = ResourceBundleFramework.SUPPORTED_ITALIAN_LOCALE;
+                localeSetted = ResourceBundleFramework.SUPPORTED_ITALIAN_LOCALE.getLocale();
                 LOG.info("Locale setted to Italian");
                 break;
             default:
-                localeSetted = ResourceBundleFramework.SUPPORTED_DEFAULT_LOCALE;
+                localeSetted = ResourceBundleFramework.SUPPORTED_DEFAULT_LOCALE.getLocale();
                 LOG.info("Locale file damaged. Setting the Locale to default Locale");
-                setDefaultLocale(ResourceBundleFramework.SUPPORTED_DEFAULT_LOCALE);
+                setDefaultLocale(ResourceBundleFramework.SUPPORTED_DEFAULT_LOCALE.getLocale());
                 break;
         }
         return localeSetted;
