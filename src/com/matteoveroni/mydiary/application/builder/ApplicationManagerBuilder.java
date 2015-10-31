@@ -1,13 +1,13 @@
 package com.matteoveroni.mydiary.application.builder;
 
 import com.matteoveroni.mydiary.application.manager.ApplicationManager;
-import com.matteoveroni.mydiary.bundles.ResourceBundleFramework;
+import com.matteoveroni.mydiary.bundles.ResourceBundleFileHandler;
 import com.matteoveroni.mydiary.database.DAO;
 import com.matteoveroni.mydiary.screen.Screen;
-import com.matteoveroni.mydiary.screen.builder.ScreensLoader;
 import com.matteoveroni.mydiary.screen.manager.ScreenManager;
 import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
 import com.matteoveroni.mydiary.screen.factory.ScreenFactory;
+import java.util.Locale;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
@@ -22,8 +22,8 @@ public class ApplicationManagerBuilder {
     private ApplicationManager applicationManager;
     private final ScreenManager screenManager;
 
-	private static final Logger LOG = LoggerFactory.getLogger(ApplicationManagerBuilder.class);
-	
+    private static final Logger LOG = LoggerFactory.getLogger(ApplicationManagerBuilder.class);
+
     private final String applicationName;
     private final String applicationVersion;
 
@@ -52,11 +52,12 @@ public class ApplicationManagerBuilder {
     }
 
     private void loadScreensInScreenManager() {
+        Locale defaultLocale = readDefaultLocaleFromResourceBundleFile();
         LOG.debug(" ---> Loading Screens inside the Screen Manager");
         int indexOfTheCurrentScreenToBuild = 0;
         try {
             for (ScreensFramework screenTypeToBuild : ScreensFramework.values()) {
-                Screen newScreen = ScreenFactory.createScreen(screenTypeToBuild, ResourceBundleFramework.SUPPORTED_DEFAULT_LOCALE);
+                Screen newScreen = ScreenFactory.createScreen(screenTypeToBuild, defaultLocale);
                 screenManager.loadScreen(newScreen);
                 indexOfTheCurrentScreenToBuild++;
             }
@@ -64,6 +65,11 @@ public class ApplicationManagerBuilder {
             LOG.error(" ---> IMPOSSIBLE TO BUILD THE SCREEN -> \'" + ScreensFramework.values()[indexOfTheCurrentScreenToBuild] + "\'!\n\nException occurred: \n" + ex);
             throw new RuntimeException(ex);
         }
+    }
+
+    private Locale readDefaultLocaleFromResourceBundleFile() {
+        ResourceBundleFileHandler resourceBundleFileHandler = new ResourceBundleFileHandler();
+        return resourceBundleFileHandler.getDefaultLocale();
     }
 
     private void useInitialScreen() {

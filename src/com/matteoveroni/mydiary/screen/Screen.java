@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 public class Screen {
 
 	private final ScreensFramework screenType;
-	private FXMLLoader fxml;
+	private FXMLLoader FXMLScreen;
 	private String name;
 	private String resourcePath;
 	private Scene scene;
@@ -28,15 +28,15 @@ public class Screen {
 
 	public Screen(ScreensFramework selectedScreenType, Locale locale) throws IOException {
 		screenType = selectedScreenType;
-		fxml = new FXMLLoader(getClass().getResource(screenType.getScreenResourcePath()));
+		FXMLScreen = new FXMLLoader(getClass().getResource(screenType.getScreenResourcePath()));
 		name = screenType.name();
 		resourcePath = screenType.getScreenResourcePath();
-		initializeScreenWithDefaultResourceBundle(fxml);
-		scene = new Scene((Parent) fxml.load());
+		initializeScreenWithDefaultResourceBundle(FXMLScreen, locale);
+		scene = new Scene((Parent) FXMLScreen.load());
 	}
 
-	private void initializeScreenWithDefaultResourceBundle(FXMLLoader fxml) {
-		ResourceBundle resourceBundle = ResourceBundle.getBundle(ResourceBundleFramework.RESOURCE_BUNDLE_PATH, ResourceBundleFramework.SUPPORTED_DEFAULT_LOCALE);
+	private void initializeScreenWithDefaultResourceBundle(FXMLLoader fxml, Locale locale) {
+		ResourceBundle resourceBundle = ResourceBundle.getBundle(ResourceBundleFramework.RESOURCE_BUNDLE_PATH, locale);
 		fxml.setResources(resourceBundle);
 	}
 
@@ -58,15 +58,15 @@ public class Screen {
 	}
 
 	public FXMLLoader getFXML() {
-		return fxml;
+		return FXMLScreen;
 	}
 
 	public void setFXML(FXMLLoader fxml) {
-		this.fxml = fxml;
+		this.FXMLScreen = fxml;
 	}
 
 	public <T> T getController() {
-		return fxml.getController();
+		return FXMLScreen.getController();
 	}
 
 	public String getName() {
