@@ -24,6 +24,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javax.swing.JOptionPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -106,18 +107,25 @@ public class SettingsScreenController implements Manageable, Initializable, List
         String selectedLocaleName = cmb_languageSelector.getSelectionModel().getSelectedItem();
         if (!selectedLocaleName.equals(currentLocaleName)) {
             LOG.debug("Selected locale " + selectedLocaleName + " that is different from the previous locale that was " + currentLocaleName);
-            Locale newSelectedLocale = null;
-            for (ResourceBundleFramework resource : ResourceBundleFramework.values()) {
-                if (resource.getLocaleName().equals(selectedLocaleName)) {
-                    newSelectedLocale = resource.getLocale();
-                    LOG.debug("New selected locale is " + selectedLocaleName + " -> " + newSelectedLocale);
-                    break;
+            int changeLanguageAndExit = JOptionPane.showConfirmDialog(null,
+                "You have selected a different language. The program need to be restarted. Continue?",
+                "Language Changed",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+            if (changeLanguageAndExit == JOptionPane.YES_OPTION) {
+                Locale newSelectedLocale = null;
+                for (ResourceBundleFramework resource : ResourceBundleFramework.values()) {
+                    if (resource.getLocaleName().equals(selectedLocaleName)) {
+                        newSelectedLocale = resource.getLocale();
+                        LOG.debug("New selected locale is " + selectedLocaleName + " -> " + newSelectedLocale);
+                        break;
+                    }
                 }
-            }
-            if (newSelectedLocale != null) {
-                LOG.debug("Saving the new selected locale");
-                resourceBundleFileHandler.setLocale(newSelectedLocale);
-                manager.dispose();
+                if (newSelectedLocale != null) {
+                    LOG.debug("Saving the new selected locale");
+                    resourceBundleFileHandler.setLocale(newSelectedLocale);
+                    manager.dispose();
+                }
             }
         }
     }

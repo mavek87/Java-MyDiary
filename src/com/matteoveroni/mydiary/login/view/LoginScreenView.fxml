@@ -25,7 +25,7 @@
                     <children>
                         <TextField fx:id="txt_username" layoutX="271.0" layoutY="14.0" prefHeight="47.0" prefWidth="371.0">
                         </TextField>
-                        <Label alignment="CENTER" layoutX="81.0" layoutY="14.0" prefHeight="28.0" prefWidth="125.0" text="Username">
+                        <Label alignment="CENTER" layoutX="81.0" layoutY="14.0" prefHeight="28.0" prefWidth="125.0" text="%username">
                             <font>
                                 <Font size="23.0" />
                             </font>
@@ -35,7 +35,7 @@
                 <AnchorPane prefHeight="164.0" prefWidth="800.0">
                     <children>
                         <PasswordField fx:id="psw_password" layoutX="270.0" layoutY="-6.0" prefHeight="47.0" prefWidth="371.0" />
-                        <Label alignment="CENTER" layoutX="77.0" layoutY="1.0" prefHeight="28.0" prefWidth="125.0" text="Password">
+                        <Label alignment="CENTER" layoutX="77.0" layoutY="1.0" prefHeight="28.0" prefWidth="125.0" text="%password">
                             <font>
                                 <Font size="23.0" />
                             </font>
@@ -44,12 +44,12 @@
                 </AnchorPane>
                 <AnchorPane prefHeight="232.0" prefWidth="800.0">
                     <children>
-                        <Button fx:id="btn_register" layoutX="464.0" layoutY="42.0" mnemonicParsing="false" onAction="#register" prefHeight="84.0" prefWidth="185.0" text="Register">
+                        <Button fx:id="btn_register" layoutX="464.0" layoutY="42.0" mnemonicParsing="false" onAction="#register" prefHeight="84.0" prefWidth="185.0" text="%register">
                             <font>
                                 <Font size="25.0" />
                             </font>
                         </Button>
-                        <Button fx:id="btn_login" layoutX="215.0" layoutY="42.0" mnemonicParsing="false" onAction="#login" prefHeight="84.0" prefWidth="185.0" text="Login">
+                        <Button fx:id="btn_login" layoutX="215.0" layoutY="42.0" mnemonicParsing="false" onAction="#login" prefHeight="84.0" prefWidth="185.0" text="%login">
                             <font>
                                 <Font size="25.0" />
                             </font>
@@ -71,13 +71,13 @@
         <menus>
           <Menu fx:id="menu_file" mnemonicParsing="false" text="%file">
             <items>
-                  <MenuItem fx:id="menu_settings" mnemonicParsing="false" onAction="#menuSettingsClicked" text="Settings" />
-              <MenuItem fx:id="menu_close" mnemonicParsing="false" onAction="#menuCloseClicked" text="Exit" />
+                  <MenuItem fx:id="menu_settings" mnemonicParsing="false" onAction="#menuSettingsClicked" text="%settings" />
+              <MenuItem fx:id="menu_close" mnemonicParsing="false" onAction="#menuCloseClicked" text="%exit" />
             </items>
           </Menu>
           <Menu fx:id="menu_help" mnemonicParsing="false" text="%help">
             <items>
-              <MenuItem fx:id="menu_about" mnemonicParsing="false" onAction="#menuAboutClicked" text="About" />
+              <MenuItem fx:id="menu_about" mnemonicParsing="false" onAction="#menuAboutClicked" text="%about" />
             </items>
           </Menu>
         </menus>
