@@ -3,7 +3,6 @@ package com.matteoveroni.mydiary.login.control;
 import com.matteoveroni.mydiary.application.messages.DataObjectMessage;
 import com.matteoveroni.mydiary.application.manager.Manageable;
 import com.matteoveroni.mydiary.application.manager.Manager;
-import com.matteoveroni.mydiary.bundles.ResourceBundleFramework;
 import com.matteoveroni.mydiary.utilities.patterns.Listener;
 import com.matteoveroni.mydiary.login.model.LoginModel;
 import com.matteoveroni.mydiary.menu.model.commands.MenuAboutCommand;
@@ -95,12 +94,12 @@ public class LoginScreenController implements Manageable, Initializable, Listene
         if (!insertedUsername.trim().equals("") && !insertedPassword.trim().equals("")) {
             user = model.searchUserWithUsernameAndPassword(insertedUsername, insertedPassword);
             if (user != null) {
-                LOG.info("Login successfull!");
+                LOG.info("Login successfull");
                 loginSuccessfullSoAccessApplication();
                 return;
             }
         } else {
-            LOG.debug("Username and/or Password empty");
+            LOG.debug("Username/Password empty");
         }
         loginFailedPrintError();
     }
