@@ -8,9 +8,9 @@ import java.util.Locale;
  */
 public enum ResourceBundleFramework {
 
-    SUPPORTED_DEFAULT_LOCALE("default", new Locale("en", "EN")),
-    SUPPORTED_ENGLISH_LOCALE("english", new Locale("en", "EN")),
-    SUPPORTED_ITALIAN_LOCALE("italian", new Locale("it", "IT"));
+    SUPPORTED_DEFAULT_LOCALE("Default", new Locale("en", "EN")),
+    SUPPORTED_ENGLISH_LOCALE("English", new Locale("en", "EN")),
+    SUPPORTED_ITALIAN_LOCALE("Italian", new Locale("it", "IT"));
 
     private final String localeName;
     private final Locale locale;

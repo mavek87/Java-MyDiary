@@ -20,7 +20,7 @@ public class ResourceBundleFileHandler {
     private static final String RESOURCE_BUNDLE_FILE_NAME = "default_locale.properties";
     private static final Logger LOG = LoggerFactory.getLogger(ResourceBundleFileHandler.class);
 
-    public void setDefaultLocale(Locale locale) {
+    public void setLocale(Locale locale) {
         Properties propertiesOfResourceBundleFile = new Properties();
         OutputStream outputStream = null;
         try {
@@ -42,7 +42,7 @@ public class ResourceBundleFileHandler {
 
     public Locale getLocale() {
         Locale localeSetted;
-        String defaultLocaleContent = readDefaultLocaleFileContent();
+        String defaultLocaleContent = readLocaleFromResourceBundle();
         switch (defaultLocaleContent) {
             case "en_EN":
                 localeSetted = ResourceBundleFramework.SUPPORTED_ENGLISH_LOCALE.getLocale();
@@ -55,13 +55,13 @@ public class ResourceBundleFileHandler {
             default:
                 localeSetted = ResourceBundleFramework.SUPPORTED_DEFAULT_LOCALE.getLocale();
                 LOG.info("Locale file damaged. Setting the Locale to default Locale");
-                setDefaultLocale(ResourceBundleFramework.SUPPORTED_DEFAULT_LOCALE.getLocale());
+                setLocale(ResourceBundleFramework.SUPPORTED_DEFAULT_LOCALE.getLocale());
                 break;
         }
         return localeSetted;
     }
 
-    private String readDefaultLocaleFileContent() {
+    private String readLocaleFromResourceBundle() {
         Properties propertiesOfResourceBundleFile = new Properties();
         InputStream inputStream = null;
         String localeReadedFromResourceBundle = "";

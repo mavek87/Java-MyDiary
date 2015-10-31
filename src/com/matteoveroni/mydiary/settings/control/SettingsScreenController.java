@@ -11,6 +11,7 @@ import com.matteoveroni.mydiary.utilities.patterns.Listener;
 import com.matteoveroni.mydiary.screen.framework.ScreensFramework;
 import com.matteoveroni.mydiary.utilities.patterns.Command;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -23,6 +24,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Settings Screen Controller class
@@ -32,7 +35,13 @@ import javafx.scene.control.MenuItem;
 public class SettingsScreenController implements Manageable, Initializable, Listener {
 
     private Manager manager;
-//	private final RegistrationModel model = new SettingsModel();
+    private Locale currentLocale;
+    private String currentLocaleName;
+
+    private final ArrayList<String> supportedLanguagesNames = new ArrayList<>();
+    private final ResourceBundleFileHandler resourceBundleFileHandler = new ResourceBundleFileHandler();
+
+    private static final Logger LOG = LoggerFactory.getLogger(SettingsScreenController.class);
 
     @FXML
     private Button btn_Cancel;
@@ -51,7 +60,7 @@ public class SettingsScreenController implements Manageable, Initializable, List
     @FXML
     private MenuItem menu_settings;
     @FXML
-    private ComboBox<Locale> cmb_languageSelector;
+    private ComboBox<String> cmb_languageSelector;
 
     /**
      * Initializes the controller class.
@@ -61,19 +70,25 @@ public class SettingsScreenController implements Manageable, Initializable, List
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Locale currentLocale = readCurrentLocale();
-        populateLanguageSelectorComboboxWithLanguages();
-        cmb_languageSelector.getSelectionModel().select(currentLocale);
+        currentLocale = resourceBundleFileHandler.getLocale();
+        LOG.debug("Current Locale -> " + currentLocale.toString());
+        populateLanguageSelectorComboboxWithLanguages(currentLocale);
     }
 
-    private void populateLanguageSelectorComboboxWithLanguages() {
-        ObservableList<Locale> options = FXCollections.observableArrayList(ResourceBundleFramework.SUPPORTED_ENGLISH_LOCALE.getLocale());
-        cmb_languageSelector.getItems().addAll(options);
-    }
-
-    private Locale readCurrentLocale() {
-        ResourceBundleFileHandler resourceBundleFileHandler = new ResourceBundleFileHandler();
-        return resourceBundleFileHandler.getLocale();
+    private void populateLanguageSelectorComboboxWithLanguages(Locale currentLocale) {
+        for (ResourceBundleFramework supportedLanguage : ResourceBundleFramework.values()) {
+            if (!supportedLanguage.getLocaleName().equals(ResourceBundleFramework.SUPPORTED_DEFAULT_LOCALE.getLocaleName())) {
+                supportedLanguagesNames.add(supportedLanguage.getLocaleName());
+                if (currentLocale.toString().equals(supportedLanguage.getLocale().toString())) {
+                    currentLocaleName = supportedLanguage.getLocaleName();
+                    LOG.debug("Current Locale Name -> " + currentLocaleName);
+                    cmb_languageSelector.getSelectionModel().select(currentLocaleName);
+                }
+            }
+        }
+        ObservableList<String> listOfSupportedLanguages = FXCollections.observableArrayList(supportedLanguagesNames);
+        cmb_languageSelector.getItems().addAll(listOfSupportedLanguages);
+        LOG.debug("Combobox for language selection populated -> " + currentLocale.toString());
     }
 
     @Override
@@ -88,7 +103,23 @@ public class SettingsScreenController implements Manageable, Initializable, List
 
     @FXML
     void saveSettings(ActionEvent event) {
-
+        String selectedLocaleName = cmb_languageSelector.getSelectionModel().getSelectedItem();
+        if (!selectedLocaleName.equals(currentLocaleName)) {
+            LOG.debug("Selected locale " + selectedLocaleName + " that is different from the previous locale that was " + currentLocaleName);
+            Locale newSelectedLocale = null;
+            for (ResourceBundleFramework resource : ResourceBundleFramework.values()) {
+                if (resource.getLocaleName().equals(selectedLocaleName)) {
+                    newSelectedLocale = resource.getLocale();
+                    LOG.debug("New selected locale is " + selectedLocaleName + " -> " + newSelectedLocale);
+                    break;
+                }
+            }
+            if (newSelectedLocale != null) {
+                LOG.debug("Saving the new selected locale");
+                resourceBundleFileHandler.setLocale(newSelectedLocale);
+                manager.dispose();
+            }
+        }
     }
 
     @FXML
