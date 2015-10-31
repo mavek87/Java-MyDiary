@@ -64,7 +64,7 @@ public class ScreenManager implements Disposable {
 			previouslyUsedScreens.push(currentScreen);
 			currentScreen = screenToUse;
 			LOG.debug("New screen to use -> " + currentScreen.getName());
-			LOG.debug("Uploading the stage with the current screen " + currentScreen.getName());
+			LOG.debug("Loading the current screen " + currentScreen.getName() + " on the main stage");
 			mainStage.setScene(screenToUse.getScene());
 			mainStage.show();
 		} else {
@@ -74,11 +74,14 @@ public class ScreenManager implements Disposable {
 
 	public void usePreviousScreen() {
 		if (!previouslyUsedScreens.empty()) {
+            LOG.debug("Loading the previous used screen" + previouslyUsedScreens.peek().getName());
 			Screen previousScreenToUse = previouslyUsedScreens.pop();
 			currentScreen = previousScreenToUse;
 			mainStage.setScene(previousScreenToUse.getScene());
 			mainStage.show();
-		}
+		}else{
+            throw new RuntimeException("A previous screen doesn\'t exists so it\'s impossible to load one!");
+        }
 	}
 
 	public void changeResourceBundleForEachScreen(Locale locale) {

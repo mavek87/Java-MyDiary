@@ -13,25 +13,27 @@ import org.slf4j.LoggerFactory;
  */
 public class LoginModel {
 
-	private final Cryptographer cryptographer = new Cryptographer();
-	private final DAO databaseManager = DAO.getInstance();
-	private final String USERS_TABLE = "USERS";
+    private final Cryptographer cryptographer = new Cryptographer();
+    private final DAO databaseManager = DAO.getInstance();
+    private final String USERS_TABLE = "USERS";
 
-	private static final Logger LOG = LoggerFactory.getLogger(LoginModel.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LoginModel.class);
 
-	public UserData searchUserWithUsernameAndPassword(String username, String password) {
-		UserData user = null;
-		try {
-			String QUERY_THAT_SEARCH_USERNAME_AND_PASSWORD = ""
-				+ "SELECT * FROM " + USERS_TABLE + " "
-				+ "WHERE username=\'" + username + "\' "
-				+ "AND password=\'" + cryptographer.sha2_256(password) + "\' "
-				+ "FETCH FIRST ROW ONLY";
-			LOG.debug(" ---> QUERY that search user with a username and password -> " + QUERY_THAT_SEARCH_USERNAME_AND_PASSWORD);
-			user = (UserData) databaseManager.querySQL(QUERY_THAT_SEARCH_USERNAME_AND_PASSWORD, UserData.class).get(0);
-		} catch (Exception ex) {
-			LOG.error(" ---> " + ExceptionsFormatter.toString(ex));
-		}
-		return user;
-	}
+    public UserData searchUserWithUsernameAndPassword(String username, String password) {
+        UserData user = null;
+        try {
+            String QUERY_THAT_SEARCH_USERNAME_AND_PASSWORD = ""
+                + "SELECT * FROM " + USERS_TABLE + " "
+                + "WHERE username=\'" + username + "\' "
+                + "AND password=\'" + cryptographer.sha2_256(password) + "\' "
+                + "FETCH FIRST ROW ONLY";
+            LOG.debug("QUERY that search user with a username and password -> " + QUERY_THAT_SEARCH_USERNAME_AND_PASSWORD);
+            user = (UserData) databaseManager.querySQL(QUERY_THAT_SEARCH_USERNAME_AND_PASSWORD, UserData.class).get(0);
+        } catch (IndexOutOfBoundsException ex1) {
+            LOG.debug("Any user with this credentials finded by this query!");
+        } catch (Exception ex2) {
+            LOG.error(ExceptionsFormatter.toString(ex2));
+        }
+        return user;
+    }
 }

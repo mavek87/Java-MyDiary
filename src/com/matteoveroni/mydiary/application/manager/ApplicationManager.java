@@ -109,7 +109,7 @@ public class ApplicationManager implements Manager, Disposable, Listenable {
 	}
 
 	private void setThisApplicationManagerAsScreenControllersManager() {
-		LOG.debug(" ---> Setting the application manager as manager for all the controllers");
+		LOG.debug(" ---> Setting the application manager as manager for all the screen controllers");
 		for (Manageable controller : screenManager.getScreenControllers()) {
 			controller.setManager(this);
 		}
