@@ -36,6 +36,7 @@ import org.slf4j.LoggerFactory;
 public class SettingsScreenController implements Manageable, Initializable, Listener {
 
     private Manager manager;
+    private ResourceBundle resourceBundle;
     private Locale currentLocale;
     private String currentLocaleName;
 
@@ -67,10 +68,11 @@ public class SettingsScreenController implements Manageable, Initializable, List
      * Initializes the controller class.
      *
      * @param url
-     * @param rb
+     * @param resourceBundle
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.resourceBundle = resourceBundle;
         currentLocale = resourceBundleFileHandler.getLocale();
         LOG.debug("Current Locale -> " + currentLocale.toString());
         populateLanguageSelectorComboboxWithLanguages(currentLocale);
@@ -108,8 +110,8 @@ public class SettingsScreenController implements Manageable, Initializable, List
         if (!selectedLocaleName.equals(currentLocaleName)) {
             LOG.debug("Selected locale " + selectedLocaleName + " that is different from the previous locale that was " + currentLocaleName);
             int changeLanguageAndExit = JOptionPane.showConfirmDialog(null,
-                "You have selected a different language. The program need to be restarted. Continue?",
-                "Language Changed",
+                resourceBundle.getString("differentLanguageSelected"),
+                resourceBundle.getString("languageChanged"),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE);
             if (changeLanguageAndExit == JOptionPane.YES_OPTION) {

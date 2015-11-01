@@ -19,7 +19,7 @@
         <URL value="@css/LibraryScreenView.css" />
     </stylesheets>
    <children>
-      <Label alignment="CENTER" layoutX="42.0" layoutY="44.0" prefHeight="35.0" prefWidth="721.0" text="%ChooseADiaryToOpenOrCreateANewOne">
+      <Label alignment="CENTER" layoutX="42.0" layoutY="44.0" prefHeight="35.0" prefWidth="721.0" text="%chooseADiaryToOpenOrCreateANewOne">
          <font>
             <Font size="30.0" />
          </font></Label>
