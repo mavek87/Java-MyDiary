@@ -58,7 +58,7 @@
                 </AnchorPane>
                 <AnchorPane prefHeight="144.0" prefWidth="800.0">
                     <children>
-                        <Label fx:id="lbl_loginFailedMessage" layoutX="253.0" layoutY="1.0" text="Wrong Username or Password please try again!" textFill="#ff0202" visible="false">
+                        <Label fx:id="lbl_loginFailedMessage" layoutX="253.0" layoutY="1.0" text="%wrongUsernameOrPasswordPleaseTryAgain" textFill="#ff0202" visible="false">
                             <font>
                                 <Font size="17.0" />
                             </font>
