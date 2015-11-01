@@ -24,22 +24,22 @@
                     <children>
                   <MenuBar fx:id="menu" prefHeight="26.0" prefWidth="800.0">
                      <menus>
-                        <Menu fx:id="menu_file" mnemonicParsing="false" text="File">
+                        <Menu fx:id="menu_file" mnemonicParsing="false" text="%file">
                            <items>
-                              <MenuItem fx:id="menu_settings" mnemonicParsing="false" onAction="#menuSettingsClicked" text="Settings" />
-                              <MenuItem fx:id="menu_close" mnemonicParsing="false" onAction="#menuCloseClicked" text="Exit" />
+                              <MenuItem fx:id="menu_settings" mnemonicParsing="false" onAction="#menuSettingsClicked" text="%settings" />
+                              <MenuItem fx:id="menu_close" mnemonicParsing="false" onAction="#menuCloseClicked" text="%exit" />
                            </items>
                         </Menu>
-                        <Menu fx:id="menu_help" mnemonicParsing="false" text="Help">
+                        <Menu fx:id="menu_help" mnemonicParsing="false" text="%help">
                            <items>
-                              <MenuItem fx:id="menu_about" mnemonicParsing="false" onAction="#menuAboutClicked" text="About" />
+                              <MenuItem fx:id="menu_about" mnemonicParsing="false" onAction="#menuAboutClicked" text="%about" />
                            </items>
                         </Menu>
                      </menus>
                   </MenuBar>
                   <AnchorPane prefHeight="477.0" prefWidth="800.0">
                      <children>
-                              <Label alignment="BOTTOM_CENTER" layoutX="306.0" layoutY="56.0" prefHeight="26.0" prefWidth="200.0" text="Choose Language">
+                              <Label alignment="BOTTOM_CENTER" layoutX="306.0" layoutY="56.0" prefHeight="26.0" prefWidth="200.0" text="%chooseLanguage">
                            <font>
                               <Font size="21.0" />
                            </font>
@@ -53,12 +53,12 @@
          <bottom>
             <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btn_Save" mnemonicParsing="false" onAction="#saveSettings" prefHeight="80.0" prefWidth="400.0" text="Save">
+                  <Button fx:id="btn_Save" mnemonicParsing="false" onAction="#saveSettings" prefHeight="80.0" prefWidth="400.0" text="%save">
                      <font>
                         <Font size="26.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btn_Cancel" mnemonicParsing="false" onAction="#cancelSettings" prefHeight="80.0" prefWidth="400.0" text="Cancel">
+                  <Button fx:id="btn_Cancel" mnemonicParsing="false" onAction="#cancelSettings" prefHeight="80.0" prefWidth="400.0" text="%cancel">
                      <font>
                         <Font size="26.0" />
                      </font>
