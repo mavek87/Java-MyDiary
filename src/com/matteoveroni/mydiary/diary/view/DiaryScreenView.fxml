@@ -40,9 +40,9 @@
                 <TableColumn fx:id="tableColumn_LastModificationTimestamp" prefWidth="187.0" text="%lastUpdate" />
             </columns>
         </TableView>
-        <Button fx:id="btn_openNote" layoutX="662.0" layoutY="518.0" mnemonicParsing="false" onAction="#goToNoteScreen" prefHeight="41.0" prefWidth="128.0" text="%open" />
-        <Button fx:id="btn_removeNote" layoutX="10.0" layoutY="517.0" mnemonicParsing="false" onAction="#removeNote" prefHeight="41.0" prefWidth="128.0" text="%remove" />
-        <Button fx:id="btn_createNewNote" layoutX="336.0" layoutY="517.0" mnemonicParsing="false" onAction="#createNewNote" prefHeight="41.0" prefWidth="128.0" text="%createNote" />
+        <Button fx:id="btn_openNote" layoutX="645.0" layoutY="518.0" mnemonicParsing="false" onAction="#goToNoteScreen" prefHeight="41.0" prefWidth="145.0" text="%open" />
+        <Button fx:id="btn_removeNote" layoutX="10.0" layoutY="517.0" mnemonicParsing="false" onAction="#removeNote" prefHeight="41.0" prefWidth="145.0" text="%remove" />
+        <Button fx:id="btn_createNewNote" layoutX="328.0" layoutY="518.0" mnemonicParsing="false" onAction="#createNewNote" prefHeight="41.0" prefWidth="145.0" text="%createNote" />
       <Label fx:id="lbl_diaryOwnerTitle" layoutX="14.0" layoutY="27.0" prefHeight="41.0" prefWidth="116.0" text="%diaryOwner" />
       <Label fx:id="lbl_numberOfNotesTitle" layoutX="448.0" layoutY="27.0" prefHeight="41.0" prefWidth="151.0" text="%numberOfNotes" />
       <Label fx:id="lbl_diaryOwnerValue" layoutX="134.0" layoutY="26.0" prefHeight="41.0" prefWidth="314.0" />
