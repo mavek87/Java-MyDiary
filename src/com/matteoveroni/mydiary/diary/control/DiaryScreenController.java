@@ -46,6 +46,7 @@ import org.slf4j.LoggerFactory;
 public class DiaryScreenController implements Initializable, Manageable, Listener {
 
 	private Manager manager;
+    private ResourceBundle resourceBundle;
 	private final DiaryModel model = new DiaryModel();
 	private Diary currentDiary = new Diary();
 	private Note currentSelectedNote;
@@ -95,10 +96,11 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 	 * Initializes the DiaryScreenController class.
 	 *
 	 * @param url
-	 * @param rb
+	 * @param resourceBundle
 	 */
 	@Override
-	public void initialize(URL url, ResourceBundle rb) {
+	public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.resourceBundle = resourceBundle;
 		diaryTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
 		tableColumn_Id.setCellValueFactory(new PropertyValueFactory<Note, Long>("id"));
@@ -176,8 +178,8 @@ public class DiaryScreenController implements Initializable, Manageable, Listene
 		LOG.debug(" ---> createNewNote FXML call");
 		String noteTitle = JOptionPane.showInputDialog(
 			null,
-			"Insert a title for the new note and confirm, or press cancel to abort the operation",
-			"Insert the Note\'s Title",
+			resourceBundle.getString("insertATitleForTheNoteMessage"),
+			resourceBundle.getString("insertATitleForTheNote"),
 			JOptionPane.QUESTION_MESSAGE
 		);
 		if (noteTitle != null) {
