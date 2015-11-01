@@ -113,10 +113,10 @@ public class RegistrationScreenController implements Manageable, Initializable, 
             setNewUserInstanceUsingTheDataInsertedOnTheForm();
             if (model.createNewUser(userToRegister)) {
                 JOptionPane.showMessageDialog(null,
-                    "\n " + resourceBundle.getString("username") + ": " + userToRegister.getUsername()
-                    + "\n " + resourceBundle.getString("firstname") + ": " + userToRegister.getFirstName()
-                    + "\n " + resourceBundle.getString("lastname") + ": " + userToRegister.getLastName()
-                    + "\n " + resourceBundle.getString("age") + ": " + userToRegister.getAge(), resourceBundle.getString("userRegistered"), JOptionPane.INFORMATION_MESSAGE);
+                    resourceBundle.getString("username") + ": " + userToRegister.getUsername()
+                    + "\n" + resourceBundle.getString("firstname") + ": " + userToRegister.getFirstName()
+                    + "\n" + resourceBundle.getString("lastname") + ": " + userToRegister.getLastName()
+                    + "\n" + resourceBundle.getString("age") + ": " + userToRegister.getAge(), resourceBundle.getString("userRegistered"), JOptionPane.INFORMATION_MESSAGE);
                 manager.changeScreen(ScreensFramework.LOGIN_SCREEN);
             } else {
                 clearUserFieldOnTheForm();
