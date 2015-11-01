@@ -9,3 +9,7 @@
 #lbl_diaryOwnerTitle, #lbl_numberOfNotesTitle{
     -fx-font-weight: bold;
 }
+
+.text-input{
+    -fx-font-size: 120%;
+}

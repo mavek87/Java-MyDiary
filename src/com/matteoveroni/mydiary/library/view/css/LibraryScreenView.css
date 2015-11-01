@@ -1,3 +1,7 @@
 /*
  * LibraryScreenView Stylesheet file.
  */
+
+.text-input{
+    -fx-font-size: 120%;
+}
