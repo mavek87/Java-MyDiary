@@ -175,7 +175,7 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
 
     @FXML
     void menuAboutClicked(ActionEvent event) {
-        Command aboutCommand = new MenuAboutCommand(manager);
+        Command aboutCommand = new MenuAboutCommand(manager, resourceBundle);
         aboutCommand.execute();
     }
 

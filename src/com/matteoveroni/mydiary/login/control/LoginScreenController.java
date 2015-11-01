@@ -35,6 +35,7 @@ import org.slf4j.LoggerFactory;
 public class LoginScreenController implements Manageable, Initializable, Listener {
 
     private Manager manager;
+    private ResourceBundle resourceBundle;
     private UserData user;
     private final LoginModel model = new LoginModel();
     private static final Logger LOG = LoggerFactory.getLogger(LoginScreenController.class);
@@ -70,6 +71,7 @@ public class LoginScreenController implements Manageable, Initializable, Listene
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.resourceBundle = resourceBundle;
         addListenerToAllThePagesElementsThatRemoveLoginErrorMessageOnFocus();
     }
 
@@ -132,7 +134,7 @@ public class LoginScreenController implements Manageable, Initializable, Listene
 
     @FXML
     void menuAboutClicked(ActionEvent event) {
-        Command aboutCommand = new MenuAboutCommand(manager);
+        Command aboutCommand = new MenuAboutCommand(manager, resourceBundle);
         aboutCommand.execute();
     }
 

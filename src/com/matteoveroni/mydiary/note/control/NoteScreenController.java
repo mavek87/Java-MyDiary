@@ -141,7 +141,7 @@ public class NoteScreenController implements Initializable, Manageable, Listener
 
     @FXML
     void menuAboutClicked(ActionEvent event) {
-        Command aboutCommand = new MenuAboutCommand(manager);
+        Command aboutCommand = new MenuAboutCommand(manager, resourceBundle);
         aboutCommand.execute();
     }
 

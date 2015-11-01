@@ -151,7 +151,7 @@ public class SettingsScreenController implements Manageable, Initializable, List
 
     @FXML
     void menuAboutClicked(ActionEvent event) {
-        Command aboutCommand = new MenuAboutCommand(manager);
+        Command aboutCommand = new MenuAboutCommand(manager, resourceBundle);
         aboutCommand.execute();
     }
 

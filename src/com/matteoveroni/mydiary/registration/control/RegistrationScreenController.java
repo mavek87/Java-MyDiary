@@ -32,9 +32,9 @@ import javax.swing.JOptionPane;
 public class RegistrationScreenController implements Manageable, Initializable, Listener {
 
     private Manager manager;
+    private ResourceBundle resourceBundle;
     private final RegistrationModel model = new RegistrationModel();
     private final UserData userToRegister = new UserData();
-    private ResourceBundle resourceBundle;
 
     private final int MIN_USERNAME_LENGTH = 6;
     private final int MIN_PASSWORD_LENGTH = 6;
@@ -141,7 +141,7 @@ public class RegistrationScreenController implements Manageable, Initializable, 
 
     @FXML
     void menuAboutClicked(ActionEvent event) {
-        Command aboutCommand = new MenuAboutCommand(manager);
+        Command aboutCommand = new MenuAboutCommand(manager, resourceBundle);
         aboutCommand.execute();
     }
 
