@@ -40,6 +40,7 @@ import org.slf4j.LoggerFactory;
 public class LibraryScreenController implements Initializable, Manageable, Listener {
 
     private Manager manager;
+    private ResourceBundle resourceBundle;
     private Diary selectedDiary = new Diary();
     private final LibraryModel model = new LibraryModel();
     List<Diary> userDiaries = new ArrayList<>();
@@ -77,10 +78,12 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
      * Initializes the DiaryScreenController class.
      *
      * @param url
-     * @param rb
+     * @param resourceBundle
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        
+        this.resourceBundle = resourceBundle;
 
         cmb_chooseDiary.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
@@ -112,9 +115,9 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
             updateDiaryComboBox();
             btn_openDiary.setDisable(true);
             if (cmb_chooseDiary.getItems().size() == 0) {
-                cmb_chooseDiary.setPromptText("Empty");
+                cmb_chooseDiary.setPromptText(resourceBundle.getString("empty"));
             } else {
-                cmb_chooseDiary.setPromptText("Select a diary");
+                cmb_chooseDiary.setPromptText(resourceBundle.getString("selectADiary"));
                 if (cmb_chooseDiary.getSelectionModel().getSelectedIndex() > 0) {
                     btn_openDiary.setDisable(false);
                 }
@@ -137,9 +140,9 @@ public class LibraryScreenController implements Initializable, Manageable, Liste
             diary.setName(txt_newDiaryName.getText());
             if (model.createNewDiary(diary, manager.getLoggedInUser())) {
                 update(null);
-                JOptionPane.showMessageDialog(null, "New Diary \'" + diary.getName() + "\' created");
+                JOptionPane.showMessageDialog(null, resourceBundle.getString("newDiary") + " \'" + diary.getName() + "\' " + resourceBundle.getString("created"));
             } else {
-                JOptionPane.showMessageDialog(null, "Error during \'" + diary.getName() + "\' creations");
+                JOptionPane.showMessageDialog(null, resourceBundle.getString("errorDuringTheCreationOf") + " \'" + diary.getName());
             }
             txt_newDiaryName.setText("");
         }
