@@ -19,32 +19,32 @@
     <children>
       <MenuBar fx:id="menu" prefHeight="26.0" prefWidth="800.0">
          <menus>
-            <Menu fx:id="menu_file" mnemonicParsing="false" text="File">
+            <Menu fx:id="menu_file" mnemonicParsing="false" text="%file">
                <items>
-                  <MenuItem fx:id="menu_settings" mnemonicParsing="false" onAction="#menuSettingsClicked" text="Settings" />
-                  <MenuItem fx:id="menu_close" mnemonicParsing="false" onAction="#menuCloseClicked" text="Exit" />
+                  <MenuItem fx:id="menu_settings" mnemonicParsing="false" onAction="#menuSettingsClicked" text="%settings" />
+                  <MenuItem fx:id="menu_close" mnemonicParsing="false" onAction="#menuCloseClicked" text="%exit" />
                </items>
             </Menu>
-            <Menu fx:id="menu_help" mnemonicParsing="false" text="Help">
+            <Menu fx:id="menu_help" mnemonicParsing="false" text="%help">
                <items>
-                  <MenuItem fx:id="menu_about" mnemonicParsing="false" onAction="#menuAboutClicked" text="About" />
+                  <MenuItem fx:id="menu_about" mnemonicParsing="false" onAction="#menuAboutClicked" text="%about" />
                </items>
             </Menu>
          </menus>
       </MenuBar>
         <TableView id="diary-table" fx:id="diaryTable" editable="true" layoutX="10.0" layoutY="66.0" prefHeight="442.0" prefWidth="780.0">
             <columns>
-                <TableColumn fx:id="tableColumn_Id" prefWidth="42.0" text="Id" />
-                <TableColumn fx:id="tableColumn_Title" prefWidth="394.0" text="Title" />
-                <TableColumn fx:id="tableColumn_CreationDate" minWidth="0.0" prefWidth="155.0" text="Creation Date" />
-                <TableColumn fx:id="tableColumn_LastModificationTimestamp" prefWidth="187.0" text="Last Update" />
+                <TableColumn fx:id="tableColumn_Id" prefWidth="42.0" text="%id" />
+                <TableColumn fx:id="tableColumn_Title" prefWidth="394.0" text="%title" />
+                <TableColumn fx:id="tableColumn_CreationDate" minWidth="0.0" prefWidth="155.0" text="%creationDate" />
+                <TableColumn fx:id="tableColumn_LastModificationTimestamp" prefWidth="187.0" text="%lastUpdate" />
             </columns>
         </TableView>
-        <Button fx:id="btn_openNote" layoutX="662.0" layoutY="518.0" mnemonicParsing="false" onAction="#goToNoteScreen" prefHeight="41.0" prefWidth="128.0" text="Open" />
-        <Button fx:id="btn_removeNote" layoutX="10.0" layoutY="517.0" mnemonicParsing="false" onAction="#removeNote" prefHeight="41.0" prefWidth="128.0" text="Remove" />
-        <Button fx:id="btn_createNewNote" layoutX="336.0" layoutY="517.0" mnemonicParsing="false" onAction="#createNewNote" prefHeight="41.0" prefWidth="128.0" text="Create new" />
-      <Label fx:id="lbl_diaryOwnerTitle" layoutX="14.0" layoutY="27.0" prefHeight="41.0" prefWidth="116.0" text="Diary Owner:" />
-      <Label fx:id="lbl_numberOfNotesTitle" layoutX="448.0" layoutY="27.0" prefHeight="41.0" prefWidth="151.0" text="Number of notes:" />
+        <Button fx:id="btn_openNote" layoutX="662.0" layoutY="518.0" mnemonicParsing="false" onAction="#goToNoteScreen" prefHeight="41.0" prefWidth="128.0" text="%open" />
+        <Button fx:id="btn_removeNote" layoutX="10.0" layoutY="517.0" mnemonicParsing="false" onAction="#removeNote" prefHeight="41.0" prefWidth="128.0" text="%remove" />
+        <Button fx:id="btn_createNewNote" layoutX="336.0" layoutY="517.0" mnemonicParsing="false" onAction="#createNewNote" prefHeight="41.0" prefWidth="128.0" text="%createNote" />
+      <Label fx:id="lbl_diaryOwnerTitle" layoutX="14.0" layoutY="27.0" prefHeight="41.0" prefWidth="116.0" text="%diaryOwner" />
+      <Label fx:id="lbl_numberOfNotesTitle" layoutX="448.0" layoutY="27.0" prefHeight="41.0" prefWidth="151.0" text="%numberOfNotes" />
       <Label fx:id="lbl_diaryOwnerValue" layoutX="134.0" layoutY="26.0" prefHeight="41.0" prefWidth="314.0" />
       <Label fx:id="lbl_numberOfNotes" layoutX="589.0" layoutY="27.0" prefHeight="41.0" prefWidth="201.0" />
     </children>

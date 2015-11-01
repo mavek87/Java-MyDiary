@@ -24,43 +24,68 @@
                     <children>
                   <MenuBar fx:id="menu" prefHeight="26.0" prefWidth="800.0">
                      <menus>
-                        <Menu fx:id="menu_file" mnemonicParsing="false" text="File">
+                        <Menu fx:id="menu_file" mnemonicParsing="false" text="%file">
                            <items>
-                              <MenuItem fx:id="menu_settings" mnemonicParsing="false" onAction="#menuSettingsClicked" text="Settings" />
-                              <MenuItem fx:id="menu_close" mnemonicParsing="false" onAction="#menuCloseClicked" text="Exit" />
+                              <MenuItem fx:id="menu_settings" mnemonicParsing="false" onAction="#menuSettingsClicked" text="%settings" />
+                              <MenuItem fx:id="menu_close" mnemonicParsing="false" onAction="#menuCloseClicked" text="%exit" />
                            </items>
                         </Menu>
-                        <Menu fx:id="menu_help" mnemonicParsing="false" text="Help">
+                        <Menu fx:id="menu_help" mnemonicParsing="false" text="%help">
                            <items>
-                              <MenuItem fx:id="menu_about" mnemonicParsing="false" onAction="#menuAboutClicked" text="About" />
+                              <MenuItem fx:id="menu_about" mnemonicParsing="false" onAction="#menuAboutClicked" text="%about" />
                            </items>
                         </Menu>
                      </menus>
                   </MenuBar>
-                        <Label fx:id="lbl_Username" alignment="BOTTOM_CENTER" prefHeight="50.0" prefWidth="129.0" text="Username *">
-                     <font>
-                        <Font size="21.0" />
-                     </font></Label>
+                  <AnchorPane prefHeight="54.0" prefWidth="800.0">
+                     <children>
+                        <Label fx:id="lbl_Password2" alignment="BOTTOM_CENTER" layoutX="325.0" layoutY="25.0" prefHeight="30.0" prefWidth="150.0" text="%username">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
                         <TextField fx:id="txt_Username" prefHeight="35.0" prefWidth="800.0" />
-                        <Label fx:id="lbl_Password" alignment="BOTTOM_LEFT" prefHeight="50.0" prefWidth="147.0" text="Password *">
-                     <font>
-                        <Font size="21.0" />
-                     </font></Label>
+                  <AnchorPane prefHeight="55.0" prefWidth="800.0">
+                     <children>
+                        <Label fx:id="lbl_Password3" alignment="BOTTOM_CENTER" layoutX="325.0" layoutY="26.0" prefHeight="30.0" prefWidth="150.0" text="%password">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
                         <PasswordField fx:id="psw_Password" prefHeight="35.0" prefWidth="800.0" />
-                        <Label fx:id="lbl_Name" alignment="BOTTOM_CENTER" prefHeight="50.0" prefWidth="114.0" text="FirstName">
-                     <font>
-                        <Font size="21.0" />
-                     </font></Label>
+                  <AnchorPane prefHeight="55.0" prefWidth="800.0">
+                     <children>
+                        <Label fx:id="lbl_Password11" alignment="BOTTOM_CENTER" layoutX="325.0" layoutY="26.0" prefHeight="30.0" prefWidth="150.0" text="%firstname">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
                         <TextField fx:id="txt_Name" prefHeight="35.0" prefWidth="800.0" />
-                        <Label fx:id="lbl_Surname" alignment="BOTTOM_CENTER" prefHeight="50.0" prefWidth="113.0" text="LastName">
-                     <font>
-                        <Font size="21.0" />
-                     </font></Label>
+                  <AnchorPane prefHeight="55.0" prefWidth="800.0">
+                     <children>
+                        <Label fx:id="lbl_Surname1" alignment="BOTTOM_CENTER" layoutX="325.0" layoutY="26.0" prefHeight="30.0" prefWidth="150.0" text="%lastname">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
                         <TextField fx:id="txt_Surname" prefHeight="35.0" prefWidth="800.0" />
-                        <Label fx:id="lbl_Age" alignment="BOTTOM_CENTER" prefHeight="50.0" prefWidth="50.0" text="Age">
-                     <font>
-                        <Font size="21.0" />
-                     </font></Label>
+                  <AnchorPane prefHeight="55.0" prefWidth="800.0">
+                     <children>
+                        <Label fx:id="lbl_Age1" alignment="BOTTOM_CENTER" layoutX="329.0" layoutY="23.0" prefHeight="30.0" prefWidth="150.0" text="%age">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
                         <TextField fx:id="txt_Age" prefHeight="35.0" prefWidth="800.0" />
                     </children>
                 </VBox>
@@ -68,12 +93,12 @@
          <bottom>
             <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btn_Register" mnemonicParsing="false" onAction="#registerUser" prefHeight="79.0" prefWidth="400.0" text="Register">
+                  <Button fx:id="btn_Register" mnemonicParsing="false" onAction="#registerUser" prefHeight="79.0" prefWidth="400.0" text="%register">
                      <font>
                         <Font size="26.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btn_Cancel" mnemonicParsing="false" onAction="#cancelRegistration" prefHeight="79.0" prefWidth="400.0" text="Cancel">
+                  <Button fx:id="btn_Cancel" mnemonicParsing="false" onAction="#cancelRegistration" prefHeight="79.0" prefWidth="400.0" text="%cancel">
                      <font>
                         <Font size="26.0" />
                      </font>

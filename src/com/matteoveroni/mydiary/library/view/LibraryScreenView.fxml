@@ -19,26 +19,26 @@
         <URL value="@css/LibraryScreenView.css" />
     </stylesheets>
    <children>
-      <Label alignment="CENTER" layoutX="42.0" layoutY="44.0" prefHeight="35.0" prefWidth="721.0" text="Choose a diary to access or create a new one">
+      <Label alignment="CENTER" layoutX="42.0" layoutY="44.0" prefHeight="35.0" prefWidth="721.0" text="%ChooseADiaryToOpenOrCreateANewOne">
          <font>
             <Font size="30.0" />
          </font></Label>
       <TabPane layoutX="41.0" layoutY="111.0" prefHeight="430.0" prefWidth="721.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab fx:id="tab_selectDiary" closable="false" onSelectionChanged="#tabSelectDiaryActive" text="Select Diary">
+          <Tab fx:id="tab_selectDiary" closable="false" onSelectionChanged="#tabSelectDiaryActive" text="%selectDiary">
                <content>
                   <BorderPane prefHeight="259.0" prefWidth="721.0">
                      <center>
                         <ComboBox fx:id="cmb_chooseDiary" prefHeight="40.0" prefWidth="465.0" promptText="Empty" BorderPane.alignment="CENTER" />
                      </center>
                      <left>
-                        <Label alignment="CENTER" prefHeight="15.0" prefWidth="247.0" text="Choose a Diary" BorderPane.alignment="CENTER">
+                        <Label alignment="CENTER" prefHeight="15.0" prefWidth="247.0" text="%chooseDiary" BorderPane.alignment="CENTER">
                            <font>
                               <Font size="18.0" />
                            </font></Label>
                      </left>
                      <bottom>
-                        <Button fx:id="btn_openDiary" mnemonicParsing="false" onAction="#openSelectedDiary" prefHeight="55.0" prefWidth="160.0" text="Open Diary" BorderPane.alignment="CENTER">
+                        <Button fx:id="btn_openDiary" mnemonicParsing="false" onAction="#openSelectedDiary" prefHeight="55.0" prefWidth="160.0" text="%open" BorderPane.alignment="CENTER">
                            <font>
                               <Font size="18.0" />
                            </font></Button>
@@ -46,7 +46,7 @@
                   </BorderPane>
                </content>
             </Tab>
-          <Tab fx:id="tab_createNewDiary" closable="false" onSelectionChanged="#tabCreateNewDiaryActive" text="Create New Diary">
+          <Tab fx:id="tab_createNewDiary" closable="false" onSelectionChanged="#tabCreateNewDiaryActive" text="%createNewDiary">
                <content>
                   <BorderPane prefHeight="200.0" prefWidth="200.0">
                      <center>
@@ -62,7 +62,7 @@
                           </rowConstraints>
                            <children>
                               <TextField fx:id="txt_newDiaryName" prefHeight="40.0" prefWidth="469.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Label alignment="CENTER" prefHeight="15.0" prefWidth="254.0" text="Diary Name" GridPane.rowIndex="1">
+                              <Label alignment="CENTER" prefHeight="15.0" prefWidth="254.0" text="%diaryName" GridPane.rowIndex="1">
                                  <font>
                                     <Font size="18.0" />
                                  </font></Label>
@@ -70,14 +70,14 @@
                         </GridPane>
                      </center>
                      <bottom>
-                        <Button fx:id="btn_createDiary" mnemonicParsing="false" onAction="#createNewDiary" prefHeight="55.0" prefWidth="160.0" text="Create Diary" BorderPane.alignment="CENTER">
+                        <Button fx:id="btn_createDiary" mnemonicParsing="false" onAction="#createNewDiary" prefHeight="55.0" prefWidth="160.0" text="%createDiary" BorderPane.alignment="CENTER">
                            <font>
                               <Font size="18.0" />
                            </font></Button>
                      </bottom>
                   </BorderPane>
                </content></Tab>
-            <Tab fx:id="tab_manageDiary" closable="false" onSelectionChanged="#tabManageDiaryActive" text="Manage Diary">
+            <Tab fx:id="tab_manageDiary" closable="false" onSelectionChanged="#tabManageDiaryActive" text="%manageDiaries">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
               </content>
@@ -86,15 +86,15 @@
       </TabPane>
       <MenuBar fx:id="menu" prefHeight="26.0" prefWidth="803.0">
          <menus>
-            <Menu fx:id="menu_file" mnemonicParsing="false" text="File">
+            <Menu fx:id="menu_file" mnemonicParsing="false" text="%file">
                <items>
-                  <MenuItem fx:id="menu_settings" mnemonicParsing="false" onAction="#menuSettingsClicked" text="Settings" />
-                  <MenuItem fx:id="menu_close" mnemonicParsing="false" onAction="#menuCloseClicked" text="Exit" />
+                  <MenuItem fx:id="menu_settings" mnemonicParsing="false" onAction="#menuSettingsClicked" text="%settings" />
+                  <MenuItem fx:id="menu_close" mnemonicParsing="false" onAction="#menuCloseClicked" text="%exit" />
                </items>
             </Menu>
-            <Menu fx:id="menu_help" mnemonicParsing="false" text="Help">
+            <Menu fx:id="menu_help" mnemonicParsing="false" text="%help">
                <items>
-                  <MenuItem fx:id="menu_about" mnemonicParsing="false" onAction="#menuAboutClicked" text="About" />
+                  <MenuItem fx:id="menu_about" mnemonicParsing="false" onAction="#menuAboutClicked" text="%about" />
                </items>
             </Menu>
          </menus>
