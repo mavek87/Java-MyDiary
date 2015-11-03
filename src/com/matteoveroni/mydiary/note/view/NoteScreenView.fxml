@@ -31,7 +31,7 @@
                                 <Label layoutX="612.0" layoutY="35.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="41.0" text="%date" />
                                 <TextField id="txt_creationDate" fx:id="txt_creationDate" editable="false" layoutX="644.0" layoutY="30.0" prefHeight="25.0" prefWidth="91.0" />
                                 <Label prefHeight="17.0" prefWidth="124.0" text="%lastUpdate" />
-                                <TextField id="txt_lastModificationDate" fx:id="txt_lastModificationDate" editable="false" prefHeight="25.0" prefWidth="140.0" />
+                                <TextField id="txt_lastModificationDate" fx:id="txt_lastModificationDate" editable="false" prefHeight="25.0" prefWidth="145.0" />
                             </children>
                         </HBox>
                     </children>
@@ -60,6 +60,7 @@
          <menus>
             <Menu fx:id="menu_file" mnemonicParsing="false" text="%file">
                <items>
+                  <MenuItem fx:id="menu_export" mnemonicParsing="false" onAction="#menuExportClicked" text="%export" />
                   <MenuItem fx:id="menu_settings" mnemonicParsing="false" onAction="#menuSettingsClicked" text="%settings" />
                   <MenuItem fx:id="menu_close" mnemonicParsing="false" onAction="#menuCloseClicked" text="%exit" />
                </items>
