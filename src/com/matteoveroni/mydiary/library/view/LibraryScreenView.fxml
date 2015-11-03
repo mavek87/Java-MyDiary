@@ -23,7 +23,7 @@
          <font>
             <Font size="30.0" />
          </font></Label>
-      <TabPane layoutX="41.0" layoutY="111.0" prefHeight="430.0" prefWidth="721.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPane" layoutX="41.0" layoutY="111.0" prefHeight="430.0" prefWidth="721.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="tab_selectDiary" closable="false" onSelectionChanged="#tabSelectDiaryActive" text="%selectDiary">
                <content>
@@ -89,6 +89,7 @@
             <Menu fx:id="menu_file" mnemonicParsing="false" text="%file">
                <items>
                   <MenuItem fx:id="menu_settings" mnemonicParsing="false" onAction="#menuSettingsClicked" text="%settings" />
+                  <MenuItem fx:id="menu_logout" mnemonicParsing="false" onAction="#menuLogoutClicked" text="%logout" />
                   <MenuItem fx:id="menu_close" mnemonicParsing="false" onAction="#menuCloseClicked" text="%exit" />
                </items>
             </Menu>
