@@ -1,5 +1,5 @@
 # Java-MyDiary
-Software written in Java that allows to store and handle personal notes
+Old software written in Java that allows to store and handle personal notes
 
 DOWNLOAD LINKS:
 
